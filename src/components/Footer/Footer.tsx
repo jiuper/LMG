@@ -2,8 +2,6 @@ import cnBind from "classnames/bind";
 import Link from "next/link";
 
 import { Logo } from "@/components/Logo";
-import { Navbar } from "@/components/NavBar";
-import { Routes } from "@/shared/constants/Routing";
 import { useResizeContext } from "@/shared/context/WindowResizeProvider";
 
 import styles from "./Footer.module.scss";
@@ -12,68 +10,63 @@ const cx = cnBind.bind(styles);
 
 export const Footer = () => {
     const { isMobile } = useResizeContext();
+    const list = [
+        { title: "Реклама в фитнес клубах", href: "/" },
+        { title: "Реклама в торговых центрах", href: "/" },
+        { title: "Реклама в бизнес центрах", href: "/" },
+        { title: "Реклама в жилых домах", href: "/" },
+    ];
+    const listContact = [
+        { title: "Контакты", href: "/" },
+        { title: "Отзывы", href: "/" },
+        { title: "Сотрудничество", href: "/" },
+        { title: "О нас", href: "/" },
+        { title: "Портфолио", href: "/" },
+    ];
 
     return (
         <footer className={cx("footer")}>
             <div className={cx("wrapper", "container")}>
-                <Logo />
-                {!isMobile && <Navbar />}
-                <div className={cx("footer-content")}>
-                    <div className={cx("bottom")}>
+                <div className={cx("body")}>
+                    <div className={cx("short-info")}>
+                        <Logo />
                         <div className={cx("contacts")}>
-                            <Link className={cx("phone")} href="tel:+79217951988" target="_blank">
-                                +7 921 795 19 88
+                            <Link className={cx("phone")} href="tel:+78129820058" target="_blank">
+                                +7 (812) 982-00-58
                             </Link>
-                            <Link className={cx("email")} href="mailto:dellamorra5@gmail.com" target="_blank">
-                                dellamorra5@gmail.com
+                            <Link className={cx("email")} href="mailto:sales@liftmg.ru" target="_blank">
+                                sales@liftmg.ru
                             </Link>
+                            <h3 className={cx("address")}>Ленинский проспект, 153, Санкт-Петербург</h3>
                         </div>
-                        <div className={cx("address")}>
-                            <h3>Кадетская линия В.О., 5 к.2, лит. Д</h3>
-                            <span>Della Morra Loft</span>
-                        </div>
-                        {!isMobile && (
-                            <div className={cx("links")}>
-                                <Link className={cx("privacy")} href={Routes.POLICY}>
-                                    Политика конфиденциальности
-                                </Link>
-                                <Link className={cx("link")} href={Routes.POLICY}>
-                                    Условия использования
-                                </Link>
-                                <span>© Della Morra 2024</span>
-                            </div>
-                        )}
                     </div>
-                    <div className={cx("footer-social")}>
-                        {isMobile && (
-                            <div className={cx("links")}>
-                                <Link className={cx("privacy")} href={Routes.POLICY}>
-                                    Политика конфиденциальности
-                                </Link>
-                                <Link className={cx("link")} href={Routes.POLICY}>
-                                    Условия использования
-                                </Link>
-                                <span>© Della Morra 2024</span>
+                    <div className={cx("menu-wrapper")}>
+                        <div className={cx("menu")}>
+                            <h3>Реклама ПВЗ</h3>
+                            <div className={cx("items")}>
+                                {list.map((item, i) => (
+                                    <Link className={cx("item")} href={item.href} key={i}>
+                                        {item.title}
+                                    </Link>
+                                ))}
                             </div>
-                        )}
-                        {!isMobile && (
-                            <div className={cx("copyright")}>
-                                Created by{"\u00A0"}
-                                <Link className={cx("link")} href="https://levsha-web.ru/" target="_blank">
-                                    Levsha
-                                </Link>
+                        </div>
+                        <div className={cx("menu")}>
+                            <div className={cx("items")}>
+                                {listContact.map((item, i) => (
+                                    <Link className={cx("item")} href={item.href} key={i}>
+                                        {item.title}
+                                    </Link>
+                                ))}
                             </div>
-                        )}
+                        </div>
                     </div>
                 </div>
-                {isMobile && (
-                    <div className={cx("copyright")}>
-                        Created by{"\u00A0"}
-                        <Link className={cx("link")} href="https://levsha-web.ru/" target="_blank">
-                            Levsha
-                        </Link>
-                    </div>
-                )}
+                <div className={cx("line")} />
+                <div className={cx("copyright")}>
+                    <span>levsha-web.ru © Все права защищены. 2024</span>
+                    <Link href="/">Политика конфиденциальности</Link>
+                </div>
             </div>
         </footer>
     );

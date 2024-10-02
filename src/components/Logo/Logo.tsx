@@ -16,7 +16,7 @@ export const Logo = ({ hidden }: TLogo) => {
 
     return (
         <div className={cx("logo", { hidden })} onClick={() => router.push(Routes.HOME)}>
-            <CustomImage width={120} height={65} src={LOGO as string} alt="lmg" className={cx("image")} />
+            <CustomImage width={200} height={16} src={LOGO as string} alt="lmg" className={cx("image")} />
         </div>
     );
 };

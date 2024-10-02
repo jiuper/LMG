@@ -12,14 +12,21 @@
         fill: inherit;
     }
 }
-
+@mixin flex-column() {
+    display: flex;
+    flex-direction: column;
+}
+@mixin flex-row() {
+    display: flex;
+    flex-direction: row;
+}
 @mixin flex-center() {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 @mixin font-SegoeUI {
-    font-family: "ForumRegular", sans-serif;
+    font-family: "Nunito", sans-serif;
 }
 
 @mixin text-Display1 {
@@ -30,14 +37,6 @@
     font-size: 96px;
     line-height: 112px;
 }
-@mixin text-Display2 {
-    --fs: 60;
-    --lh: 72;
-    @include font-SegoeUI();
-    font-weight: 600;
-    font-size: 60px;
-    line-height: 72px;
-}
 
 @mixin text-Headline1 {
     --fs: 48;
@@ -46,47 +45,6 @@
     font-weight: 900;
     font-size: 48px;
     line-height: 56px;
-}
-@mixin text-Headline2 {
-    --fs: 40;
-    --lh: 48;
-    @include font-SegoeUI();
-    font-weight: 600;
-    font-size: 40px;
-    line-height: 48px;
-}
-@mixin text-Headline3 {
-    --fs: 34;
-    --lh: 40;
-    @include font-SegoeUI();
-    font-weight: 600;
-    font-size: 34px;
-    line-height: 40px;
-}
-@mixin text-Headline4 {
-    --fs: 32;
-    --lh: 40;
-    @include font-SegoeUI();
-    font-weight: 700;
-    font-size: 32px;
-    line-height: 40px;
-}
-@mixin text-Headline5 {
-    --fs: 28;
-    --lh: 36;
-    @include font-SegoeUI();
-    font-weight: 400;
-    font-size: 28px;
-    line-height: 36px;
-}
-@mixin text-Headline6 {
-    --fs: 24;
-    --lh: 32;
-    @include font-SegoeUI();
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 32px;
-    letter-spacing: 0.15px;
 }
 
 @mixin text-Subtitle1 {
@@ -97,59 +55,37 @@
     font-size: 22px;
     line-height: 28px;
 }
-@mixin text-Subtitle2 {
-    --fs: 16;
-    --lh: 24;
-    @include font-SegoeUI();
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: 0.1px;
-}
-@mixin text-Subtitle3 {
-    --fs: 14;
-    --lh: 20;
-    @include font-SegoeUI();
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.1px;
-}
+
 
 @mixin text-Body1 {
-    --fs: 16;
-    --lh: 20;
+    --fs: 20;
+    --lh: 24;
     @include font-SegoeUI();
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
-    letter-spacing: -0.2px;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%; /* 24px */
+    letter-spacing: -0.4px;
 }
 @mixin text-Body2 {
-    --fs: 14;
-    --lh: 20;
+    --fs: 16;
+    --lh: 19.2;
     @include font-SegoeUI();
+    font-size: 16px;
+    font-style: normal;
     font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-}
-@mixin text-Body3 {
-    --fs: 12;
-    --lh: 16;
-    @include font-SegoeUI();
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 16px;
-    letter-spacing: -0.2px;
+    line-height: 120%; /* 19.2px */
+    letter-spacing: 0.32px;
 }
 
 @mixin text-Button {
-    --fs: 16;
-    --lh: 24;
+    --fs: 14;
+    --lh: 20;
     @include font-SegoeUI();
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px; /* 142.857% */
     letter-spacing: 0.1px;
 }
 @mixin text-ButtonLink {
@@ -191,14 +127,6 @@
     font-size: 10px;
     line-height: 16px;
     letter-spacing: 0.5px;
-}
-@mixin style-ButtonNeon {
-    @include text-Button();
-    border-radius: 9px;
-    background: $color-purple;
-    box-shadow: 0 10px 25px 0 rgba(123, 104, 238, 0.4);
-    border: 1px solid $color-purple;
-    color: #fff;
 }
 
 @mixin touch-hover($selector) {

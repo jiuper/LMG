@@ -1,23 +1,11 @@
-//@font-face {
-//    font-family: 'ForumRegular';
-//    src: url('../assests/fonts/Forum-Regular.ttf') format('truetype'); ;
-//    font-weight: 1;
-//    font-style: normal;
-//}
-//
-//@font-face {
-//    font-family: 'InterRegular';
-//    src: url('../assests/fonts/Inter-Regular.otf') format('opentype'); ;
-//    font-weight: 1;
-//    font-style: normal;
-//}
-//
-//@font-face {
-//    font-family: 'ManropeRegular';
-//    src: url('../assests/fonts/Manrope.ttf') format('truetype'); ;
-//    font-weight: 1;
-//    font-style: normal;
-//}
+@font-face {
+    font-family: 'Nunito';
+    src: url('../assests/fonts/Nunito/Nunito-Regular.ttf') format('truetype'); ;
+    font-weight: 1;
+    font-style: normal;
+}
+
+
 html{
     scroll-behavior: smooth;
 }
@@ -25,7 +13,7 @@ body {
     margin: 0;
     padding: 0;
     width: 100%;
-    font-family: "InterRegular", sans-serif;
+    font-family: "Nunito", sans-serif;
     background: #F4F3EC;
 
 }
@@ -41,8 +29,8 @@ h5 {
 
 
 .container {
-    max-width: 1768px;
+    max-width: 1440px;
     margin: 0 auto;
     width: 100%;
-    padding: 0 24px;
+    padding: 0 32px;
 }

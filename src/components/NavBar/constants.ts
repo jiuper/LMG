@@ -3,46 +3,71 @@ import { Routes } from "@/shared/constants/Routing";
 type NavbarTypeProps = { label: string; url?: string; items?: { label: string; url: string }[] }[];
 export const items: NavbarTypeProps = [
     {
-        label: "Виды съёмок",
-        url: Routes.FILMIMG,
-    },
-
-    {
-        label: "Услуги",
+        label: "Реклама",
         items: [
             {
-                label: "Платья в аренду",
+                label: "Реклама ПВЗ",
                 url: `${`${Routes.EQUIPMENTS}/${1}`}`,
             },
             {
-                label: "Аренда оборудования",
+                label: "Реклама в фитнес клубах",
                 url: `${`${Routes.EQUIPMENTS}/${1}`}`,
             },
             {
-                label: "Аренда реквизита",
+                label: "Реклама в торговых центрах",
                 url: `${`${Routes.EQUIPMENTS}/${1}`}`,
             },
             {
-                label: "Аренда фотостудии",
+                label: "Реклама в бизнес центрах",
+                url: Routes.FAVOR,
+            },
+            {
+                label: "Реклама в жилых домах",
                 url: Routes.FAVOR,
             },
         ],
     },
-    {
-        label: "Акции",
 
-        url: Routes.PROMOTION,
+    {
+        label: "Полезное",
+        items: [
+            {
+                label: "Статьи",
+                url: `${`${Routes.EQUIPMENTS}/${1}`}`,
+            },
+            {
+                label: "Новости",
+                url: `${`${Routes.EQUIPMENTS}/${1}`}`,
+            },
+            {
+                label: "Закон о рекламе",
+                url: `${`${Routes.EQUIPMENTS}/${1}`}`,
+            },
+        ],
     },
     {
-        label: "Наши работы",
+        label: "О компании",
+        items: [
+            {
+                label: "История компании",
+                url: `${`${Routes.EQUIPMENTS}/${1}`}`,
+            },
+            {
+                label: "Доркументы",
+                url: `${`${Routes.EQUIPMENTS}/${1}`}`,
+            },
+            {
+                label: "Наша команда",
+                url: `${`${Routes.EQUIPMENTS}/${1}`}`,
+            },
+        ],
+    },
+    {
+        label: "Портфолио",
         url: Routes.WORKS,
     },
     {
-        label: "О нас",
-        url: Routes.ABOUTUS,
-    },
-    {
         label: "Контакты",
-        url: Routes.CONTACTS,
+        url: Routes.ABOUTUS,
     },
 ];

@@ -2,6 +2,7 @@ import cnBind from "classnames/bind";
 import Link from "next/link";
 
 import { items } from "@/components/NavBar/constants";
+import { ArrowDownIcon } from "@/shared/assests/svg/svg";
 
 import styles from "./Navbar.module.scss";
 
@@ -27,24 +28,20 @@ export const Navbar = ({
                         ) : (
                             <div className={cx("link", "submenu")} onClick={onClick}>
                                 {item.label}
-                                <span className={cx("count")}>{item.items?.length}</span>
+                                <ArrowDownIcon />
                             </div>
                         )}
                         {item.items && (
                             <div className={cx("subitems-wrapper")}>
-                                <div className={cx("subitems-container")}>
-                                    <div className={cx("subitems", "active-sub")}>
-                                        {item.items?.map((subitem) => (
-                                            <Link
-                                                className={cx("link")}
-                                                onClick={onClick}
-                                                href={subitem.url}
-                                                key={subitem.label}
-                                            >
+                                <div className={cx("subitems", "active-sub")}>
+                                    {item.items?.map((subitem) => (
+                                        <div key={subitem.label} className={cx("subitem")}>
+                                            <Link className={cx("link")} onClick={onClick} href={subitem.url}>
                                                 {subitem.label}
                                             </Link>
-                                        ))}
-                                    </div>
+                                            <ArrowDownIcon />
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         )}
