@@ -1,0 +1,42 @@
+// min device screen width
+$screen-mobile: 320px;
+$screen-tablet: 719px;
+$screen-notebook: 1024px;
+$screen-desktop: 1919px;
+
+@mixin mobile {
+  @media screen and (max-width: #{$screen-tablet}) {
+    @content;
+  }
+}
+@mixin tablet {
+  @media screen and (min-width: #{$screen-tablet}) and (max-width: #{$screen-notebook}) {
+    @content;
+  }
+}
+@mixin notebook {
+  @media screen and (min-width: #{$screen-notebook}) and (max-width: #{$screen-desktop}) {
+    @content;
+  }
+}
+@mixin desktop {
+  @media screen and (min-width: #{$screen-desktop}) {
+    @content;
+  }
+}
+
+@mixin media-max($max) {
+  @media screen and (max-width: #{$max}) {
+    @content;
+  }
+}
+@mixin media-min($min) {
+  @media screen and (min-width: #{$min}) {
+    @content;
+  }
+}
+@mixin media-min-max($min, $max) {
+    @media screen and (max-width: #{$max}) and (min-width: #{$min}) {
+        @content;
+    }
+}

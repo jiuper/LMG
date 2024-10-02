@@ -1,0 +1,37 @@
+.wrapper{
+  padding: 0;
+}
+.breadcrumb{
+  margin-bottom: 80px;
+  &[data-pc-section="root"]{
+    background: transparent;
+    border: none;
+  }
+  [data-pc-section="label"]{
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 140%;
+    color: #7E7C7A;
+    font-family: "ManropeRegular", sans-serif;
+  }
+  [data-pc-section="menuitem"]{
+
+    [data-pc-section="label"]{
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 140%;
+      color: #7E7C7A;
+      font-family: "ManropeRegular", sans-serif;
+    }
+
+    [data-pc-section="label"]:last-child{
+      color: #E76325;
+    }
+
+
+
+  }
+  @include media-max(720px){
+    margin-bottom: 30px;
+  }
+}

@@ -1,0 +1,11 @@
+.hidden{
+  opacity: 0;
+  pointer-events: none;
+}
+.logo{
+  cursor: pointer;
+  .image{
+    width: 120px;
+    height: 65px;
+  }
+}

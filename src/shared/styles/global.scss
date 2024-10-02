@@ -1,0 +1,48 @@
+//@font-face {
+//    font-family: 'ForumRegular';
+//    src: url('../assests/fonts/Forum-Regular.ttf') format('truetype'); ;
+//    font-weight: 1;
+//    font-style: normal;
+//}
+//
+//@font-face {
+//    font-family: 'InterRegular';
+//    src: url('../assests/fonts/Inter-Regular.otf') format('opentype'); ;
+//    font-weight: 1;
+//    font-style: normal;
+//}
+//
+//@font-face {
+//    font-family: 'ManropeRegular';
+//    src: url('../assests/fonts/Manrope.ttf') format('truetype'); ;
+//    font-weight: 1;
+//    font-style: normal;
+//}
+html{
+    scroll-behavior: smooth;
+}
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family: "InterRegular", sans-serif;
+    background: #F4F3EC;
+
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    margin: 0;
+    @include font-SegoeUI();
+}
+
+
+.container {
+    max-width: 1768px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 24px;
+}

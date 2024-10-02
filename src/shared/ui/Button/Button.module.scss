@@ -1,0 +1,81 @@
+.button{
+  padding: 18px 25px;
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 0;
+  font-size: 16px;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 13.5px;
+  font-family: 'ManropeRegular', sans-serif;
+
+    &.outlined{
+      background-color: transparent;
+      color: #E76325;
+      transition: 0.3ms;
+      border: 1px solid #E76325;
+      height: 58px;
+      &:hover{
+        background-color: #E76325;
+        color: #fff;
+        .icon path{
+         stroke: #fff;
+        }
+      }
+      &:disabled{
+        background-color: #F4F4F4;
+        color: #BDBDBD;
+      }
+    }
+    &.orange{
+      background-color: #E76325;
+      border: 1px solid #E76325;
+      color: #fff;
+      transition: 0.3ms;
+      height: 58px;
+      &:hover{
+        background-color: #000;
+        border: 1px solid #000;
+      }
+      &:disabled{
+        border: 1px solid #F4F4F4;
+        color: #BDBDBD;
+      }
+    }
+    &.empty{
+      background-color: transparent;
+      border: none;
+      color: #7E7C7A;
+      transition: 0.3ms;
+      height: 58px;
+      &:hover{
+        color: #E76325;
+      }
+      &:disabled{
+        border: 1px solid #F4F4F4;
+        color: #BDBDBD;
+      }
+    }
+
+  &.empty-button{
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    color: #7E7C7A;
+    transition: 0.3ms;
+    &:hover{
+      color: #E76325;
+    }
+    &:disabled{
+      border: 1px solid #F4F4F4;
+      color: #BDBDBD;
+    }
+  }
+
+  @include media-max(720px) {
+    padding: 15px 20px;
+    font-size: 12px !important;
+    height: 46px !important;
+  }
+}
