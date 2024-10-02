@@ -1,0 +1,35 @@
+.main-block{
+  background: url("../../../../shared/assests/LMG.png") lightgray 50% / contain no-repeat;
+  height: 100vh;
+}
+.wrapper{
+  height: 100%;
+  padding: 0 120px;
+}
+.content{
+  @include flex-column();
+  justify-content: center;
+  gap: 16px;
+  height: 81%;
+  max-width: 616px;
+  width: 100%;
+  h1{
+    @include text-Headline1();
+    color: #2A2E37;
+  }
+  span{
+    @include text-Body1();
+    color: #2A2E37;
+  }
+}
+
+.buttons{
+  @include flex-row();
+  gap: 12px;
+
+  .button{
+    padding: 16px 14px;
+    border-radius: 50px;
+    border: 1px solid var(--Brand-Light-Guidance-Primary-Light-Primary, #566DD6);
+  }
+}

@@ -1,0 +1,16 @@
+.services-block{
+    border: 0px solid #E5E7EB;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, #FFF 21.34%), linear-gradient(95deg, #F6FAFC 5.92%, #F7FAFC 25.08%, #FBFBFC 42.26%, #F9F9FB 52.38%, #F3F8FB 94.63%);
+}
+.wrapper{
+    @include flex-column();
+    gap: 24px;
+    padding: 120px;
+
+}
+
+.cards{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+}

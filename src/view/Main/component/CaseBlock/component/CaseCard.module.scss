@@ -1,0 +1,29 @@
+.case-card{
+  position: relative;
+  flex: 1 0 282px;
+  @include flex-column();
+  border-radius: var(--Indent_32, 32px);
+  border: 0px solid var(--Brand-Light-Guidance-Primary-Light-Primary-Container, #BBC5EF);
+  background: var(--SURFACE-SURFACE, #FFF);
+
+  .image{
+    border-radius: var(--Indent_32, 32px);
+    height: 250px;
+    width: 100%;
+  }
+
+  .text{
+    padding: 0 16px 24px 16px;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    h2{
+      color: #040F16;
+      @include text-Body1();
+    }
+    p{
+      color: #2A2E37;
+      @include text-Body2();
+    }
+  }
+}

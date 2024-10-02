@@ -21,12 +21,25 @@
         color: #BDBDBD;
       }
     }
+  &.filed{
+    background-color: transparent;
+    border: none;
+    color: #7E7C7A;
+    transition: 0.3ms;
+    height: 58px;
+    &:hover{
+      color: #E76325;
+    }
+    &:disabled{
+      border: 1px solid #F4F4F4;
+      color: #BDBDBD;
+    }
+  }
     &.empty{
       background-color: transparent;
-      border: none;
-      color: #7E7C7A;
+      border: 1px solid #fff;
+      color: #fff;
       transition: 0.3ms;
-      height: 58px;
       &:hover{
         color: #E76325;
       }
