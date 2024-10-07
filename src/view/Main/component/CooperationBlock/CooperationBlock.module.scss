@@ -1,0 +1,29 @@
+.cooperation-block {
+  border: 0px solid #E5E7EB;
+  background: linear-gradient(180deg, #DEDFE1 0%, rgba(255, 255, 255, 0.00) 10.12%, rgba(253, 253, 254, 0.05) 85.67%, #E3E3E4 100%), #FFF; .wrapper {
+    padding: 80px 120px;
+    @include flex-column;
+    gap: 24px;
+  }
+}
+.top{
+  @include flex-column;
+  gap: 24px;
+  padding-bottom: 80px;
+  .title{
+    @include text-Display4;
+  }
+  .cards{
+    @include flex-row;
+    gap: 24px;
+
+    & > div{
+      flex: 0 1 50%;
+      min-height: 150px;
+      justify-content: space-between;
+    }
+    & >div:last-child{
+      margin-top: 20px;
+    }
+  }
+}

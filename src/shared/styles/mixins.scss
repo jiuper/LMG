@@ -37,7 +37,15 @@
     font-size: 96px;
     line-height: 112px;
 }
-
+@mixin text-Display4 {
+    --fs: 32;
+    --lh: 38.4;
+    @include font-SegoeUI();
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%; /* 38.4px */
+}
 @mixin text-Headline1 {
     --fs: 24;
     --lh: 28.8;

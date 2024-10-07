@@ -1,0 +1,71 @@
+.helper-block {
+  border: 0px solid #E5E7EB;
+  background: linear-gradient(179deg, #DEDEDE 19.58%, #CAC8CA 39.27%, #E4E4E5 53.81%, #E2E2E3 62.13%, #E6E6E7 73.36%, #E7E7E8 76.57%, #EDEEEE 84.63%, #E5E6E6 93.21%);
+    .wrapper {
+        padding: 80px 120px;
+        @include flex-column;
+        gap: 24px;
+    }
+}
+.top{
+  @include flex-column;
+  gap: 24px;
+  padding-bottom: 80px;
+  .title{
+    @include text-Display4;
+  }
+  .cards{
+    @include flex-row;
+    gap: 24px;
+
+    & >div{
+      flex: 0 1 33.3333%;
+      height: 100%;
+    }
+    & >div:nth-child(2n){
+      margin-top: 20px;
+    }
+  }
+}
+
+.bottom{
+  padding-top: 80px;
+  @include flex-column;
+  gap: 24px;
+  .title{
+    @include text-Display4;
+  }
+  .cards{
+    @include flex-row;
+    flex-wrap: wrap;
+    gap: 24px;
+
+    .card{
+      padding: 8px 8px 8px 16px;
+      flex: 1 1 48%;
+      height: 100%;
+      border-radius: var(--Indent_32, 32px);
+      border: 1px solid rgba(4, 15, 22, 0.20);
+      background: rgba(232, 236, 250, 0.12);
+      backdrop-filter: blur(8px);
+      @include flex-row;
+      align-items: center;
+      justify-content: space-between;
+
+      span{
+        @include text-Headline1;
+        color: #040F16;
+      }
+      .icon-wrapper{
+        border-radius: var(--Indent_32, 32px);
+        background: var(--Seasalt, #F6F6F6);
+        padding: 40px;
+      }
+
+      .icon{
+        width: 40px;
+        height: 40px;
+      }
+    }
+  }
+}
