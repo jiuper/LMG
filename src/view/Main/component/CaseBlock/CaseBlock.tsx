@@ -1,5 +1,7 @@
+import { useState } from "react";
 import cnBind from "classnames/bind";
 
+import { ModalCaseBlock } from "@/components/_Modals/ModalCaseBlock";
 import card_1 from "@/shared/assests/Image (3).png";
 import card_2 from "@/shared/assests/Image (4).png";
 import card_3 from "@/shared/assests/Image (5).png";
@@ -7,6 +9,7 @@ import card_4 from "@/shared/assests/Image (6).png";
 import card_5 from "@/shared/assests/Image (7).png";
 import card_6 from "@/shared/assests/Image (8).png";
 import card_7 from "@/shared/assests/Image (9).png";
+import { useBooleanState } from "@/shared/hooks";
 import { CaseCard } from "@/view/Main/component/CaseBlock/component";
 
 import styles from "./CaseBlock.module.scss";
@@ -54,6 +57,16 @@ export const CaseBlock = () => {
             image: card_7.src,
         },
     ];
+    const [isOpen, onOpen, onClose] = useBooleanState(false);
+    const [current, setCurrent] = useState<{ title: string; description: string; image: string } | null>(null);
+    const handleOnModal = (i: { title: string; description: string; image: string }) => {
+        setCurrent(i);
+        onOpen();
+    };
+    const handleOnClose = () => {
+        onClose();
+        setCurrent(null);
+    };
 
     return (
         <div className={cx("case-block")}>
@@ -61,10 +74,15 @@ export const CaseBlock = () => {
                 <h2>Портфолио</h2>
                 <div className={cx("cards")}>
                     {list.map((el, index) => (
-                        <CaseCard key={index} {...el} />
+                        <CaseCard onClick={() => handleOnModal(el)} key={index} {...el} />
                     ))}
                 </div>
             </div>
+            <ModalCaseBlock
+                isOpen={isOpen}
+                onClose={handleOnClose}
+                item={current !== null ? current : { title: "", description: "", image: "" }}
+            />
         </div>
     );
 };

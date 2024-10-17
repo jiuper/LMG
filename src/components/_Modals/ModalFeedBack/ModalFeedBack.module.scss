@@ -29,7 +29,9 @@
   @include flex-column();
   gap: 32px;
 }
-
+.close{
+  cursor: pointer;
+}
 .header{
   @include flex-row();
   gap: 8px;

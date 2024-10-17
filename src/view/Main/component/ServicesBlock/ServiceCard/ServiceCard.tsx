@@ -18,7 +18,7 @@ export const ServiceCard = ({ description, title, image }: ServiceCardProps) => 
                 <h2>{title}</h2>
                 <p>{description}</p>
             </div>
-            <Button mode="empty" label="Смотреть" />
+            <Button className={cx("button")} mode="empty" label="Смотреть" />
         </div>
     );
 };

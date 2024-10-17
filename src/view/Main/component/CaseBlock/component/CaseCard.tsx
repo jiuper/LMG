@@ -9,10 +9,11 @@ type Props = {
     title: string;
     description: string;
     image: string;
+    onClick: () => void;
 };
-export const CaseCard = ({ description, title, image }: Props) => {
+export const CaseCard = ({ description, title, image, onClick }: Props) => {
     return (
-        <div className={cx("case-card")}>
+        <div onClick={onClick} className={cx("case-card")}>
             <CustomImage className={cx("image")} width={382} height={250} src={image} alt={image} />
             <div className={cx("text")}>
                 <h2>{title}</h2>

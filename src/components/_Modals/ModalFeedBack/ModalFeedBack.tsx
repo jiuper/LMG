@@ -37,6 +37,7 @@ export const ModalFeedBack = ({ isOpen, onClose }: Props) => {
                         viewBox="0 0 40 40"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
+                        className={cx("close")}
                     >
                         <rect width="40" height="40" rx="20" fill="#F7F7FF" />
                         <path

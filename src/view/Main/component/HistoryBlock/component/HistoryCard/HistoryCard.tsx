@@ -20,8 +20,8 @@ export const HistoryCard = ({ listHref, description, image, title }: HistoryCard
                 {description && <p className={cx("description")}>{description}</p>}
                 {listHref && (
                     <ul className={cx("list")}>
-                        {listHref.map((item) => (
-                            <li key={item.title} className={cx("list-item")}>
+                        {listHref.map((item, i) => (
+                            <li key={i} className={cx("list-item")}>
                                 <Link className={cx("list-link")} href={item.href}>
                                     {item.title}
                                 </Link>
@@ -30,7 +30,7 @@ export const HistoryCard = ({ listHref, description, image, title }: HistoryCard
                     </ul>
                 )}
             </div>
-            <Button mode="empty" label="Смотреть" />
+            <Button className={cx("button")} mode="empty" label="Смотреть" />
         </div>
     );
 };
