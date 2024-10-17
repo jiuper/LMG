@@ -20,10 +20,15 @@
     h2{
       color: #040F16;
       @include text-Body1();
+      font-weight: 400;
     }
     p{
       color: #2A2E37;
       @include text-Body2();
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
   }
 }

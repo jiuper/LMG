@@ -1,5 +1,6 @@
 .main-block{
-  background: url("../../../../shared/assests/LMG.png") lightgray 50% / contain no-repeat;
+  background: url("../../../../shared/assests/LMG.png") center center no-repeat;
+  background-size: cover;
   height: 100vh;
 }
 .wrapper{
@@ -14,12 +15,17 @@
   max-width: 616px;
   width: 100%;
   h1{
-    @include text-Headline1();
     color: #2A2E37;
+    @include font-SegoeUI();
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 48px; /* 120% */
   }
   span{
     @include text-Body1();
     color: #2A2E37;
+    font-weight: 400;
   }
 }
 

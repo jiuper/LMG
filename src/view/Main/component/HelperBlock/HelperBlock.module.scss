@@ -59,7 +59,9 @@
       .icon-wrapper{
         border-radius: var(--Indent_32, 32px);
         background: var(--Seasalt, #F6F6F6);
-        padding: 40px;
+        height: 100px;
+        width: 100px;
+        @include flex-center;
       }
 
       .icon{

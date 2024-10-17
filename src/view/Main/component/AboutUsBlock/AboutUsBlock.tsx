@@ -13,19 +13,27 @@ export const AboutUsBlock = () => {
 
                 <div className={cx("items")}>
                     <div className={cx("item")}>
-                        <span>15 лет</span>
+                        <h3>
+                            <strong>15 лет</strong>
+                        </h3>
                         <span>опыт работы в рекламном бизнесе</span>
                     </div>
                     <div className={cx("item")}>
-                        <span>25 человек</span>
+                        <h3>
+                            <strong>25 человек</strong>
+                        </h3>
                         <span>штат сотрудников на 2024 г.</span>
                     </div>
                     <div className={cx("item")}>
-                        <span>Договор с УК, и застройщика</span>
+                        <h3>
+                            <strong>Договор с УК, и застройщика</strong>
+                        </h3>
                         <span>основание для разрешения рекламы</span>
                     </div>
                     <div className={cx("item")}>
-                        <span>Лояльные</span>
+                        <h3>
+                            <strong>Лояльные</strong>
+                        </h3>
                         <span>условия партнерства</span>
                     </div>
                 </div>

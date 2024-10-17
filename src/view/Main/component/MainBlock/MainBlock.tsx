@@ -21,8 +21,13 @@ export const MainBlock = () => {
         <div className={cx("main-block")}>
             <div className={cx("wrapper", "container")}>
                 <div className={cx("content")}>
-                    <h1>Размещение рекламы и привлечение клиентов</h1>
-                    <span>Эффективные решения для вашего бизнеса </span>
+                    <h1>Разместим рекламу вашего бизнеса в каждом доме</h1>
+                    <span>
+                        Более <strong>30 000</strong> собственных
+                    </span>
+                    <span>
+                        <strong>рекламных носителей</strong> по всей России
+                    </span>
                     <Button label="Заказать звонок" />
                 </div>
                 <div className={cx("buttons")}>

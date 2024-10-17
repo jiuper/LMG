@@ -19,7 +19,7 @@ export const ServicesBlock = () => {
             image: card_1.src,
         },
         {
-            title: "Реклама для ПВЗ: Как привлечь клиентов?",
+            title: `Реклама для ПВЗ: Как привлечь клиентов?`,
             description: "Описание кейса...",
             image: card_2.src,
         },

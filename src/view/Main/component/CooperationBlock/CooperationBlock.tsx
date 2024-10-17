@@ -1,7 +1,7 @@
 import cnBind from "classnames/bind";
 
-import card_1 from "@/shared/assests/history_1.png";
-import card_2 from "@/shared/assests/history_2.png";
+import card_1 from "@/shared/assests/ImageS_3.png";
+import card_2 from "@/shared/assests/ImageS_4.png";
 import { HistoryCard } from "@/view/Main/component/HistoryBlock/component/HistoryCard";
 
 import styles from "./CooperationBlock.module.scss";
@@ -23,7 +23,7 @@ export const CooperationBlock = () => {
         <div className={cx("cooperation-block")}>
             <div className={cx("wrapper", "container")}>
                 <div className={cx("top")}>
-                    <h2 className={cx("title")}>Полезное</h2>
+                    <h2 className={cx("title")}>Сотрудничество</h2>
                     <div className={cx("cards")}>
                         {list.map((item, index) => (
                             <HistoryCard key={index} {...item} />

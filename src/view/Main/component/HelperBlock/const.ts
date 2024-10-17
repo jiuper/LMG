@@ -1,5 +1,6 @@
-import card_1 from "@/shared/assests/history_1.png";
-import card_2 from "@/shared/assests/history_2.png";
+import card_3 from "@/shared/assests/ImageP_3.png";
+import card_4 from "@/shared/assests/ImageP_4.png";
+import card_5 from "@/shared/assests/ImageP_5.png";
 
 export const list = [
     {
@@ -9,11 +10,11 @@ export const list = [
             { title: "Подведение итогов пилотного тестирования сервиса для нетворкинга", href: "/" },
             { title: "Подведение итогов пилотного тестирования сервиса для нетворкинга", href: "/" },
         ],
-        image: card_1.src,
+        image: card_3.src,
     },
     {
         title: "Новости",
-        image: card_2.src,
+        image: card_4.src,
         listHref: [
             { title: "Подведение итогов пилотного тестирования сервиса для нетворкинга", href: "/" },
             { title: "Подведение итогов пилотного тестирования сервиса для нетворкинга", href: "/" },
@@ -22,7 +23,7 @@ export const list = [
     },
     {
         title: "Закон о рекламе",
-        image: card_2.src,
+        image: card_5.src,
         description:
             "Подведение итогов пилотного тестирования сервиса для нетворкинга. Подведение итогов пилотного тестирования сервиса для нетворкинга. Подведение итогов пилотного тестирования сервиса для нетворкинга",
     },
