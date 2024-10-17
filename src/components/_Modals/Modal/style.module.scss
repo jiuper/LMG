@@ -1,0 +1,47 @@
+.modal {
+    &[data-pc-name="dialog"] {
+        margin: 0;
+        border-radius: 24px;
+    }
+    [data-pc-section="content"] {
+        padding: 8px 16px 16px 16px;
+    }
+    [data-pc-section="header"] {
+        padding: 16px;
+        border-top-right-radius: 24px;
+        border-top-left-radius: 24px;
+        [data-pc-section="headertitle"] {
+            @include text-Headline1();
+        }
+    }
+}
+.isCenter {
+    [data-pc-section="content"] {
+        border-bottom-right-radius: 24px;
+        border-bottom-left-radius: 24px;
+    }
+}
+.header-btn {
+    &:focus,
+    &:active,
+    &:hover {
+        background: none;
+        border: none;
+        box-shadow: none;
+    }
+}
+.content {
+    min-height: 50px;
+}
+.isMobile {
+    [data-pc-section="header"] {
+        border-top-right-radius: 24px;
+        border-top-left-radius: 24px;
+        border-bottom: none;
+    }
+    [data-pc-section="content"] {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    margin: 0;
+}

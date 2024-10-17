@@ -1,6 +1,7 @@
 import cnBind from "classnames/bind";
-import { useRouter } from "next/router";
 
+import { ModalFeedBack } from "@/components/_Modals/ModalFeedBack";
+import { useBooleanState } from "@/shared/hooks";
 import { Button } from "@/shared/ui/Button";
 
 import styles from "./MainBlock.module.scss";
@@ -8,14 +9,8 @@ import styles from "./MainBlock.module.scss";
 const cx = cnBind.bind(styles);
 
 export const MainBlock = () => {
-    const router = useRouter();
-    const list = [
-        { title: "Лифты", href: "/" },
-        { title: "ПВЗ", href: "/" },
-        { title: "ТЦ", href: "/" },
-        { title: "БЦ", href: "/" },
-        { title: "Реклама где хотите", href: "/" },
-    ];
+    const list = ["Лифты", "ПВЗ", "ТЦ", "БЦ", "Реклама где хотите"];
+    const [isOpen, open, close] = useBooleanState(false);
 
     return (
         <div className={cx("main-block")}>
@@ -31,11 +26,12 @@ export const MainBlock = () => {
                     <Button label="Заказать звонок" />
                 </div>
                 <div className={cx("buttons")}>
-                    {list.map(({ title, href }, index) => (
-                        <Button className={cx("button")} key={index} label={title} onClick={() => router.push(href)} />
+                    {list.map((el, index) => (
+                        <Button className={cx("button")} key={index} label={el} onClick={open} />
                     ))}
                 </div>
             </div>
+            <ModalFeedBack isOpen={isOpen} onClose={close} />
         </div>
     );
 };
