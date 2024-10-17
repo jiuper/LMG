@@ -1,58 +1,58 @@
 export const items: { type: string; src: string }[] = [
     {
-        type: "positive",
+        type: "img",
         src: "/images/feedbacks/1.png",
     },
     {
-        type: "positive",
+        type: "video",
         src: "/images/feedbacks/1.png",
     },
     {
-        type: "positive",
+        type: "img",
         src: "/images/feedbacks/1.png",
     },
     {
-        type: "positive",
+        type: "video",
         src: "/images/feedbacks/1.png",
     },
     {
-        type: "positive",
+        type: "img",
         src: "/images/feedbacks/1.png",
     },
     {
-        type: "positive",
+        type: "video",
         src: "/images/feedbacks/1.png",
     },
     {
-        type: "positive",
+        type: "img",
         src: "/images/feedbacks/1.png",
     },
     {
-        type: "positive",
+        type: "video",
         src: "/images/feedbacks/1.png",
     },
     {
-        type: "positive",
+        type: "img",
         src: "/images/feedbacks/1.png",
     },
     {
-        type: "positive",
+        type: "video",
         src: "/images/feedbacks/1.png",
     },
     {
-        type: "positive",
+        type: "img",
         src: "/images/feedbacks/1.png",
     },
     {
-        type: "positive",
+        type: "video",
         src: "/images/feedbacks/1.png",
     },
     {
-        type: "positive",
+        type: "img",
         src: "/images/feedbacks/1.png",
     },
     {
-        type: "positive",
+        type: "video",
         src: "/images/feedbacks/1.png",
     },
 ];

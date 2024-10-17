@@ -11,7 +11,12 @@
   gap: 24px;
   padding-bottom: 80px;
   .title{
-    @include text-Display4;
+      color: var(--Rich-black, #040F16);
+      @include font-SegoeUI();
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 120%; /* 38.4px */
   }
   .cards{
     @include flex-row;

@@ -10,15 +10,53 @@ const cx = cnBind.bind(styles);
 type Props = {};
 const FeedbackCard = (item: { type: string; src: string }) => {
     return (
-        <div className={cx("card", { item: item.type })}>
-            <CustomImage width={182} height={182} src={item.src} alt={item.src} />
+        <div className={cx("card", { video: item.type === "video" })}>
+            <CustomImage className={cx("image")} width={182} height={182} src={item.src} alt={item.src} />
             <div className={cx("info")}>
-                <div className={cx("post")}>Менеджер</div>
+                <span className={cx("post")}>Менеджер</span>
             </div>
         </div>
     );
 };
 export const FeedBackSlide = ({}: Props) => {
+    const responsiveOptions = [
+        {
+            breakpoint: "1920px",
+            numVisible: 10,
+            numScroll: 1,
+        },
+        {
+            breakpoint: "1600",
+            numVisible: 9,
+            numScroll: 1,
+        },
+        {
+            breakpoint: "1440",
+            numVisible: 7,
+            numScroll: 1,
+        },
+        {
+            breakpoint: "1100",
+            numVisible: 6,
+            numScroll: 1,
+        },
+        {
+            breakpoint: "767px",
+            numVisible: 5,
+            numScroll: 1,
+        },
+        {
+            breakpoint: "575px",
+            numVisible: 2,
+            numScroll: 1,
+        },
+        {
+            breakpoint: "430px",
+            numVisible: 1,
+            numScroll: 1,
+        },
+    ];
+
     return (
         <div className={cx("feedbacks")}>
             <div className={cx("wrapper")}>
@@ -31,6 +69,8 @@ export const FeedBackSlide = ({}: Props) => {
                             showIndicators={false}
                             showNavigators={false}
                             numVisible={10}
+                            responsiveOptions={responsiveOptions}
+                            className={cx("carousel")}
                         />
                     </div>
                 </div>
