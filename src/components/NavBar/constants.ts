@@ -33,7 +33,7 @@ export const items: NavbarTypeProps = [
         items: [
             {
                 label: "Статьи",
-                url: `${`${Routes.EQUIPMENTS}/${1}`}`,
+                url: Routes.ARTICLES,
             },
             {
                 label: "Новости",

@@ -1,6 +1,8 @@
+import { useState } from "react";
 import cnBind from "classnames/bind";
 import { Carousel } from "primereact/carousel";
 
+import { SwipeableWrapper } from "@/components/SwipeableWrapper";
 import { CustomImage } from "@/shared/ui/CustomImage";
 import { items } from "@/view/Main/component/FeedBackSlide/const";
 
@@ -56,6 +58,9 @@ export const FeedBackSlide = ({}: Props) => {
             numScroll: 1,
         },
     ];
+    const [page, setPage] = useState(0);
+
+    const onPageChange = (e: number) => setPage(e);
 
     return (
         <div className={cx("feedbacks")}>
@@ -63,15 +68,22 @@ export const FeedBackSlide = ({}: Props) => {
                 <div className={cx("block")}>
                     <h2 className={cx("title")}>Отзывы ({items.length})</h2>
                     <div className={cx("slide")}>
-                        <Carousel
-                            itemTemplate={(item: { type: string; src: string }) => FeedbackCard(item)}
-                            value={items}
-                            showIndicators={false}
-                            showNavigators={false}
-                            numVisible={10}
-                            responsiveOptions={responsiveOptions}
-                            className={cx("carousel")}
-                        />
+                        <SwipeableWrapper
+                            onSwipedLeft={() => setPage((prevPage) => (prevPage + 1) % items.length)}
+                            onSwipedRight={() => setPage((prevPage) => (prevPage - 1 + items.length) % items.length)}
+                        >
+                            <Carousel
+                                itemTemplate={(item: { type: string; src: string }) => FeedbackCard(item)}
+                                value={items}
+                                showIndicators={false}
+                                showNavigators={false}
+                                numVisible={10}
+                                responsiveOptions={responsiveOptions}
+                                className={cx("carousel")}
+                                page={page}
+                                onPageChange={(e) => onPageChange(e.page)}
+                            />
+                        </SwipeableWrapper>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,40 @@
+
+.wrapper{
+    padding: 120px 120px 80px 120px;
+    @include flex-column();
+    gap: 24px;
+    .title{
+        h2{
+            color: var(--Rich-black, #040F16);
+            @include font-SegoeUI();
+            font-size: 32px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 120%; /* 38.4px */
+        }
+    }
+
+    .articles-wrapper{
+
+        @include flex-column();
+        gap: 24px;
+        .articles{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .paginator{
+            &[data-pc-name="paginator"]{
+                justify-content: flex-start;
+            }
+        }
+    }
+
+}
+
+.form{
+    border: 0px solid #E5E7EB;
+    background: linear-gradient(95deg, #F6FAFC 5.92%, #F7FAFC 25.08%, #FBFBFC 42.26%, #F9F9FB 52.38%, #F3F8FB 94.63%);
+    padding: 60px;
+}

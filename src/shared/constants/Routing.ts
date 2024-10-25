@@ -5,7 +5,7 @@ export interface IRouting {
 }
 export const Routes = {
     HOME: "/",
-    FILMIMG: "/#filmImg",
+    ARTICLES: "/articles",
     FAVOR: "/favor",
     EQUIPMENTS: "/equipments",
     NEWS: "/news",

@@ -43,7 +43,8 @@
     "prettier": "^3.3.3",
     "sass": "^1.79.4",
     "typescript": "^5",
-    "url-loader": "^4.1.1"
+    "url-loader": "^4.1.1",
+    "react-swipeable": "^7.0.1"
   },
   "engines": {
     "node": "^12.22.0 || ^14.17.0 || >=16.0.0"

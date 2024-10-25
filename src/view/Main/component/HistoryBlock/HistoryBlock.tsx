@@ -8,7 +8,7 @@ import { HistoryCard } from "@/view/Main/component/HistoryBlock/component/Histor
 import styles from "./HistoryBlock.module.scss";
 
 const cx = cnBind.bind(styles);
-export const HistoryBlock = () => {
+export const HistoryBlock = ({ className }: { className?: string }) => {
     const list = [
         { title: "История компании", description: "Описание кейса...", image: card_1.src },
         {
@@ -23,7 +23,7 @@ export const HistoryBlock = () => {
     ];
 
     return (
-        <div className={cx("history-block")}>
+        <div className={cx("history-block", className)}>
             <div className={cx("wrapper", "container")}>
                 <div className={cx("cards")}>
                     <div className={cx("cards-wrapper")}>
