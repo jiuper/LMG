@@ -71,10 +71,10 @@ export const SideBar = ({ isOpen = false }: Props) => {
                         </ul>
                     </nav>
                     <div className={cx("nav-bottom")}>
-                        <button className={cx("sidebar-menu-item", { isOpenSidebar })} type="button">
+                        {/* <button className={cx("sidebar-menu-item", { isOpenSidebar })} type="button">
                             <IcLogout />
                             <span>Выйти</span>
-                        </button>
+                        </button> */}
                     </div>
                 </div>
             </div>

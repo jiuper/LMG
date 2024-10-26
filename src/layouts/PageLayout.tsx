@@ -21,7 +21,8 @@ interface PageLayoutProps {
 
 export const PageLayout = ({ children, title }: PageLayoutProps) => {
     const { isMobile } = useResizeContext();
-    const pathUrl = useRouter();
+    const { pathname } = useRouter();
+    const isAdmin = pathname.startsWith("/admin");
 
     return (
         <>
@@ -35,13 +36,15 @@ export const PageLayout = ({ children, title }: PageLayoutProps) => {
                 {title && <title>{title}</title>}
             </Head>
 
-            <div className={cx("wrapper")}>
-                {ROUTING_IS_HEADER.map((el) => el.href === pathUrl.pathname && el.isUser) && !isMobile && <SideBar />}
-                {/* <Header /> */}
+            <div className={cx("wrapper", { "is-admin": isAdmin })}>
+                {isAdmin && ROUTING_IS_HEADER.map((el) => el.href === pathname && el.isUser) && !isMobile && (
+                    <SideBar isOpen />
+                )}
+                {!isAdmin && <Header />}
                 <main className={cx("main")}>
                     <div className={cx("content")}>{children}</div>
                 </main>
-                <Footer />
+                {!isAdmin && <Footer />}
             </div>
         </>
     );
