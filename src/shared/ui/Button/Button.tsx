@@ -6,9 +6,9 @@ import styles from "./Button.module.scss";
 
 const cx = cnBind.bind(styles);
 type ButtonPropsC = ButtonProps & {
-    mode?: "outlined" | "empty";
+    mode?: "outlined" | "empty" | "purple";
     className?: string;
 };
 export const Button = ({ mode = "outlined", className, ...props }: ButtonPropsC) => {
-    return <PrimereactButton className={cx("button", className, mode)} iconPos="right" {...props} />;
+    return <PrimereactButton className={cx("button", mode, className)} iconPos="right" {...props} />;
 };

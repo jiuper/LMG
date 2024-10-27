@@ -1,12 +1,44 @@
+$size-1rem: 1rem;
+
 .wrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
   min-height: 100vh;
-  position: relative;
+}
+
+.is-admin {
+  flex-direction: row;
+  padding-block: $size-1rem;
+
+  & .content {
+    padding-inline: $size-1rem;
+  }
 }
 
 .main {
   position: relative;
-  flex: 1 1;
+  flex: 1 1 auto;
+  box-sizing: border-box;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $size-1rem;
+  width: 100%;
+  padding-block: $size-1rem;
+  padding-inline: $size-1rem;
+
+  &__input {
+    flex: 0 1 800px;
+  }
+
+  &__btn {
+    padding: $size-1rem !important;
+    min-width: 11rem;
+    border-radius: 0.6rem !important;
+  }
 }

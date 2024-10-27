@@ -1,0 +1,141 @@
+.side-bar {
+    width: 100%;
+    max-width: 96px;
+    transition: $transition-fast;
+
+    &.isOpenSidebar {
+        max-width: 240px;
+    }
+}
+
+.wrapper {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    padding: 0 16px;
+    max-width: 96px;
+    height: 100vh;
+    width: 100%;
+    height: 100%;
+    background-color: $color-dark;
+    transition: $transition-fast;
+    display: flex;
+    flex-direction: column;
+
+    &.isOpenSidebar {
+        max-width: 240px;
+    }
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+}
+
+.profile {
+    overflow: hidden;
+    transition: $transition-fast;
+}
+
+.name {
+    color: $color-light;
+    @include text-Body1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.email {
+    margin-top: 8px;
+    color: $color-neutral-50;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    @include text-Body1;
+}
+
+.avatar {
+    border-radius: 100%;
+    width: 64px;
+    min-width: 64px;
+    height: 64px;
+}
+
+.navbar {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    flex: 0 1 auto;
+}
+
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu-item {
+    overflow: hidden;
+    display: flex;
+    width: 64px;
+    align-items: center;
+    gap: 18px;
+    padding: 16px;
+    color: $color-light;
+    text-decoration: none;
+    color: $color-neutral-50;
+    border-radius: 10px;
+    user-select: none;
+    cursor: pointer;
+    transition: $transition-fast;
+    background: transparent;
+    border: none;
+
+    &.isOpenSidebar {
+        width: 100%;
+        justify-content: inherit;
+    }
+
+    &.isActive {
+        background: $color-purple;
+        color: $color-light;
+
+        svg {
+            @include svg-color($color-light, 0.2s);
+        }
+    }
+
+    @include touch-hover(&) {
+        color: $color-light;
+
+        svg {
+            @include svg-color($color-light, 0.2s);
+        }
+    }
+
+    @include text-Subtitle2();
+
+    svg {
+        min-width: 32px;
+        width: 32px;
+        height: 32px;
+        @include svg-color($color-neutral-50, 0.2s);
+    }
+}
+
+.icon {
+    display: block;
+    transform: rotate(180deg);
+
+    &.isOpenSidebar {
+        transform: rotate(0deg);
+    }
+}
+
+.nav-bottom {
+    margin-top: auto;
+}

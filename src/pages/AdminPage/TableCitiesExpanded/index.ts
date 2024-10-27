@@ -1,0 +1,1 @@
+export { TableCitiesExpanded } from "./TableCitiesExpanded";

@@ -1,0 +1,1 @@
+export { TablePropertyExpanded } from "./TablePropertyExpanded";
