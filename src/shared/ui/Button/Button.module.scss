@@ -1,4 +1,14 @@
-.button{
+$solid-shadow: 0px 10px 24px 0px #7b68ee52;
+$solid-shadow-hover:
+  0px 1px 3px 1px #002eff26,
+  0px 1px 2px 0px #002eff4d;
+$outlined-shadow-hover:
+  0px 1px 3px 1px #002eff26,
+  0px 1px 2px 0px #002eff4d;
+$outlined-shadow: 0px 10px 24px 0px #7b68ee52;
+$shadow-shadow: 0px 10px 24px 0px #7b68ee52;
+
+.button {
   width: fit-content;
   height: fit-content;
   padding: 6px 14px;
@@ -7,45 +17,70 @@
 
   @include text-Button();
 
-    &.outlined{
-      color: #566DD6;
-      transition: 0.3ms;
-      border: 1px solid #E0E0FF;
-      background: #fff;
-      &:hover{
-        background-color: #E76325;
-        color: #fff;
-      }
-      &:disabled{
-        background-color: #F4F4F4;
-        color: #BDBDBD;
-      }
+  &.purple {
+    border: 1px solid rgba($color-purple, 0);
+    background: $color-purple;
+    box-shadow: $solid-shadow;
+
+    @include touch-hover(&) {
+      background: $color-purple-darkness;
+      box-shadow: $solid-shadow-hover;
     }
-  &.filed{
-    background-color: transparent;
-    border: none;
-    color: #7E7C7A;
-    transition: 0.3ms;
-    height: 58px;
-    &:hover{
-      color: #E76325;
+
+    &:active {
+      box-shadow: none;
     }
-    &:disabled{
-      border: 1px solid #F4F4F4;
-      color: #BDBDBD;
+
+    &:focus-visible {
+      border: 1px solid rgba($color-purple-lighter, 1);
+      background: $color-purple-darkness;
+    }
+
+    &:disabled {
+      background: $color-purple-lighter;
+      box-shadow: none;
     }
   }
-    &.empty{
-      background-color: transparent;
-      border: 1px solid #fff;
+
+  &.outlined {
+    color: #566dd6;
+    transition: 0.3ms;
+    border: 1px solid #e0e0ff;
+    background: #fff;
+    &:hover {
+      background-color: #e76325;
       color: #fff;
-      transition: 0.3ms;
-      &:hover{
-        color: #E76325;
-      }
-      &:disabled{
-        border: 1px solid #F4F4F4;
-        color: #BDBDBD;
-      }
     }
+    &:disabled {
+      background-color: #f4f4f4;
+      color: #bdbdbd;
+    }
+  }
+  &.filed {
+    background-color: transparent;
+    border: none;
+    color: #7e7c7a;
+    transition: 0.3ms;
+    height: 58px;
+    &:hover {
+      color: #e76325;
+    }
+    &:disabled {
+      border: 1px solid #f4f4f4;
+      color: #bdbdbd;
+    }
+  }
+  &.empty {
+    background-color: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    transition: 0.3ms;
+    &:hover {
+      color: #e76325;
+    }
+    &:disabled {
+      border: 1px solid #f4f4f4;
+      color: #bdbdbd;
+    }
+  }
 }

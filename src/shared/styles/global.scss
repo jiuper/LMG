@@ -1,20 +1,25 @@
 @font-face {
-    font-family: 'Nunito';
-    src: url('../assests/fonts/Nunito/Nunito-Regular.ttf') format('truetype'); ;
+    font-family: "Nunito";
+    src: url("../assests/fonts/Nunito/Nunito-Regular.ttf") format("truetype");
     font-weight: 1;
     font-style: normal;
 }
 
-
-html{
+html {
     scroll-behavior: smooth;
 }
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
     width: 100%;
     font-family: "Nunito", sans-serif;
-
 }
 
 h1,
@@ -25,7 +30,6 @@ h5 {
     margin: 0;
     @include font-SegoeUI();
 }
-
 
 .container {
     max-width: 1440px;
