@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import cnBind from "classnames/bind";
 import Head from "next/head";
 
+import { ModalAdmin } from "@/components/_Modals/ModalAdmin/ModalAdmin";
 import { SideBar } from "@/components/SideBar";
 import { InputSearch } from "@/shared/ui/_InputSearch";
 import { Button } from "@/shared/ui/Button";
@@ -14,7 +15,7 @@ const cx = cnBind.bind(styles);
 
 export const AdminLayout = ({ children, title, pathname, isMobile }: AdminPageLayoutProps) => {
     const [search, setSearch] = useState<string>("");
-    const [createTitle, setCreateTitle] = useState<string>("Cозадать статью");
+    const [btnTitle, setBtnTitle] = useState<string>("Cозадать статью");
 
     const handleSearchChange = useCallback((value?: string) => {
         setSearch(value ?? "");
@@ -30,13 +31,13 @@ export const AdminLayout = ({ children, title, pathname, isMobile }: AdminPageLa
                 news: "Созадть новость",
                 portfolio: "Созадть кейс",
             };
-            setCreateTitle(paths[newPath as PathKeys] ?? "");
+            setBtnTitle(paths[newPath as PathKeys] ?? "");
         };
 
         if (pathname) {
             getTitle(pathname);
         } else {
-            setCreateTitle("Cозадать статью");
+            setBtnTitle("Cозадать статью");
         }
     }, []);
 
@@ -62,7 +63,7 @@ export const AdminLayout = ({ children, title, pathname, isMobile }: AdminPageLa
             <div className={cx("wrapper", "is-admin")}>
                 {!isMobile && <SideBar isOpen />}
                 <main className={cx("main")}>
-                    {createTitle && (
+                    {btnTitle && (
                         <div className={cx("search-box")}>
                             <InputSearch
                                 rootClassName={cx("search-box__input")}
@@ -71,7 +72,7 @@ export const AdminLayout = ({ children, title, pathname, isMobile }: AdminPageLa
                                 onChange={handleSearchChange}
                             />
                             <Button
-                                label={createTitle}
+                                label={btnTitle}
                                 mode="purple"
                                 className={cx("search-box__btn")}
                                 onClick={hahdelClick}
@@ -81,6 +82,7 @@ export const AdminLayout = ({ children, title, pathname, isMobile }: AdminPageLa
                     <div className={cx("content")}>{children}</div>
                 </main>
             </div>
+            <ModalAdmin isOpen onClose={() => { }} />
         </>
     );
 };

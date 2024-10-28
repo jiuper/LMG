@@ -1,0 +1,38 @@
+.modal-admin {
+    &__wrapper {
+        padding-block: 24px;
+        padding-inline: 40px;
+    }
+
+    & .modal-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+
+        &__title {
+            font-size: 1.5rem;
+            line-height: 1.2;
+            font-weight: 700;
+            color: #000;
+        }
+
+        &__btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            background-color: #38b6ff;
+            border-radius: 0.37rem;
+            min-width: 7.4rem;
+
+            & > span {
+                font-size: 0.87rem;
+                line-height: 1.2;
+                color: $color-light;
+                padding-block: 0.25rem;
+                padding-inline: 0.5rem;
+            }
+        }
+    }
+}
