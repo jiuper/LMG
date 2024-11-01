@@ -48,6 +48,21 @@
   height: 100%;
 }
 
+.sidebar-content{
+  background: #1C1B1F;
+  height: 100%;
+  padding: 16px;
+  @include flex-column();
+  gap: 24px;
+
+  .logo{
+    @include flex-center();
+    width: 104px;
+    padding: 8px;
+    border-radius: 12px;
+    background: linear-gradient(259deg, #1C2029 1.05%, #2A2E37 10.17%, #1C2029 20.31%, #2A2E37 30.44%, #1C2029 40.58%, #2A2E37 50.72%, #1C2029 60.85%, #2A2E37 70.99%, #1C2029 81.13%, #2A2E37 91.26%, #1C2029 101.4%);
+  }
+}
 .contacts{
     @include flex-center();
     gap: 16px;

@@ -1,8 +1,11 @@
 .wrapper{
-  padding: 0 120px;
+  padding-block: 0;
+  @include responsive-sizing("padding-inline", 8, 120, 360,1440);
+
 }
 .breadcrumb{
-  margin-top: 120px;
+  @include responsive-sizing(" margin-top", 80, 120, 360,1440);
+  @include responsive-sizing(" margin-bottom", 20, 120, 360,1440);
   &[data-pc-section="root"]{
     background: transparent;
     border: none;
@@ -11,6 +14,14 @@
   [data-pc-name="breadcrumb"]{
     padding: 0;
   }
+  @include media-max(1100px){
+    [data-pc-section="menu"]{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+  }
+
   [data-pc-section="label"]{
     font-weight: 400;
     font-size: 16px;
@@ -31,11 +42,5 @@
     [data-pc-section="label"]:last-child{
       color: #E76325;
     }
-
-
-
-  }
-  @include media-max(720px){
-    margin-bottom: 30px;
   }
 }

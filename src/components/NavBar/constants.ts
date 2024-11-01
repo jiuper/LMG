@@ -7,23 +7,23 @@ export const items: NavbarTypeProps = [
         items: [
             {
                 label: "Реклама ПВЗ",
-                url: `${`${Routes.EQUIPMENTS}/${1}`}`,
+                url: `${`${Routes.BUILDING}/${1}`}`,
             },
             {
                 label: "Реклама в фитнес клубах",
-                url: `${`${Routes.EQUIPMENTS}/${1}`}`,
+                url: `${`${Routes.BUILDING}/${1}`}`,
             },
             {
                 label: "Реклама в торговых центрах",
-                url: `${`${Routes.EQUIPMENTS}/${1}`}`,
+                url: `${`${Routes.BUILDING}/${1}`}`,
             },
             {
                 label: "Реклама в бизнес центрах",
-                url: Routes.FAVOR,
+                url: Routes.BUILDING,
             },
             {
                 label: "Реклама в жилых домах",
-                url: Routes.FAVOR,
+                url: Routes.BUILDING,
             },
         ],
     },
@@ -37,11 +37,11 @@ export const items: NavbarTypeProps = [
             },
             {
                 label: "Новости",
-                url: `${`${Routes.EQUIPMENTS}/${1}`}`,
+                url: Routes.NEWS,
             },
             {
                 label: "Закон о рекламе",
-                url: `${`${Routes.EQUIPMENTS}/${1}`}`,
+                url: Routes.ADVERTISING,
             },
         ],
     },
@@ -50,24 +50,24 @@ export const items: NavbarTypeProps = [
         items: [
             {
                 label: "История компании",
-                url: `${`${Routes.EQUIPMENTS}/${1}`}`,
+                url: Routes.ABOUTUS,
             },
             {
                 label: "Доркументы",
-                url: `${`${Routes.EQUIPMENTS}/${1}`}`,
+                url: Routes.NEWS,
             },
             {
                 label: "Наша команда",
-                url: `${`${Routes.EQUIPMENTS}/${1}`}`,
+                url: Routes.NEWS,
             },
         ],
     },
     {
         label: "Портфолио",
-        url: Routes.WORKS,
+        url: Routes.PORTFOLIO,
     },
     {
         label: "Контакты",
-        url: Routes.ABOUTUS,
+        url: Routes.CONTACTS,
     },
 ];

@@ -6,14 +6,14 @@ export interface IRouting {
 export const Routes = {
     HOME: "/",
     ARTICLES: "/articles",
-    FAVOR: "/favor",
-    EQUIPMENTS: "/equipments",
-    NEWS: "/news",
     CONTACTS: "/contacts",
-    ABOUTUS: "/#aboutUs",
-    PROMOTION: "/#promotion",
+    ABOUTUS: "/aboutus",
     POLICY: "/policy",
-    WORKS: "#works",
+    BUILDING: "/building",
+    LIFTMEDIA: "/liftmedia",
+    NEWS: "/news",
+    PORTFOLIO: "/portfolio",
+    ADVERTISING: "/advertising",
 };
 
 export const Routing = {

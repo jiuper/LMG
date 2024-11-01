@@ -10,7 +10,8 @@
 
 .wrapper{
   height: 100%;
-  padding: 0 120px;
+  @include responsive-sizing("padding-inline", 8, 120, 360,1440);
+  @include responsive-sizing("padding-block", 0, 120, 360,1440);
 }
 
 .content{
@@ -52,7 +53,8 @@
 .wrapper{
   @include flex-column();
   gap: 25px;
-  padding: 80px 120px;
+  @include responsive-sizing("padding-inline", 8, 120, 360,1440);
+  @include responsive-sizing("padding-block", 40, 80, 360,1440);
 }
   .header{
     @include flex-row();
@@ -75,7 +77,7 @@
 }
 
 .wrapper-lift-media-us{
-  padding-top: 120px;
+  @include responsive-sizing("padding-top", 40, 120, 360,1440);
   border: 0px solid #E5E7EB;
   background: linear-gradient(42deg, #B0AEB1 10.14%, #CAC8CA 25.68%, #E4E4E5 37.14%, #E2E2E3 43.71%, #E6E6E7 52.56%, #E7E7E8 55.1%, #EDEEEE 61.46%, #E5E6E6 68.22%);
 }
@@ -91,7 +93,8 @@
     @include flex-row();
     gap: 16px;
     height: 100%;
-    padding: 200px 120px;
+    @include responsive-sizing("padding-inline", 8, 120, 360,1440);
+    @include responsive-sizing("padding-block", 40, 200, 360,1440);
     .header{
       @include flex-center();
 
@@ -104,6 +107,7 @@
         letter-spacing: -1.12px;
         color: #040F16;
         max-width: 544px;
+        word-break: break-word;
         width: 100%;
         border-radius: var(--Indent_24, 24px);
         border: 0px solid var(--Persimmon, #38B6FF);
@@ -138,33 +142,42 @@
         }
       }
     }
+
+    @include media-max(1100px){
+      flex-direction: column;
+    }
   }
 }
 
 .wrapper-video{
   background: url("../../shared/assests/Slide 12.png") center center no-repeat;
   background-size: cover;
-  height: 764px;
-  padding: 120px;
+  @include responsive-sizing("padding-inline", 8, 120, 360,1440);
+  @include responsive-sizing("padding-block", 40, 120, 360,1440);
+  @include responsive-sizing("height", 340, 764, 360,1440);
   @include flex-column();
   gap: 8px;
 
   .video{
     border-radius: var(--Indent_40, 40px);
     border: 3px solid #BBC5EF;
+    width: 100%;
+    object-fit: cover;
   }
 }
 
 .loyalty-program{
   background: url("../../shared/assests/photo_2024-10-30_13-16-34.jpg") center center no-repeat;
   background-size: cover;
-  padding: 80px 120px;
+  @include responsive-sizing("padding-inline", 8, 120, 360,1440);
+  @include responsive-sizing("padding-block", 40, 80, 360,1440);
 
   .wrapper{
     @include flex-column();
     gap: 32px;
     height: 100%;
-    padding: 80px 120px;
+    @include responsive-sizing("padding-inline", 8, 120, 360,1440);
+    @include responsive-sizing("padding-block", 40, 80, 360,1440);
     .header{
       h3{
         color: var(--Rich-black, #040F16);
@@ -193,6 +206,9 @@
       gap: 24px;
       .arrow{
         width: 100%;
+        @include media-max(720px){
+          display: none;
+        }
       }
       .item {
         @include flex-column();
@@ -226,6 +242,10 @@
           line-height: 120%; /* 19.2px */
         }
       }
+
+      @include media-max(720px){
+        flex-direction: column;
+      }
     }
   }
 }
@@ -238,5 +258,6 @@
 .form{
   border: 0px solid #E5E7EB;
   background: linear-gradient(92deg, #DEDEDE 1.84%, #CAC8CA 25.54%, #E4E4E5 43.05%, #E2E2E3 53.06%, #E6E6E7 66.58%, #E7E7E8 70.45%, #EDEEEE 80.15%, #E5E6E6 90.47%);
-  padding: 60px;
+  @include responsive-sizing("padding-inline", 8, 60, 360,1440);
+  @include responsive-sizing("padding-block", 30, 60, 360,1440);
 }

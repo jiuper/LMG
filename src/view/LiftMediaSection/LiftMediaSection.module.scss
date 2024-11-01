@@ -7,7 +7,8 @@
   .wrapper{
     @include flex-column();
     gap: 25px;
-    padding: 80px 120px;
+    @include responsive-sizing("padding-inline", 8, 120, 360,1440);
+    @include responsive-sizing("padding-block", 40, 120, 360,1440);
     align-items: center;
     width: 100%;
   }
@@ -75,7 +76,7 @@
 }
 
 .wrapper-lift-media-us{
-  padding-top: 120px;
+  @include responsive-sizing("padding-top", 40, 120, 360,1440);
   border: 0px solid #E5E7EB;
   background: linear-gradient(42deg, #B0AEB1 10.14%, #CAC8CA 25.68%, #E4E4E5 37.14%, #E2E2E3 43.71%, #E6E6E7 52.56%, #E7E7E8 55.1%, #EDEEEE 61.46%, #E5E6E6 68.22%);
 
@@ -90,7 +91,8 @@
       @include flex-row();
       gap: 16px;
       height: 100%;
-      padding: 200px 120px;
+      @include responsive-sizing("padding-inline", 8, 120, 360,1440);
+      @include responsive-sizing("padding-block", 40, 200, 360,1440);
       .header{
         @include flex-center();
 
@@ -103,6 +105,7 @@
           letter-spacing: -1.12px;
           color: #040F16;
           max-width: 544px;
+          word-break: break-word;
           width: 100%;
           border: 0px solid var(--Persimmon, #38B6FF);
           background: rgba(255, 255, 255, 0.10);
@@ -130,13 +133,17 @@
           }
         }
       }
+      @include media-max(1100px){
+        flex-direction: column;
+      }
     }
   }
 }
 
 .container-lift{
   .wrapper{
-    padding: 64px 120px;
+    @include responsive-sizing("padding-inline", 8, 120, 360,1440);
+    @include responsive-sizing("padding-block", 32, 64, 360,1440);
   }
 
   @include flex-column();
@@ -162,5 +169,6 @@
 .form{
   border: 0px solid #E5E7EB;
   background: linear-gradient(92deg, #DEDEDE 1.84%, #CAC8CA 25.54%, #E4E4E5 43.05%, #E2E2E3 53.06%, #E6E6E7 66.58%, #E7E7E8 70.45%, #EDEEEE 80.15%, #E5E6E6 90.47%);
-  padding: 60px;
+  @include responsive-sizing("padding-inline", 8, 60, 360,1440);
+  @include responsive-sizing("padding-block", 30, 60, 360,1440);
 }
