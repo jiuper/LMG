@@ -11,9 +11,13 @@ export const Routes = {
     POLICY: "/policy",
     BUILDING: "/building",
     LIFTMEDIA: "/liftmedia",
+    POSTERPVZ: "/posterpvz",
+    POSTERFITNES: "/posterfitnes",
+    POSTERTC: "/postertc",
+    POSTERBC: "/posterbc",
     NEWS: "/news",
     PORTFOLIO: "/portfolio",
-    ADVERTISING: "/advertising",
+    HISTORY: "/historycompany",
 };
 
 export const Routing = {

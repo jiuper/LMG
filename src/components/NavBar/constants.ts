@@ -7,19 +7,23 @@ export const items: NavbarTypeProps = [
         items: [
             {
                 label: "Реклама ПВЗ",
-                url: `${`${Routes.BUILDING}/${1}`}`,
+                url: Routes.POSTERPVZ,
             },
             {
                 label: "Реклама в фитнес клубах",
-                url: `${`${Routes.BUILDING}/${1}`}`,
+                url: Routes.POSTERFITNES,
             },
             {
                 label: "Реклама в торговых центрах",
-                url: `${`${Routes.BUILDING}/${1}`}`,
+                url: Routes.POSTERTC,
             },
             {
                 label: "Реклама в бизнес центрах",
-                url: Routes.BUILDING,
+                url: Routes.POSTERBC,
+            },
+            {
+                label: "Реклама в лифтах",
+                url: Routes.LIFTMEDIA,
             },
             {
                 label: "Реклама в жилых домах",
@@ -41,7 +45,7 @@ export const items: NavbarTypeProps = [
             },
             {
                 label: "Закон о рекламе",
-                url: Routes.ADVERTISING,
+                url: `${Routes.ARTICLES}/9asd23crecsw123`,
             },
         ],
     },
@@ -50,15 +54,15 @@ export const items: NavbarTypeProps = [
         items: [
             {
                 label: "История компании",
-                url: Routes.ABOUTUS,
+                url: Routes.HISTORY,
             },
             {
                 label: "Доркументы",
-                url: Routes.NEWS,
+                url: Routes.ABOUTUS,
             },
             {
                 label: "Наша команда",
-                url: Routes.NEWS,
+                url: Routes.ABOUTUS,
             },
         ],
     },

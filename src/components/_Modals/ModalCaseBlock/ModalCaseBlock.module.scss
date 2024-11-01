@@ -16,14 +16,29 @@
       @include text-Headline1();
     }
   }
+  &.isMobile{
+    &[data-pc-name="dialog"] {
+      margin: 0;
+      border-radius: 32px 32px 0 0;
+    }
+    [data-pc-section="content"] {
+      padding: 0;
+      border-radius: 32px 32px 0 0;
+    }
+  }
 }
 .wrapper{
   background: url("../../../shared/assests/photo_2024-10-03_13-29-10.jpg") center center no-repeat;
   background-size: cover;
   border-radius: 32px;
-  padding: 56px;
+  @include responsive-sizing("padding-inline", 8, 56, 360,1440);
+  @include responsive-sizing("padding-block", 16, 56, 360,1440);
   @include flex-column();
   gap: 32px;
+
+  &.isMobile{
+    border-radius: 32px 32px 0 0;
+  }
 }
 .content{
   @include flex-column();
@@ -68,6 +83,7 @@
 
   .image{
     border-radius: 16px;
+    width: 100%;
   }
 }
 
@@ -82,5 +98,8 @@
     font-style: normal;
     font-weight: 500;
     line-height: 120%; /* 38.4px */
+  }
+  @include media-max(720px){
+    @include flex-column();
   }
 }

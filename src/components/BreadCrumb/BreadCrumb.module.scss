@@ -23,24 +23,27 @@
   }
 
   [data-pc-section="label"]{
-    font-weight: 400;
+    color: var(--Rich-black, #040F16);
+    @include font-SegoeUI();
     font-size: 16px;
-    line-height: 140%;
-    color: #7E7C7A;
-    font-family: "ManropeRegular", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%; /* 19.2px */
   }
   [data-pc-section="menuitem"]{
 
     [data-pc-section="label"]{
-      font-weight: 400;
+      color: var(--Rich-black, #040F16);
+      @include font-SegoeUI();
       font-size: 16px;
-      line-height: 140%;
-      color: #7E7C7A;
-      font-family: "ManropeRegular", sans-serif;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 120%; /* 19.2px */
     }
-
-    [data-pc-section="label"]:last-child{
-      color: #E76325;
+    &:last-of-type{
+      [data-pc-section="label"]{
+        color: rgba(52, 66, 130, 1);
+      }
     }
   }
 }

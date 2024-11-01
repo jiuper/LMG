@@ -10,15 +10,16 @@ type ServiceCardProps = {
     title: string;
     description: string;
     image: string;
+    onClick?: () => void;
 };
-export const ServiceCard = ({ description, title, image }: ServiceCardProps) => {
+export const ServiceCard = ({ description, title, image, onClick }: ServiceCardProps) => {
     return (
         <div className={cx("service-card")} style={{ backgroundImage: `url(${image})` }}>
             <div className={cx("text")}>
                 <h2>{title}</h2>
                 <p>{description}</p>
             </div>
-            <Button className={cx("button")} mode="empty" label="Смотреть" />
+            <Button onClick={onClick} className={cx("button")} mode="empty" label="Смотреть" />
         </div>
     );
 };

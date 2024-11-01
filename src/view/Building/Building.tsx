@@ -21,8 +21,11 @@ import { CaseBlock } from "@/view/Main/component/CaseBlock";
 import styles from "./Building.module.scss";
 
 const cx = cnBind.bind(styles);
-type Props = {};
-export const BuildingPage = ({}: Props) => {
+type Props = {
+    title?: string;
+    description?: string;
+};
+export const BuildingPage = ({ description, title }: Props) => {
     const [isOpen, open, close] = useBooleanState(false);
     const list = [
         {
@@ -85,11 +88,8 @@ export const BuildingPage = ({}: Props) => {
             <div className={cx("main-block")}>
                 <div className={cx("wrapper", "container")}>
                     <div className={cx("content")}>
-                        <h1>Реклама в жилых домах</h1>
-                        <span>
-                            Достигайте своей аудитории там, где она живет.Эффективное решение для продвижения ваших
-                            услуг и товаров среди жителей.
-                        </span>
+                        <h1>{title}</h1>
+                        <span>{description}</span>
                         <Button className={cx("button-main")} mode="empty" onClick={open} label="Заказать звонок" />
                     </div>
                 </div>

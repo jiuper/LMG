@@ -11,8 +11,9 @@ type HistoryCardProps = {
     title: string;
     description?: string;
     listHref?: { title: string; href: string }[];
+    onClick?: () => void;
 };
-export const HistoryCard = ({ listHref, description, image, title }: HistoryCardProps) => {
+export const HistoryCard = ({ listHref, description, image, title, onClick }: HistoryCardProps) => {
     return (
         <div className={cx("history-card")} style={{ backgroundImage: `url(${image})` }}>
             <div className={cx("content")}>
@@ -30,7 +31,7 @@ export const HistoryCard = ({ listHref, description, image, title }: HistoryCard
                     </ul>
                 )}
             </div>
-            <Button className={cx("button")} mode="empty" label="Смотреть" />
+            <Button onClick={onClick} className={cx("button")} mode="empty" label="Смотреть" />
         </div>
     );
 };

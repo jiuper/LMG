@@ -1,6 +1,7 @@
 import cnBind from "classnames/bind";
 
 import { Modal } from "@/components/_Modals/Modal";
+import { useResizeContext } from "@/shared/context/WindowResizeProvider";
 import { Button } from "@/shared/ui/Button";
 import { CustomImage } from "@/shared/ui/CustomImage";
 
@@ -13,9 +14,11 @@ type Props = {
     item: { title: string; description: string; image: string };
 };
 export const ModalCaseBlock = ({ isOpen, onClose, item }: Props) => {
+    const { isMobile } = useResizeContext();
+
     return (
-        <Modal className={cx("modal-case")} maxWidth="880px" onClose={onClose} isOpen={isOpen}>
-            <div className={cx("wrapper")}>
+        <Modal className={cx("modal-case", { isMobile })} maxWidth="880px" onClose={onClose} isOpen={isOpen}>
+            <div className={cx("wrapper", { isMobile })}>
                 <div className={cx("content")}>
                     <div className={cx("info")}>
                         <div className={cx("title")}>
