@@ -1,1 +1,1 @@
-export * from "./SwipeableWrapper.tsx";
+export * from "./SwipeableWrapper";
