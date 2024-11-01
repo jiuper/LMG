@@ -168,3 +168,9 @@
         display: none;
     }
 }
+@mixin responsive-sizing($prop, $min, $max, $minDisplay, $maxDisplay) {
+    $sizeDiff: $max - $min;
+    $displayDiff: $maxDisplay - $minDisplay;
+
+    #{$prop}: clamp(#{$min}px, calc(#{$min}px + ($sizeDiff * (100vw - #{$minDisplay}px) / $displayDiff)), #{$max}px);
+}

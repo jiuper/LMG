@@ -3,7 +3,8 @@
   background: linear-gradient(90deg, #040F16 0%, rgba(4, 15, 22, 0.92) 100%);
 
   .wrapper {
-    padding: 40px 120px;
+    padding-block: 40px;
+    @include responsive-sizing("padding-inline", 8, 120, 360, 1440);
     @include flex-column();
     gap: 24px;
   }
@@ -13,6 +14,12 @@
   display: flex;
   align-items: center;
   gap: 52px;
+
+  @include media-max(1100px){
+    @include flex-column();
+    align-items: inherit;
+    gap: 16px;
+  }
 
   .short-info {
     @include flex-column();
@@ -39,6 +46,9 @@
   .menu-wrapper{
     display: flex;
     gap: 104px;
+    @include media-max(1100px){
+      gap: 16px;
+    }
 
     .menu{
       @include flex-column();
@@ -71,10 +81,20 @@
   gap: 8px;
   align-items: center;
   justify-content: space-between;
+
+
   span, a{
     @include text-Body2();
     color: #FFFFFF;
     text-decoration: none;
+  }
+  @include media-max(1100px){
+    @include flex-column();
+    gap: 24px;
+    align-items: inherit;
+    a{
+      text-align: center;
+    }
   }
 
 }

@@ -1,1 +1,0 @@
-export { AdminEntityPage } from "./AdminEntityPageC";

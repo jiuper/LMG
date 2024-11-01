@@ -13,8 +13,8 @@
     align-items: center;
     justify-content: space-between;
     height: 100%;
-    padding: 8px 32px;
-
+    padding-block: 8px;
+    @include responsive-sizing("padding-inline", 8, 32, 360, 1440);
   }
 
 }
@@ -25,12 +25,27 @@
 }
 .connect{
   align-items: flex-end;
+
+  .button{
+    transition: $transition-fast;
+    span{
+      color: #6A6ACF;
+    }
+    border: 1px solid transparent;
+    background: #fff;
+
+    &:hover{
+      border-bottom: 1px solid #6A6ACF;
+      background: #fff;
+    }
+  }
 }
 
 .nav{
   display: flex;
   align-items: center;
   gap: 60px;
+  height: 100%;
 }
 
 .contacts{

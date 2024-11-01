@@ -4,7 +4,8 @@
 }
 
 .wrapper{
-  padding: 80px 120px;
+  @include responsive-sizing("padding-inline", 8, 120, 360,1440);
+  @include responsive-sizing("padding-block", 40, 80, 360,1440);
   h2{
     color: var(--Rich-black, #040F16);
     @include font-SegoeUI();
@@ -22,6 +23,12 @@
 
   &>div:last-child{
     height: auto;
+  }
+
+  @include media-max(1100px){
+    &{
+      @include flex-column();
+    }
   }
 }
 

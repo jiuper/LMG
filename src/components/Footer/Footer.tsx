@@ -2,14 +2,12 @@ import cnBind from "classnames/bind";
 import Link from "next/link";
 
 import { Logo } from "@/components/Logo";
-import { useResizeContext } from "@/shared/context/WindowResizeProvider";
 
 import styles from "./Footer.module.scss";
 
 const cx = cnBind.bind(styles);
 
 export const Footer = () => {
-    const { isMobile } = useResizeContext();
     const list = [
         { title: "Реклама в фитнес клубах", href: "/" },
         { title: "Реклама в торговых центрах", href: "/" },
@@ -29,7 +27,7 @@ export const Footer = () => {
             <div className={cx("wrapper", "container")}>
                 <div className={cx("body")}>
                     <div className={cx("short-info")}>
-                        <Logo />
+                        <Logo isFooter />
                         <div className={cx("contacts")}>
                             <Link className={cx("phone")} href="tel:+78129820058" target="_blank">
                                 +7 (812) 982-00-58

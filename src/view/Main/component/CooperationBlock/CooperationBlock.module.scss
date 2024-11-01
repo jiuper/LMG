@@ -1,7 +1,8 @@
 .cooperation-block {
-  border: 0px solid #E5E7EB;
-  background: linear-gradient(180deg, #DEDFE1 0%, rgba(255, 255, 255, 0.00) 10.12%, rgba(253, 253, 254, 0.05) 85.67%, #E3E3E4 100%), #FFF; .wrapper {
-    padding: 80px 120px;
+    border: 0px solid #E5E7EB;
+    background: linear-gradient(180deg, #DEDFE1 0%, rgba(255, 255, 255, 0.00) 10.12%, rgba(253, 253, 254, 0.05) 85.67%, #E3E3E4 100%), #FFF; .wrapper {
+    @include responsive-sizing("padding-inline", 8, 120, 360,1440);
+    @include responsive-sizing("padding-block", 40, 80, 360,1440);
     @include flex-column;
     gap: 24px;
   }
@@ -9,7 +10,8 @@
 .top{
   @include flex-column;
   gap: 24px;
-  padding-bottom: 80px;
+  @include responsive-sizing("padding-bottom", 40, 80, 360,1440);
+
   .title{
       color: var(--Rich-black, #040F16);
       @include font-SegoeUI();
@@ -24,11 +26,14 @@
 
     & > div{
       flex: 0 1 50%;
-      min-height: 150px;
+      min-height: 160px;
       justify-content: space-between;
     }
     & >div:last-child{
       margin-top: 20px;
+    }
+    @include media-max(720px){
+      @include flex-column();
     }
   }
 }

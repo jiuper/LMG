@@ -16,7 +16,11 @@ import styles from "./CaseBlock.module.scss";
 
 const cx = cnBind.bind(styles);
 
-export const CaseBlock = () => {
+type Props = {
+    listItem?: { title: string; description: string; image: string }[];
+    className?: string;
+};
+export const CaseBlock = ({ listItem, className }: Props) => {
     const list = [
         {
             title: "DOSTAЕВСКИЙ",
@@ -67,13 +71,14 @@ export const CaseBlock = () => {
         onClose();
         setCurrent(null);
     };
+    const isList = listItem || list;
 
     return (
-        <div className={cx("case-block")}>
+        <div className={cx("case-block", className)}>
             <div className={cx("wrapper", "container")}>
                 <h2>Портфолио</h2>
                 <div className={cx("cards")}>
-                    {list.map((el, index) => (
+                    {isList.map((el, index) => (
                         <CaseCard onClick={() => handleOnModal(el)} key={index} {...el} />
                     ))}
                 </div>

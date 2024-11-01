@@ -1,1 +1,0 @@
-export { TableUserExpanded } from "./TableUserExpanded";

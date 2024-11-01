@@ -1,11 +1,14 @@
 .wrapper{
-  padding: 60px 120px;
+  @include responsive-sizing("padding-inline", 8, 120, 360, 1440);
+  @include responsive-sizing("padding-block", 30, 60, 360, 1440);
+
 }
 .decor{
   background: url("../../../shared/assests/photo_2024-10-03_13-29-10.jpg") center center no-repeat;
   background-size: cover;
   border-radius: 32px;
-  padding: 56px;
+  @include responsive-sizing("padding-inline", 8, 56, 360, 1440);
+  @include responsive-sizing("padding-block", 28, 56, 360, 1440);
   @include flex-column();
   gap: 32px;
 }
@@ -38,7 +41,8 @@
 .form{
   border-radius: 16px;
   background: var(--White, #FFF);
-  padding: 76px 80px;
+  @include responsive-sizing("padding-inline", 8, 80, 360, 1440);
+  @include responsive-sizing("padding-block", 24, 76, 360, 1440);
   @include flex-column();
   gap: 8px;
 
@@ -46,12 +50,36 @@
     @include flex-row();
     align-items: center;
     gap:8px;
+    @include media-max(720px){
+      @include flex-column();
+      align-items: inherit;
+    }
+
+
+    .button{
+      background: #040F16;
+      span{
+        color: #fff;
+      }
+    }
   }
 
+  .footer{
+    @include flex-row();
+    align-items: center;
+
+    .social{
+      @include flex-row();
+      gap: 8px;
+    }
+  }
   .inputs{
     @include flex-row();
     gap: 8px;
     flex: 1 0 65%;
+    @include media-max(720px){
+      @include flex-column();
+    }
 
     input{
       width: 100%;

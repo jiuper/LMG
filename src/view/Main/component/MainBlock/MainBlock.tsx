@@ -17,13 +17,16 @@ export const MainBlock = () => {
             <div className={cx("wrapper", "container")}>
                 <div className={cx("content")}>
                     <h1>Разместим рекламу вашего бизнеса в каждом доме</h1>
-                    <span>
-                        Более <strong>30 000</strong> собственных
-                    </span>
-                    <span>
-                        <strong>рекламных носителей</strong> по всей России
-                    </span>
-                    <Button label="Заказать звонок" />
+                    <div className={cx("description")}>
+                        <span>
+                            Более <strong>30 000</strong> собственных
+                        </span>
+                        <span>
+                            <strong>рекламных носителей</strong> по всей России
+                        </span>
+                    </div>
+
+                    <Button className={cx("button")} mode="outlined" onClick={open} label="Заказать звонок" />
                 </div>
                 <div className={cx("buttons")}>
                     {list.map((el, index) => (

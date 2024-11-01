@@ -8,7 +8,8 @@
     @include flex-row();
     gap: 16px;
     height: 100%;
-    padding: 120px;
+    @include responsive-sizing("padding-inline", 8, 120, 360,1440);
+    @include responsive-sizing("padding-block", 40, 200, 360,1440);
     .header{
       @include flex-center();
 
@@ -21,6 +22,7 @@
         letter-spacing: -1.12px;
         color: #040F16;
         max-width: 544px;
+        word-break: break-word;
         width: 100%;
         border-radius: var(--Indent_24, 24px);
         border: 0px solid var(--Persimmon, #38B6FF);
@@ -52,6 +54,16 @@
           font-style: normal;
           font-weight: 500;
           line-height: 120%; /* 38.4px */
+        }
+      }
+    }
+    @include media-max(1100px){
+      &{
+        @include flex-column();
+        .header{
+          h2{
+            max-width: 100%;
+          }
         }
       }
     }

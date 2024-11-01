@@ -1,3 +1,4 @@
+export { ReactComponent as IcDots, default as IcDotsPath } from "./Dots.svg";
 export {
     ReactComponent as IcAccountBalanceWallet,
     default as IcAccountBalanceWalletPath,

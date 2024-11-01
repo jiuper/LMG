@@ -7,5 +7,9 @@
   .image{
     width: 205px;
     height: 16px;
+
+    &.isMobile{
+      width: 15px;
+    }
   }
 }

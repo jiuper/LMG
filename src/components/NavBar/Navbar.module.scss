@@ -1,22 +1,24 @@
 .navbar{
     width: 100%;
+    height: 100%;
 }
 .items{
     display: flex;
     gap: 16px;
     width: 100%;
+    height: 100%;
     justify-content: space-between;
     .item{
         @include flex-column();
         position: relative;
+        height: 100%;
 
-        &:hover{
-            .subitems-wrapper{
-                opacity: 1;
-                display: block;
-            }
+        .open{
+            opacity: 1;
+            display: block;
         }
     }
+
 
     .link{
         text-decoration: none;
@@ -24,11 +26,42 @@
         @include text-Body1();
         font-weight: 500;
         cursor:pointer;
+        transition: $transition-fast;
+        height: 100%;
+
+        &:hover{
+            transition: $transition-fast;
+            color: rgba(86, 109, 214, 1);
+            .icon{
+                stroke: rgba(86, 109, 214, 1);
+                transform: rotate(-90deg);
+            }
+        }
+        &.link-icon{
+            transition: $transition-fast;
+            @include flex-center();
+            gap: 4px;
+            .icon{
+                opacity: 0;
+                visibility: hidden;
+            }
+            &:hover{
+                .icon{
+                    opacity: 1;
+                    visibility: visible;
+                    stroke: rgba(86, 109, 214, 1);
+                    transform: rotate(-90deg);
+                }
+            }
+        }
 
         &.submenu{
             display: flex;
             gap: 4px;
             align-items: center;
+        }
+        .icon{
+            transition: 0.15s;
         }
     }
 }
@@ -52,8 +85,41 @@
     .subitems{
             display: flex;
             flex-direction: column;
+
             gap: 20px;
 
+        .subitem{
+            transition: $transition-fast;
+            @include flex-row();
+            align-items: center;
+
+            &:hover{
+                .icon{
+                    stroke: rgba(86, 109, 214, 1);
+                    transform: rotate(-90deg);
+                }
+                .link{
+                    color: rgba(86, 109, 214, 1);
+
+                }
+            }
+            .link{
+                text-decoration: none;
+                color: #040F16;
+                font-family: "Nunito", sans-serif;
+                font-size: 19px;
+                font-style: normal;
+                line-height: 120%;
+                letter-spacing: -0.4px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: 0.3s all;
+            }
+
+            .icon{
+                transition: 0.15s;
+            }
+        }
 
         &.submenu{
             display: flex;

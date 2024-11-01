@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@pbe/react-yandex-maps": "^1.2.5",
     "axios": "^1.7.7",
     "classnames": "^2.5.1",
     "formik": "^3.0.0-next.8",
@@ -17,6 +18,7 @@
     "primereact": "^10.8.3",
     "react": "^18",
     "react-dom": "^18",
+    "sass-loader": "^16.0.2",
     "yup": "^1.4.0"
   },
   "devDependencies": {
@@ -38,13 +40,14 @@
     "eslint-plugin-standard": "^5.0.0",
     "eslint-plugin-unused-imports": "^4.1.4",
     "express": "^4.21.0",
+    "file-loader": "^6.2.0",
     "http-proxy-middleware": "^3.0.2",
     "next-http-proxy-middleware": "^1.2.6",
     "prettier": "^3.3.3",
+    "react-swipeable": "^7.0.1",
     "sass": "^1.79.4",
     "typescript": "^5",
-    "url-loader": "^4.1.1",
-    "react-swipeable": "^7.0.1"
+    "url-loader": "^4.1.1"
   },
   "engines": {
     "node": "^12.22.0 || ^14.17.0 || >=16.0.0"

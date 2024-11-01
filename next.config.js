@@ -20,6 +20,24 @@ const nextConfig = {
   },
   webpack(config) {
     config.module.rules.push({
+          test: /\.(mp4|webm|ogg|mp3)$/i,
+          use: [
+              {
+                loader: 'file-loader',
+                options:
+                    {
+                      loader: 'file-loader',
+                      options:
+                          {
+                            name: '[name].[ext]',
+                            outputPath: 'static/media/',
+                            publicPath: '/_next/static/media/',
+                            }
+                          },
+                        },
+                        ],
+                      },
+        {
       test: /\.svg$/,
       use: [
         {

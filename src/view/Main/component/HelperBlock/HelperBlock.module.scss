@@ -2,7 +2,8 @@
   border: 0px solid #E5E7EB;
   background: linear-gradient(179deg, #DEDEDE 19.58%, #CAC8CA 39.27%, #E4E4E5 53.81%, #E2E2E3 62.13%, #E6E6E7 73.36%, #E7E7E8 76.57%, #EDEEEE 84.63%, #E5E6E6 93.21%);
     .wrapper {
-        padding: 80px 120px;
+        @include responsive-sizing("padding-inline", 8, 120, 360,1440);
+        @include responsive-sizing("padding-block", 40, 80, 360,1440);
         @include flex-column;
         gap: 24px;
 
@@ -19,7 +20,7 @@
 .top{
   @include flex-column;
   gap: 24px;
-  padding-bottom: 80px;
+  @include responsive-sizing("padding-bottom", 40, 80, 360,1440);
   .title{
     @include text-Display4;
   }
@@ -34,11 +35,18 @@
     & >div:nth-child(2n){
       margin-top: 20px;
     }
+    @include media-max(1100px){
+      &{
+        @include flex-column();
+      }
+    }
   }
+
+
 }
 
 .bottom{
-  padding-top: 80px;
+  @include responsive-sizing("padding-top", 40, 80, 360,1440);
   @include flex-column;
   gap: 24px;
   .title{

@@ -1,0 +1,96 @@
+.lift-media-jk{
+  margin-top: 20px;
+}
+
+.wrapper-map{
+
+  .wrapper{
+    @include flex-column();
+    gap: 25px;
+    padding: 80px 120px;
+    align-items: center;
+    width: 100%;
+  }
+  .map-content{
+    width: 100%;
+  }
+  .header{
+    @include flex-row();
+    justify-content: space-between;
+    width: 100%;
+
+    h3{
+      color: var(--Rich-black, #040F16);
+      @include font-SegoeUI();
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 120%; /* 38.4px */
+    }
+
+    .button{
+      border-radius: var(--Button-Corner-Radius, 40px);
+      background: var(--Brand-Light-Guidance-Primary-Light-Primary, #566DD6);
+    }
+  }
+  .footer{
+      p{
+        padding: 0;
+        margin: 0;
+        @include font-SegoeUI();
+        color: #040F16;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 130%; /* 31.2px */
+        letter-spacing: 0.24px;
+      }
+
+  }
+}
+
+.container-lift{
+  border: 0px solid #E5E7EB;
+  background: linear-gradient(92deg, #DEDEDE 1.84%, #CAC8CA 25.54%, #E4E4E5 43.05%, #E2E2E3 53.06%, #E6E6E7 66.58%, #E7E7E8 70.45%, #EDEEEE 80.15%, #E5E6E6 90.47%);
+  .wrapper{
+    padding: 64px 120px;
+  }
+
+  @include flex-column();
+  gap: 16px;
+
+  .image{
+    border-radius: 32px;
+    width: 100%;
+    object-fit: cover;
+
+  }
+  .description{
+
+    @include flex-column();
+    h2{
+      @include font-SegoeUI();
+      color: #040F16;
+      font-size: 40px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 120%; /* 48px */
+      letter-spacing: -0.8px;
+    }
+    p{
+      color: #525252;
+      @include font-SegoeUI();
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 120%; /* 24px */
+      letter-spacing: -0.4px;
+    }
+  }
+}
+
+.form{
+  border: 0px solid #E5E7EB;
+  background: linear-gradient(92deg, #DEDEDE 1.84%, #CAC8CA 25.54%, #E4E4E5 43.05%, #E2E2E3 53.06%, #E6E6E7 66.58%, #E7E7E8 70.45%, #EDEEEE 80.15%, #E5E6E6 90.47%);
+  padding: 60px;
+}
