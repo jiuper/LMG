@@ -4,12 +4,20 @@
 }
 .logo{
   cursor: pointer;
+
+  &.isMobile{
+    width: 15px;
+    height: 15px;
+
+  }
   .image{
     width: 205px;
     height: 16px;
 
     &.isMobile{
       width: 15px;
+      height: 15px;
+
     }
   }
 }

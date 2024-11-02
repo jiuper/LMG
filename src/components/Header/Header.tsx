@@ -2,6 +2,7 @@ import cnBind from "classnames/bind";
 import Link from "next/link";
 import { Sidebar } from "primereact/sidebar";
 
+import { ModalFeedBack } from "@/components/_Modals/ModalFeedBack";
 import { Logo } from "@/components/Logo";
 import { Navbar } from "@/components/NavBar";
 import { NavBarMob } from "@/components/NavBar/NavBarMob";
@@ -18,11 +19,12 @@ const cx = cnBind.bind(styles);
 export const Header = () => {
     const { windowScreen } = useResizeContext();
     const [isOpen, open, close] = useBooleanState(false);
+    const [isOpenModal, openModal, closeModal] = useBooleanState(false);
 
     return (
         <header className={cx("header")}>
             <div className={cx("wrapper", "container")}>
-                {windowScreen <= 1100 && <IcDots onClick={open} />}
+                {windowScreen <= 1100 && <IcDots className={cx("icon")} onClick={open} />}
                 <div className={cx("menu")}>
                     <Logo />
                     {windowScreen >= 1100 && (
@@ -52,7 +54,7 @@ export const Header = () => {
                     )}
                 </div>
                 <div className={cx("connect")}>
-                    <Button label="Заказать звонок" className={cx("button")} />
+                    <Button onClick={openModal} label="Заказать звонок" className={cx("button")} />
                     {windowScreen >= 1100 && (
                         <div className={cx("contacts")}>
                             <Link className={cx("email")} href="mailto:sales@liftmg.ru" target="_blank">
@@ -65,6 +67,7 @@ export const Header = () => {
                     )}
                 </div>
             </div>
+            <ModalFeedBack isOpen={isOpenModal} onClose={closeModal} />
         </header>
     );
 };

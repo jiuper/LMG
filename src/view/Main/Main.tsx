@@ -10,7 +10,7 @@ import { MainBlock } from "@/view/Main/component/MainBlock";
 import { ServicesBlock } from "@/view/Main/component/ServicesBlock";
 
 type Props = {};
-export const Main = (props: Props) => {
+export const Main = ({}: Props) => {
     return (
         <PageLayout>
             <MainBlock />

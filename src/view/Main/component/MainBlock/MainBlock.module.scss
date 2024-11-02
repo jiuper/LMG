@@ -47,6 +47,7 @@
 
 .buttons{
   @include flex-row();
+  flex-wrap: wrap;
   gap: 12px;
 
   .button{

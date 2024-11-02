@@ -19,7 +19,7 @@ export const Logo = ({ isFooter = false }: TLogo) => {
     const width = !isFooter && isMobile ? 15 : 200;
 
     return (
-        <div className={cx("logo")} onClick={() => router.push(Routes.HOME)}>
+        <div className={cx("logo", !isFooter && isMobile && "isMobile")} onClick={() => router.push(Routes.HOME)}>
             <CustomImage
                 width={width}
                 height={16}

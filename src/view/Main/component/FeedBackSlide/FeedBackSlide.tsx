@@ -2,7 +2,9 @@ import { useState } from "react";
 import cnBind from "classnames/bind";
 import { Carousel } from "primereact/carousel";
 
+import { ModalCaseBlock } from "@/components/_Modals/ModalCaseBlock";
 import { SwipeableWrapper } from "@/components/SwipeableWrapper";
+import { useBooleanState } from "@/shared/hooks";
 import { CustomImage } from "@/shared/ui/CustomImage";
 import { items } from "@/view/Main/component/FeedBackSlide/const";
 
@@ -10,12 +12,15 @@ import styles from "./FeedBackSlide.module.scss";
 
 const cx = cnBind.bind(styles);
 type Props = {};
-const FeedbackCard = (item: { type: string; src: string }) => {
+const FeedbackCard = (
+    item: { title: string; description: string; image: string; type?: string },
+    onClick: () => void,
+) => {
     return (
-        <div className={cx("card", { video: item.type === "video" })}>
-            <CustomImage className={cx("image")} width={182} height={182} src={item.src} alt={item.src} />
+        <div onClick={onClick} className={cx("card", { video: item.type === "video" })}>
+            <CustomImage className={cx("image")} width={182} height={182} src={item.image} alt={item.image} />
             <div className={cx("info")}>
-                <span className={cx("post")}>Менеджер</span>
+                <span className={cx("post")}>{item.description}</span>
             </div>
         </div>
     );
@@ -49,18 +54,28 @@ export const FeedBackSlide = ({}: Props) => {
         },
         {
             breakpoint: "575px",
-            numVisible: 2,
+            numVisible: 3,
             numScroll: 1,
         },
         {
             breakpoint: "430px",
-            numVisible: 1,
+            numVisible: 2,
             numScroll: 1,
         },
     ];
     const [page, setPage] = useState(0);
 
     const onPageChange = (e: number) => setPage(e);
+    const [isOpen, onOpen, onClose] = useBooleanState(false);
+    const [current, setCurrent] = useState<{ title: string; description: string; image: string } | null>(null);
+    const handleOnModal = (i: { title: string; description: string; image: string }) => {
+        setCurrent(i);
+        onOpen();
+    };
+    const handleOnClose = () => {
+        onClose();
+        setCurrent(null);
+    };
 
     return (
         <div className={cx("feedbacks")}>
@@ -73,7 +88,12 @@ export const FeedBackSlide = ({}: Props) => {
                             onSwipedRight={() => setPage((prevPage) => (prevPage - 1 + items.length) % items.length)}
                         >
                             <Carousel
-                                itemTemplate={(item: { type: string; src: string }) => FeedbackCard(item)}
+                                itemTemplate={(item: {
+                                    title: string;
+                                    description: string;
+                                    image: string;
+                                    type?: string;
+                                }) => FeedbackCard(item, () => handleOnModal(item))}
                                 value={items}
                                 showIndicators={false}
                                 showNavigators={false}
@@ -87,6 +107,11 @@ export const FeedBackSlide = ({}: Props) => {
                     </div>
                 </div>
             </div>
+            <ModalCaseBlock
+                isOpen={isOpen}
+                onClose={handleOnClose}
+                item={current !== null ? current : { title: "", description: "", image: "" }}
+            />
         </div>
     );
 };

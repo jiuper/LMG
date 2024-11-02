@@ -17,11 +17,17 @@
     @include responsive-sizing("padding-inline", 8, 32, 360, 1440);
   }
 
+  .icon{
+    width: 15px;
+    height: 15px;
+  }
 }
 .menu,.connect{
   @include flex-column();
   gap: 4px;
-
+  @include media-max(1100px){
+    gap: 0;
+  }
 }
 .connect{
   align-items: flex-end;
