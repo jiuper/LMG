@@ -1,17 +1,43 @@
 import cnBind from "classnames/bind";
 import { useRouter } from "next/router";
 
+import type { CreateNewsDto } from "@/entities/types/entities";
+import card_3 from "@/shared/assests/ImageP_3.png";
+import card_4 from "@/shared/assests/ImageP_4.png";
+import card_5 from "@/shared/assests/ImageP_5.png";
 import { ArrowDownBigIcon } from "@/shared/assests/svg/svg";
 import { Routes } from "@/shared/constants";
-import { list, listQuestions } from "@/view/Main/component/HelperBlock/const";
+import { listQuestions } from "@/view/Main/component/HelperBlock/const";
 import { HistoryCard } from "@/view/Main/component/HistoryBlock/component/HistoryCard";
 
 import styles from "./HelperBlock.module.scss";
 
 const cx = cnBind.bind(styles);
-
-export const HelperBlock = () => {
+type Props = {
+    articles?: CreateNewsDto[];
+    news?: CreateNewsDto[];
+};
+export const HelperBlock = ({ news, articles }: Props) => {
     const href = useRouter();
+
+    const list = [
+        {
+            title: "Статьи",
+            listHref: articles?.slice(-3).map(({ title, id }) => ({ title: title || "", href: `/articles/${id}` })),
+            image: card_3.src,
+        },
+        {
+            title: "Новости",
+            image: card_4.src,
+            listHref: news?.slice(-3).map(({ title, id }) => ({ title: title || "", href: `/news/${id}` })),
+        },
+        {
+            title: "Закон о рекламе",
+            image: card_5.src,
+            description:
+                "Подведение итогов пилотного тестирования сервиса для нетворкинга. Подведение итогов пилотного тестирования сервиса для нетворкинга. Подведение итогов пилотного тестирования сервиса для нетворкинга",
+        },
+    ];
 
     return (
         <div className={cx("helper-block")}>

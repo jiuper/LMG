@@ -1,4 +1,5 @@
 import { FormFeedback } from "@/components/_Forms/FormFeedback";
+import type { CreateNewsDto } from "@/entities/types/entities";
 import { PageLayout } from "@/layouts/PageLayout";
 import { AboutUsBlock } from "@/view/Main/component/AboutUsBlock";
 import { CaseBlock } from "@/view/Main/component/CaseBlock";
@@ -9,8 +10,11 @@ import { HistoryBlock } from "@/view/Main/component/HistoryBlock";
 import { MainBlock } from "@/view/Main/component/MainBlock";
 import { ServicesBlock } from "@/view/Main/component/ServicesBlock";
 
-type Props = {};
-export const Main = ({}: Props) => {
+type Props = {
+    articles?: CreateNewsDto[];
+    news?: CreateNewsDto[];
+};
+export const Main = ({ news, articles }: Props) => {
     return (
         <PageLayout>
             <MainBlock />
@@ -19,7 +23,7 @@ export const Main = ({}: Props) => {
             <CaseBlock />
             <AboutUsBlock />
             <HistoryBlock />
-            <HelperBlock />
+            <HelperBlock news={news} articles={articles} />
             <CooperationBlock />
             <FormFeedback />
         </PageLayout>
