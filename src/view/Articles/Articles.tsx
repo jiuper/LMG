@@ -3,17 +3,18 @@ import cnBind from "classnames/bind";
 import { Paginator } from "primereact/paginator";
 
 import { FormFeedback } from "@/components/_Forms/FormFeedback";
-import def from "@/shared/assests/card_1.png";
+import type { CreateNewsDto } from "@/entities/types/entities";
 import { CardArticle } from "@/view/Articles/components/CardArticle";
 
 import styles from "./Articles.module.scss";
 
 const cx = cnBind.bind(styles);
 type Props = {
-    listArticles?: [{ src?: string; title?: string; description?: string; id: string }];
+    listArticles: CreateNewsDto[];
     title?: string;
+    url: string;
 };
-export const Articles = ({ listArticles, title = "Статьи" }: Props) => {
+export const Articles = ({ listArticles, title = "Статьи", url }: Props) => {
     const [first, setFirst] = useState(0);
     const [rows, setRows] = useState(10);
 
@@ -21,38 +22,6 @@ export const Articles = ({ listArticles, title = "Статьи" }: Props) => {
         setFirst(event.first);
         setRows(event.rows);
     };
-    const list = [
-        {
-            src: def,
-            title: "Реклама в жилых домах, ЖК",
-            description: "Когда название длинное, то вторая часть названия идет сюда",
-            id: "1",
-        },
-        {
-            src: def,
-            title: "Реклама в жилых домах, ЖК",
-            description: "Когда название длинное, то вторая часть названия идет сюда",
-            id: "1",
-        },
-        {
-            src: def,
-            title: "Реклама в жилых домах, ЖК",
-            description: "Когда название длинное, то вторая часть названия идет сюда",
-            id: "1",
-        },
-        {
-            src: def,
-            title: "Реклама в жилых домах, ЖК",
-            description: "Когда название длинное, то вторая часть названия идет сюда",
-            id: "1",
-        },
-        {
-            src: def,
-            title: "Реклама в жилых домах, ЖК",
-            description: "Когда название длинное, то вторая часть названия идет сюда",
-            id: "1",
-        },
-    ];
 
     return (
         <div className={cx("articles")}>
@@ -62,15 +31,15 @@ export const Articles = ({ listArticles, title = "Статьи" }: Props) => {
                 </div>
                 <div className={cx("articles-wrapper")}>
                     <div className={cx("articles")}>
-                        {list.map((el, index) => (
-                            <CardArticle key={index} {...el} src={el.src.src} />
+                        {listArticles.map((el, index) => (
+                            <CardArticle url={url} key={index} item={el} />
                         ))}
                     </div>
                     <Paginator
                         className={cx("paginator")}
                         first={first}
                         rows={rows}
-                        totalRecords={120}
+                        totalRecords={listArticles.length}
                         onPageChange={onPageChange}
                     />
                 </div>

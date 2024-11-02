@@ -3,6 +3,7 @@ import cnBind from "classnames/bind";
 import { useRouter } from "next/router";
 
 import { FormFeedback } from "@/components/_Forms/FormFeedback";
+import type { CreateNewsDto } from "@/entities/types/entities";
 import { EyeIcon, TimeIcon } from "@/shared/assests/svg/svg";
 import { Button } from "@/shared/ui/Button";
 import { CustomImage } from "@/shared/ui/CustomImage";
@@ -10,22 +11,7 @@ import { CustomImage } from "@/shared/ui/CustomImage";
 import styles from "./Articel.module.scss";
 
 type Props = {
-    date?: {
-        id: number;
-        title: string;
-        subtitle: string;
-        date?: string;
-        time?: string;
-        body?: {
-            img?: string[];
-            text?: string[];
-            list?: {
-                title: string;
-                list: string[];
-            }[];
-            video?: string;
-        };
-    };
+    date?: CreateNewsDto;
     list?: { title: string; id: string }[];
 };
 

@@ -1,5 +1,7 @@
 import cnBind from "classnames/bind";
+import { useRouter } from "next/router";
 
+import type { CreateNewsDto } from "@/entities/types/entities";
 import { Button } from "@/shared/ui/Button";
 import { CustomImage } from "@/shared/ui/CustomImage";
 
@@ -7,23 +9,29 @@ import styles from "./CardArticle.module.scss";
 
 const cx = cnBind.bind(styles);
 type Props = {
-    onClick?: (id: string) => void;
     className?: string;
-    src: string;
-    title?: string;
-    description?: string;
+    item: CreateNewsDto;
+    url: string;
 };
-export const CardArticle = ({ src, title, description, onClick, className }: Props) => {
+export const CardArticle = ({ item, className, url }: Props) => {
+    const href = useRouter();
+
     return (
         <div className={cx("card", className)}>
-            <CustomImage className={cx("image")} width={293} height={240} src={src} alt="article" />
+            <CustomImage
+                className={cx("image")}
+                width={293}
+                height={240}
+                src={item.video ? item.video : ""}
+                alt="article"
+            />
             <div className={cx("body")}>
                 <div className={cx("info")}>
-                    <h3>{title}</h3>
-                    <span>{description}</span>
+                    <h3>{item.title}</h3>
+                    <span>{item.subtitle}</span>
                 </div>
 
-                <Button onClick={() => onClick}>Перейти</Button>
+                <Button onClick={() => href.push(`${url}/${item.id}`)}>Перейти</Button>
             </div>
         </div>
     );
