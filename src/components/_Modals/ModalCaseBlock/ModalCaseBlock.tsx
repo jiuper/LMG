@@ -1,6 +1,8 @@
 import cnBind from "classnames/bind";
 
 import { Modal } from "@/components/_Modals/Modal";
+import type { GetPortfolioDto } from "@/entities/types/entities";
+import { API_BASE } from "@/shared/constants/private";
 import { useResizeContext } from "@/shared/context/WindowResizeProvider";
 import { Button } from "@/shared/ui/Button";
 import { CustomImage } from "@/shared/ui/CustomImage";
@@ -11,7 +13,7 @@ const cx = cnBind.bind(styles);
 type Props = {
     isOpen: boolean;
     onClose: () => void;
-    item: { title: string; description: string; image: string };
+    item: GetPortfolioDto;
 };
 export const ModalCaseBlock = ({ isOpen, onClose, item }: Props) => {
     const { isMobile } = useResizeContext();
@@ -42,7 +44,13 @@ export const ModalCaseBlock = ({ isOpen, onClose, item }: Props) => {
                             </svg>
                         </div>
                     </div>
-                    <CustomImage className={cx("image")} width={768} height={587} src={item.image} alt={item.image} />
+                    <CustomImage
+                        className={cx("image")}
+                        width={768}
+                        height={587}
+                        src={`${API_BASE}/picture/${item.pictureId}`}
+                        alt={item.pictureId || ""}
+                    />
                 </div>
                 <div className={cx("footer")}>
                     <h3>Хотите так же?</h3>

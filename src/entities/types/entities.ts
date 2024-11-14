@@ -24,3 +24,13 @@ export enum ContentSatus {
     DRAFT = "DRAFT",
     ARCHIVE = "ARCHIVE",
 }
+
+export interface GetPortfolioDto {
+    id: string;
+    number?: number;
+    title?: string;
+    description?: string;
+    categoryName?: string;
+    status: ContentSatus;
+    pictureId?: string;
+}

@@ -14,7 +14,7 @@ const cx = cnBind.bind(styles);
 
 export const AdminLayout = ({ children, title, pathname, isMobile }: AdminPageLayoutProps) => {
     const [search, setSearch] = useState<string>("");
-    const [createTitle, setCreateTitle] = useState<string>("Cозадать статью");
+    const [createTitle, setCreateTitle] = useState<string>("Создать статью");
 
     const handleSearchChange = useCallback((value?: string) => {
         setSearch(value ?? "");
@@ -26,7 +26,7 @@ export const AdminLayout = ({ children, title, pathname, isMobile }: AdminPageLa
             const newPath = splitPath.length > 1 ? splitPath[1] : splitPath[0];
             type PathKeys = "admin" | "news" | "portfolio";
             const paths: { [key in PathKeys]: string } = {
-                admin: "Cозадать статью",
+                admin: "Создать статью",
                 news: "Созадть новость",
                 portfolio: "Созадть кейс",
             };

@@ -1,5 +1,5 @@
 import { FormFeedback } from "@/components/_Forms/FormFeedback";
-import type { CreateNewsDto } from "@/entities/types/entities";
+import type { CreateNewsDto, GetPortfolioDto } from "@/entities/types/entities";
 import { PageLayout } from "@/layouts/PageLayout";
 import { AboutUsBlock } from "@/view/Main/component/AboutUsBlock";
 import { CaseBlock } from "@/view/Main/component/CaseBlock";
@@ -13,14 +13,15 @@ import { ServicesBlock } from "@/view/Main/component/ServicesBlock";
 type Props = {
     articles?: CreateNewsDto[];
     news?: CreateNewsDto[];
+    port?: GetPortfolioDto[];
 };
-export const Main = ({ news, articles }: Props) => {
+export const Main = ({ news, articles, port }: Props) => {
     return (
         <PageLayout>
             <MainBlock />
             <ServicesBlock />
             <FeedBackSlide />
-            <CaseBlock />
+            <CaseBlock listItem={port || []} />
             <AboutUsBlock />
             <HistoryBlock />
             <HelperBlock news={news} articles={articles} />

@@ -10,6 +10,7 @@
   cursor: pointer;
   @include flex-column();
   align-items: flex-end;
+  justify-content: space-between;
   border-radius: var(--Indent_32, 32px);
   box-shadow: 0px 0px 20px 0px rgba(39, 73, 97, 0.08);
   &:before{
@@ -47,6 +48,10 @@
       @include flex-column();
       gap: 4px;
       .list-item{
+        @include flex-row();
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
         .list-link{
           @include text-Body2();
           color: #FFFFFF;

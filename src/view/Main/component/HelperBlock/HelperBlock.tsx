@@ -55,6 +55,7 @@ export const HelperBlock = ({ news, articles }: Props) => {
                                           : () => href.push(`${Routes.ARTICLES}/9asd23crecsw123`)
                                 }
                                 key={index}
+                                className={cx("card")}
                                 {...item}
                             />
                         ))}

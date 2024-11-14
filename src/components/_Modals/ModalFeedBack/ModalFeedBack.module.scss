@@ -125,15 +125,15 @@
   .footer{
     @include flex-row();
     align-items: center;
-    @include media-max(720px){
-      @include flex-column();
-      align-items: inherit;
-      gap: 8px;
-    }
+    justify-content: space-between;
 
-    .social{
+    .social {
       @include flex-row();
       gap: 8px;
+
+      .social-item {
+        @include flex-center();
+      }
     }
   }
 }

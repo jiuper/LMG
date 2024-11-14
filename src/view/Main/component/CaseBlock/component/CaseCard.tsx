@@ -1,13 +1,18 @@
 import cnBind from "classnames/bind";
 
+import type { ContentSatus } from "@/entities/types/entities";
 import { CustomImage } from "@/shared/ui/CustomImage";
 
 import styles from "./CaseCard.module.scss";
 
 const cx = cnBind.bind(styles);
 type Props = {
-    title: string;
-    description: string;
+    id: string;
+    number?: number;
+    title?: string;
+    description?: string;
+    categoryName?: string;
+    status: ContentSatus;
     image: string;
     onClick: () => void;
 };
