@@ -2,6 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 import cnBind from "classnames/bind";
 import Image from "next/image";
 
+import { API_BASE } from "@/shared/constants/private";
+
 import type { ImgPreviewType } from "./ImgPreview.type";
 
 import styles from "./style.module.scss";
@@ -23,7 +25,7 @@ const fileToBuffer = (file: File): Promise<Buffer> => {
 
 export const ImgPreview = ({ value, className }: ImgPreviewType) => {
     const [file, setFile] = useState<string | null>(null);
-
+    const linkFile = typeof value === "string" ? `${API_BASE}/picture/${value}` : file;
     const handleFileUpload = async (file: File): Promise<Buffer> => {
         return fileToBuffer(file);
     };
@@ -36,7 +38,7 @@ export const ImgPreview = ({ value, className }: ImgPreviewType) => {
     }, []);
     useEffect(() => {
         const processFile = async () => {
-            if (value) {
+            if (typeof value !== "string") {
                 const buffer = await handleFileUpload(value);
                 newFile(buffer);
             }
@@ -46,7 +48,7 @@ export const ImgPreview = ({ value, className }: ImgPreviewType) => {
 
     return (
         <div className={cx("container__images", className)}>
-            {file && <Image className={cx("image-origin")} src={file} alt="asd" width={200} height={200} />}
+            {linkFile && <Image className={cx("image-origin")} src={linkFile} alt="asd" width={200} height={200} />}
         </div>
     );
 };

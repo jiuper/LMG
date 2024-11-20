@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 
 import { Modal } from "@/components/_Modals/Modal";
 import { List } from "@/components/_Modals/ModalAdministeredNews/List/List";
-import type { ItemDto, ListDto } from "@/entities/types/entities";
+import type { GetItemDto, ListDto } from "@/entities/types/entities";
 import { ContentSatus } from "@/entities/types/entities";
 import { Button } from "@/shared/ui/_Button";
 import { InputText } from "@/shared/ui/_InputText";
@@ -38,7 +38,7 @@ export type ModalAdministeredNewsState = {
     pictureName?: string;
     files?: File[];
     status: ContentSatus;
-    contentItems?: ItemDto[];
+    contentItems?: GetItemDto[];
     list?: ListDto[];
 };
 
@@ -115,6 +115,7 @@ export const ModalAdministeredNews = forwardRef<ModalAdministeredNewsRef, ModalA
                         value={formik.values.files?.[0] || null}
                         name="files[0]"
                         onChange={(e) => formik.setFieldValue("files[0]", e)}
+                        fileStr={formik.values.contentItems?.[0]?.pictureId}
                     />
                     <InputTextarea
                         isFullWidth
@@ -160,6 +161,7 @@ export const ModalAdministeredNews = forwardRef<ModalAdministeredNewsRef, ModalA
                             value={formik.values.files?.[1] || null}
                             name="files[1]"
                             onChange={(e) => formik.setFieldValue("files[1]", e)}
+                            fileStr={formik.values.contentItems?.[1]?.pictureId}
                         />
                     ) : (
                         <InputText

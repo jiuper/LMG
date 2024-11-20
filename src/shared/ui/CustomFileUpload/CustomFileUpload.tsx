@@ -12,8 +12,9 @@ interface CustomFileUploadProps {
     value: File | null;
     onChange: (val: File) => void;
     name: string;
+    fileStr?: string;
 }
-const CustomFileUpload = ({ onChange, value, name }: CustomFileUploadProps) => {
+const CustomFileUpload = ({ onChange, value, name, fileStr }: CustomFileUploadProps) => {
     const [newFile, setNewFile] = useState<File | null>(value);
     const [_, setDrag] = useState(false);
     useEffect(() => {
@@ -35,9 +36,11 @@ const CustomFileUpload = ({ onChange, value, name }: CustomFileUploadProps) => {
         onChange(e.dataTransfer.files[0]);
     };
 
+    const file = fileStr || newFile;
+
     return (
         <div className={cx("uploader")}>
-            {!newFile ? (
+            {file === null ? (
                 <div
                     className={cx("drop")}
                     onDragStart={(e) => handleDragStart(e)}
@@ -62,7 +65,7 @@ const CustomFileUpload = ({ onChange, value, name }: CustomFileUploadProps) => {
                     <span className={cx("label")}>Лучшее разрешение минимум 200 х 200 px</span>
                 </div>
             ) : (
-                <ImgPreview value={newFile} />
+                <ImgPreview value={file} />
             )}
         </div>
     );
