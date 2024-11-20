@@ -1,6 +1,5 @@
 
 .wrapper{
-  padding: 120px 120px 80px 120px;
   @include responsive-sizing("padding-inline", 8, 120, 360,1440);
   @include responsive-sizing("padding-top", 40, 120, 360,1440);
   @include responsive-sizing("padding-bottom", 40, 80, 360,1440);
