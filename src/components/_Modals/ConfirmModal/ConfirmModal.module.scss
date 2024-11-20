@@ -1,0 +1,25 @@
+.modal {
+    border-radius: 24px;
+    overflow: hidden;
+
+    [data-pc-section="content"] {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+}
+.content {
+    @include text-Body1();
+}
+.actions {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 8px;
+}
+
+.btn-submit {
+    border-radius: 9px;
+}
+.btn-close {
+    border-radius: 9px;
+}

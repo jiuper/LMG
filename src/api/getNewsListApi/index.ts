@@ -1,0 +1,1 @@
+export { getNewsListApi } from "./getNewsListApi";

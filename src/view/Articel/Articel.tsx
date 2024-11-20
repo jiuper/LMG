@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { FormFeedback } from "@/components/_Forms/FormFeedback";
 import type { CreateNewsDto } from "@/entities/types/entities";
 import { EyeIcon, TimeIcon } from "@/shared/assests/svg/svg";
+import { API_BASE } from "@/shared/constants/private";
 import { Button } from "@/shared/ui/Button";
 import { CustomImage } from "@/shared/ui/CustomImage";
 
@@ -28,68 +29,25 @@ export const Articel = ({ date, list }: Props) => {
         setViews(newViews);
     }, []);
 
-    const listTest = {
-        id: 1,
-        title: "Реклама для ПВЗ:",
-        subtitle: "Увеличьте Присутствие Вашего Бренда в Местах Доставки Заказов",
-        date: "25 августа",
-        time: "5 мин.",
-        body: {
-            img: ["", ""],
-            text: [
-                "Наша компания предлагает эффективные решения для размещения рекламы в Пунктах Выдачи Заказов (ПВЗ). Это уникальная возможность не только привлечь внимание целевой аудитории, но и превратить ПВЗ в мощный маркетинговый инструмент для вашего бизнеса.",
-                "Увеличьте свою узнаваемость и привлеките новых клиентов с помощью рекламы в ПВЗ! Свяжитесь с нами сегодня, чтобы обсудить детали и запустить успешную рекламную кампанию",
-            ],
-            list: [
-                {
-                    title: "Почему реклама в ПВЗ работает?",
-                    list: [
-                        "Высокий охват. ПВЗ ежедневно посещают десятки, а иногда и сотни людей, что делает их идеальной площадкой для размещения рекламы вашего бренда или продукта.",
-                        "Таргетинг по местоположению. ПВЗ обычно располагаются в оживленных районах с хорошей проходимостью, что дает вам доступ к локальной аудитории.",
-                        "Эффективность для интернет-магазинов и локальных бизнесов. Если ваш бизнес связан с электронной коммерцией или вы предлагаете локальные услуги, реклама в ПВЗ поможет вам непосредственно взаимодействовать с потенциальными клиентами.",
-                    ],
-                },
-                {
-                    title: "Наши услуги",
-                    list: [
-                        "Мы предлагаем полный спектр рекламных решений:",
-                        "Размещение баннеров и постеров в зонах ожидания.",
-                        "Рекламные стойки и POS-материалы.",
-                        "Digital-реклама через экраны в ПВЗ.",
-                    ],
-                },
-                {
-                    title: "Преимущества работы с нами",
-                    list: [
-                        "Анализ и подбор лучших локаций. Мы поможем вам выбрать наиболее эффективные ПВЗ для размещения рекламы в зависимости от вашей целевой аудитории.",
-                        "Создание креативных решений. Наша команда дизайнеров и маркетологов создаст привлекательные материалы, которые точно запомнятся вашим клиентам.",
-                        "Мониторинг и отчетность. Мы предоставляем полные отчеты о результатах рекламных кампаний, чтобы вы могли отслеживать эффективность.",
-                    ],
-                },
-            ],
-            video: "",
-        },
-    };
-
     return (
         <div className={cx("articel")}>
             <div className={cx("wrapper", "container")}>
                 <div className={cx("card")}>
                     <div className={cx("header")}>
                         <div className={cx("title")}>
-                            <h2>{listTest.title}</h2>
-                            <span>{listTest.subtitle}</span>
+                            <h2>{date?.title}</h2>
+                            <span>{date?.subtitle}</span>
                         </div>
                         <div className={cx("info")}>
                             <div className={cx("date")}>
-                                <span>{listTest.date}</span>
+                                <span>{date?.createdAt?.toString()}</span>
                                 <div className={cx("icon-wrapper")}>
                                     <EyeIcon />
                                     <span>{views}</span>
                                 </div>
                                 <div className={cx("icon-wrapper")}>
                                     <TimeIcon />
-                                    <span>{listTest.time}</span>
+                                    <span>{date?.time}</span>
                                 </div>
                             </div>
                             <div className={cx("buttons")}>
@@ -104,35 +62,36 @@ export const Articel = ({ date, list }: Props) => {
                                 className={cx("image")}
                                 width={1136}
                                 height={423}
-                                src={listTest.body.img[0]}
+                                src={`${API_BASE}/picture/${date?.contentItems?.[0]?.pictureId}`}
                                 alt="img"
                             />
-                            {listTest.body.text[0] && <span>{listTest.body.text[0]}</span>}
+                            {date?.contentItems?.[0]?.text && <span>{date?.contentItems?.[0].text}</span>}
                         </div>
 
                         <div className={cx("list-wrapper")}>
-                            {listTest.body.list.map((item, index) => (
-                                <div key={index} className={cx("list")}>
-                                    <h4 className={cx("title")}>{item.title}</h4>
-                                    <div className={cx("list-text")}>
-                                        {item.list.map((item, idx) => (
-                                            <span key={idx}>{item}</span>
-                                        ))}
+                            {date?.list &&
+                                date.list.map((item, i) => (
+                                    <div className={cx("list")} key={i}>
+                                        <h4 className={cx("title")}>{item.title}</h4>
+                                        <div className={cx("list-text")}>
+                                            {item.items?.map((item, idx) => <span key={idx}>{item}</span>)}
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
                         </div>
 
-                        {listTest.body.text[1] && <span>{listTest.body.text[1]}</span>}
+                        {date?.contentItems?.[1]?.text && <span>{date?.contentItems?.[1].text}</span>}
                         <div className={cx("media")}>
-                            {listTest.body.video ? (
-                                <video className={cx("image")} src={listTest.body.video} />
+                            {date?.video ? (
+                                <video className={cx("image")} src={date.video}>
+                                    <source src={date.video} type="video/mp4" />
+                                </video>
                             ) : (
                                 <CustomImage
                                     className={cx("image")}
                                     width={1136}
                                     height={423}
-                                    src={listTest.body.img[1]}
+                                    src={`${API_BASE}/picture/${date?.contentItems?.[1]?.pictureId}`}
                                     alt="img"
                                 />
                             )}

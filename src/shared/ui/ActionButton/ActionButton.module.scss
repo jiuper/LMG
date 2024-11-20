@@ -1,0 +1,30 @@
+.button {
+    height: 32px;
+    width: 32px;
+}
+.menu {
+    padding: 8px;
+
+    [data-pc-section="submenuheader"] {
+        display: none;
+    }
+    [data-pc-section="menuitem"] {
+        border-radius: 6px;
+        overflow: hidden;
+    }
+    [data-pc-section="content"] {
+        @include touch-hover(&) {
+            background: rgba(235, 238, 255, 1);
+        }
+    }
+    [data-pc-section="action"] {
+        gap: 12px;
+        padding: 8px;
+    }
+    [data-pc-section="icon"] {
+        margin: 0;
+    }
+    [data-pc-section="label"] {
+        @include text-Subtitle2();
+    }
+}

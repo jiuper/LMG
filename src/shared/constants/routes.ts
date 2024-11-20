@@ -1,18 +1,10 @@
-import {
-    IcAccountBalanceWallet,
-    IcHome,
-    IcLeadCart,
-    IcManageAccounts,
-    IcSettings,
-    IcShoppingCart,
-} from "@/shared/assests/svg";
+import { IcHome } from "@/shared/assests/svg";
 
 const ROUTES = {
-    ADMIN_DEFAULT: () => "/admin",
     NEWS: () => "/admin/news",
+    ARTICLES: () => "/admin/articles",
     SECTION: () => "/admin/sections",
     PORTFOLIO: () => "/admin/portfolio",
-    SETTINGS: (selectedTab: string) => `/account/settings/${selectedTab}`,
 };
 
 enum Belong {
@@ -29,7 +21,7 @@ const ROUTING_MAP: {
 }[] = [
     {
         label: "Статьти",
-        link: ROUTES.ADMIN_DEFAULT(),
+        link: ROUTES.ARTICLES(),
         belong: [
             { name: Belong.MOBILE_MENU, sortId: 1 },
             { name: Belong.DESKTOP_SIDE_BAR_NAVIGATION, sortId: 1 },
@@ -65,16 +57,6 @@ const ROUTING_MAP: {
             { name: Belong.MOBILE_MENU, sortId: 2 },
         ],
         Icon: IcHome,
-    },
-
-    {
-        label: "Настройки",
-        link: ROUTES.SETTINGS("userData"),
-        belong: [
-            { name: Belong.MOBILE_MENU, sortId: 5 },
-            { name: Belong.DESKTOP_SIDE_BAR_NAVIGATION, sortId: 5 },
-        ],
-        Icon: IcSettings,
     },
 ];
 

@@ -1,17 +1,36 @@
 export interface CreateNewsDto {
     id: string;
+    number?: number;
     title?: string;
     subtitle?: string;
     time?: string;
     video?: string;
+    pictureId?: string;
     status: ContentSatus;
-    contentItems?: ItemDto[];
+    contentItems?: GetItemDto[];
+    list?: ListDto[];
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
+export interface GetNewsDto {
+    title?: string;
+    subtitle?: string;
+    time?: string;
+    video?: string;
+    pictureName?: string;
+    picture?: File[];
+    status: ContentSatus;
+    contentItems?: ItemDto[];
+    list?: ListDto[];
+}
+export interface GetItemDto {
+    text?: string;
+    pictureId?: string;
+}
 export interface ItemDto {
     text?: string;
     pictureName?: string;
-    list?: ListDto;
 }
 
 export interface ListDto {

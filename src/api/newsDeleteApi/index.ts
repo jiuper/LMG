@@ -1,0 +1,1 @@
+export { newsDeleteApi } from "./newsDeleteApi";

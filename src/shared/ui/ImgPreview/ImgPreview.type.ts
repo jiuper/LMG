@@ -1,5 +1,5 @@
 export interface ImgPreviewType {
-    filesImg?: Buffer;
+    value: File;
     deleteFile?: (index: number) => void;
     isClose?: boolean;
     className?: string;

@@ -1,0 +1,1 @@
+export { TableStatusCrossBadge } from "./TableStatusCrossBadge";

@@ -1,15 +1,7 @@
 .container__images {
   display: flex;
-  flex: 1 0 auto;
-  flex-basis: calc(33.33% - 20px);
   height: 100%;
   width: 100%;
-  position: absolute;
-  right: 0;
-  left: 0;
-  bottom: 57px;
-  top: 90px;
-  z-index: 0;
 
   .c-image {
     background-repeat: no-repeat;

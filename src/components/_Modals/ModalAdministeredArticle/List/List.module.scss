@@ -1,0 +1,22 @@
+.list-block{
+  @include flex-column;
+  gap: 0.5rem;
+  border: 2px dashed #D4D4D4;
+  background: rgba(0, 0, 0, 0.00);
+  padding: 4px;
+
+  .list-items{
+    @include flex-column;
+    gap: 0.5rem;
+    max-height: 250px;
+    height: 100%;
+    overflow: auto;
+  }
+  .buttons{
+    @include flex-row;
+    gap: 20px;
+  }
+
+
+}
+

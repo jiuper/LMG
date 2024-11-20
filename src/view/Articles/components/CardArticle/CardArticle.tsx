@@ -2,6 +2,7 @@ import cnBind from "classnames/bind";
 import { useRouter } from "next/router";
 
 import type { CreateNewsDto } from "@/entities/types/entities";
+import { API_BASE } from "@/shared/constants/private";
 import { Button } from "@/shared/ui/Button";
 import { CustomImage } from "@/shared/ui/CustomImage";
 
@@ -22,7 +23,7 @@ export const CardArticle = ({ item, className, url }: Props) => {
                 className={cx("image")}
                 width={293}
                 height={240}
-                src={item.video ? item.video : ""}
+                src={`${API_BASE}/picture/${item.pictureId}`}
                 alt="article"
             />
             <div className={cx("body")}>

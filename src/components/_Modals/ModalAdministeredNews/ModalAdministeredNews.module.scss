@@ -1,0 +1,52 @@
+.form{
+  @include flex-column;
+  gap: 0.5rem;
+
+  .list-blocks{
+    @include flex-column;
+    gap: 1rem;
+    border: 2px dashed #D4D4D4;
+    background: rgba(0, 0, 0, 0.00);
+    padding: 8px;
+  }
+
+
+  .buttons{
+    @include flex-row;
+    gap: 20px;
+  }
+
+  .block {
+    @include flex-column;
+    gap: 0.5rem;
+    padding-block: 40px;
+
+    .list {
+      @include flex-row;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+      cursor: pointer;
+
+      > div {
+        @include flex-center;
+        flex: 1 1 auto;
+        gap: 10px;
+        padding: 10px 20px;
+        border-radius: 6px;
+        border: 2px dashed #D4D4D4;
+        background: rgba(0, 0, 0, 0.00);
+        transition: all 0.3s ease;
+      }
+    }
+  }
+
+
+  .btns{
+    margin-top: 50px;
+    @include flex-row;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+}

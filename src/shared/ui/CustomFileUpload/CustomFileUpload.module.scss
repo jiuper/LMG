@@ -1,0 +1,50 @@
+.uploader{
+
+}
+.drop{
+  border: 1px dashed $color-purple;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  @include text-Subtitle2;
+  color: #79747E;
+
+}
+.top{
+  display: flex;
+  align-items: center;
+  @include media-max($screen-tablet){
+    &{
+      flex-direction: column;
+    }
+
+  }
+
+}
+.input-file{
+  position: relative;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+
+  .input{
+    position: absolute;
+    opacity: 0;
+    width: 100px;
+  }
+  .title{
+    left: 0;
+    @include text-ButtonLink;
+    color: $color-purple;
+
+  }
+}
+.label{
+  @include media-max($screen-tablet){
+    &{
+      display: none;
+    }
+  }
+}

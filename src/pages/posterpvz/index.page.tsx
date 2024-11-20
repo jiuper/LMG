@@ -4,6 +4,7 @@ import type { GetStaticProps, InferGetStaticPropsType } from "next";
 import { BreadCrumb } from "@/components/BreadCrumb";
 import type { CreateNewsDto, GetPortfolioDto } from "@/entities/types/entities";
 import { PageLayout } from "@/layouts/PageLayout";
+import Build from "@/shared/assests/posterpvz.png";
 import { API_BASE } from "@/shared/constants/private";
 import { BuildingPage } from "@/view/Building/Building";
 
@@ -14,6 +15,8 @@ export default function Building({ port }: InferGetStaticPropsType<typeof getSta
         <PageLayout>
             <BreadCrumb model={items} />
             <BuildingPage
+                alt="posterpvz"
+                src={Build}
                 port={port || []}
                 title="Реклама для ПВЗ: Как привлечь клиентов?"
                 description="Привлекайте аудиторию прямо на месте выдачи.Эффективное решение для продвижения услуг и товаров среди ваших клиентов в пункте выдачи заказов."

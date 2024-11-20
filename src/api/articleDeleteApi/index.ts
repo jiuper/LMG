@@ -1,0 +1,1 @@
+export { articleDeleteApi } from "./articleDeleteApi";

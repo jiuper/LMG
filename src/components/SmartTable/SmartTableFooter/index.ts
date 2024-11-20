@@ -1,0 +1,1 @@
+export { SmartTableFooter } from "./SmartTableFooter";

@@ -1,0 +1,22 @@
+.table-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.button {
+    width: fit-content;
+    height: fit-content;
+    box-shadow: none;
+    padding: 5px;
+
+    i {
+        font-size: 15px;
+    }
+}

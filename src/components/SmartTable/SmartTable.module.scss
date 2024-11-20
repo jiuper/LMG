@@ -1,0 +1,50 @@
+.smart-table {
+    position: relative;
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    border-radius: 6px;
+    border: 1px solid rgba(228, 228, 232, 1);
+    overflow: hidden;
+
+    [data-pc-section="table"] {
+        @include text-Body2();
+    }
+    [data-pc-section="headercontent"] {
+        @include text-Subtitle2();
+        color: rgba(107, 108, 116, 1);
+        justify-content: space-between;
+    }
+    [data-pc-section="headercell"] {
+        padding: 8px 10px;
+        height: fit-content;
+        white-space: nowrap;
+    }
+    [data-pc-section="bodycell"] {
+        padding: 10px 8px;
+    }
+}
+
+.table {
+    flex: 1;
+    overflow: hidden;
+}
+
+.message-loading {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+.column {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

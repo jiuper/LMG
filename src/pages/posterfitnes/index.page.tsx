@@ -4,6 +4,7 @@ import type { GetStaticProps, InferGetStaticPropsType } from "next";
 import { BreadCrumb } from "@/components/BreadCrumb";
 import type { CreateNewsDto, GetPortfolioDto } from "@/entities/types/entities";
 import { PageLayout } from "@/layouts/PageLayout";
+import Build from "@/shared/assests/posterfitnes.png";
 import { API_BASE } from "@/shared/constants/private";
 import { BuildingPage } from "@/view/Building/Building";
 
@@ -14,6 +15,8 @@ export default function Building({ port }: InferGetStaticPropsType<typeof getSta
         <PageLayout>
             <BreadCrumb model={items} />
             <BuildingPage
+                alt="posterfitnes"
+                src={Build}
                 port={port || []}
                 title="Реклама в фитнес клубах"
                 description="Достигайте клиентов в момент их наибольшей вовлеченности. Эффективное решение для продвижения ваших услуг и товаров среди посетителей фитнес-клубов."

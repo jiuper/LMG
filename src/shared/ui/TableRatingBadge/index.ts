@@ -1,0 +1,1 @@
+export { TableRatingBadge } from "./TableRatingBadge";

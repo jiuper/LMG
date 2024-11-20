@@ -1,4 +1,5 @@
 import cnBind from "classnames/bind";
+import type { StaticImageData } from "next/image";
 
 import { FormFeedback } from "@/components/_Forms/FormFeedback";
 import { ModalFeedBack } from "@/components/_Modals/ModalFeedBack";
@@ -12,6 +13,7 @@ import img_5 from "@/shared/assests/choose/Image (7).png";
 import img_6 from "@/shared/assests/choose/Image (8).png";
 import { useBooleanState } from "@/shared/hooks";
 import { Button } from "@/shared/ui/Button";
+import { CustomImage } from "@/shared/ui/CustomImage";
 import { Card } from "@/view/Building/components/Card";
 import { CaseBlock } from "@/view/Main/component/CaseBlock";
 
@@ -21,15 +23,17 @@ const cx = cnBind.bind(styles);
 type Props = {
     title?: string;
     description?: string;
+    src: StaticImageData;
+    alt: string;
     port: GetPortfolioDto[];
 };
-export const BuildingPage = ({ description, title, port }: Props) => {
+export const BuildingPage = ({ description, title, port, src, alt }: Props) => {
     const [isOpen, open, close] = useBooleanState(false);
 
-    const listChoose = [
+    const listChooseBuild = [
         {
             title: "Реклама в лифтах",
-            description: "Эффективное размещение в кабинах лифтов",
+            description: "Реклама на стойках выдачи",
             image: img_1.src,
         },
         {
@@ -58,10 +62,39 @@ export const BuildingPage = ({ description, title, port }: Props) => {
             image: img_6.src,
         },
     ];
+    const listChooseEtc = [
+        {
+            title: "Реклама на стойках выдачи",
+            description: "Эффективное размещение в зоне выдачи товаров.",
+            image: img_1.src,
+        },
+        {
+            title: "Реклама на упаковке",
+            description: "Привлекайте внимание клиентов через брендированную упаковку.",
+            image: img_2.src,
+        },
+        {
+            title: "Реклама на чеках",
+            description: "Дополнительное внимание клиентов с каждой покупкой.",
+            image: img_3.src,
+        },
+        {
+            title: "Реклама в зоне ожидания",
+            description: "Привлеките клиентов в моменты ожидания заказов.",
+            image: img_4.src,
+        },
+        {
+            title: "Реклама через печатные материалы",
+            description: "Размещение буклетов и листовок в ПВЗ.",
+            image: img_5.src,
+        },
+    ];
+    const filterList = alt === "Build" ? listChooseBuild : listChooseEtc;
 
     return (
         <div className={cx("building")}>
             <div className={cx("main-block")}>
+                <CustomImage src={src} alt={alt} />
                 <div className={cx("wrapper", "container")}>
                     <div className={cx("content")}>
                         <h1>{title}</h1>
@@ -75,7 +108,7 @@ export const BuildingPage = ({ description, title, port }: Props) => {
                 <div className={cx("cards-wrapper", "container")}>
                     <h2>Варианты размещения рекламы</h2>
                     <div className={cx("cards")}>
-                        {listChoose.map((el, index) => (
+                        {filterList.map((el, index) => (
                             <Card key={index} {...el} />
                         ))}
                     </div>

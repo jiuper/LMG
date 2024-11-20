@@ -1,0 +1,39 @@
+.button {
+    @include text-Button();
+    background: #fff;
+    color: $color-purple;
+    border: 1px solid #fff;
+    &:focus {
+        box-shadow: none;
+    }
+    &:active {
+        box-shadow: none;
+    }
+
+    &[data-btn-type="danger"] {
+        background: #ff4848;
+        color: white;
+        padding: 16px 14px 16px 8px;
+        gap: 5px;
+        border: none;
+
+        [data-pc-section="icon"] {
+            height: 20px;
+            width: 20px;
+            margin: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @include touch-hover(&) {
+            background: #e41110;
+            box-shadow: 0 1px 3px 0 #566dd64d, 0 4px 8px 3px #566dd626;
+        }
+
+        &:active {
+            background: #950707;
+
+        }
+    }
+}
