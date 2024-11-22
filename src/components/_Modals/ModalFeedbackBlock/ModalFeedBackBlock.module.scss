@@ -1,0 +1,112 @@
+.modal-case{
+  &[data-pc-name="dialog"] {
+    margin: 0;
+    border-radius: 32px;
+  }
+  [data-pc-section="content"] {
+    padding: 0;
+    border-radius: 32px;
+  }
+  [data-pc-section="header"] {
+    display: none;
+    padding: 16px;
+    border-top-right-radius: 24px;
+    border-top-left-radius: 24px;
+    [data-pc-section="headertitle"] {
+      @include text-Headline1();
+    }
+  }
+  &.isMobile{
+    &[data-pc-name="dialog"] {
+      margin: 0;
+      border-radius: 32px 32px 0 0;
+    }
+    [data-pc-section="content"] {
+      padding: 0;
+      border-radius: 32px 32px 0 0;
+    }
+  }
+}
+.wrapper{
+  background: url("../../../shared/assests/photo_2024-10-03_13-29-10.jpg") center center no-repeat;
+  background-size: cover;
+  border-radius: 32px;
+  @include responsive-sizing("padding-inline", 8, 56, 360,1440);
+  @include responsive-sizing("padding-block", 16, 56, 360,1440);
+  @include flex-column();
+  gap: 32px;
+
+  &.isMobile{
+    border-radius: 32px 32px 0 0;
+  }
+}
+.content{
+  @include flex-column();
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  .info{
+    @include flex-row();
+    gap: 32px;
+    width: 100%;
+    justify-content: space-between;
+    .title{
+      @include flex-column();
+      gap: 8px;
+      h4{
+        color: var(--Rich-black, #040F16);
+        @include font-SegoeUI();
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 130%; /* 31.2px */
+        letter-spacing: 0.24px;
+      }
+      span{
+        color: var(--Rich-black, #040F16);
+        @include font-SegoeUI();
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%; /* 24px */
+        letter-spacing: -0.4px;
+        //display: -webkit-box;
+        //-webkit-line-clamp: 2;
+        //-webkit-box-orient: vertical;
+        //overflow: hidden;
+      }
+    }
+    .close{
+      cursor: pointer;
+    }
+  }
+
+  .image{
+    border-radius: 16px;
+    width: 100%;
+  }
+}
+
+.footer{
+  @include flex-center();
+  align-items: center;
+  gap: 8px;
+  h3{
+    color: var(--Rich-black, #040F16);
+    @include font-SegoeUI();
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%; /* 38.4px */
+  }
+  @include media-max(720px){
+    @include flex-column();
+  }
+
+  .btn{
+    transition: .3s;
+    &:hover{
+      background: var(--Brand-Light-Guidance-Primary-Light-Primary-Container, #566DD6);
+    }
+  }
+}

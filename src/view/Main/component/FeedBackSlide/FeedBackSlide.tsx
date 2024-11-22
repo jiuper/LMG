@@ -2,9 +2,8 @@ import { useState } from "react";
 import cnBind from "classnames/bind";
 import { Carousel } from "primereact/carousel";
 
-import { ModalCaseBlock } from "@/components/_Modals/ModalCaseBlock";
+import { ModalFeedBackBlock } from "@/components/_Modals/ModalFeedbackBlock";
 import { SwipeableWrapper } from "@/components/SwipeableWrapper";
-import type { GetPortfolioDto } from "@/entities/types/entities";
 import { useBooleanState } from "@/shared/hooks";
 import { CustomImage } from "@/shared/ui/CustomImage";
 import { items } from "@/view/Main/component/FeedBackSlide/const";
@@ -68,8 +67,10 @@ export const FeedBackSlide = ({}: Props) => {
 
     const onPageChange = (e: number) => setPage(e);
     const [isOpen, onOpen, onClose] = useBooleanState(false);
-    const [current, setCurrent] = useState<GetPortfolioDto | null>(null);
-    const handleOnModal = (i: GetPortfolioDto) => {
+    const [current, setCurrent] = useState<{ title: string; description: string; image: string; type?: string } | null>(
+        null,
+    );
+    const handleOnModal = (i: { title: string; description: string; image: string; type?: string }) => {
         setCurrent(i);
         onOpen();
     };
@@ -94,7 +95,7 @@ export const FeedBackSlide = ({}: Props) => {
                                     description: string;
                                     image: string;
                                     type?: string;
-                                }) => FeedbackCard(item, () => {})}
+                                }) => FeedbackCard(item, () => handleOnModal(item))}
                                 value={items}
                                 showIndicators={false}
                                 showNavigators={false}
@@ -108,10 +109,14 @@ export const FeedBackSlide = ({}: Props) => {
                     </div>
                 </div>
             </div>
-            <ModalCaseBlock
+            <ModalFeedBackBlock
                 isOpen={isOpen}
                 onClose={handleOnClose}
-                item={current !== null ? current : ({} as GetPortfolioDto)}
+                item={
+                    current !== null
+                        ? current
+                        : ({} as { title: string; description: string; image: string; type?: string })
+                }
             />
         </div>
     );
