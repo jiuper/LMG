@@ -1,0 +1,1 @@
+export { portfolioDeleteApi } from "./portfolioDeleteApi";

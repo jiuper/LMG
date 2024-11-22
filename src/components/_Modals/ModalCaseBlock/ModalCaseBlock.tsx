@@ -1,9 +1,11 @@
 import cnBind from "classnames/bind";
 
 import { Modal } from "@/components/_Modals/Modal";
+import { ModalFeedBack } from "@/components/_Modals/ModalFeedBack";
 import type { GetPortfolioDto } from "@/entities/types/entities";
 import { API_BASE } from "@/shared/constants/private";
 import { useResizeContext } from "@/shared/context/WindowResizeProvider";
+import { useBooleanState } from "@/shared/hooks";
 import { Button } from "@/shared/ui/Button";
 import { CustomImage } from "@/shared/ui/CustomImage";
 
@@ -17,6 +19,7 @@ type Props = {
 };
 export const ModalCaseBlock = ({ isOpen, onClose, item }: Props) => {
     const { isMobile } = useResizeContext();
+    const [isOpenFeed, open, close] = useBooleanState(false);
 
     return (
         <Modal className={cx("modal-case", { isMobile })} maxWidth="880px" onClose={onClose} isOpen={isOpen}>
@@ -54,9 +57,10 @@ export const ModalCaseBlock = ({ isOpen, onClose, item }: Props) => {
                 </div>
                 <div className={cx("footer")}>
                     <h3>Хотите так же?</h3>
-                    <Button label="Заказать звонок" />
+                    <Button onClick={open} className={cx("btn")} label="Заказать звонок" />
                 </div>
             </div>
+            <ModalFeedBack isOpen={isOpenFeed} onClose={close} />
         </Modal>
     );
 };

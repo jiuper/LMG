@@ -5,12 +5,6 @@ import { FormFeedback } from "@/components/_Forms/FormFeedback";
 import { ModalFeedBack } from "@/components/_Modals/ModalFeedBack";
 import { MapWrapper } from "@/components/Map";
 import type { GetPortfolioDto } from "@/entities/types/entities";
-import img_1 from "@/shared/assests/choose/Image (3).png";
-import img_2 from "@/shared/assests/choose/Image (4).png";
-import img_3 from "@/shared/assests/choose/Image (5).png";
-import img_4 from "@/shared/assests/choose/Image (6).png";
-import img_5 from "@/shared/assests/choose/Image (7).png";
-import img_6 from "@/shared/assests/choose/Image (8).png";
 import { useBooleanState } from "@/shared/hooks";
 import { Button } from "@/shared/ui/Button";
 import { CustomImage } from "@/shared/ui/CustomImage";
@@ -26,70 +20,12 @@ type Props = {
     src: StaticImageData;
     alt: string;
     port: GetPortfolioDto[];
+    listCategory: { title: string; description: string; image: string }[];
+    category?: string;
 };
-export const BuildingPage = ({ description, title, port, src, alt }: Props) => {
+export const BuildingPage = ({ description, title, port, src, alt, listCategory, category }: Props) => {
     const [isOpen, open, close] = useBooleanState(false);
-
-    const listChooseBuild = [
-        {
-            title: "Реклама в лифтах",
-            description: "Реклама на стойках выдачи",
-            image: img_1.src,
-        },
-        {
-            title: "Реклама в подъездах",
-            description: "Эффективное размещение в кабинах лифтов",
-            image: img_2.src,
-        },
-        {
-            title: "Распространение по почтовым ящикам",
-            description: "Эффективное размещение в кабинах лифтов",
-            image: img_3.src,
-        },
-        {
-            title: "Реклама на видео экранах ",
-            description: "Эффективное размещение в кабинах лифтов",
-            image: img_4.src,
-        },
-        {
-            title: "Вложение квитанции",
-            description: "Эффективное размещение в кабинах лифтов",
-            image: img_5.src,
-        },
-        {
-            title: "Распространение дорхенгеров",
-            description: "Эффективное размещение в кабинах лифтов",
-            image: img_6.src,
-        },
-    ];
-    const listChooseEtc = [
-        {
-            title: "Реклама на стойках выдачи",
-            description: "Эффективное размещение в зоне выдачи товаров.",
-            image: img_1.src,
-        },
-        {
-            title: "Реклама на упаковке",
-            description: "Привлекайте внимание клиентов через брендированную упаковку.",
-            image: img_2.src,
-        },
-        {
-            title: "Реклама на чеках",
-            description: "Дополнительное внимание клиентов с каждой покупкой.",
-            image: img_3.src,
-        },
-        {
-            title: "Реклама в зоне ожидания",
-            description: "Привлеките клиентов в моменты ожидания заказов.",
-            image: img_4.src,
-        },
-        {
-            title: "Реклама через печатные материалы",
-            description: "Размещение буклетов и листовок в ПВЗ.",
-            image: img_5.src,
-        },
-    ];
-    const filterList = alt === "Build" ? listChooseBuild : listChooseEtc;
+    const filterPort = port.filter((el) => el.categoryName === category);
 
     return (
         <div className={cx("building")}>
@@ -108,7 +44,7 @@ export const BuildingPage = ({ description, title, port, src, alt }: Props) => {
                 <div className={cx("cards-wrapper", "container")}>
                     <h2>Варианты размещения рекламы</h2>
                     <div className={cx("cards")}>
-                        {filterList.map((el, index) => (
+                        {listCategory.map((el, index) => (
                             <Card key={index} {...el} />
                         ))}
                     </div>
@@ -124,7 +60,7 @@ export const BuildingPage = ({ description, title, port, src, alt }: Props) => {
                 </div>
             </div>
             <div className={cx("portfolio")}>
-                <CaseBlock className={cx("case-block")} listItem={port.slice(-4)} />
+                <CaseBlock className={cx("case-block")} listItem={filterPort.slice(-4)} />
             </div>
             <div className={cx("form")}>
                 <FormFeedback />

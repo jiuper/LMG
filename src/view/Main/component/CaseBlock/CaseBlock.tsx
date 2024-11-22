@@ -32,7 +32,7 @@ export const CaseBlock = ({ listItem, className }: Props) => {
             <div className={cx("wrapper", "container")}>
                 <h2>Портфолио</h2>
                 <div className={cx("cards")}>
-                    {listItem.map((el, index) => (
+                    {listItem.slice(-7).map((el, index) => (
                         <CaseCard
                             image={`${API_BASE}/picture/${el.pictureId}`}
                             onClick={() => handleOnModal(el)}

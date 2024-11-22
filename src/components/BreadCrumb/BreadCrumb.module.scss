@@ -5,7 +5,7 @@
 }
 .breadcrumb{
   @include responsive-sizing(" margin-top", 80, 120, 360,1440);
-  @include responsive-sizing(" margin-bottom", 20, 120, 360,1440);
+  //@include responsive-sizing(" margin-bottom", 20, 120, 360,1440);
   &[data-pc-section="root"]{
     background: transparent;
     border: none;

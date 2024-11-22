@@ -32,7 +32,9 @@ export const CardArticle = ({ item, className, url }: Props) => {
                     <span>{item.subtitle}</span>
                 </div>
 
-                <Button onClick={() => href.push(`${url}/${item.id}`)}>Перейти</Button>
+                <Button className={cx("button")} onClick={() => href.push(`${url}/${item.id}`)}>
+                    Перейти
+                </Button>
             </div>
         </div>
     );

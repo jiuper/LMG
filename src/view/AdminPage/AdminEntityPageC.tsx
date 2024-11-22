@@ -7,17 +7,22 @@ import type { Toast } from "primereact/toast";
 import type { FormEvent } from "primereact/ts-helpers";
 
 import type { GetArticlesListApiRawResponse } from "@/api/getArticlesListApi/types";
-import { getNewsListApi } from "@/api/getNewsListApi";
 import type { GetNewsListApiRawResponse } from "@/api/getNewsListApi/types";
 import type { GetPortfolioListApiRawResponse } from "@/api/getPortfolioListApi/types";
 import type { NewsCreateApiParams } from "@/api/newsCreateApi/newsCreateApi";
 import type { NewsUpdateApiParams } from "@/api/newsUpdateApi/newsUpdateApi";
+import type { PortfolioCreateApiParams } from "@/api/portfolioCreateApi/portofiloCreateApi";
+import type { PortfolioUpdateApiParams } from "@/api/portfolioUpdateApi/portfolioUpdateApi";
 import { useConfirmModal } from "@/components/_Modals/ConfirmModal/ConfirmModal";
 import type {
     ModalAdministeredArticleModel,
     ModalAdministeredArticleRef,
 } from "@/components/_Modals/ModalAdministeredArticle";
 import type { ModalAdministeredNewsModel, ModalAdministeredNewsRef } from "@/components/_Modals/ModalAdministeredNews";
+import type {
+    ModalAdministeredPortfolioModel,
+    ModalAdministeredPortfolioRef,
+} from "@/components/_Modals/ModalAdministeredPortfolio";
 import { ContentSatus } from "@/entities/types/entities";
 import { useToast } from "@/shared/context";
 import { useBooleanState } from "@/shared/hooks";
@@ -32,6 +37,9 @@ import {
     prepareNewsCreateData,
     prepareNewsEditFormValues,
     prepareNewsUpdateData,
+    preparePortfolioCreateData,
+    preparePortfolioEditFormValues,
+    preparePortfolioUpdateData,
     useEntityCreate,
     useEntityDelete,
     useEntityUpdate,
@@ -61,6 +69,7 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
     const toastRef = useRef<Toast>(null);
     const newsModalRef = useRef<ModalAdministeredNewsRef>(null);
     const articleModalRef = useRef<ModalAdministeredArticleRef>(null);
+    const portfolioModalRef = useRef<ModalAdministeredPortfolioRef>(null);
 
     const createEntity = useEntityCreate();
     const updateEntity = useEntityUpdate();
@@ -81,12 +90,6 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
     } = useQuery<GetNewsListApiRawResponse | GetArticlesListApiRawResponse | GetPortfolioListApiRawResponse>({
         queryKey: ["entity", entityType],
         queryFn: () => REQUEST_ENTITIES_FN_MAP[entityType](),
-    });
-
-    const { data: newsData } = useQuery<GetNewsListApiRawResponse>({
-        queryKey: ["news", AdminEntityPageType.NEWS],
-        queryFn: () => getNewsListApi(),
-        enabled: entityType === AdminEntityPageType.NEWS,
     });
 
     // const totalPages = entityData?.count ? Math.ceil(entityData.count / ITEMS_FOR_PAGE) : 0;
@@ -176,6 +179,46 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
         [closeCreateModal, createEntity, createModalType, entityRefetch, toast, updateEntity],
     );
 
+    const handlePortfolioModalSubmit = useCallback(
+        (data: ModalAdministeredPortfolioModel) => {
+            const createPayload: PortfolioCreateApiParams = preparePortfolioCreateData(data);
+            const updatePayload: PortfolioUpdateApiParams = preparePortfolioUpdateData(data);
+
+            const onSuccess = () => {
+                closeCreateModal();
+                void entityRefetch();
+                setCreateModalType("create");
+                portfolioModalRef?.current?.clearValues();
+                toast?.({
+                    severity: "success",
+                    summary: "Успех",
+                    detail: `Кейс ${data.title} был ${createModalType === "create" ? "создан" : "изменен"}`,
+                });
+            };
+            const onError = () => {
+                toast?.({
+                    severity: "error",
+                    summary: "Ошибка",
+                    detail: `При ${createModalType === "create" ? "создании" : "редактировании"} новости ${
+                        data.title
+                    } возникла ошибка`,
+                });
+            };
+
+            switch (createModalType) {
+                case "create":
+                    createEntity[AdminEntityPageType.PORTFOLIO].mutate(createPayload, { onSuccess, onError });
+                    break;
+                case "edit":
+                    updateEntity[AdminEntityPageType.PORTFOLIO].mutate(updatePayload, { onSuccess, onError });
+                    break;
+                default:
+                    return false;
+            }
+        },
+        [closeCreateModal, createEntity, createModalType, entityRefetch, toast, updateEntity],
+    );
+
     const handleDeleteEntity = (entity: AnyEntity) => () => {
         const confirmMessage = getDeleteEntityConfirmMessage(entity, entityType);
 
@@ -222,7 +265,7 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
             toast?.({
                 severity: "error",
                 summary: "Ошибка",
-                detail: `При попытке удалить сущность ${entityType} возникла ошибка`,
+                detail: `При попытке восстановить сущность ${entityType} возникла ошибка`,
             });
         };
 
@@ -257,14 +300,14 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
                 );
 
                 break;
-            // case AdminEntityPageType.PORTFOLIO:
-            //     {
-            //         const payload = prepareDeveloperEditFormValues({
-            //             entity: rowData as DeveloperEntity,
-            //         });
-            //         developerModalRef.current?.setFormValues(payload);
-            //     }
-            //     break;
+            case AdminEntityPageType.PORTFOLIO:
+                portfolioModalRef.current?.setFormValues(
+                    preparePortfolioEditFormValues({
+                        entity: rowData,
+                    }),
+                );
+
+                break;
             // case AdminEntityPageType.PAGES:
             //     getCityInfoMutation(
             //         { id: rowData.id },
@@ -364,7 +407,10 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
                             {
                                 label: "Архив",
                                 icon: "pi pi-trash",
-                                callback: handleDeleteEntity(data),
+                                callback:
+                                    data.status === ContentSatus.ARCHIVE
+                                        ? handleRestoreEntity(data)
+                                        : handleDeleteEntity(data),
                             },
                         ]}
                     />
@@ -396,11 +442,13 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
         setCreateModalType("create");
         newsModalRef.current?.clearValues();
         articleModalRef.current?.clearValues();
+        portfolioModalRef.current?.clearValues();
     };
     const handleCloseAdditionalModal = () => {
         closeAdditionalModal();
         newsModalRef.current?.clearValues();
         articleModalRef.current?.clearValues();
+        portfolioModalRef.current?.clearValues();
     };
 
     const createModalIsLoading = !!createEntity[entityType]?.isPending;
@@ -419,7 +467,6 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
         <AdminEntityPageV
             entityType={entityType}
             filters={filters}
-            entityOptions={newsData || []}
             totalPages={0}
             page={page + 1}
             totalItems={entityData?.length}
@@ -444,6 +491,8 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
             entityStatus={entityStatus}
             createModalType={createModalType}
             handleNewsModalSubmit={handleNewsModalSubmit}
+            portfolioModalRef={portfolioModalRef}
+            handlePortfolioModalSubmit={handlePortfolioModalSubmit}
             createModalIsOpen={createModalIsOpen}
             handleArticleModalSubmit={handleArticleModalSubmit}
             additionalModalIsOpen={additionalModalIsOpen}

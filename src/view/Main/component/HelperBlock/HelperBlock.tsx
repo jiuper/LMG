@@ -1,12 +1,14 @@
 import cnBind from "classnames/bind";
 import { useRouter } from "next/router";
 
+import { ModalFaq } from "@/components/_Modals/ModalFaq";
 import type { CreateNewsDto } from "@/entities/types/entities";
 import card_3 from "@/shared/assests/ImageP_3.png";
 import card_4 from "@/shared/assests/ImageP_4.png";
 import card_5 from "@/shared/assests/ImageP_5.png";
 import { ArrowDownBigIcon } from "@/shared/assests/svg/svg";
 import { Routes } from "@/shared/constants";
+import { useBooleanState } from "@/shared/hooks";
 import { listQuestions } from "@/view/Main/component/HelperBlock/const";
 import { HistoryCard } from "@/view/Main/component/HistoryBlock/component/HistoryCard";
 
@@ -38,6 +40,7 @@ export const HelperBlock = ({ news, articles }: Props) => {
                 "Подведение итогов пилотного тестирования сервиса для нетворкинга. Подведение итогов пилотного тестирования сервиса для нетворкинга. Подведение итогов пилотного тестирования сервиса для нетворкинга",
         },
     ];
+    const [isOpen, open, close] = useBooleanState(false);
 
     return (
         <div className={cx("helper-block")}>
@@ -67,7 +70,7 @@ export const HelperBlock = ({ news, articles }: Props) => {
                         {listQuestions.map((item, index) => (
                             <div className={cx("card")} key={index}>
                                 <span>{item}</span>
-                                <div className={cx("icon-wrapper")}>
+                                <div onClick={open} className={cx("icon-wrapper")}>
                                     <ArrowDownBigIcon className={cx("icon")} />
                                 </div>
                             </div>
@@ -75,6 +78,7 @@ export const HelperBlock = ({ news, articles }: Props) => {
                     </div>
                 </div>
             </div>
+            <ModalFaq isOpen={isOpen} onClose={close} />
         </div>
     );
 };

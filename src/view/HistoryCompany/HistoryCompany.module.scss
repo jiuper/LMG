@@ -198,6 +198,15 @@
         font-weight: 500;
         line-height: 120%; /* 19.2px */
       }
+      .download{
+        &:hover{
+          background: var(--Brand-Light-Guidance-Primary-Light-Primary-Container, #566DD6);
+          span{
+            color: var(--Brand-Light-Guidance-Primary-Light-On-Primary, #fff);
+          }
+        }
+      }
+
     }
   }
 }

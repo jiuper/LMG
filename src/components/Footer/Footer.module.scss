@@ -56,6 +56,7 @@
       h3{
         color: #FFFFFF;
         @include text-Body1();
+        cursor: pointer;
       }
       .items{
         @include flex-column();

@@ -1,9 +1,12 @@
 import cnBind from "classnames/bind";
 import { useFormik } from "formik";
+import { useRouter } from "next/router";
 
-import { TGIcon, WAIcon } from "@/shared/assests/svg/svg";
+import tg from "@/shared/assests/telegram.png";
+import wa from "@/shared/assests/whatsapp.png";
 import { Button } from "@/shared/ui/Button";
 import { CheckBox } from "@/shared/ui/CheckBox";
+import { CustomImage } from "@/shared/ui/CustomImage";
 import { TextField } from "@/shared/ui/TextField";
 
 import styles from "./FormFeedback.module.scss";
@@ -11,6 +14,7 @@ import styles from "./FormFeedback.module.scss";
 const cx = cnBind.bind(styles);
 type Props = {};
 export const FormFeedback = (props: Props) => {
+    const router = useRouter();
     const formik = useFormik({
         initialValues: {
             name: "",
@@ -58,11 +62,11 @@ export const FormFeedback = (props: Props) => {
                             title="Согласен(а) на обработку персональных данных"
                         />
                         <div className={cx("social")}>
-                            <div className={cx("social-item", "icon")}>
-                                <TGIcon />
+                            <div onClick={() => router.push("/")} className={cx("social-item", "icon")}>
+                                <CustomImage src={tg} alt="tg" />
                             </div>
-                            <div className={cx("social-item", "icon")}>
-                                <WAIcon />
+                            <div onClick={() => router.push("/")} className={cx("social-item", "icon")}>
+                                <CustomImage src={wa} alt="tg" />
                             </div>
                         </div>
                     </div>

@@ -58,6 +58,11 @@
 
     .button{
       background: #040F16;
+      transition: .3s;
+
+      &:hover{
+        background: var(--Brand-Light-Guidance-Primary-Light-Primary-Container, #566DD6);
+      }
       span{
         color: #fff;
       }
@@ -75,6 +80,7 @@
 
       .social-item {
         @include flex-center();
+        cursor: pointer;
       }
     }
   }

@@ -1,25 +1,28 @@
 import cnBind from "classnames/bind";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import { Logo } from "@/components/Logo";
+import { Routes } from "@/shared/constants";
 
 import styles from "./Footer.module.scss";
 
 const cx = cnBind.bind(styles);
 
 export const Footer = () => {
+    const router = useRouter();
     const list = [
-        { title: "Реклама в фитнес клубах", href: "/" },
-        { title: "Реклама в торговых центрах", href: "/" },
-        { title: "Реклама в бизнес центрах", href: "/" },
-        { title: "Реклама в жилых домах", href: "/" },
+        { title: "Реклама в фитнес клубах", href: Routes.POSTERFITNES },
+        { title: "Реклама в торговых центрах", href: Routes.POSTERTC },
+        { title: "Реклама в бизнес центрах", href: Routes.POSTERBC },
+        { title: "Реклама в жилых домах", href: Routes.BUILDING },
     ];
     const listContact = [
-        { title: "Контакты", href: "/" },
-        { title: "Отзывы", href: "/" },
+        { title: "Контакты", href: Routes.CONTACTS },
+        { title: "Отзывы", href: Routes.PORTFOLIO },
         { title: "Сотрудничество", href: "/" },
-        { title: "О нас", href: "/" },
-        { title: "Портфолио", href: "/" },
+        { title: "О нас", href: Routes.ABOUTUS },
+        { title: "Портфолио", href: Routes.PORTFOLIO },
     ];
 
     return (
@@ -40,7 +43,7 @@ export const Footer = () => {
                     </div>
                     <div className={cx("menu-wrapper")}>
                         <div className={cx("menu")}>
-                            <h3>Реклама ПВЗ</h3>
+                            <h3 onClick={() => router.push(Routes.POSTERPVZ)}>Реклама ПВЗ</h3>
                             <div className={cx("items")}>
                                 {list.map((item, i) => (
                                     <Link className={cx("item")} href={item.href} key={i}>

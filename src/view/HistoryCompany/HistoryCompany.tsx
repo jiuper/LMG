@@ -119,7 +119,7 @@ export const HistoryCompanyPage = ({}: Props) => {
                             <span>Ссылка на документы</span>
                             <Link href="/">Документ 1</Link>
                             <Link href="/">Документ 2</Link>
-                            <Button label="Скачать" />
+                            <Button className={cx("download")} label="Скачать" />
                         </div>
                     </div>
                 </div>

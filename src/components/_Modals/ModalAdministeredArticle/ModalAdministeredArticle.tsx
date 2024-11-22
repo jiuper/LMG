@@ -72,8 +72,10 @@ export const ModalAdministeredArticle = forwardRef<ModalAdministeredArticleRef, 
             },
         });
         const [isVideoOpen, setIsVideoOpen] = useState(false);
-
         const [isListTextOpen, setIsListTextOpen] = useState<ListDto[]>([]);
+        const onChangeList = (list: ListDto, index: number) => {
+            setIsListTextOpen((prev) => prev.map((el, i) => (i === index ? list : el)));
+        };
 
         const isEditType = type === "edit";
         const modalHeaderTitle = isEditType ? "Редактировать статью" : "Добавить статью";
@@ -121,7 +123,7 @@ export const ModalAdministeredArticle = forwardRef<ModalAdministeredArticleRef, 
                         label="Содержание 1"
                         name="contentItems[0].text"
                         onChange={formik.handleChange}
-                        value={formik.values.contentItems?.[0]?.text}
+                        value={formik.values.contentItems?.[0]?.text || ""}
                     />
                     {isListTextOpen.length !== 0 && (
                         <div className={cx("list-blocks")}>
@@ -129,7 +131,7 @@ export const ModalAdministeredArticle = forwardRef<ModalAdministeredArticleRef, 
 
                             {isListTextOpen.map((el, index) => (
                                 <div key={index} className={cx("list-wrapper")}>
-                                    <List index={index + 1} data={el} />
+                                    <List onChangeList={onChangeList} index={index + 1} data={el} />
                                 </div>
                             ))}
                             <div className={cx("buttons")}>
@@ -153,7 +155,7 @@ export const ModalAdministeredArticle = forwardRef<ModalAdministeredArticleRef, 
                         label="Содержание 2"
                         name="contentItems[1].text"
                         onChange={formik.handleChange}
-                        value={formik.values.contentItems?.[1]?.text}
+                        value={formik.values.contentItems?.[1]?.text || ""}
                     />
                     {!isVideoOpen ? (
                         <CustomFileUpload

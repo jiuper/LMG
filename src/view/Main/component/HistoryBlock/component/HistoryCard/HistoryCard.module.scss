@@ -39,6 +39,14 @@
     p{
       color: #FFFFFF;
       @include text-Body2();
+      transition: $transition-default;
+
+
+      &:hover{
+        color: rgba(106, 106, 207, 0.81);
+        border-bottom: 1px solid rgba(106, 106, 207, 0.81);
+        padding-bottom: 3px;
+      }
     }
 
     .list{
@@ -51,11 +59,30 @@
         @include flex-row();
         align-items: center;
         justify-content: space-between;
+        border-bottom: 1px solid transparent;
+        padding-bottom: 3px;
+        transition: $transition-default;
         gap: 8px;
+
         .list-link{
           @include text-Body2();
           color: #FFFFFF;
           text-decoration: none;
+          transition: $transition-default;
+        }
+
+        &:hover{
+          border-bottom: 1px solid rgba(106, 106, 207, 0.81);
+
+          .list-link{
+            color: rgba(106, 106, 207, 0.81);
+          }
+          .list-icon{
+            &>path{
+              stroke: rgba(106, 106, 207, 0.81);
+
+            }
+          }
         }
       }
     }

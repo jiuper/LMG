@@ -3,7 +3,6 @@ import type { FetchStatus } from "@tanstack/query-core";
 import cnBind from "classnames/bind";
 import { Column } from "primereact/column";
 import type { DataTableRowToggleEvent, DataTableStateEvent, SortOrder } from "primereact/datatable";
-import type { SelectItemOptionsType } from "primereact/selectitem";
 import { Toast } from "primereact/toast";
 import type { FormEvent } from "primereact/ts-helpers";
 
@@ -15,6 +14,11 @@ import type { ConfirmModalProps } from "@/components/_Modals/ConfirmModal/Confir
 import { ModalAdministeredArticle } from "@/components/_Modals/ModalAdministeredArticle";
 import type { ModalAdministeredNewsModel, ModalAdministeredNewsRef } from "@/components/_Modals/ModalAdministeredNews";
 import { ModalAdministeredNews } from "@/components/_Modals/ModalAdministeredNews";
+import type {
+    ModalAdministeredPortfolioModel,
+    ModalAdministeredPortfolioRef,
+} from "@/components/_Modals/ModalAdministeredPortfolio";
+import { ModalAdministeredPortfolio } from "@/components/_Modals/ModalAdministeredPortfolio";
 import { SmartTable } from "@/components/SmartTable";
 import { Button } from "@/shared/ui/_Button";
 import { InputSearch } from "@/shared/ui/_InputSearch";
@@ -30,7 +34,6 @@ const cx = cnBind.bind(styles);
 
 type PropsType = {
     entityType: AdminEntityPageType;
-    entityOptions: SelectItemOptionsType;
     totalPages?: number;
     page?: number;
     totalItems?: number;
@@ -50,6 +53,7 @@ type PropsType = {
     updateModalIsLoading: boolean;
     newsModalRef: React.RefObject<ModalAdministeredNewsRef>;
     articleModalRef: React.RefObject<ModalAdministeredNewsRef>;
+    portfolioModalRef: React.RefObject<ModalAdministeredPortfolioRef>;
     expandedRows: AnyEntity[];
     openCreateModal: () => void;
     entityData?: GetNewsListApiRawResponse | GetArticlesListApiRawResponse | GetPortfolioListApiRawResponse;
@@ -58,6 +62,7 @@ type PropsType = {
     handleNewsModalSubmit: (data: ModalAdministeredNewsModel) => false | undefined;
     createModalIsOpen: boolean;
     handleArticleModalSubmit: (data: ModalAdministeredNewsModel) => false | undefined;
+    handlePortfolioModalSubmit: (data: ModalAdministeredPortfolioModel) => false | undefined;
     additionalModalIsOpen: boolean;
     toastRef: React.RefObject<Toast>;
     confirmModalProps: ConfirmModalProps;
@@ -93,6 +98,8 @@ export const AdminEntityPageV = ({
     articleModalRef,
     handleNewsModalSubmit,
     newsModalRef,
+    handlePortfolioModalSubmit,
+    portfolioModalRef,
 }: PropsType) => {
     const filterValue = useMemo(() => {
         switch (entityType) {
@@ -178,12 +185,12 @@ export const AdminEntityPageV = ({
                 />
             )}
             {entityType === AdminEntityPageType.PORTFOLIO && (
-                <ModalAdministeredNews
-                    ref={articleModalRef}
+                <ModalAdministeredPortfolio
+                    ref={portfolioModalRef}
                     isOpen={createModalIsOpen}
                     onClose={handleCloseCreateModal}
                     type={createModalType}
-                    onSubmit={handleArticleModalSubmit}
+                    onSubmit={handlePortfolioModalSubmit}
                     isLoading={createModalType === "create" ? createModalIsLoading : updateModalIsLoading}
                 />
             )}

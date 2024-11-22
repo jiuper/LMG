@@ -155,13 +155,14 @@
   @include responsive-sizing("padding-inline", 8, 120, 360,1440);
   @include responsive-sizing("padding-block", 40, 120, 360,1440);
   @include responsive-sizing("height", 340, 764, 360,1440);
+
   @include flex-column();
   gap: 8px;
 
   .video{
     border-radius: var(--Indent_40, 40px);
     border: 3px solid #BBC5EF;
-    width: 100%;
+    @include responsive-sizing("width", 377, 800, 360,1440);
     object-fit: cover;
   }
 }
@@ -195,6 +196,12 @@
       align-items: center;
       .button{
         color: rgba(86, 109, 214, 1);
+        transition: .3s;
+
+        &:hover{
+          background: rgba(86, 109, 214, 0.8);
+          color: #FFFFFF;
+        }
       }
 
     }

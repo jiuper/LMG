@@ -12,15 +12,18 @@ const cx = cnBind.bind(styles);
 type Props = {
     index: number;
     data: ListDto;
+    onChangeList: (list: ListDto, index: number) => void;
 };
-export const List = ({ index, data }: Props) => {
+export const List = ({ index, data, onChangeList }: Props) => {
     const [list, setList] = useState<ListDto>({ items: [""], title: "" });
     const onChangeTitle = (val: string) => {
         setList((prev) => ({ ...prev, title: val }));
+        onChangeList({ ...list, title: val }, index - 1);
     };
 
-    const onChangeItems = (val: string, index: number) => {
-        setList({ ...list, items: list.items?.map((el, i) => (i === index ? val : el)) });
+    const onChangeItems = (val: string, inx: number) => {
+        setList({ ...list, items: list.items?.map((el, i) => (i === inx ? val : el)) });
+        onChangeList({ ...list, items: list.items?.map((el, i) => (i === inx ? val : el)) }, index - 1);
     };
 
     useEffect(() => {
@@ -56,7 +59,7 @@ export const List = ({ index, data }: Props) => {
                 </Button>
                 <Button
                     className={cx("remove-btn")}
-                    onClick={() =>
+                    onClick={() => {
                         setList((prev) =>
                             prev.items?.length === 1
                                 ? prev
@@ -64,8 +67,9 @@ export const List = ({ index, data }: Props) => {
                                       ...prev,
                                       items: prev.items?.length === 1 ? [] : prev.items?.slice(0, -1),
                                   },
-                        )
-                    }
+                        );
+                        onChangeList({ ...list, items: list.items?.slice(0, -1) }, index - 1);
+                    }}
                 >
                     Удалить пункт
                 </Button>

@@ -16,8 +16,8 @@ type Props = {
 };
 export const Articles = ({ listArticles, title = "Статьи", url }: Props) => {
     const [first, setFirst] = useState(0);
-    const [rows, setRows] = useState(10);
-
+    const [rows, setRows] = useState(5);
+    const paginated = listArticles.slice(first, first + rows);
     const onPageChange = (event: { first: number; rows: number }) => {
         setFirst(event.first);
         setRows(event.rows);
@@ -31,17 +31,19 @@ export const Articles = ({ listArticles, title = "Статьи", url }: Props) =
                 </div>
                 <div className={cx("articles-wrapper")}>
                     <div className={cx("articles")}>
-                        {listArticles.map((el, index) => (
+                        {paginated.map((el, index) => (
                             <CardArticle url={url} key={index} item={el} />
                         ))}
                     </div>
-                    <Paginator
-                        className={cx("paginator")}
-                        first={first}
-                        rows={rows}
-                        totalRecords={listArticles.length}
-                        onPageChange={onPageChange}
-                    />
+                    {listArticles.length <= rows ? null : (
+                        <Paginator
+                            className={cx("paginator")}
+                            first={first}
+                            rows={rows}
+                            totalRecords={listArticles.length}
+                            onPageChange={onPageChange}
+                        />
+                    )}
                 </div>
             </div>
 

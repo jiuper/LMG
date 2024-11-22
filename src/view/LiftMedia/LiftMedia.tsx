@@ -144,7 +144,10 @@ export const LiftMedia = ({ port }: Props) => {
             </div>
 
             <div className={cx("portfolio")}>
-                <CaseBlock className={cx("case-block")} listItem={port.slice(-4)} />
+                <CaseBlock
+                    className={cx("case-block")}
+                    listItem={port.filter((el) => el.categoryName === "Лифты").slice(-4)}
+                />
             </div>
             <div className={cx("form")}>
                 <FormFeedback />

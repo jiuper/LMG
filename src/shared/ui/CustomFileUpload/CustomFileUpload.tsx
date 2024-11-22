@@ -2,6 +2,7 @@ import type { ChangeEvent } from "react";
 import { memo, useEffect, useState } from "react";
 import cnBind from "classnames/bind";
 
+import { CloseIcon } from "@/shared/assests/svg/svg";
 import { ImgPreview } from "@/shared/ui/ImgPreview/ImgPreview";
 
 import styles from "./CustomFileUpload.module.scss";
@@ -15,10 +16,10 @@ interface CustomFileUploadProps {
     fileStr?: string;
 }
 const CustomFileUpload = ({ onChange, value, name, fileStr }: CustomFileUploadProps) => {
-    const [newFile, setNewFile] = useState<File | null>(value);
+    const [file, setFile] = useState<File | null | string>(value);
     const [_, setDrag] = useState(false);
     useEffect(() => {
-        setNewFile(value);
+        setFile(value);
     }, [value]);
     const handleUpload = (e: ChangeEvent<HTMLInputElement>) => {
         e.target.files && onChange(e.target.files[0]);
@@ -35,8 +36,9 @@ const CustomFileUpload = ({ onChange, value, name, fileStr }: CustomFileUploadPr
         e.preventDefault();
         onChange(e.dataTransfer.files[0]);
     };
-
-    const file = fileStr || newFile;
+    useEffect(() => {
+        if (fileStr) setFile(fileStr);
+    }, [fileStr]);
 
     return (
         <div className={cx("uploader")}>
@@ -65,7 +67,10 @@ const CustomFileUpload = ({ onChange, value, name, fileStr }: CustomFileUploadPr
                     <span className={cx("label")}>Лучшее разрешение минимум 200 х 200 px</span>
                 </div>
             ) : (
-                <ImgPreview value={file} />
+                <div className={cx("preview")}>
+                    <ImgPreview className={cx("img")} value={file} />
+                    <CloseIcon className={cx("close")} onClick={() => setFile(null)} />
+                </div>
             )}
         </div>
     );

@@ -16,11 +16,23 @@ const cx = cnBind.bind(styles);
 type Props = {
     port: GetPortfolioDto[];
 };
-const categories = ["Все проекты", "Лифты", "Бизнес-центры", "Жилые комплексы", "Реклама на двери"];
+const categories = [
+    "Все проекты",
+    "Лифты",
+    "Бизнес-центры",
+    "Жилые комплексы",
+    "Торговые центры",
+    "ПВЗ",
+    "Фитнес центры",
+];
 export const PortfolioPage = ({ port }: Props) => {
     const [first, setFirst] = useState(0);
-    const [rows, setRows] = useState(port.length);
+    const [rows, setRows] = useState(12);
 
+    const [filter, setFilter] = useState("Все проекты");
+
+    const filtered = filter === "Все проекты" ? port : port.filter((el) => el.categoryName === filter);
+    const paginated = filtered.slice(first, first + rows);
     const onPageChange = (event: { first: number; rows: number }) => {
         setFirst(event.first);
         setRows(event.rows);
@@ -46,11 +58,11 @@ export const PortfolioPage = ({ port }: Props) => {
                 <div className={cx("articles-wrapper")}>
                     <div className={cx("categories")}>
                         {categories.map((el, index) => (
-                            <Button label={el} key={index} />
+                            <Button onClick={() => setFilter(el)} className={cx("category")} label={el} key={index} />
                         ))}
                     </div>
                     <div className={cx("articles")}>
-                        {port.map((el, index) => (
+                        {paginated.map((el, index) => (
                             <CaseCard
                                 image={`${API_BASE}/picture/${el.pictureId}`}
                                 onClick={() => handleOnModal(el)}
@@ -60,13 +72,15 @@ export const PortfolioPage = ({ port }: Props) => {
                         ))}
                     </div>
 
-                    <Paginator
-                        className={cx("paginator")}
-                        first={first}
-                        rows={rows}
-                        totalRecords={120}
-                        onPageChange={onPageChange}
-                    />
+                    {filtered.length <= rows ? null : (
+                        <Paginator
+                            className={cx("paginator")}
+                            first={first}
+                            rows={rows}
+                            totalRecords={filtered.length}
+                            onPageChange={onPageChange}
+                        />
+                    )}
                 </div>
             </div>
             <div className={cx("form")}>

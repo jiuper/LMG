@@ -17,6 +17,7 @@ type Props = {
 };
 
 const cx = cnBind.bind(styles);
+const urlRegex = /^(https?:\/\/)?(www\.)?([a-zA-Z0-9._%+-]+)\.([a-zA-Z]{2,})(:[0-9]{1,5})?(\/[a-zA-Z0-9._%+-]*)*\/?$/;
 
 export const Articel = ({ date, list }: Props) => {
     const [views, setViews] = useState<number>(0);
@@ -82,11 +83,12 @@ export const Articel = ({ date, list }: Props) => {
 
                         {date?.contentItems?.[1]?.text && <span>{date?.contentItems?.[1].text}</span>}
                         <div className={cx("media")}>
-                            {date?.video ? (
-                                <video className={cx("image")} src={date.video}>
-                                    <source src={date.video} type="video/mp4" />
+                            {urlRegex.test(date?.video || "") ? (
+                                <video className={cx("image")} src={date?.video}>
+                                    <source src={date?.video} type="video/mp4" />
                                 </video>
-                            ) : (
+                            ) : null}
+                            {!urlRegex.test(date?.video || "") && date?.contentItems?.[1]?.pictureId && (
                                 <CustomImage
                                     className={cx("image")}
                                     width={1136}

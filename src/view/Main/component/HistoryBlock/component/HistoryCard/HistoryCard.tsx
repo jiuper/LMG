@@ -28,7 +28,7 @@ export const HistoryCard = ({ listHref, description, image, title, onClick, clas
                                 <Link className={cx("list-link")} href={item.href}>
                                     {item.title}
                                 </Link>
-                                <LinkIcon />
+                                <LinkIcon className={cx("list-icon")} />
                             </li>
                         ))}
                     </ul>

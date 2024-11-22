@@ -74,7 +74,9 @@ export const ModalAdministeredNews = forwardRef<ModalAdministeredNewsRef, ModalA
         const [isVideoOpen, setIsVideoOpen] = useState(false);
 
         const [isListTextOpen, setIsListTextOpen] = useState<ListDto[]>([]);
-
+        const onChangeList = (list: ListDto, index: number) => {
+            setIsListTextOpen((prev) => prev.map((el, i) => (i === index ? list : el)));
+        };
         const isEditType = type === "edit";
         const modalHeaderTitle = isEditType ? "Редактировать новость" : "Добавить новость";
         const submitBntLabel = isEditType ? "Редактировать" : "Создать";
@@ -130,7 +132,7 @@ export const ModalAdministeredNews = forwardRef<ModalAdministeredNewsRef, ModalA
 
                             {isListTextOpen.map((el, index) => (
                                 <div key={index} className={cx("list-wrapper")}>
-                                    <List index={index + 1} data={el} />
+                                    <List onChangeList={onChangeList} index={index + 1} data={el} />
                                 </div>
                             ))}
                             <div className={cx("buttons")}>

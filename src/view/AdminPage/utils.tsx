@@ -8,7 +8,13 @@ import { newsCreateApi } from "@/api/newsCreateApi/newsCreateApi";
 import { newsDeleteApi } from "@/api/newsDeleteApi";
 import type { NewsUpdateApiParams } from "@/api/newsUpdateApi/newsUpdateApi";
 import { newsUpdateApi } from "@/api/newsUpdateApi/newsUpdateApi";
+import type { PortfolioCreateApiParams } from "@/api/portfolioCreateApi";
+import { portfolioCreateApi } from "@/api/portfolioCreateApi";
+import { portfolioDeleteApi } from "@/api/portfolioDeleteApi";
+import type { PortfolioUpdateApiParams } from "@/api/portfolioUpdateApi/portfolioUpdateApi";
+import { portfolioUpdateApi } from "@/api/portfolioUpdateApi/portfolioUpdateApi";
 import type { ModalAdministeredNewsModel } from "@/components/_Modals/ModalAdministeredNews/ModalAdministeredNews";
+import type { ModalAdministeredPortfolioModel } from "@/components/_Modals/ModalAdministeredPortfolio";
 import type { CreateNewsDto, GetPortfolioDto } from "@/entities/types/entities";
 import type { AnyEntity } from "@/view/AdminPage/types";
 import { AdminEntityPageType } from "@/view/AdminPage/types";
@@ -33,11 +39,15 @@ export interface PreparePortfolioEditFormValuesParams {
 }
 export const preparePortfolioEditFormValues = ({
     entity,
-}: PreparePortfolioEditFormValuesParams): Partial<ModalAdministeredNewsModel> => ({
+}: PreparePortfolioEditFormValuesParams): Partial<ModalAdministeredPortfolioModel> => ({
     id: entity.id,
     title: entity.title,
-    subtitle: entity.description,
-    time: entity.pictureId,
+    description: entity.description,
+    categoryName: entity.categoryName,
+    status: entity.status,
+    pictureId: entity.pictureId,
+    file: null,
+    number: entity.number,
 });
 
 export const prepareNewsCreateData = (data: ModalAdministeredNewsModel): NewsCreateApiParams => ({
@@ -64,10 +74,27 @@ export const prepareNewsUpdateData = (data: ModalAdministeredNewsModel): NewsUpd
     id: data.id,
 });
 
+export const preparePortfolioCreateData = (data: ModalAdministeredPortfolioModel): PortfolioCreateApiParams => ({
+    title: data.title,
+    description: data.description,
+    status: data.status,
+    categoryName: data.categoryName,
+    file: data.file,
+    id: data.id,
+});
+export const preparePortfolioUpdateData = (data: ModalAdministeredPortfolioModel): PortfolioUpdateApiParams => ({
+    title: data.title,
+    description: data.description,
+    status: data.status,
+    categoryName: data.categoryName,
+    file: data.file,
+    id: data.id,
+});
+
 export const useEntityCreate = () => {
     const newsParams = useMutation({ mutationFn: newsCreateApi });
     const articlesParams = useMutation({ mutationFn: articleCreateApi });
-    const portfolioParams = useMutation({ mutationFn: newsCreateApi });
+    const portfolioParams = useMutation({ mutationFn: portfolioCreateApi });
     const pagesParams = useMutation({ mutationFn: newsCreateApi });
 
     return {
@@ -80,7 +107,7 @@ export const useEntityCreate = () => {
 export const useEntityUpdate = () => {
     const newsParams = useMutation({ mutationFn: newsUpdateApi });
     const articlesParams = useMutation({ mutationFn: articleUpdateApi });
-    const portfolioParams = useMutation({ mutationFn: newsUpdateApi });
+    const portfolioParams = useMutation({ mutationFn: portfolioUpdateApi });
     const pagesParams = useMutation({ mutationFn: newsUpdateApi });
 
     return {
@@ -93,7 +120,7 @@ export const useEntityUpdate = () => {
 export const useEntityDelete = () => {
     const newsParams = useMutation({ mutationFn: newsDeleteApi });
     const articlesParams = useMutation({ mutationFn: articleDeleteApi });
-    const portfolioParams = useMutation({ mutationFn: newsDeleteApi });
+    const portfolioParams = useMutation({ mutationFn: portfolioDeleteApi });
     const pagesParams = useMutation({ mutationFn: newsDeleteApi });
 
     return {

@@ -1,11 +1,14 @@
 import cnBind from "classnames/bind";
 import { useFormik } from "formik";
+import { useRouter } from "next/router";
 
 import { Modal } from "@/components/_Modals/Modal";
-import { TGIcon, WAIcon } from "@/shared/assests/svg/svg";
+import tg from "@/shared/assests/telegram.png";
+import wa from "@/shared/assests/whatsapp.png";
 import { useResizeContext } from "@/shared/context/WindowResizeProvider";
 import { Button } from "@/shared/ui/Button";
 import { CheckBox } from "@/shared/ui/CheckBox";
+import { CustomImage } from "@/shared/ui/CustomImage";
 import { TextField } from "@/shared/ui/TextField";
 
 import styles from "./ModalFeedBack.module.scss";
@@ -17,7 +20,7 @@ type Props = {
 };
 export const ModalFeedBack = ({ isOpen, onClose }: Props) => {
     const { isMobile } = useResizeContext();
-
+    const router = useRouter();
     const formik = useFormik({
         initialValues: {
             name: "",
@@ -81,11 +84,11 @@ export const ModalFeedBack = ({ isOpen, onClose }: Props) => {
                             title="Согласен(а) на обработку персональных данных"
                         />
                         <div className={cx("social")}>
-                            <div className={cx("social-item", "icon")}>
-                                <TGIcon />
+                            <div onClick={() => router.push("/")} className={cx("social-item", "icon")}>
+                                <CustomImage src={tg} alt="tg" />
                             </div>
-                            <div className={cx("social-item", "icon")}>
-                                <WAIcon />
+                            <div onClick={() => router.push("/")} className={cx("social-item", "icon")}>
+                                <CustomImage src={wa} alt="tg" />
                             </div>
                         </div>
                     </div>
