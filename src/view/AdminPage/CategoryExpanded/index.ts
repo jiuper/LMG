@@ -1,0 +1,1 @@
+export { CategoryExpanded } from "./CategoryExpanded";

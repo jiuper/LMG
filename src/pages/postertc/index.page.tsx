@@ -14,7 +14,7 @@ import { API_BASE } from "@/shared/constants/private";
 import { BuildingPage } from "@/view/Building/Building";
 
 export default function Building({ port }: InferGetStaticPropsType<typeof getStaticProps>) {
-    const items = [{ label: "Реклама в жилых домах" }];
+    const items = [{ label: "Реклама в торговых центрах" }];
     const listChooseEtc = [
         {
             title: "Реклама на фудкортах",

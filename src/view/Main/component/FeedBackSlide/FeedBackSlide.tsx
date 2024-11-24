@@ -6,7 +6,6 @@ import { ModalFeedBackBlock } from "@/components/_Modals/ModalFeedbackBlock";
 import { SwipeableWrapper } from "@/components/SwipeableWrapper";
 import { useBooleanState } from "@/shared/hooks";
 import { CustomImage } from "@/shared/ui/CustomImage";
-import { items } from "@/view/Main/component/FeedBackSlide/const";
 
 import styles from "./FeedBackSlide.module.scss";
 
@@ -80,14 +79,14 @@ export const FeedBackSlide = ({}: Props) => {
     };
 
     return (
-        <div className={cx("feedbacks")}>
+        <div id="feedback" className={cx("feedbacks")}>
             <div className={cx("wrapper")}>
                 <div className={cx("block")}>
-                    <h2 className={cx("title")}>Отзывы ({items.length})</h2>
+                    <h2 className={cx("title")}>Отзывы ({[].length})</h2>
                     <div className={cx("slide")}>
                         <SwipeableWrapper
-                            onSwipedLeft={() => setPage((prevPage) => (prevPage + 1) % items.length)}
-                            onSwipedRight={() => setPage((prevPage) => (prevPage - 1 + items.length) % items.length)}
+                            onSwipedLeft={() => setPage((prevPage) => (prevPage + 1) % [].length)}
+                            onSwipedRight={() => setPage((prevPage) => (prevPage - 1 + [].length) % [].length)}
                         >
                             <Carousel
                                 itemTemplate={(item: {
@@ -96,7 +95,7 @@ export const FeedBackSlide = ({}: Props) => {
                                     image: string;
                                     type?: string;
                                 }) => FeedbackCard(item, () => handleOnModal(item))}
-                                value={items}
+                                value={[]}
                                 showIndicators={false}
                                 showNavigators={false}
                                 numVisible={10}

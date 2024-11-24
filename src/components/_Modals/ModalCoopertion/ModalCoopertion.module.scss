@@ -1,0 +1,11 @@
+.modal-coopertion {
+  .wrapper, .text-list{
+    @include flex-column();
+    gap: 16px;
+  }
+  .title, .text, .list {
+    @include flex-column();
+  }
+
+
+}

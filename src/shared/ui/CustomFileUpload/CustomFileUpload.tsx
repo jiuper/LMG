@@ -57,7 +57,7 @@ const CustomFileUpload = ({ onChange, value, name, fileStr }: CustomFileUploadPr
                                 className={cx("input")}
                                 onChange={handleUpload}
                                 type="file"
-                                accept=".jpg, .jpeg, .png"
+                                accept=".jpg, .jpeg, .png, .mp4, .avi, .mov, .mkv, .wmv, .flv, .webm"
                                 name={name}
                             />
                             <span className={cx("title")}>Загрузите</span>

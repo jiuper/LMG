@@ -1,0 +1,23 @@
+.form {
+  @include flex-column;
+  gap: 0.5rem;
+
+  .picture {
+    @include flex-column;
+    gap: 0.5rem;
+
+    .title {
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 20px;
+      color: #1c1b1f;
+    }
+  }
+
+  .btns{
+    margin-top: 50px;
+    @include flex-row;
+    justify-content: space-between;
+    width: 100%;
+  }
+}

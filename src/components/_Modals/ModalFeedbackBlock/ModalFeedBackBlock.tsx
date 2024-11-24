@@ -46,7 +46,7 @@ export const ModalFeedBackBlock = ({ isOpen, onClose, item }: Props) => {
                         </div>
                     </div>
                     {item.type === "video" ? (
-                        <video src={item.image}>
+                        <video src={item.image} controls playsInline>
                             <source src={item.image} />
                         </video>
                     ) : (

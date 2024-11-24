@@ -34,7 +34,11 @@ export const HistoryBlock = ({ className }: { className?: string }) => {
                             <HistoryCard onClick={() => href.push(Routes.HISTORY)} key={index} {...item} />
                         ))}
                     </div>
-                    <HistoryCard onClick={() => href.push(Routes.ABOUTUS)} title="Наша команда" image={card_3.src} />
+                    <HistoryCard
+                        onClick={() => href.push(`${Routes.HISTORY}#team`)}
+                        title="Наша команда"
+                        image={card_3.src}
+                    />
                 </div>
             </div>
         </div>

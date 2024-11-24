@@ -29,13 +29,24 @@ export const ImgPreview = ({ value, className }: ImgPreviewType) => {
     const handleFileUpload = async (file: File): Promise<Buffer> => {
         return fileToBuffer(file);
     };
+
     const newFile = useCallback((bufferFile?: Buffer) => {
         if (!bufferFile) return;
-        const data = new Uint8Array(bufferFile);
-        const newImg = btoa(String.fromCharCode(...data));
-        const file = `data:image/png;base64,${newImg}`;
-        setFile(file);
+
+        try {
+            if (!(bufferFile instanceof Buffer)) {
+                throw new Error("bufferFile is not an instance of Buffer");
+            }
+
+            const base64String = bufferFile.toString("base64");
+            const file = `data:image/png;base64,${base64String}`;
+
+            setFile(file);
+        } catch (error) {
+            console.error("Error converting buffer to Base64:", error);
+        }
     }, []);
+
     useEffect(() => {
         const processFile = async () => {
             if (typeof value !== "string") {

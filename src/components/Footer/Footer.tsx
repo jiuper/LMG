@@ -19,8 +19,8 @@ export const Footer = () => {
     ];
     const listContact = [
         { title: "Контакты", href: Routes.CONTACTS },
-        { title: "Отзывы", href: Routes.PORTFOLIO },
-        { title: "Сотрудничество", href: "/" },
+        { title: "Отзывы", href: "/#feedback" },
+        { title: "Сотрудничество", href: "/#cooperation" },
         { title: "О нас", href: Routes.ABOUTUS },
         { title: "Портфолио", href: Routes.PORTFOLIO },
     ];

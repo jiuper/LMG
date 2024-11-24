@@ -1,0 +1,11 @@
+.form {
+  @include flex-column;
+  gap: 0.5rem;
+
+  .btns{
+    margin-top: 50px;
+    @include flex-row;
+    justify-content: space-between;
+    width: 100%;
+  }
+}

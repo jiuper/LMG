@@ -28,7 +28,6 @@
     }
     & > *:last-child {
         width: 100%;
-        max-width: min-content;
         white-space: nowrap;
     }
 }
@@ -62,4 +61,9 @@
     &[data-pc-name="button"] {
         border: none;
     }
+}
+
+.section-select{
+    display: flex;
+    gap: 16px;
 }

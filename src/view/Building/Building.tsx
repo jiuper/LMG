@@ -1,10 +1,12 @@
 import cnBind from "classnames/bind";
 import type { StaticImageData } from "next/image";
+import { useRouter } from "next/router";
 
 import { FormFeedback } from "@/components/_Forms/FormFeedback";
 import { ModalFeedBack } from "@/components/_Modals/ModalFeedBack";
 import { MapWrapper } from "@/components/Map";
 import type { GetPortfolioDto } from "@/entities/types/entities";
+import { Routes } from "@/shared/constants";
 import { useBooleanState } from "@/shared/hooks";
 import { Button } from "@/shared/ui/Button";
 import { CustomImage } from "@/shared/ui/CustomImage";
@@ -22,10 +24,21 @@ type Props = {
     port: GetPortfolioDto[];
     listCategory: { title: string; description: string; image: string }[];
     category?: string;
+    url?: string;
 };
-export const BuildingPage = ({ description, title, port, src, alt, listCategory, category }: Props) => {
+export const BuildingPage = ({
+    description,
+    title,
+    port,
+    src,
+    alt,
+    listCategory,
+    category,
+    url = Routes.BUILDING,
+}: Props) => {
     const [isOpen, open, close] = useBooleanState(false);
     const filterPort = port.filter((el) => el.categoryName === category);
+    const href = useRouter();
 
     return (
         <div className={cx("building")}>
@@ -45,7 +58,7 @@ export const BuildingPage = ({ description, title, port, src, alt, listCategory,
                     <h2>Варианты размещения рекламы</h2>
                     <div className={cx("cards")}>
                         {listCategory.map((el, index) => (
-                            <Card key={index} {...el} />
+                            <Card onClick={() => href.push(`${url}/${index}`)} key={index} {...el} />
                         ))}
                     </div>
                 </div>

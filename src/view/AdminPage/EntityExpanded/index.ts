@@ -1,0 +1,1 @@
+export { EntityExpanded } from "./EntityExpanded";

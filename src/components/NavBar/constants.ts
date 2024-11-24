@@ -6,6 +6,18 @@ export const items: NavbarTypeProps = [
         label: "Реклама",
         items: [
             {
+                label: "Реклама в лифтах",
+                url: `${Routes.BUILDING}/0 `,
+            },
+            {
+                label: "Реклама на видео экранах",
+                url: `${Routes.BUILDING}/3 `,
+            },
+            {
+                label: "Реклама в жилых домах",
+                url: Routes.BUILDING,
+            },
+            {
                 label: "Реклама ПВЗ",
                 url: Routes.POSTERPVZ,
             },
@@ -20,14 +32,6 @@ export const items: NavbarTypeProps = [
             {
                 label: "Реклама в бизнес центрах",
                 url: Routes.POSTERBC,
-            },
-            {
-                label: "Реклама в лифтах",
-                url: Routes.LIFTMEDIA,
-            },
-            {
-                label: "Реклама в жилых домах",
-                url: Routes.BUILDING,
             },
         ],
     },

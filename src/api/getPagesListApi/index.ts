@@ -1,0 +1,1 @@
+export { getPagesListApi } from "./getPagesListApi";

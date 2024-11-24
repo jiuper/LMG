@@ -9,7 +9,6 @@ import auth from "@/shared/assests/photo_2023-03-08_21-16-20 2.png";
 import { Button } from "@/shared/ui/Button";
 import { CustomImage } from "@/shared/ui/CustomImage";
 import { HISTORY_COMPANY, responsiveOptions } from "@/view/HistoryCompany/const";
-import { items } from "@/view/Main/component/FeedBackSlide/const";
 
 import styles from "./HistoryCompany.module.scss";
 
@@ -83,16 +82,16 @@ export const HistoryCompanyPage = ({}: Props) => {
                         ))}
                     </div>
                 </div>
-                <div className={cx("wrapper-carousel")}>
+                <div id="team" className={cx("wrapper-carousel")}>
                     <h1 className={cx("title", "container", "wrapper")}>Наша команда</h1>
                     <div className={cx("carousel")}>
                         <SwipeableWrapper
-                            onSwipedLeft={() => setPage((prevPage) => (prevPage + 1) % items.length)}
-                            onSwipedRight={() => setPage((prevPage) => (prevPage - 1 + items.length) % items.length)}
+                            onSwipedLeft={() => setPage((prevPage) => (prevPage + 1) % [].length)}
+                            onSwipedRight={() => setPage((prevPage) => (prevPage - 1 + [].length) % [].length)}
                         >
                             <Carousel
                                 itemTemplate={(item: { type: string; src: string }) => FeedbackCard(item)}
-                                value={items}
+                                value={[]}
                                 showIndicators={false}
                                 showNavigators={false}
                                 numVisible={10}

@@ -13,8 +13,10 @@ import styles from "./LiftMedia.module.scss";
 const cx = cnBind.bind(styles);
 type Props = {
     port: GetPortfolioDto[];
+    caption: string;
+    description: string;
 };
-export const LiftMedia = ({ port }: Props) => {
+export const LiftMedia = ({ port, caption, description }: Props) => {
     const [isOpen, open, close] = useBooleanState(false);
 
     return (
@@ -22,8 +24,8 @@ export const LiftMedia = ({ port }: Props) => {
             <div className={cx("main-block")}>
                 <div className={cx("wrapper", "container")}>
                     <div className={cx("content")}>
-                        <h1>Реклама лифтах</h1>
-                        <span>Эффективная реклама в лифтах по всему Санкт-Петербургу и области</span>
+                        <h1>{caption}</h1>
+                        <span>{description}</span>
                         <Button className={cx("button-main")} mode="empty" onClick={open} label="Заказать звонок" />
                     </div>
                 </div>
@@ -144,10 +146,7 @@ export const LiftMedia = ({ port }: Props) => {
             </div>
 
             <div className={cx("portfolio")}>
-                <CaseBlock
-                    className={cx("case-block")}
-                    listItem={port.filter((el) => el.categoryName === "Лифты").slice(-4)}
-                />
+                <CaseBlock className={cx("case-block")} listItem={port.slice(-4)} />
             </div>
             <div className={cx("form")}>
                 <FormFeedback />

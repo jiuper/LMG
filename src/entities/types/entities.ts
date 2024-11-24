@@ -53,3 +53,94 @@ export interface GetPortfolioDto {
     status: ContentSatus;
     pictureId?: string;
 }
+export interface GetFeedbackDto {
+    id: string;
+    number?: number;
+    title?: string;
+    description?: string;
+    video?: File;
+    status: ContentSatus;
+    pictureId?: string;
+}
+export interface CreateFeedbackDto {
+    title?: string;
+    description?: string;
+    video?: string;
+    status: ContentSatus;
+}
+
+export interface GetSectionDto {
+    id: string;
+    number: number;
+    title?: string;
+    description?: string;
+    status?: ContentSatus;
+    createdAt: Date;
+    updatedAt: Date;
+    sectionArea: SectionArea[];
+}
+export interface CreateCategoryDto {
+    id?: string;
+    number?: number;
+    title?: string;
+    description?: string;
+    subtitle?: string;
+    districtId?: string;
+    pictureId?: string;
+    status?: ContentSatus;
+    file?: File | null;
+}
+export interface Area {
+    id: string;
+    number: number;
+    lat?: string;
+    lon?: string;
+    name?: string;
+    title?: string;
+    description?: string;
+    subTitle?: string;
+    status?: ContentSatus;
+    picture?: Picture;
+    pictureId?: string;
+    createdAt: Date;
+    updatedAt: Date;
+    sectionArea: SectionArea[];
+}
+
+export interface SectionArea {
+    id: string;
+    sectionId: string;
+    areaId: string;
+    section: GetSectionDto;
+    area: Area;
+    status?: ContentSatus;
+    createdAt: Date;
+    updatedAt: Date;
+    build: Build[];
+}
+
+export interface Build {
+    id: string;
+    number: number;
+    lat?: string;
+    lon?: string;
+    name?: string;
+    wPicture?: Picture;
+    wPictureId?: string;
+    wDescription?: string;
+    gPicture?: Picture;
+    gPictureId?: string;
+    gTitle?: string;
+    gSubTitle?: string;
+    list?: any;
+    status?: ContentSatus;
+    sectionAreaId?: string;
+    sectionArea?: SectionArea;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export interface Picture {
+    id: string;
+    url: string;
+}

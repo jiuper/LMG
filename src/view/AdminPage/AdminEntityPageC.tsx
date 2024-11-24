@@ -7,7 +7,9 @@ import type { Toast } from "primereact/toast";
 import type { FormEvent } from "primereact/ts-helpers";
 
 import type { GetArticlesListApiRawResponse } from "@/api/getArticlesListApi/types";
+import type { GetFeedbackListApiRawResponse } from "@/api/getFeedbackListApi/types";
 import type { GetNewsListApiRawResponse } from "@/api/getNewsListApi/types";
+import type { GetPagesListApiRawResponse } from "@/api/getPagesListApi/types";
 import type { GetPortfolioListApiRawResponse } from "@/api/getPortfolioListApi/types";
 import type { NewsCreateApiParams } from "@/api/newsCreateApi/newsCreateApi";
 import type { NewsUpdateApiParams } from "@/api/newsUpdateApi/newsUpdateApi";
@@ -18,11 +20,17 @@ import type {
     ModalAdministeredArticleModel,
     ModalAdministeredArticleRef,
 } from "@/components/_Modals/ModalAdministeredArticle";
+import type {
+    ModalAdministeredFeedbackModel,
+    ModalAdministeredFeedbackRef,
+} from "@/components/_Modals/ModalAdministeredFeedBack";
 import type { ModalAdministeredNewsModel, ModalAdministeredNewsRef } from "@/components/_Modals/ModalAdministeredNews";
+import type { ModalAdministeredPagesModel } from "@/components/_Modals/ModalAdministeredPages";
 import type {
     ModalAdministeredPortfolioModel,
     ModalAdministeredPortfolioRef,
 } from "@/components/_Modals/ModalAdministeredPortfolio";
+import type { CreateNewsDto, GetFeedbackDto, GetPortfolioDto, GetSectionDto } from "@/entities/types/entities";
 import { ContentSatus } from "@/entities/types/entities";
 import { useToast } from "@/shared/context";
 import { useBooleanState } from "@/shared/hooks";
@@ -30,13 +38,18 @@ import { ActionButton } from "@/shared/ui/ActionButton";
 import { REQUEST_ENTITIES_FN_MAP } from "@/view/AdminPage/constants";
 
 import { AdminEntityPageV } from "./AdminEntityPageV";
+import { CategoryExpanded } from "./CategoryExpanded";
 import type { AnyEntity } from "./types";
 import { AdminEntityPageType } from "./types";
 import {
     getDeleteEntityConfirmMessage,
+    prepareFeedbackCreateData,
+    prepareFeedbackEditFormValues,
+    prepareFeedbackUpdateData,
     prepareNewsCreateData,
     prepareNewsEditFormValues,
     prepareNewsUpdateData,
+    preparePagesEditFormValues,
     preparePortfolioCreateData,
     preparePortfolioEditFormValues,
     preparePortfolioUpdateData,
@@ -70,12 +83,13 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
     const newsModalRef = useRef<ModalAdministeredNewsRef>(null);
     const articleModalRef = useRef<ModalAdministeredArticleRef>(null);
     const portfolioModalRef = useRef<ModalAdministeredPortfolioRef>(null);
+    const feedbackModalRef = useRef<ModalAdministeredFeedbackRef>(null);
+    const pagesModalRef = useRef<ModalAdministeredFeedbackRef>(null);
 
     const createEntity = useEntityCreate();
     const updateEntity = useEntityUpdate();
     const deleteEntity = useEntityDelete();
 
-    const [additionalModalIsOpen, openAdditionalModal, closeAdditionalModal] = useBooleanState(false);
     const [createModalIsOpen, openCreateModal, closeCreateModal] = useBooleanState(false);
 
     const [createModalType, setCreateModalType] = useState<"create" | "edit">("create");
@@ -87,12 +101,16 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
         data: entityData,
         fetchStatus: entityStatus,
         refetch: entityRefetch,
-    } = useQuery<GetNewsListApiRawResponse | GetArticlesListApiRawResponse | GetPortfolioListApiRawResponse>({
+    } = useQuery<
+        | GetNewsListApiRawResponse
+        | GetArticlesListApiRawResponse
+        | GetPortfolioListApiRawResponse
+        | GetPagesListApiRawResponse
+        | GetFeedbackListApiRawResponse
+    >({
         queryKey: ["entity", entityType],
         queryFn: () => REQUEST_ENTITIES_FN_MAP[entityType](),
     });
-
-    // const totalPages = entityData?.count ? Math.ceil(entityData.count / ITEMS_FOR_PAGE) : 0;
 
     const handleEntityTypeChange = ({ value }: FormEvent<AdminEntityPageType, SyntheticEvent<Element, Event>>) => {
         if (!value) return;
@@ -219,6 +237,86 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
         [closeCreateModal, createEntity, createModalType, entityRefetch, toast, updateEntity],
     );
 
+    const handleFeedbackModalSubmit = useCallback(
+        (data: ModalAdministeredFeedbackModel) => {
+            const createPayload: PortfolioCreateApiParams = prepareFeedbackCreateData(data);
+            const updatePayload: PortfolioUpdateApiParams = prepareFeedbackUpdateData(data);
+
+            const onSuccess = () => {
+                closeCreateModal();
+                void entityRefetch();
+                setCreateModalType("create");
+                portfolioModalRef?.current?.clearValues();
+                toast?.({
+                    severity: "success",
+                    summary: "Успех",
+                    detail: `Отзыв ${data.title} был ${createModalType === "create" ? "создан" : "изменен"}`,
+                });
+            };
+            const onError = () => {
+                toast?.({
+                    severity: "error",
+                    summary: "Ошибка",
+                    detail: `При ${createModalType === "create" ? "создании" : "редактировании"} отзыв ${
+                        data.title
+                    } возникла ошибка`,
+                });
+            };
+
+            switch (createModalType) {
+                case "create":
+                    createEntity[AdminEntityPageType.FEEDBACK].mutate(createPayload, { onSuccess, onError });
+                    break;
+                case "edit":
+                    updateEntity[AdminEntityPageType.FEEDBACK].mutate(updatePayload, { onSuccess, onError });
+                    break;
+                default:
+                    return false;
+            }
+        },
+        [closeCreateModal, createEntity, createModalType, entityRefetch, toast, updateEntity],
+    );
+
+    const handlePagesModalSubmit = useCallback(
+        (data: ModalAdministeredPagesModel) => {
+            const createPayload: PortfolioCreateApiParams = prepareFeedbackCreateData(data);
+            const updatePayload: PortfolioUpdateApiParams = prepareFeedbackUpdateData(data);
+
+            const onSuccess = () => {
+                closeCreateModal();
+                void entityRefetch();
+                setCreateModalType("create");
+                portfolioModalRef?.current?.clearValues();
+                toast?.({
+                    severity: "success",
+                    summary: "Успех",
+                    detail: `Отзыв ${data.title} был ${createModalType === "create" ? "создан" : "изменен"}`,
+                });
+            };
+            const onError = () => {
+                toast?.({
+                    severity: "error",
+                    summary: "Ошибка",
+                    detail: `При ${createModalType === "create" ? "создании" : "редактировании"} отзыв ${
+                        data.title
+                    } возникла ошибка`,
+                });
+            };
+
+            switch (createModalType) {
+                case "create":
+                    createEntity[AdminEntityPageType.FEEDBACK].mutate(createPayload, { onSuccess, onError });
+                    break;
+                case "edit":
+                    updateEntity[AdminEntityPageType.FEEDBACK].mutate(updatePayload, { onSuccess, onError });
+                    break;
+                default:
+                    return false;
+            }
+        },
+        [closeCreateModal, createEntity, createModalType, entityRefetch, toast, updateEntity],
+    ); // Редактировать
+
     const handleDeleteEntity = (entity: AnyEntity) => () => {
         const confirmMessage = getDeleteEntityConfirmMessage(entity, entityType);
 
@@ -288,14 +386,14 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
             case AdminEntityPageType.NEWS:
                 newsModalRef.current?.setFormValues(
                     prepareNewsEditFormValues({
-                        entity: rowData,
+                        entity: rowData as CreateNewsDto,
                     }),
                 );
                 break;
             case AdminEntityPageType.ARTICLES:
                 articleModalRef.current?.setFormValues(
                     prepareNewsEditFormValues({
-                        entity: rowData,
+                        entity: rowData as CreateNewsDto,
                     }),
                 );
 
@@ -303,24 +401,38 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
             case AdminEntityPageType.PORTFOLIO:
                 portfolioModalRef.current?.setFormValues(
                     preparePortfolioEditFormValues({
-                        entity: rowData,
+                        entity: rowData as GetPortfolioDto,
                     }),
                 );
 
                 break;
-            // case AdminEntityPageType.PAGES:
-            //     getCityInfoMutation(
-            //         { id: rowData.id },
-            //         {
-            //             onSuccess: (res) => {
-            //                 const payload = prepareCityEditFormValues(res);
-            //                 cityModalRef.current?.setFormValues(payload);
-            //             },
-            //         },
-            //     );
-            //     break;
+            case AdminEntityPageType.FEEDBACK:
+                feedbackModalRef.current?.setFormValues(
+                    prepareFeedbackEditFormValues({
+                        entity: rowData as GetFeedbackDto,
+                    }),
+                );
+
+                break;
+            case AdminEntityPageType.PAGES:
+                feedbackModalRef.current?.setFormValues(
+                    preparePagesEditFormValues({
+                        entity: rowData as GetSectionDto,
+                    }),
+                );
+
+                break;
             default:
                 return false;
+        }
+    };
+
+    const rowExpandTemplate = (data: AnyEntity) => {
+        switch (entityType) {
+            case AdminEntityPageType.PAGES:
+                return <CategoryExpanded {...(data as GetSectionDto)} />;
+            default:
+                return null;
         }
     };
     const handleSearchChange = useCallback(
@@ -415,7 +527,7 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
                         ]}
                     />
                 );
-            case AdminEntityPageType.PAGES:
+            case AdminEntityPageType.FEEDBACK:
                 return (
                     <ActionButton
                         menuItems={[
@@ -423,6 +535,26 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
                                 label: "Редактировать",
                                 icon: "pi pi-pencil",
                                 callback: handleRowEdit(data),
+                            },
+                            {
+                                label: "Архив",
+                                icon: "pi pi-trash",
+                                callback:
+                                    data.status === ContentSatus.ARCHIVE
+                                        ? handleRestoreEntity(data)
+                                        : handleDeleteEntity(data),
+                            },
+                        ]}
+                    />
+                );
+            case AdminEntityPageType.PAGES:
+                return (
+                    <ActionButton
+                        menuItems={[
+                            {
+                                label: "Добавить категорию",
+                                icon: "pi pi-pencil",
+                                callback: openCreateModal,
                             },
                             {
                                 label: "Архив",
@@ -443,12 +575,8 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
         newsModalRef.current?.clearValues();
         articleModalRef.current?.clearValues();
         portfolioModalRef.current?.clearValues();
-    };
-    const handleCloseAdditionalModal = () => {
-        closeAdditionalModal();
-        newsModalRef.current?.clearValues();
-        articleModalRef.current?.clearValues();
-        portfolioModalRef.current?.clearValues();
+        feedbackModalRef.current?.clearValues();
+        pagesModalRef.current?.clearValues();
     };
 
     const createModalIsLoading = !!createEntity[entityType]?.isPending;
@@ -472,6 +600,7 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
             totalItems={entityData?.length}
             sortField={sort?.column}
             sortOrder={sort?.direction}
+            rowExpandTemplate={rowExpandTemplate}
             onNextClick={() => setPage(page + 1)}
             onPrevClick={() => setPage(page - 1)}
             onSort={(i) => setSort({ column: i.sortField, direction: i.sortOrder })}
@@ -481,7 +610,6 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
             handleRowExpand={handleRowExpand}
             rowEditorTemplate={rowEditorTemplate}
             handleCloseCreateModal={handleCloseCreateModal}
-            handleCloseAdditionalModal={handleCloseAdditionalModal}
             createModalIsLoading={createModalIsLoading}
             updateModalIsLoading={updateModalIsLoading}
             newsModalRef={newsModalRef}
@@ -495,9 +623,12 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
             handlePortfolioModalSubmit={handlePortfolioModalSubmit}
             createModalIsOpen={createModalIsOpen}
             handleArticleModalSubmit={handleArticleModalSubmit}
-            additionalModalIsOpen={additionalModalIsOpen}
+            handleFeedbackModalSubmit={handleFeedbackModalSubmit}
+            feedbackModalRef={feedbackModalRef}
+            pagesModalRef={pagesModalRef}
             toastRef={toastRef}
             confirmModalProps={confirmModalProps}
+            handlePagesModalSubmit={handlePagesModalSubmit}
         />
     );
 };

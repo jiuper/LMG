@@ -7,13 +7,25 @@ import { Toast } from "primereact/toast";
 import type { FormEvent } from "primereact/ts-helpers";
 
 import type { GetArticlesListApiRawResponse } from "@/api/getArticlesListApi/types";
+import type { GetFeedbackListApiRawResponse } from "@/api/getFeedbackListApi/types";
 import type { GetNewsListApiRawResponse } from "@/api/getNewsListApi/types";
+import type { GetPagesListApiRawResponse } from "@/api/getPagesListApi/types";
 import type { GetPortfolioListApiRawResponse } from "@/api/getPortfolioListApi/types";
 import { ConfirmModal } from "@/components/_Modals/ConfirmModal";
 import type { ConfirmModalProps } from "@/components/_Modals/ConfirmModal/ConfirmModal";
 import { ModalAdministeredArticle } from "@/components/_Modals/ModalAdministeredArticle";
+import { ModalAdministeredCategory } from "@/components/_Modals/ModalAdministeredCategory";
+import type {
+    ModalAdministeredFeedbackModel,
+    ModalAdministeredFeedbackRef,
+} from "@/components/_Modals/ModalAdministeredFeedBack";
+import { ModalAdministeredFeedBack } from "@/components/_Modals/ModalAdministeredFeedBack";
 import type { ModalAdministeredNewsModel, ModalAdministeredNewsRef } from "@/components/_Modals/ModalAdministeredNews";
 import { ModalAdministeredNews } from "@/components/_Modals/ModalAdministeredNews";
+import type {
+    ModalAdministeredPagesModel,
+    ModalAdministeredPagesRef,
+} from "@/components/_Modals/ModalAdministeredPages";
 import type {
     ModalAdministeredPortfolioModel,
     ModalAdministeredPortfolioRef,
@@ -48,24 +60,32 @@ type PropsType = {
     handleRowExpand: (event: DataTableRowToggleEvent) => void;
     rowEditorTemplate: (data: AnyEntity) => JSX.Element | null;
     handleCloseCreateModal: () => void;
-    handleCloseAdditionalModal: () => void;
     createModalIsLoading: boolean;
     updateModalIsLoading: boolean;
     newsModalRef: React.RefObject<ModalAdministeredNewsRef>;
     articleModalRef: React.RefObject<ModalAdministeredNewsRef>;
     portfolioModalRef: React.RefObject<ModalAdministeredPortfolioRef>;
+    pagesModalRef: React.RefObject<ModalAdministeredPagesRef>;
     expandedRows: AnyEntity[];
     openCreateModal: () => void;
-    entityData?: GetNewsListApiRawResponse | GetArticlesListApiRawResponse | GetPortfolioListApiRawResponse;
+    entityData?:
+        | GetNewsListApiRawResponse
+        | GetArticlesListApiRawResponse
+        | GetPortfolioListApiRawResponse
+        | GetFeedbackListApiRawResponse
+        | GetPagesListApiRawResponse;
     entityStatus: FetchStatus;
     createModalType: "create" | "edit";
     handleNewsModalSubmit: (data: ModalAdministeredNewsModel) => false | undefined;
     createModalIsOpen: boolean;
     handleArticleModalSubmit: (data: ModalAdministeredNewsModel) => false | undefined;
     handlePortfolioModalSubmit: (data: ModalAdministeredPortfolioModel) => false | undefined;
-    additionalModalIsOpen: boolean;
+    handleFeedbackModalSubmit: (data: ModalAdministeredFeedbackModel) => false | undefined;
+    handlePagesModalSubmit: (data: ModalAdministeredPagesModel) => false | undefined;
+    feedbackModalRef: React.RefObject<ModalAdministeredFeedbackRef>;
     toastRef: React.RefObject<Toast>;
     confirmModalProps: ConfirmModalProps;
+    rowExpandTemplate: (data: AnyEntity) => JSX.Element | null;
 };
 export const AdminEntityPageV = ({
     entityType,
@@ -81,7 +101,6 @@ export const AdminEntityPageV = ({
     handleRowExpand,
     rowEditorTemplate,
     handleCloseCreateModal,
-    handleCloseAdditionalModal,
     createModalIsLoading,
     updateModalIsLoading,
     expandedRows,
@@ -91,7 +110,6 @@ export const AdminEntityPageV = ({
     entityStatus,
     createModalType,
     createModalIsOpen,
-    additionalModalIsOpen,
     toastRef,
     confirmModalProps,
     handleArticleModalSubmit,
@@ -100,6 +118,11 @@ export const AdminEntityPageV = ({
     newsModalRef,
     handlePortfolioModalSubmit,
     portfolioModalRef,
+    handleFeedbackModalSubmit,
+    feedbackModalRef,
+    rowExpandTemplate,
+    pagesModalRef,
+    handlePagesModalSubmit,
 }: PropsType) => {
     const filterValue = useMemo(() => {
         switch (entityType) {
@@ -131,8 +154,8 @@ export const AdminEntityPageV = ({
                     {entityType === AdminEntityPageType.PORTFOLIO && (
                         <Button className={cx("btn-neon")} label="Создать портфолио" onClick={openCreateModal} />
                     )}
-                    {entityType === AdminEntityPageType.PAGES && (
-                        <Button className={cx("btn-neon")} label="Создать раздел" onClick={openCreateModal} />
+                    {entityType === AdminEntityPageType.FEEDBACK && (
+                        <Button className={cx("btn-neon")} label="Создать отзыв" onClick={openCreateModal} />
                     )}
                 </div>
 
@@ -143,6 +166,7 @@ export const AdminEntityPageV = ({
                         value={entityData || []}
                         status={entityStatus}
                         scrollHeight="flex"
+                        rowExpansionTemplate={rowExpandTemplate}
                         responsiveLayout="scroll"
                         rows={0}
                         totalPages={totalPages}
@@ -194,25 +218,25 @@ export const AdminEntityPageV = ({
                     isLoading={createModalType === "create" ? createModalIsLoading : updateModalIsLoading}
                 />
             )}
+            {entityType === AdminEntityPageType.FEEDBACK && (
+                <ModalAdministeredFeedBack
+                    ref={feedbackModalRef}
+                    isOpen={createModalIsOpen}
+                    onClose={handleCloseCreateModal}
+                    type={createModalType}
+                    onSubmit={handleFeedbackModalSubmit}
+                    isLoading={createModalType === "create" ? createModalIsLoading : updateModalIsLoading}
+                />
+            )}
             {entityType === AdminEntityPageType.PAGES && (
-                <>
-                    <ModalAdministeredNews
-                        ref={articleModalRef}
-                        isOpen={createModalIsOpen}
-                        onClose={handleCloseCreateModal}
-                        type={createModalType}
-                        onSubmit={handleArticleModalSubmit}
-                        isLoading={createModalType === "create" ? createModalIsLoading : updateModalIsLoading}
-                    />
-                    <ModalAdministeredNews
-                        ref={articleModalRef}
-                        type="create"
-                        isOpen={additionalModalIsOpen}
-                        onClose={handleCloseAdditionalModal}
-                        onSubmit={handleArticleModalSubmit}
-                        isLoading={false}
-                    />
-                </>
+                <ModalAdministeredCategory
+                    ref={pagesModalRef}
+                    isOpen={createModalIsOpen}
+                    onClose={handleCloseCreateModal}
+                    type={createModalType}
+                    onSubmit={handlePagesModalSubmit}
+                    isLoading={createModalType === "create" ? createModalIsLoading : updateModalIsLoading}
+                />
             )}
             <Toast ref={toastRef} />
             <ConfirmModal
