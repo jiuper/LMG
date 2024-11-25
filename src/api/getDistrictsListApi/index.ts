@@ -1,0 +1,1 @@
+export { getDistrictsListApi } from "./getDistrictsListApi";

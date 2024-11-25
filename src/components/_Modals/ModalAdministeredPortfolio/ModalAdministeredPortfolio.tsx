@@ -1,7 +1,10 @@
-import { forwardRef, useImperativeHandle } from "react";
+import { forwardRef, useImperativeHandle, useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
 import cnBind from "classnames/bind";
 import { useFormik } from "formik";
 
+import type { GetCategoryListApiRawResponse } from "@/api/getCategoryListApi/types";
+import { getCategoryListSimpleApi } from "@/api/getCategoryListSimpleApi";
 import { Modal } from "@/components/_Modals/Modal";
 import { ContentSatus } from "@/entities/types/entities";
 import { Button } from "@/shared/ui/_Button";
@@ -16,7 +19,7 @@ export const MODAL_ADMINISTERED_PORTFOLIO_DEFAULT_VALUES: ModalAdministeredPortf
     status: ContentSatus.PUBLISHED,
     title: "",
     description: "",
-    categoryName: "",
+    categoryId: "",
     file: null,
     pictureId: "",
 };
@@ -28,7 +31,7 @@ export type ModalAdministeredPortfolioState = {
     number?: number;
     title?: string;
     description?: string;
-    categoryName?: string;
+    categoryId?: string;
     status?: ContentSatus;
     pictureId?: string;
     file?: File | null;
@@ -56,6 +59,14 @@ export const ModalAdministeredPortfolio = forwardRef<ModalAdministeredPortfolioR
             },
         });
 
+        const { data, fetchStatus } = useQuery<GetCategoryListApiRawResponse>({
+            queryKey: ["category-list"],
+            queryFn: () => getCategoryListSimpleApi(),
+        });
+
+        const listData = data || [];
+
+        const parseListData = useMemo(() => listData.map((item) => ({ label: item.title, id: item.id })), [listData]);
         const isEditType = type === "edit";
         const modalHeaderTitle = isEditType ? "Редактировать порфолио" : "Добавить порфолио";
         const submitBntLabel = isEditType ? "Редактировать" : "Создать";
@@ -97,17 +108,12 @@ export const ModalAdministeredPortfolio = forwardRef<ModalAdministeredPortfolioR
                     <Dropdown
                         isFullWidth
                         label="Категория"
-                        options={[
-                            "Лифты",
-                            "Бизнес-центры",
-                            "Жилые комплексы",
-                            "Торговые центры",
-                            "ПВЗ",
-                            "Фитнес центры",
-                        ]}
+                        options={parseListData}
                         name="categoryName"
-                        value={formik.values.categoryName}
-                        onChange={formik.handleChange}
+                        optionValue="id"
+                        optionLabel="label"
+                        value={formik.values.categoryId}
+                        onChange={(e) => formik.setFieldValue("categoryId", e.value)}
                     />
                     <CustomFileUpload
                         value={formik.values.file || null}

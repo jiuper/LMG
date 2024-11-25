@@ -31,7 +31,7 @@ export const PortfolioPage = ({ port }: Props) => {
 
     const [filter, setFilter] = useState("Все проекты");
 
-    const filtered = filter === "Все проекты" ? port : port.filter((el) => el.categoryName === filter);
+    const filtered = filter === "Все проекты" ? port : port.filter((el) => el.title === filter);
     const paginated = filtered.slice(first, first + rows);
     const onPageChange = (event: { first: number; rows: number }) => {
         setFirst(event.first);

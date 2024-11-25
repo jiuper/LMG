@@ -1,9 +1,11 @@
 import cnBind from "classnames/bind";
+import { useRouter } from "next/router";
 
 import { FormFeedback } from "@/components/_Forms/FormFeedback";
 import { ModalFeedBack } from "@/components/_Modals/ModalFeedBack";
 import { MapWrapper } from "@/components/Map";
-import type { GetPortfolioDto } from "@/entities/types/entities";
+import type { GetCategoryAreaDto, GetCategoryDto, GetPortfolioDto } from "@/entities/types/entities";
+import { API_BASE } from "@/shared/constants/private";
 import { useBooleanState } from "@/shared/hooks";
 import { Button } from "@/shared/ui/Button";
 import { CaseBlock } from "@/view/Main/component/CaseBlock";
@@ -13,18 +15,21 @@ import styles from "./LiftMedia.module.scss";
 const cx = cnBind.bind(styles);
 type Props = {
     port: GetPortfolioDto[];
-    caption: string;
-    description: string;
+    data: GetCategoryDto;
+    districts: GetCategoryAreaDto[];
+    url?: string;
 };
-export const LiftMedia = ({ port, caption, description }: Props) => {
+export const LiftMedia = ({ port, data, districts, url }: Props) => {
     const [isOpen, open, close] = useBooleanState(false);
+    const href = useRouter();
+    const { title, description, pictureId, videoId, list } = data;
 
     return (
         <div className={cx("lift-media")}>
-            <div className={cx("main-block")}>
+            <div className={cx("main-block")} style={{ backgroundImage: `url(${API_BASE}/picture/${pictureId})` }}>
                 <div className={cx("wrapper", "container")}>
                     <div className={cx("content")}>
-                        <h1>{caption}</h1>
+                        <h1>{title}</h1>
                         <span>{description}</span>
                         <Button className={cx("button-main")} mode="empty" onClick={open} label="Заказать звонок" />
                     </div>
@@ -38,6 +43,13 @@ export const LiftMedia = ({ port, caption, description }: Props) => {
                     </div>
                     <div className={cx("map-content")}>
                         <MapWrapper />
+                        <div className={cx("items")}>
+                            {districts?.map((el) => (
+                                <div onClick={() => href.push(`${url}/${el.id}`)} className={cx("item")}>
+                                    <h4>{el.title}</h4>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -45,28 +57,18 @@ export const LiftMedia = ({ port, caption, description }: Props) => {
                 <div className={cx("lift-media-us")}>
                     <div className={cx("wrapper", "container")}>
                         <div className={cx("header")}>
-                            <h2>Преимущества рекламы в лифтах</h2>
+                            <h2>{list?.title}</h2>
                         </div>
 
                         <div className={cx("items")}>
-                            <div className={cx("item")}>
-                                <h3>
-                                    <strong>Высокая заметность</strong>
-                                </h3>
-                                <span>Ваша реклама всегда на виду у целевой аудитории</span>
-                            </div>
-                            <div className={cx("item")}>
-                                <h3>
-                                    <strong>Точное таргетирование</strong>
-                                </h3>
-                                <span>Выбирайте конкретные районы и дома для вашей рекламы</span>
-                            </div>
-                            <div className={cx("item")}>
-                                <h3>
-                                    <strong>Доступные цены</strong>
-                                </h3>
-                                <span>Эффективная реклама по разумной стоимости</span>
-                            </div>
+                            {list?.items?.map((el) => (
+                                <div className={cx("item")}>
+                                    <h3>
+                                        <strong>{el.caption}</strong>
+                                    </h3>
+                                    <span>{el.subcaption}</span>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
@@ -74,7 +76,7 @@ export const LiftMedia = ({ port, caption, description }: Props) => {
             <div className={cx("wrapper-video")}>
                 <h2>Как это работает</h2>
                 <video className={cx("video")} width="800" height="450" controls preload="none">
-                    <source src="/liftmg.webm" type="video/webm" />
+                    <source src={videoId ? `${API_BASE}/video/${videoId}` : "/liftmg.webm"} type="video/webm" />
                 </video>
             </div>
             <div className={cx("loyalty-program")}>

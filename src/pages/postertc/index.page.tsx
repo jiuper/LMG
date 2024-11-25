@@ -2,70 +2,47 @@ import axios from "axios";
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
 
 import { BreadCrumb } from "@/components/BreadCrumb";
-import type { CreateNewsDto, GetPortfolioDto } from "@/entities/types/entities";
+import type { GetCategoryDto, GetPortfolioDto } from "@/entities/types/entities";
 import { PageLayout } from "@/layouts/PageLayout";
-import img_1 from "@/shared/assests/choose/Image (3).png";
-import img_2 from "@/shared/assests/choose/Image (4).png";
-import img_3 from "@/shared/assests/choose/Image (5).png";
-import img_4 from "@/shared/assests/choose/Image (6).png";
-import img_5 from "@/shared/assests/choose/Image (7).png";
 import Build from "@/shared/assests/postertrc.png";
+import { Routes } from "@/shared/constants";
 import { API_BASE } from "@/shared/constants/private";
 import { BuildingPage } from "@/view/Building/Building";
 
-export default function Building({ port }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Building({ port, cat }: InferGetStaticPropsType<typeof getStaticProps>) {
     const items = [{ label: "Реклама в торговых центрах" }];
-    const listChooseEtc = [
-        {
-            title: "Реклама на фудкортах",
-            description: "Эффективное привлечение аудитории в местах отдыха.",
-            image: img_1.src,
-        },
-        {
-            title: "Реклама на входах и выходах",
-            description: "Охватывайте всех посетителей, проходящих через главный вход.",
-            image: img_2.src,
-        },
-        {
-            title: "Реклама на информационных стойках",
-            description: "Дополнительное внимание с каждого запроса посетителей.",
-            image: img_3.src,
-        },
-        {
-            title: "Реклама на видео экранах",
-            description: "Привлекайте внимание до или после посещения ТЦ.",
-            image: img_4.src,
-        },
-        {
-            title: "Реклама на эскалаторах и лифтах",
-            description: "Эффективное размещение для большого охвата.",
-            image: img_5.src,
-        },
-    ];
+    const filterCategory = cat.map((el) => el.title);
+    const filterPort = port.filter((el) => filterCategory.includes(el.categoryId || ""));
 
     return (
         <PageLayout>
             <BreadCrumb model={items} />
             <BuildingPage
-                listCategory={listChooseEtc}
-                port={port}
-                alt="postertrc"
-                category="Торговые центры"
+                listCategory={cat}
+                port={filterPort || []}
+                alt="TC"
                 src={Build}
+                url={Routes.POSTERTC}
                 title="Реклама в торговых центрах"
-                description="Охватывайте клиентов в популярной локации для покупок.Эффективное решение для продвижения ваших услуг и товаров среди посетителей торговых центров."
+                description="Охватывайте клиентов в популярной локации для покупок.
+                    Эффективное решение для продвижения ваших услуг и товаров среди посетителей торговых центров."
             />
         </PageLayout>
     );
 }
 export const getStaticProps = (async () => {
-    const resPort = await axios<CreateNewsDto[]>(`${API_BASE}/portfolio`);
+    const resPort = await axios<GetPortfolioDto[]>(`${API_BASE}/portfolio`);
+    const resCat = await axios<GetCategoryDto[]>(`${API_BASE}/category`, {
+        params: { sectionId: "5bac48d6-281e-4408-ab8a-418e7ce45907" },
+    });
 
     const port = resPort.data;
+    const cat = resCat.data;
 
     return {
         props: {
             port,
+            cat,
         },
     };
-}) satisfies GetStaticProps<{ port: GetPortfolioDto[] }>;
+}) satisfies GetStaticProps<{ port: GetPortfolioDto[]; cat: GetCategoryDto[] }>;

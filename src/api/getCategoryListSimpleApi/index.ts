@@ -1,0 +1,1 @@
+export { getCategoryListSimpleApi } from "./getCategoryListSimpleApi";

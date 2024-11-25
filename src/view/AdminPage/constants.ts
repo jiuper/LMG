@@ -63,7 +63,7 @@ export const ENTITIES_TABLE_STRUCTURE: Record<AdminEntityPageType, SmartTableStr
         // { field: "updatedDate", header: "Дата обновления", sortable: true },
     ],
     [AdminEntityPageType.PAGES]: [
-        { field: "", header: "", minWidth: 30, expander: true },
+        { field: "", header: "Раздел", minWidth: 30, expander: true },
         { field: "number", header: "№(id)", width: 50, sortable: true, sortField: "id" },
         { field: "title", header: "Наименование", sortable: true },
         { field: "status", header: "Статус", sortable: true },

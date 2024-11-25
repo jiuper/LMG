@@ -7,11 +7,11 @@ export const items: NavbarTypeProps = [
         items: [
             {
                 label: "Реклама в лифтах",
-                url: `${Routes.BUILDING}/0 `,
+                url: `${Routes.BUILDING}/dcfe5b93-b13d-46a9-b0be-37a1b69025d6 `,
             },
             {
                 label: "Реклама на видео экранах",
-                url: `${Routes.BUILDING}/3 `,
+                url: `${Routes.BUILDING}/18e9084d-dad9-4be0-bd6b-3a88b4ceca58 `,
             },
             {
                 label: "Реклама в жилых домах",

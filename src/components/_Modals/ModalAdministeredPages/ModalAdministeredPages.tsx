@@ -1,15 +1,18 @@
-import { forwardRef, useImperativeHandle } from "react";
+import { forwardRef, useImperativeHandle, useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
 import cnBind from "classnames/bind";
 import { useFormik } from "formik";
 
+import type { GetDistrictsListApiRawResponse } from "@/api/getDistrictsListApi/types";
 import { Modal } from "@/components/_Modals/Modal";
-import { districts } from "@/components/_Modals/ModalAdministeredPages/const";
 import { ContentSatus } from "@/entities/types/entities";
 import { Button } from "@/shared/ui/_Button";
 import { Dropdown } from "@/shared/ui/_Dropdown";
 import { InputText } from "@/shared/ui/_InputText";
 import { InputTextarea } from "@/shared/ui/_InputTextarea";
 import CustomFileUpload from "@/shared/ui/CustomFileUpload/CustomFileUpload";
+
+import { getDistrictsListApi } from "../../../api/getDistrictsListApi";
 
 import styles from "./ModalAdministeredPages.module.scss";
 
@@ -60,6 +63,14 @@ export const ModalAdministeredPages = forwardRef<ModalAdministeredPagesRef, Moda
             },
         });
 
+        const { data, fetchStatus } = useQuery<GetDistrictsListApiRawResponse>({
+            queryKey: ["districts"],
+            queryFn: () => getDistrictsListApi(),
+        });
+
+        const listData = data || [];
+
+        const parseListData = useMemo(() => listData.map((item) => ({ label: item.name, id: item.id })), [listData]);
         const isEditType = type === "edit";
         const modalHeaderTitle = isEditType ? "Редактировать район" : "Добавить район";
         const submitBntLabel = isEditType ? "Редактировать" : "Создать";
@@ -87,10 +98,11 @@ export const ModalAdministeredPages = forwardRef<ModalAdministeredPagesRef, Moda
                     <Dropdown
                         isFullWidth
                         label="Район"
-                        options={districts}
-                        optionLabel="value"
+                        options={parseListData}
+                        optionLabel="label"
+                        optionValue="id"
                         name="districtName"
-                        value={formik.values.districtId || districts[0].value}
+                        value={formik.values.districtId}
                         onChange={(e) => formik.setFieldValue("districtId", e.value)}
                     />
                     <InputText

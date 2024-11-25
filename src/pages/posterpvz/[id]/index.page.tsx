@@ -2,37 +2,32 @@ import axios from "axios";
 import type { GetStaticProps, GetStaticPropsContext, InferGetStaticPropsType } from "next";
 
 import { BreadCrumb } from "@/components/BreadCrumb";
-import type { CreateNewsDto, GetPortfolioDto } from "@/entities/types/entities";
+import type { GetCategoryAreaDto, GetCategoryDto, GetPortfolioDto } from "@/entities/types/entities";
 import { PageLayout } from "@/layouts/PageLayout";
-import { filterCategoriesPVZ } from "@/pages/posterpvz/const";
 import { Routes } from "@/shared/constants";
 import { API_BASE } from "@/shared/constants/private";
 import { LiftMedia } from "@/view/LiftMedia";
 
-export default function LiftMediaPage({ port, id }: InferGetStaticPropsType<typeof getStaticProps>) {
-    const items = [{ label: "Реклама для ПВЗ", url: Routes.POSTERPVZ }, { label: filterCategoriesPVZ[+id] }];
+export default function LiftMediaPage({ port, id, cat, area }: InferGetStaticPropsType<typeof getStaticProps>) {
+    const filter = cat.filter((el) => el.id === id)[0];
+    const items = [{ label: "Реклама для ПВЗ", url: Routes.POSTERPVZ }, { label: filter.title }];
 
     return (
         <PageLayout>
             <BreadCrumb model={items} />
-            <LiftMedia
-                caption={filterCategoriesPVZ[+id]}
-                description="Эффективная реклама в лифтах по всему Санкт-Петербургу и области"
-                port={port}
-            />
+            <LiftMedia url={`${Routes.POSTERPVZ}/${id}`} data={filter} port={port} districts={area} />
         </PageLayout>
     );
 }
 
-export const getStaticPaths = () => {
-    const categories = Array(filterCategoriesPVZ.length)
-        .fill(0)
-        .map((_, i) => i.toString());
+export const getStaticPaths = async () => {
+    const resCat = await axios<GetCategoryDto[]>(`${API_BASE}/category`);
+    const categories = resCat.data;
 
     return {
         paths: categories.map((category) => {
             return {
-                params: { id: category },
+                params: { id: category.id },
             };
         }),
         fallback: false,
@@ -40,14 +35,20 @@ export const getStaticPaths = () => {
 };
 export const getStaticProps = (async (ctx: GetStaticPropsContext) => {
     const id = ctx?.params?.id as string;
-    const resPort = await axios<CreateNewsDto[]>(`${API_BASE}/portfolio`);
+    const resPort = await axios<GetPortfolioDto[]>(`${API_BASE}/portfolio`);
+    const resCat = await axios<GetCategoryDto[]>(`${API_BASE}/category`);
+    const resArea = await axios<GetCategoryAreaDto[]>(`${API_BASE}/category-area`, { params: { categoryId: id } });
 
+    const cat = resCat.data;
     const port = resPort.data;
+    const area = resArea.data;
 
     return {
         props: {
             port,
             id,
+            cat,
+            area,
         },
     };
-}) satisfies GetStaticProps<{ port: GetPortfolioDto[]; id: string }>;
+}) satisfies GetStaticProps<{ port: GetPortfolioDto[]; id: string; cat: GetCategoryDto[]; area: GetCategoryAreaDto[] }>;

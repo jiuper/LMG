@@ -1,12 +1,12 @@
 import type {
     CreateNewsDto,
+    GetCategoryDto,
     GetFeedbackDto,
     GetPortfolioDto,
     GetSectionDto,
-    SectionArea,
 } from "@/entities/types/entities";
 
-export type AnyEntity = GetPortfolioDto | CreateNewsDto | GetSectionDto | GetFeedbackDto | SectionArea;
+export type AnyEntity = GetPortfolioDto | CreateNewsDto | GetSectionDto | GetFeedbackDto | GetCategoryDto;
 
 export enum AdminEntityPageType {
     NEWS = "news",

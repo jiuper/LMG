@@ -11,7 +11,7 @@ export default function Home({ articles, news, port }: InferGetStaticPropsType<t
 export const getStaticProps = (async () => {
     const resPromotion = await axios<CreateNewsDto[]>(`${API_BASE}/article`);
     const resNews = await axios<CreateNewsDto[]>(`${API_BASE}/news`);
-    const resPort = await axios<CreateNewsDto[]>(`${API_BASE}/portfolio`);
+    const resPort = await axios<GetPortfolioDto[]>(`${API_BASE}/portfolio`);
     const articles = resPromotion.data;
     const news = resNews.data;
     const port = resPort.data;

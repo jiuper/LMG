@@ -1,38 +1,47 @@
 import { memo, useRef, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import cnBind from "classnames/bind";
 import { Column } from "primereact/column";
 import type { DataTableRowData, DataTableRowToggleEvent, DataTableValue } from "primereact/datatable";
 
+import { getDistrictListApi } from "@/api/getDistrictListApi";
+import type { GetDistrictListApiRawResponse } from "@/api/getDistrictListApi/types";
 import { ConfirmModal } from "@/components/_Modals/ConfirmModal";
 import { useConfirmModal } from "@/components/_Modals/ConfirmModal/ConfirmModal";
-import { ModalAdministeredEntity } from "@/components/_Modals/ModalAdministeredEntity";
+import type { ModalAdministeredPagesRef } from "@/components/_Modals/ModalAdministeredPages";
+import { ModalAdministeredPages } from "@/components/_Modals/ModalAdministeredPages";
 import { SmartTable } from "@/components/SmartTable";
 import type { SmartTableStructureItem } from "@/components/SmartTable/types";
-import type { Area, GetSectionDto, SectionArea } from "@/entities/types/entities";
+import type { GetCategoryAreaDto, GetCategoryDto } from "@/entities/types/entities";
 import { useBooleanState } from "@/shared/hooks";
 import { ActionButton } from "@/shared/ui/ActionButton";
+import { EntityExpanded } from "@/view/AdminPage/EntityExpanded";
 
 import styles from "./DistrictExpanded.module.scss";
 
 const cx = cnBind.bind(styles);
 
-export type TableDistrictExpandedProps = DataTableRowData<SectionArea[]>;
-export const DistrictExpanded = memo(({ area }: TableDistrictExpandedProps) => {
-    const modalRef = useRef(null);
+export type TableDistrictExpandedProps = DataTableRowData<GetCategoryDto[]>;
+export const DistrictExpanded = memo(({ id }: TableDistrictExpandedProps) => {
+    const modalRef = useRef<ModalAdministeredPagesRef>(null);
     const [createModalIsOpen, openCreateModal, closeCreateModal] = useBooleanState(false);
     const [, setCreateModalType] = useState<"create" | "edit">("create");
     const { withConfirm, modalProps: confirmModalProps } = useConfirmModal();
-    const [expandedRows, setExpandedRows] = useState<GetSectionDto[]>([]);
+    const [expandedRows, setExpandedRows] = useState<GetCategoryDto[]>([]);
     const structure: SmartTableStructureItem<DataTableValue>[] = [
-        { field: "", header: "", minWidth: 30, expander: true },
-        { field: "number", header: "№(id)", sortable: true },
-        { field: "name", header: "title" },
-        { field: "status", header: "status" },
+        { field: "", header: "Район", minWidth: 30, expander: true },
+        { field: "area.number", header: "№(id)", width: 50, sortable: true },
+        { field: "area.name", header: "Наименование" },
+        { field: "area.status", header: "Статус" },
     ];
+    const { data, fetchStatus } = useQuery<GetDistrictListApiRawResponse>({
+        queryKey: ["district", id],
+        queryFn: () => getDistrictListApi(id),
+    });
     const handleRowExpand = (event: DataTableRowToggleEvent) => {
-        setExpandedRows(event.data as Area[]);
+        setExpandedRows(event.data as GetCategoryDto[]);
     };
-    const handleDeletePaymentMethod = (rowData: Area) => () => {
+    const handleDeletePaymentMethod = (rowData: GetCategoryAreaDto) => () => {
         withConfirm({
             header: "Удалить?",
             message: `Удаление этого метода оплаты "${rowData.title}" может привести к необратимой потере данных`,
@@ -41,11 +50,11 @@ export const DistrictExpanded = memo(({ area }: TableDistrictExpandedProps) => {
         });
     };
 
-    // const rowExpandTemplate = (data: SectionArea) => {
-    //     return <EntityExpanded {...({ area } as SectionArea)} />;
-    // };
+    const rowExpandTemplate = (data: GetCategoryAreaDto) => {
+        return <EntityExpanded {...data} />;
+    };
 
-    const rowEditorTemplate = (data: Area) => {
+    const rowEditorTemplate = (data: GetCategoryAreaDto) => {
         return (
             <ActionButton
                 menuItems={[
@@ -60,19 +69,20 @@ export const DistrictExpanded = memo(({ area }: TableDistrictExpandedProps) => {
     const handleCloseCreateModal = () => {
         closeCreateModal();
         setCreateModalType("create");
-        // modalRef.current?.clearValues();
+        modalRef.current?.clearValues();
     };
-    const areaArray: Area[] = [area];
 
     return (
         <>
-            <SmartTable<Area[]>
+            <SmartTable<GetCategoryAreaDto[]>
                 className={cx("table")}
                 structure={structure}
-                value={areaArray || []}
+                value={data || []}
+                status={fetchStatus}
                 scrollHeight="flex"
                 responsiveLayout="scroll"
                 expandedRows={expandedRows}
+                rowExpansionTemplate={rowExpandTemplate}
                 rows={0}
                 sortField="id"
                 onRowToggle={handleRowExpand}
@@ -82,7 +92,7 @@ export const DistrictExpanded = memo(({ area }: TableDistrictExpandedProps) => {
             >
                 <Column header="Действия" frozen alignFrozen="right" body={rowEditorTemplate} />
             </SmartTable>
-            <ModalAdministeredEntity
+            <ModalAdministeredPages
                 ref={modalRef}
                 isOpen={createModalIsOpen}
                 onClose={handleCloseCreateModal}

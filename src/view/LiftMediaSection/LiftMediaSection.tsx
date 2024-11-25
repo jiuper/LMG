@@ -1,73 +1,40 @@
 import cnBind from "classnames/bind";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 import { FormFeedback } from "@/components/_Forms/FormFeedback";
 import { ModalFeedBack } from "@/components/_Modals/ModalFeedBack";
 import { MapWrapper } from "@/components/Map";
-import card from "@/shared/assests/notFound.png";
+import type { GetBuildDto, GetCategoryAreaDto } from "@/entities/types/entities";
+import { API_BASE } from "@/shared/constants/private";
 import { useBooleanState } from "@/shared/hooks";
 import { Button } from "@/shared/ui/Button";
 
 import styles from "./LiftMediaSection.module.scss";
 
 const cx = cnBind.bind(styles);
-type Props = {};
-export const LiftMediaSection = ({}: Props) => {
+type Props = {
+    district: GetCategoryAreaDto;
+    units: GetBuildDto[];
+    url?: string;
+};
+export const LiftMediaSection = ({ district, units, url }: Props) => {
     const [isOpen, open, close] = useBooleanState(false);
-
-    const list = {
-        img: card,
-        description: "Эффективное размещение рекламных сообщений в лифтах жилых комплексов Невского района.",
-        title: "Реклама в лифтах Невский район",
-        map: {
-            caption: "Преимущества рекламы в лифтах Невского района",
-            listText: [
-                "Административно-территориальная единица Санкт-Петербурга. Расположен на юго-востоке города и является единственным районом, расположенным на обоих берегах Невы.",
-                "Образован в марте 1917 года путём преобразования Шлиссельбургского участка, имевшего до революции статус пригорода, в полноценный городской район.",
-                "Площадь Невского района — 6,2 тысячи га.",
-                "Население района — 547 896 человек (по данным на 2023 год). Скрыть",
-            ],
-            list: {
-                title: "Граничит с районами:",
-                listTitle: [
-                    "Красногвардейским;",
-                    "Фрунзенским",
-                    "Центральным",
-                    "Колпинским",
-                    " Всеволожским районом Ленинградской области.",
-                ],
-            },
-        },
-    };
+    const href = useRouter();
 
     return (
         <div className={cx("lift-media-section")}>
             <div className={cx("wrapper-map")}>
                 <div className={cx("wrapper", "container")}>
                     <div className={cx("header")}>
-                        <h3>{list.title}</h3>
+                        <h3>{district?.area?.name}</h3>
                     </div>
                     <div className={cx("map-content")}>
                         <MapWrapper />
                     </div>
                     <div className={cx("footer")}>
-                        <h4>{list.map.caption}</h4>
-                        <div className={cx("list-text")}>
-                            {list.map.listText.slice(0, 2).map((item, index) => (
-                                <p key={index}>{item}</p>
-                            ))}
-                        </div>
-                        <div className={cx("list")}>
-                            <span>{list.map.list.title}</span>
-                            {list.map.list.listTitle.map((item, index) => (
-                                <span key={index}>{item}</span>
-                            ))}
-                        </div>
-                        <div className={cx("list-text")}>
-                            {list.map.listText.slice(2, list.map.listText.length).map((item, index) => (
-                                <p key={index}>{item}</p>
-                            ))}
-                        </div>
+                        <h4>{district?.title}</h4>
+                        <div className={cx("list-text")}>{district?.description}</div>
                     </div>
                     <Button label="Оставить заявку" onClick={open} className={cx("button")} />
                 </div>
@@ -76,18 +43,39 @@ export const LiftMediaSection = ({}: Props) => {
                 <div className={cx("lift-media-us")}>
                     <div className={cx("wrapper", "container")}>
                         <div className={cx("header")}>
-                            <h2>Выберите жилой комплекс для детальной информации</h2>
+                            <h2>Выберите юнит для детальной информации</h2>
                         </div>
 
                         <div className={cx("items")}>
-                            <div className={cx("item")}>
-                                <span>ЖК 1 (Название)</span>
+                            <div
+                                onClick={
+                                    units[units.length - 3]?.id
+                                        ? () => href.push(`${url}/${units[units.length - 3]?.id}`)
+                                        : () => {}
+                                }
+                                className={cx("item")}
+                            >
+                                <span>{units[units.length - 3]?.name || "ЖК 1 (Название)"}</span>
                             </div>
-                            <div className={cx("item")}>
-                                <span>ЖК 2 (Название)</span>
+                            <div
+                                onClick={
+                                    units[units.length - 2]?.id
+                                        ? () => href.push(`${url}/${units[units.length - 2]?.id}`)
+                                        : () => {}
+                                }
+                                className={cx("item")}
+                            >
+                                <span>{units[units.length - 2]?.name || "ЖК 2 (Название)"}</span>
                             </div>
-                            <div className={cx("item")}>
-                                <span>ЖК 3 (Название)</span>
+                            <div
+                                onClick={
+                                    units[units.length - 1]?.id
+                                        ? () => href.push(`${url}/${units[units.length - 1]?.id}`)
+                                        : () => {}
+                                }
+                                className={cx("item")}
+                            >
+                                <span>{units[units.length - 1]?.name || "ЖК 3 (Название)"}</span>
                             </div>
                         </div>
                     </div>
@@ -95,9 +83,15 @@ export const LiftMediaSection = ({}: Props) => {
             </div>
             <div className={cx("container-lift")}>
                 <div className={cx("wrapper", "container")}>
-                    <Image className={cx("image")} width={1200} height={423} src={list.img} alt={list.img.src} />
+                    <Image
+                        className={cx("image")}
+                        width={1200}
+                        height={423}
+                        src={`${API_BASE}/picture/${district?.pictureId}`}
+                        alt={district?.area?.name}
+                    />
 
-                    <div className={cx("description")}>{list.description}</div>
+                    <div className={cx("description")}>{district?.subTitle}</div>
                 </div>
             </div>
             <div className={cx("form")}>

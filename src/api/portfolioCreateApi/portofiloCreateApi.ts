@@ -6,7 +6,7 @@ export type PortfolioCreateApiParams = {
     title?: string;
     description?: string;
     status?: ContentSatus;
-    categoryName?: string;
+    categoryId?: string;
     file?: File | null;
 };
 export const portfolioCreateApi = async ({ ...params }: PortfolioCreateApiParams): Promise<boolean> => {

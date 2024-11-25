@@ -49,7 +49,7 @@ export interface GetPortfolioDto {
     number?: number;
     title?: string;
     description?: string;
-    categoryName?: string;
+    categoryId?: string;
     status: ContentSatus;
     pictureId?: string;
 }
@@ -75,72 +75,107 @@ export interface GetSectionDto {
     title?: string;
     description?: string;
     status?: ContentSatus;
+    createdAt?: Date;
+    updatedAt?: Date;
+}
+
+export interface GetCategoryDto {
+    id: string;
+    number: number;
+    title: string;
+    description: string;
+    subtitle: string;
+    sectionId: string;
+    pictureId?: string;
+    videoId?: string;
+    list?: { title: string; items: { caption: string; subcaption: string }[] };
+    status?: ContentSatus;
+    createdAt?: string;
+    updatedAt?: string;
+}
+export interface GetAreaDto {
+    id: string;
+    number: number;
+    lat: number;
+    lon: number;
+    name: string;
+    title: string;
+    description: string;
+    subTitle: string;
+    status?: ContentSatus;
+    pictureId: string | null;
     createdAt: Date;
     updatedAt: Date;
-    sectionArea: SectionArea[];
 }
+export interface GetCategoryAreaDto {
+    id: string;
+    categoryId: string;
+    areaId: string;
+    title: string;
+    description: string;
+    subTitle: string;
+    pictureId: string | null;
+    status: ContentSatus;
+    createdAt: Date;
+    updatedAt: Date;
+    area: {
+        id: string;
+        number: number;
+        lat: number;
+        lon: number;
+        name: string;
+        status?: ContentSatus;
+        createdAt: Date;
+        updatedAt: Date;
+    };
+}
+
+export interface GetBuildDto {
+    id: string;
+    number: number;
+    coordinates: [number, number][];
+    name: string;
+    wDescription: string | null;
+    pictureId: string | null;
+    gTitle: string | null;
+    gSubTitle: string | null;
+    list: { title: string; value: string }[];
+    status: ContentSatus;
+    categoryAreaId: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
 export interface CreateCategoryDto {
-    id?: string;
-    number?: number;
     title?: string;
     description?: string;
     subtitle?: string;
-    districtId?: string;
+    sectionId?: string;
     pictureId?: string;
+    videoId?: string;
+    list?: { title?: string; items?: { caption?: string; subcaption?: string }[] };
     status?: ContentSatus;
-    file?: File | null;
+    file?: File;
+    video?: File;
+    id?: string;
+    number?: number;
 }
-export interface Area {
+
+export interface UpdateCategoryDto {
     id: string;
-    number: number;
-    lat?: string;
-    lon?: string;
-    name?: string;
     title?: string;
     description?: string;
-    subTitle?: string;
-    status?: ContentSatus;
-    picture?: Picture;
+    subtitle?: string;
+    sectionId?: string;
     pictureId?: string;
-    createdAt: Date;
-    updatedAt: Date;
-    sectionArea: SectionArea[];
-}
-
-export interface SectionArea {
-    id: string;
-    sectionId: string;
-    areaId: string;
-    section: GetSectionDto;
-    area: Area;
+    videoId?: string;
+    list?: { title?: string; items?: { caption?: string; subcaption?: string }[] };
     status?: ContentSatus;
-    createdAt: Date;
-    updatedAt: Date;
-    build: Build[];
+    file?: File;
+    video?: File;
 }
 
-export interface Build {
-    id: string;
-    number: number;
-    lat?: string;
-    lon?: string;
-    name?: string;
-    wPicture?: Picture;
-    wPictureId?: string;
-    wDescription?: string;
-    gPicture?: Picture;
-    gPictureId?: string;
-    gTitle?: string;
-    gSubTitle?: string;
-    list?: any;
+export interface UpdateCategoryStatusDto {
+    categoryId?: string;
     status?: ContentSatus;
-    sectionAreaId?: string;
-    sectionArea?: SectionArea;
-    createdAt: Date;
-    updatedAt: Date;
-}
-
-export interface Picture {
-    id: string;
-    url: string;
 }

@@ -51,9 +51,9 @@ export const List = ({ data, onChangeList }: Props) => {
                     isFullWidth
                     label="Заголовок списка"
                     onChange={(e) => onChangeTitle(e.target.value)}
-                    value={list.title}
+                    value={list?.title}
                 />
-                {list.items.map((el, i) => (
+                {list?.items?.map((el, i) => (
                     <div className={cx("list-item")} key={i}>
                         <InputText
                             isFullWidth

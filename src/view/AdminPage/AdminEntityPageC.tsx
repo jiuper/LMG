@@ -6,6 +6,7 @@ import type { DataTableRowToggleEvent, SortOrder } from "primereact/datatable";
 import type { Toast } from "primereact/toast";
 import type { FormEvent } from "primereact/ts-helpers";
 
+import type { categoryCreateApiParams } from "@/api/categoryCreateApi/categoryCreateApi";
 import type { GetArticlesListApiRawResponse } from "@/api/getArticlesListApi/types";
 import type { GetFeedbackListApiRawResponse } from "@/api/getFeedbackListApi/types";
 import type { GetNewsListApiRawResponse } from "@/api/getNewsListApi/types";
@@ -21,16 +22,25 @@ import type {
     ModalAdministeredArticleRef,
 } from "@/components/_Modals/ModalAdministeredArticle";
 import type {
+    ModalAdministeredCategoryModel,
+    ModalAdministeredCategoryRef,
+} from "@/components/_Modals/ModalAdministeredCategory";
+import type {
     ModalAdministeredFeedbackModel,
     ModalAdministeredFeedbackRef,
 } from "@/components/_Modals/ModalAdministeredFeedBack";
 import type { ModalAdministeredNewsModel, ModalAdministeredNewsRef } from "@/components/_Modals/ModalAdministeredNews";
-import type { ModalAdministeredPagesModel } from "@/components/_Modals/ModalAdministeredPages";
 import type {
     ModalAdministeredPortfolioModel,
     ModalAdministeredPortfolioRef,
 } from "@/components/_Modals/ModalAdministeredPortfolio";
-import type { CreateNewsDto, GetFeedbackDto, GetPortfolioDto, GetSectionDto } from "@/entities/types/entities";
+import type {
+    CreateNewsDto,
+    GetCategoryDto,
+    GetFeedbackDto,
+    GetPortfolioDto,
+    GetSectionDto,
+} from "@/entities/types/entities";
 import { ContentSatus } from "@/entities/types/entities";
 import { useToast } from "@/shared/context";
 import { useBooleanState } from "@/shared/hooks";
@@ -49,7 +59,9 @@ import {
     prepareNewsCreateData,
     prepareNewsEditFormValues,
     prepareNewsUpdateData,
+    preparePagesCreateData,
     preparePagesEditFormValues,
+    preparePagesUpdateData,
     preparePortfolioCreateData,
     preparePortfolioEditFormValues,
     preparePortfolioUpdateData,
@@ -84,7 +96,7 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
     const articleModalRef = useRef<ModalAdministeredArticleRef>(null);
     const portfolioModalRef = useRef<ModalAdministeredPortfolioRef>(null);
     const feedbackModalRef = useRef<ModalAdministeredFeedbackRef>(null);
-    const pagesModalRef = useRef<ModalAdministeredFeedbackRef>(null);
+    const pagesModalRef = useRef<ModalAdministeredCategoryRef>(null);
 
     const createEntity = useEntityCreate();
     const updateEntity = useEntityUpdate();
@@ -246,7 +258,7 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
                 closeCreateModal();
                 void entityRefetch();
                 setCreateModalType("create");
-                portfolioModalRef?.current?.clearValues();
+                feedbackModalRef?.current?.clearValues();
                 toast?.({
                     severity: "success",
                     summary: "Успех",
@@ -278,26 +290,26 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
     );
 
     const handlePagesModalSubmit = useCallback(
-        (data: ModalAdministeredPagesModel) => {
-            const createPayload: PortfolioCreateApiParams = prepareFeedbackCreateData(data);
-            const updatePayload: PortfolioUpdateApiParams = prepareFeedbackUpdateData(data);
+        (data: ModalAdministeredCategoryModel) => {
+            const createPayload: categoryCreateApiParams = preparePagesCreateData(data);
+            const updatePayload: PortfolioUpdateApiParams = preparePagesUpdateData(data);
 
             const onSuccess = () => {
                 closeCreateModal();
                 void entityRefetch();
                 setCreateModalType("create");
-                portfolioModalRef?.current?.clearValues();
+                pagesModalRef?.current?.clearValues();
                 toast?.({
                     severity: "success",
                     summary: "Успех",
-                    detail: `Отзыв ${data.title} был ${createModalType === "create" ? "создан" : "изменен"}`,
+                    detail: `Категория ${data.title} была ${createModalType === "create" ? "создан" : "изменен"}`,
                 });
             };
             const onError = () => {
                 toast?.({
                     severity: "error",
                     summary: "Ошибка",
-                    detail: `При ${createModalType === "create" ? "создании" : "редактировании"} отзыв ${
+                    detail: `При ${createModalType === "create" ? "создании" : "редактировании"} категории ${
                         data.title
                     } возникла ошибка`,
                 });
@@ -305,17 +317,17 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
 
             switch (createModalType) {
                 case "create":
-                    createEntity[AdminEntityPageType.FEEDBACK].mutate(createPayload, { onSuccess, onError });
+                    createEntity[AdminEntityPageType.PAGES].mutate(createPayload, { onSuccess, onError });
                     break;
                 case "edit":
-                    updateEntity[AdminEntityPageType.FEEDBACK].mutate(updatePayload, { onSuccess, onError });
+                    updateEntity[AdminEntityPageType.PAGES].mutate(updatePayload, { onSuccess, onError });
                     break;
                 default:
                     return false;
             }
         },
         [closeCreateModal, createEntity, createModalType, entityRefetch, toast, updateEntity],
-    ); // Редактировать
+    );
 
     const handleDeleteEntity = (entity: AnyEntity) => () => {
         const confirmMessage = getDeleteEntityConfirmMessage(entity, entityType);
@@ -378,7 +390,33 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
             onClose: () => undefined,
         });
     };
-
+    const handleRowCreate = (rowData: GetCategoryDto) => () => {
+        openCreateModal();
+        setCreateModalType("create");
+        pagesModalRef.current?.setFormValues(
+            preparePagesEditFormValues({
+                entity: {
+                    sectionId: rowData.id,
+                    status: rowData.status,
+                    list: {
+                        title: "",
+                        items: [
+                            { caption: "", subcaption: "" },
+                            { caption: "", subcaption: "" },
+                            { caption: "", subcaption: "" },
+                        ],
+                    },
+                    videoId: "",
+                    description: "",
+                    subtitle: "",
+                    title: "",
+                    pictureId: "",
+                    id: "",
+                    number: 0,
+                },
+            }),
+        );
+    };
     const handleRowEdit = (rowData: AnyEntity) => () => {
         openCreateModal();
         setCreateModalType("edit");
@@ -415,9 +453,9 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
 
                 break;
             case AdminEntityPageType.PAGES:
-                feedbackModalRef.current?.setFormValues(
+                pagesModalRef.current?.setFormValues(
                     preparePagesEditFormValues({
-                        entity: rowData as GetSectionDto,
+                        entity: rowData as GetCategoryDto,
                     }),
                 );
 
@@ -554,12 +592,7 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
                             {
                                 label: "Добавить категорию",
                                 icon: "pi pi-pencil",
-                                callback: openCreateModal,
-                            },
-                            {
-                                label: "Архив",
-                                icon: "pi pi-trash",
-                                callback: handleDeleteEntity(data),
+                                callback: handleRowCreate(data as GetCategoryDto),
                             },
                         ]}
                     />

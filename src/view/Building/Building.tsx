@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { FormFeedback } from "@/components/_Forms/FormFeedback";
 import { ModalFeedBack } from "@/components/_Modals/ModalFeedBack";
 import { MapWrapper } from "@/components/Map";
-import type { GetPortfolioDto } from "@/entities/types/entities";
+import type { GetCategoryDto, GetPortfolioDto } from "@/entities/types/entities";
 import { Routes } from "@/shared/constants";
 import { useBooleanState } from "@/shared/hooks";
 import { Button } from "@/shared/ui/Button";
@@ -22,22 +22,12 @@ type Props = {
     src: StaticImageData;
     alt: string;
     port: GetPortfolioDto[];
-    listCategory: { title: string; description: string; image: string }[];
-    category?: string;
+    listCategory: GetCategoryDto[];
     url?: string;
 };
-export const BuildingPage = ({
-    description,
-    title,
-    port,
-    src,
-    alt,
-    listCategory,
-    category,
-    url = Routes.BUILDING,
-}: Props) => {
+export const BuildingPage = ({ description, title, port, src, alt, listCategory, url = Routes.BUILDING }: Props) => {
     const [isOpen, open, close] = useBooleanState(false);
-    const filterPort = port.filter((el) => el.categoryName === category);
+
     const href = useRouter();
 
     return (
@@ -58,7 +48,7 @@ export const BuildingPage = ({
                     <h2>Варианты размещения рекламы</h2>
                     <div className={cx("cards")}>
                         {listCategory.map((el, index) => (
-                            <Card onClick={() => href.push(`${url}/${index}`)} key={index} {...el} />
+                            <Card onClick={() => href.push(`${url}/${el.id}`)} key={index} data={el} />
                         ))}
                     </div>
                 </div>
@@ -73,7 +63,7 @@ export const BuildingPage = ({
                 </div>
             </div>
             <div className={cx("portfolio")}>
-                <CaseBlock className={cx("case-block")} listItem={filterPort.slice(-4)} />
+                {port.length !== 0 && <CaseBlock className={cx("case-block")} listItem={port.slice(-4)} />}
             </div>
             <div className={cx("form")}>
                 <FormFeedback />

@@ -2,60 +2,23 @@ import axios from "axios";
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
 
 import { BreadCrumb } from "@/components/BreadCrumb";
-import type { CreateNewsDto, GetPortfolioDto } from "@/entities/types/entities";
+import type { GetCategoryDto, GetPortfolioDto } from "@/entities/types/entities";
 import { PageLayout } from "@/layouts/PageLayout";
 import Build from "@/shared/assests/build.png";
-import img_1 from "@/shared/assests/choose/Image (3).png";
-import img_2 from "@/shared/assests/choose/Image (4).png";
-import img_3 from "@/shared/assests/choose/Image (5).png";
-import img_4 from "@/shared/assests/choose/Image (6).png";
-import img_5 from "@/shared/assests/choose/Image (7).png";
-import img_6 from "@/shared/assests/choose/Image (8).png";
 import { API_BASE } from "@/shared/constants/private";
 import { BuildingPage } from "@/view/Building/Building";
 
-export default function Building({ port }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Building({ port, cat }: InferGetStaticPropsType<typeof getStaticProps>) {
     const items = [{ label: "Реклама в жилых домах" }];
-    const listChooseEtc = [
-        {
-            title: "Реклама в лифтах",
-            description: "Эффективное размещение в кабинах лифтов",
-            image: img_1.src,
-        },
-        {
-            title: "Реклама в подъездах",
-            description: "Эффективное размещение в кабинах лифтов",
-            image: img_2.src,
-        },
-        {
-            title: "Распространение по почтовым ящикам",
-            description: "Эффективное размещение в кабинах лифтов",
-            image: img_3.src,
-        },
-        {
-            title: "Реклама на видео экранах",
-            description: "Эффективное размещение в кабинах лифтов",
-            image: img_4.src,
-        },
-        {
-            title: "Вложение квитанции",
-            description: "Эффективное размещение в кабинах лифтов",
-            image: img_5.src,
-        },
-        {
-            title: "Распространение дорхенгеров",
-            description: "Эффективное размещение в кабинах лифтов",
-            image: img_6.src,
-        },
-    ];
+    const filterCategory = cat.map((el) => el.title);
+    const filterPort = port.filter((el) => filterCategory.includes(el.categoryId || ""));
 
     return (
         <PageLayout>
             <BreadCrumb model={items} />
             <BuildingPage
-                listCategory={listChooseEtc}
-                category="Жилые комплексы"
-                port={port || []}
+                listCategory={cat}
+                port={filterPort || []}
                 alt="Build"
                 src={Build}
                 title="Реклама в жилых домах"
@@ -65,13 +28,18 @@ export default function Building({ port }: InferGetStaticPropsType<typeof getSta
     );
 }
 export const getStaticProps = (async () => {
-    const resPort = await axios<CreateNewsDto[]>(`${API_BASE}/portfolio`);
+    const resPort = await axios<GetPortfolioDto[]>(`${API_BASE}/portfolio`);
+    const resCat = await axios<GetCategoryDto[]>(`${API_BASE}/category`, {
+        params: { sectionId: "7ce310e7-e872-4e04-bbff-62df310a5cf9" },
+    });
 
     const port = resPort.data;
+    const cat = resCat.data;
 
     return {
         props: {
             port,
+            cat,
         },
     };
-}) satisfies GetStaticProps<{ port: GetPortfolioDto[] }>;
+}) satisfies GetStaticProps<{ port: GetPortfolioDto[]; cat: GetCategoryDto[] }>;

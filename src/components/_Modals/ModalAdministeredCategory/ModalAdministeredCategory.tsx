@@ -41,10 +41,12 @@ export type ModalAdministeredCategoryState = {
     description?: string;
     subtitle?: string;
     pictureId?: string;
+    videoId?: string;
     list?: { title: string; items: { caption: string; subcaption: string }[] };
     status?: ContentSatus;
     file?: File | null;
     video?: File | null;
+    sectionId?: string;
 };
 
 export type ModalAdministeredCategoryRef = {
