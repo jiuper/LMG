@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import cnBind from "classnames/bind";
 import Image from "next/image";
 
+import def from "@/shared/assests/notFound.png";
 import { API_BASE } from "@/shared/constants/private";
 
 import type { ImgPreviewType } from "./ImgPreview.type";
@@ -50,8 +51,15 @@ export const ImgPreview = ({ value, className }: ImgPreviewType) => {
     useEffect(() => {
         const processFile = async () => {
             if (typeof value !== "string") {
-                const buffer = await handleFileUpload(value);
-                newFile(buffer);
+                const fileType = value.type;
+
+                if (fileType.startsWith("video/")) {
+                    const defaultImage = def;
+                    setFile(defaultImage.src);
+                } else {
+                    const buffer = await handleFileUpload(value);
+                    newFile(buffer);
+                }
             }
         };
         void processFile();

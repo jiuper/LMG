@@ -1,0 +1,1 @@
+export { districtDeleteApi } from "./districtDeleteApi";

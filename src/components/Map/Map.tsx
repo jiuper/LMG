@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Clusterer, Map, Placemark, YMaps } from "@pbe/react-yandex-maps";
 import cnBind from "classnames/bind";
 import type { MapEvent } from "yandex-maps";
@@ -7,21 +7,24 @@ import styles from "./Map.module.scss";
 
 const cx = cnBind.bind(styles);
 type Props = {
-    onChange?: (e: { coordinates: [number, number] }[]) => void;
+    onChange?: (e: [number, number][]) => void;
     coordinates?: [number, number][];
 };
 
-export const MapWrapper = ({ onChange }: Props) => {
-    const [buildings, setBuildings] = useState<{ coordinates: [number, number] }[]>([]);
+export const MapWrapper = ({ onChange, coordinates }: Props) => {
+    const [buildings, setBuildings] = useState<[number, number][]>([]);
     const handleMapClick = (e: MapEvent<any, { coords: number[] }>) => {
         const coords = e.get("coords") as [number, number];
         const newBuilding = { coordinates: coords };
-        setBuildings([...buildings, newBuilding]);
-        onChange?.([...buildings, newBuilding]);
+        setBuildings([...buildings, coords]);
+        onChange?.([...buildings, coords]);
     };
     const handlePlacemarkRightClick = (index: number) => {
         setBuildings(buildings.filter((_, i) => i !== index));
     };
+    useEffect(() => {
+        if (coordinates) setBuildings(coordinates);
+    }, [coordinates]);
 
     return (
         <div className={cx("map")}>
@@ -41,10 +44,10 @@ export const MapWrapper = ({ onChange }: Props) => {
                         >
                             {buildings.map(
                                 (building, index) =>
-                                    building.coordinates && (
+                                    building && (
                                         <Placemark
                                             key={index}
-                                            geometry={building.coordinates}
+                                            geometry={building}
                                             options={{ draggable: true }}
                                             onClick={() => handlePlacemarkRightClick(index)}
                                         />

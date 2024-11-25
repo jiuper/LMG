@@ -21,7 +21,7 @@ export const MODAL_ADMINISTERED_NEWS_DEFAULT_VALUES: ModalAdministeredNewsState 
     time: "",
     subtitle: "",
     title: "",
-    video: "",
+    video: null,
     files: [],
     pictureName: "",
 };
@@ -34,7 +34,7 @@ export type ModalAdministeredNewsState = {
     title?: string;
     subtitle?: string;
     time?: string;
-    video?: string;
+    video?: File | null;
     pictureName?: string;
     files?: File[];
     status: ContentSatus;
@@ -166,12 +166,11 @@ export const ModalAdministeredNews = forwardRef<ModalAdministeredNewsRef, ModalA
                             fileStr={formik.values.contentItems?.[1]?.pictureId}
                         />
                     ) : (
-                        <InputText
-                            isFullWidth
-                            label="Ссылку на видео"
+                        <CustomFileUpload
+                            value={formik.values.video || null}
                             name="video"
-                            onChange={formik.handleChange}
-                            value={formik.values.video}
+                            onChange={(e) => formik.setFieldValue("video", e)}
+                            fileStr=""
                         />
                     )}
                     <div className={cx("block")}>

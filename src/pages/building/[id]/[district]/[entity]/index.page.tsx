@@ -23,7 +23,7 @@ export default function IndexPage({
         { label: "Реклама в жилых домах", url: Routes.BUILDING },
         { label: filterCat.title, url: `${Routes.BUILDING}/${id}` },
         { label: `${filterArea.area.name} район` },
-        { label: ` ${filterBuild.name} юнит` },
+        { label: ` ${filterBuild.name}` },
     ];
 
     return (

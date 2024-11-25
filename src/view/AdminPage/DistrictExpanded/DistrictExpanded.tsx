@@ -1,18 +1,33 @@
-import { memo, useRef, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { memo, useCallback, useRef, useState } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import cnBind from "classnames/bind";
 import { Column } from "primereact/column";
 import type { DataTableRowData, DataTableRowToggleEvent, DataTableValue } from "primereact/datatable";
 
+import type { districtCreateApiParams } from "@/api/districtCreateApi/districtCreateApi";
+import { districtDeleteApi } from "@/api/districtDeleteApi";
+import { districtUpdateApi } from "@/api/districtUpdateApi";
+import { entityCreateApi } from "@/api/entityCreateApi";
+import type { entityCreateApiParams } from "@/api/entityCreateApi/entityCreateApi";
 import { getDistrictListApi } from "@/api/getDistrictListApi";
 import type { GetDistrictListApiRawResponse } from "@/api/getDistrictListApi/types";
 import { ConfirmModal } from "@/components/_Modals/ConfirmModal";
 import { useConfirmModal } from "@/components/_Modals/ConfirmModal/ConfirmModal";
-import type { ModalAdministeredPagesRef } from "@/components/_Modals/ModalAdministeredPages";
+import type {
+    ModalAdministeredEntityModel,
+    ModalAdministeredEntityRef,
+} from "@/components/_Modals/ModalAdministeredEntity";
+import { ModalAdministeredEntity } from "@/components/_Modals/ModalAdministeredEntity";
+import type {
+    ModalAdministeredPagesModel,
+    ModalAdministeredPagesRef,
+} from "@/components/_Modals/ModalAdministeredPages";
 import { ModalAdministeredPages } from "@/components/_Modals/ModalAdministeredPages";
 import { SmartTable } from "@/components/SmartTable";
 import type { SmartTableStructureItem } from "@/components/SmartTable/types";
 import type { GetCategoryAreaDto, GetCategoryDto } from "@/entities/types/entities";
+import { ContentSatus } from "@/entities/types/entities";
+import { useToast } from "@/shared/context";
 import { useBooleanState } from "@/shared/hooks";
 import { ActionButton } from "@/shared/ui/ActionButton";
 import { EntityExpanded } from "@/view/AdminPage/EntityExpanded";
@@ -24,8 +39,12 @@ const cx = cnBind.bind(styles);
 export type TableDistrictExpandedProps = DataTableRowData<GetCategoryDto[]>;
 export const DistrictExpanded = memo(({ id }: TableDistrictExpandedProps) => {
     const modalRef = useRef<ModalAdministeredPagesRef>(null);
+    const entityModalRef = useRef<ModalAdministeredEntityRef>(null);
     const [createModalIsOpen, openCreateModal, closeCreateModal] = useBooleanState(false);
     const [, setCreateModalType] = useState<"create" | "edit">("create");
+    const toast = useToast();
+    const [additionalModalIsOpen, openAdditionalModal, closeAdditionalModal] = useBooleanState(false);
+    const [additionalModalType, setAdditionalModalType] = useState<"create" | "edit">("create");
     const { withConfirm, modalProps: confirmModalProps } = useConfirmModal();
     const [expandedRows, setExpandedRows] = useState<GetCategoryDto[]>([]);
     const structure: SmartTableStructureItem<DataTableValue>[] = [
@@ -34,18 +53,43 @@ export const DistrictExpanded = memo(({ id }: TableDistrictExpandedProps) => {
         { field: "area.name", header: "Наименование" },
         { field: "area.status", header: "Статус" },
     ];
-    const { data, fetchStatus } = useQuery<GetDistrictListApiRawResponse>({
+    const { data, fetchStatus, refetch } = useQuery<GetDistrictListApiRawResponse>({
         queryKey: ["district", id],
         queryFn: () => getDistrictListApi(id),
     });
+
+    const { mutate: deleteDistrictMutation } = useMutation({ mutationFn: districtDeleteApi });
+    const { mutate: updateDistrictMutation, isPending: updateDistrictIsLoading } = useMutation({
+        mutationFn: districtUpdateApi,
+    });
+
+    const { mutate: createEntityMutation, isPending: createEntityIsLoading } = useMutation({
+        mutationFn: entityCreateApi,
+    });
+
     const handleRowExpand = (event: DataTableRowToggleEvent) => {
         setExpandedRows(event.data as GetCategoryDto[]);
     };
-    const handleDeletePaymentMethod = (rowData: GetCategoryAreaDto) => () => {
+
+    const handleRowCreate = (rowData: GetCategoryAreaDto) => () => {
+        openAdditionalModal();
+        setAdditionalModalType("create");
+        entityModalRef.current?.setFormValues({
+            categoryAreaId: rowData.id,
+        });
+    };
+
+    const handleEditRow = (data: GetCategoryAreaDto) => () => {
+        openCreateModal();
+        setCreateModalType("edit");
+        modalRef.current?.setFormValues({ ...data, pictureId: data.pictureId || "" });
+    };
+
+    const handleDeleteDistrict = (rowData: GetCategoryAreaDto) => () => {
         withConfirm({
             header: "Удалить?",
             message: `Удаление этого метода оплаты "${rowData.title}" может привести к необратимой потере данных`,
-            onSubmit: () => () => {},
+            onSubmit: () => deleteDistrictMutation({ id: rowData.id, status: ContentSatus.ARCHIVE }),
             onClose: () => undefined,
         });
     };
@@ -58,18 +102,99 @@ export const DistrictExpanded = memo(({ id }: TableDistrictExpandedProps) => {
         return (
             <ActionButton
                 menuItems={[
-                    { label: "Редактировать", icon: "pi pi-trash", callback: handleDeletePaymentMethod(data) },
-                    { label: "Добавить юнит", icon: "pi pi-trash", callback: openCreateModal },
-                    { label: "Архив", icon: "pi pi-trash", callback: handleDeletePaymentMethod(data) },
+                    { label: "Редактировать", icon: "pi pi-trash", callback: handleEditRow(data) },
+                    { label: "Добавить юнит", icon: "pi pi-trash", callback: handleRowCreate(data) },
+                    { label: "Архив", icon: "pi pi-trash", callback: handleDeleteDistrict(data) },
                 ]}
             />
         );
     };
 
+    const handleEntityModalSubmit = useCallback(
+        (data: ModalAdministeredEntityModel) => {
+            const createPayload: entityCreateApiParams = {
+                categoryAreaId: data.categoryAreaId,
+                name: data.name,
+                status: data.status,
+                coordinates: data.coordinates,
+                gTitle: data.gTitle,
+                list: data.list,
+                gSubTitle: data.gSubTitle,
+                number: data.number,
+                id: data.id,
+                wDescription: data.wDescription,
+                file: data.file,
+            };
+
+            const onSuccess = () => {
+                closeAdditionalModal();
+                void refetch();
+                setAdditionalModalType("create");
+                modalRef?.current?.clearValues();
+                toast?.({
+                    severity: "success",
+                    summary: "Успех",
+                    detail: `Юнит ${data.name} был создан`,
+                });
+            };
+            const onError = () => {
+                toast?.({
+                    severity: "error",
+                    summary: "Ошибка",
+                    detail: `При редактировании юнита ${data.name} возникла ошибка`,
+                });
+            };
+            createEntityMutation(createPayload, { onSuccess, onError });
+        },
+        [closeCreateModal, toast],
+    );
+
+    const handleDistrictModalSubmit = useCallback(
+        (data: ModalAdministeredPagesModel) => {
+            const updatePayload: districtCreateApiParams = {
+                categoryId: data.categoryId,
+                title: data.title,
+                status: data.status,
+                description: data.description,
+                file: data.file,
+                subTitle: data.subTitle,
+                id: data.id,
+                areaId: data.districtId,
+            };
+
+            const onSuccess = () => {
+                closeCreateModal();
+                void refetch();
+                setCreateModalType("create");
+                modalRef?.current?.clearValues();
+                toast?.({
+                    severity: "success",
+                    summary: "Успех",
+                    detail: `Район ${data.title} была "изменен"`,
+                });
+            };
+            const onError = () => {
+                toast?.({
+                    severity: "error",
+                    summary: "Ошибка",
+                    detail: `При редактировании района ${data.title} возникла ошибка`,
+                });
+            };
+            updateDistrictMutation(updatePayload, { onSuccess, onError });
+        },
+        [closeCreateModal, toast],
+    );
+
     const handleCloseCreateModal = () => {
         closeCreateModal();
         setCreateModalType("create");
         modalRef.current?.clearValues();
+    };
+
+    const handleCloseAdditionalModal = () => {
+        closeAdditionalModal();
+        setAdditionalModalType("create");
+        entityModalRef.current?.clearValues();
     };
 
     return (
@@ -97,8 +222,17 @@ export const DistrictExpanded = memo(({ id }: TableDistrictExpandedProps) => {
                 isOpen={createModalIsOpen}
                 onClose={handleCloseCreateModal}
                 type="edit"
-                onSubmit={() => {}}
-                isLoading={false}
+                onSubmit={handleDistrictModalSubmit}
+                isLoading={updateDistrictIsLoading}
+            />
+
+            <ModalAdministeredEntity
+                ref={entityModalRef}
+                isOpen={additionalModalIsOpen}
+                onClose={handleCloseAdditionalModal}
+                type={additionalModalType}
+                onSubmit={handleEntityModalSubmit}
+                isLoading={createEntityIsLoading}
             />
 
             <ConfirmModal

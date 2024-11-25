@@ -11,11 +11,12 @@ import { LiftMedia } from "@/view/LiftMedia";
 export default function LiftMediaPage({ port, id, cat, area }: InferGetStaticPropsType<typeof getStaticProps>) {
     const filter = cat.filter((el) => el.id === id)[0];
     const items = [{ label: "Реклама в торговых центрах", url: Routes.POSTERTC }, { label: filter.title }];
+    const filterPort = port.filter((el) => el.categoryId === filter.id);
 
     return (
         <PageLayout>
             <BreadCrumb model={items} />
-            <LiftMedia url={`${Routes.POSTERTC}/${id}`} data={filter} port={port} districts={area} />
+            <LiftMedia url={`${Routes.POSTERTC}/${id}`} data={filter} port={filterPort} districts={area} />
         </PageLayout>
     );
 }

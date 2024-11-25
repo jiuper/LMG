@@ -17,8 +17,9 @@ type Props = {
     district: GetCategoryAreaDto;
     units: GetBuildDto[];
     url?: string;
+    title?: string;
 };
-export const LiftMediaSection = ({ district, units, url }: Props) => {
+export const LiftMediaSection = ({ district, units, url, title }: Props) => {
     const [isOpen, open, close] = useBooleanState(false);
     const href = useRouter();
 
@@ -27,7 +28,9 @@ export const LiftMediaSection = ({ district, units, url }: Props) => {
             <div className={cx("wrapper-map")}>
                 <div className={cx("wrapper", "container")}>
                     <div className={cx("header")}>
-                        <h3>{district?.area?.name}</h3>
+                        <h3>
+                            {title} {district?.area?.name} район
+                        </h3>
                     </div>
                     <div className={cx("map-content")}>
                         <MapWrapper />

@@ -13,6 +13,7 @@ export default function Building({ port, cat }: InferGetStaticPropsType<typeof g
     const items = [{ label: "Реклама в фитнес клубах" }];
     const filterCategory = cat.map((el) => el.title);
     const filterPort = port.filter((el) => filterCategory.includes(el.categoryId || ""));
+    console.log(cat);
 
     return (
         <PageLayout>
@@ -33,7 +34,7 @@ export default function Building({ port, cat }: InferGetStaticPropsType<typeof g
 export const getStaticProps = (async () => {
     const resPort = await axios<GetPortfolioDto[]>(`${API_BASE}/portfolio`);
     const resCat = await axios<GetCategoryDto[]>(`${API_BASE}/category`, {
-        params: { categoryId: "d92cfb8d-9f40-409e-be82-4e0ba9b850ed" },
+        params: { sectionId: "d92cfb8d-9f40-409e-be82-4e0ba9b850ed" },
     });
 
     const port = resPort.data;

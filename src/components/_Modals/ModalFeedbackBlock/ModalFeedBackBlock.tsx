@@ -1,7 +1,10 @@
+import { useEffect, useState } from "react";
 import cnBind from "classnames/bind";
 
 import { Modal } from "@/components/_Modals/Modal";
 import { ModalFeedBack } from "@/components/_Modals/ModalFeedBack";
+import type { GetFeedbackDto } from "@/entities/types/entities";
+import { API_BASE } from "@/shared/constants/private";
 import { useResizeContext } from "@/shared/context/WindowResizeProvider";
 import { useBooleanState } from "@/shared/hooks";
 import { Button } from "@/shared/ui/Button";
@@ -13,11 +16,21 @@ const cx = cnBind.bind(styles);
 type Props = {
     isOpen: boolean;
     onClose: () => void;
-    item: { type?: string; image: string; title: string; description: string };
+    item: GetFeedbackDto;
 };
 export const ModalFeedBackBlock = ({ isOpen, onClose, item }: Props) => {
     const { isMobile } = useResizeContext();
     const [isOpenFeed, open, close] = useBooleanState(false);
+    const [videoUrl, setVideoUrl] = useState("");
+    useEffect(() => {
+        if (item.videoId)
+            fetch(`${API_BASE}/video/${item.videoId}`)
+                .then((response) => response.blob())
+                .then((blob) => {
+                    const url = URL.createObjectURL(blob);
+                    setVideoUrl(url);
+                });
+    }, [item.videoId]);
 
     return (
         <Modal className={cx("modal-case", { isMobile })} maxWidth="880px" onClose={onClose} isOpen={isOpen}>
@@ -45,17 +58,15 @@ export const ModalFeedBackBlock = ({ isOpen, onClose, item }: Props) => {
                             </svg>
                         </div>
                     </div>
-                    {item.type === "video" ? (
-                        <video src={item.image} controls playsInline>
-                            <source src={item.image} />
-                        </video>
+                    {item.videoId !== null ? (
+                        <video width={600} src={`${videoUrl}`} controls playsInline />
                     ) : (
                         <CustomImage
                             className={cx("image")}
                             width={768}
                             height={587}
-                            src={item.image}
-                            alt={item.image || ""}
+                            src={`${API_BASE}/picture/${item.pictureId}`}
+                            alt={item.title || "def"}
                         />
                     )}
                 </div>

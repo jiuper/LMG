@@ -11,7 +11,7 @@ const cx = cnBind.bind(styles);
 
 interface CustomFileUploadProps {
     value: File | null;
-    onChange: (val: File) => void;
+    onChange: (val: File | null) => void;
     name: string;
     fileStr?: string;
 }
@@ -69,7 +69,13 @@ const CustomFileUpload = ({ onChange, value, name, fileStr }: CustomFileUploadPr
             ) : (
                 <div className={cx("preview")}>
                     <ImgPreview className={cx("img")} value={file} />
-                    <CloseIcon className={cx("close")} onClick={() => setFile(null)} />
+                    <CloseIcon
+                        className={cx("close")}
+                        onClick={() => {
+                            setFile(null);
+                            onChange(null);
+                        }}
+                    />
                 </div>
             )}
         </div>

@@ -116,7 +116,11 @@ export const ModalAdministeredFeedBack = forwardRef<ModalAdministeredFeedbackRef
                         <Button
                             label={isVideo ? "Изображение" : "Видео"}
                             variant="solid"
-                            onClick={() => setIsVideo(!isVideo)}
+                            onClick={() => {
+                                setIsVideo(!isVideo);
+                                formik.setFieldValue("file", null);
+                                formik.setFieldValue("video", null);
+                            }}
                         />
                     </div>
 

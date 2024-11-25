@@ -5,6 +5,6 @@ export const getEntityListApi = async (id: string) => {
     return createAxiosApi()<GetEntityListApiRawResponse>({
         type: "get",
         url: `/build`,
-        config: { params: { buildId: id } },
+        config: { params: { categoryAreaId: id } },
     }).then((data) => data.data);
 };

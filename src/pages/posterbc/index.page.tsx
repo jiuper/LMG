@@ -33,7 +33,7 @@ export default function Building({ port, cat }: InferGetStaticPropsType<typeof g
 export const getStaticProps = (async () => {
     const resPort = await axios<GetPortfolioDto[]>(`${API_BASE}/portfolio`);
     const resCat = await axios<GetCategoryDto[]>(`${API_BASE}/category`, {
-        params: { categoryId: "f49cb4d9-7472-495a-997b-0e3142ad1411" },
+        params: { sectionId: "f49cb4d9-7472-495a-997b-0e3142ad1411" },
     });
 
     const port = resPort.data;

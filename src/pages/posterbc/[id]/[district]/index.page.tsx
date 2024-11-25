@@ -20,7 +20,12 @@ export default function IndexPage({ district, id, cat, area, build }: InferGetSt
     return (
         <PageLayout>
             <BreadCrumb model={items} />
-            <LiftMediaSection url={`${Routes.POSTERBC}/${id}/${district}`} units={build} district={filterArea} />
+            <LiftMediaSection
+                title={filterCat.title}
+                url={`${Routes.POSTERBC}/${id}/${district}`}
+                units={build}
+                district={filterArea}
+            />
         </PageLayout>
     );
 }
@@ -43,7 +48,7 @@ export const getStaticProps = (async (ctx: GetStaticPropsContext) => {
 
     const resArea = await axios<GetCategoryAreaDto[]>(`${API_BASE}/category-area`, { params: { categoryId: id } });
     const resCat = await axios<GetCategoryDto[]>(`${API_BASE}/category`);
-    const resBuild = await axios<GetBuildDto[]>(`${API_BASE}/build`, { params: { areaId: district } });
+    const resBuild = await axios<GetBuildDto[]>(`${API_BASE}/build`, { params: { categoryAreaId: district } });
 
     const cat = resCat.data;
     const area = resArea.data;

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import cnBind from "classnames/bind";
 import { useRouter } from "next/router";
 
@@ -23,6 +24,7 @@ export const LiftMedia = ({ port, data, districts, url }: Props) => {
     const [isOpen, open, close] = useBooleanState(false);
     const href = useRouter();
     const { title, description, pictureId, videoId, list } = data;
+    const [isActive, setActive] = useState(false);
 
     return (
         <div className={cx("lift-media")}>
@@ -43,13 +45,18 @@ export const LiftMedia = ({ port, data, districts, url }: Props) => {
                     </div>
                     <div className={cx("map-content")}>
                         <MapWrapper />
-                        <div className={cx("items")}>
+                        <div className={cx("items", isActive && "active")}>
                             {districts?.map((el) => (
                                 <div onClick={() => href.push(`${url}/${el.id}`)} className={cx("item")}>
-                                    <h4>{el.title}</h4>
+                                    <h4>{el.area?.name}</h4>
                                 </div>
                             ))}
                         </div>
+                        <Button
+                            label="Показать все районы"
+                            onClick={() => setActive(!isActive)}
+                            className={cx("button")}
+                        />
                     </div>
                 </div>
             </div>

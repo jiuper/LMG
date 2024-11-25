@@ -6,7 +6,6 @@ export type FeedbackCreateApiParams = {
     title?: string;
     description?: string;
     status?: ContentSatus;
-    categoryName?: string;
     file?: File | null;
     video?: File | null;
 };

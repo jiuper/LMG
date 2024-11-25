@@ -1,0 +1,1 @@
+export { entityUpdateApi } from "./entityUpdateApi";

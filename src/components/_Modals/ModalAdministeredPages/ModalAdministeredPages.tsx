@@ -22,7 +22,7 @@ export const MODAL_ADMINISTERED_PAGES_DEFAULT_VALUES: ModalAdministeredPagesStat
     status: ContentSatus.PUBLISHED,
     title: "",
     description: "",
-    subtitle: "",
+    subTitle: "",
     file: null,
     pictureId: "",
 };
@@ -34,11 +34,12 @@ export type ModalAdministeredPagesState = {
     number?: number;
     title?: string;
     description?: string;
-    subtitle?: string;
+    subTitle?: string;
     districtId?: string;
     pictureId?: string;
     status?: ContentSatus;
     file?: File | null;
+    categoryId?: string;
 };
 
 export type ModalAdministeredPagesRef = {
@@ -128,9 +129,9 @@ export const ModalAdministeredPages = forwardRef<ModalAdministeredPagesRef, Moda
                     <InputTextarea
                         isFullWidth
                         label="Подзаголовок"
-                        name="description"
+                        name="subTitle"
                         onChange={formik.handleChange}
-                        value={formik.values.description}
+                        value={formik.values.subTitle}
                     />
                     <div className={cx("btns")}>
                         <Button label="Сохранить как черновик" variant="solid" type="submit" loading={isLoading} />

@@ -6,6 +6,8 @@ import type { DataTableRowData, DataTableRowToggleEvent, DataTableValue } from "
 
 import { categoryDeleteApi } from "@/api/categoryDeleteApi";
 import { categoryUpdateApi } from "@/api/categoryUpdateApi";
+import { districtCreateApi } from "@/api/districtCreateApi";
+import type { districtCreateApiParams } from "@/api/districtCreateApi/districtCreateApi";
 import { getCategoryListApi } from "@/api/getCategoryListApi";
 import type { GetCategoryListApiRawResponse } from "@/api/getCategoryListApi/types";
 import type { PortfolioUpdateApiParams } from "@/api/portfolioUpdateApi";
@@ -61,7 +63,7 @@ export const CategoryExpanded = memo(({ id }: TableCategoryExpandedProps) => {
     });
 
     const { mutate: createDistrictMutation, isPending: createDistrictIsLoading } = useMutation({
-        mutationFn: categoryUpdateApi,
+        mutationFn: districtCreateApi,
     });
 
     const structure: SmartTableStructureItem<DataTableValue>[] = [
@@ -77,7 +79,7 @@ export const CategoryExpanded = memo(({ id }: TableCategoryExpandedProps) => {
         openAdditionalModal();
         setAdditionalModalType("create");
         pagesModalRef.current?.setFormValues({
-            id: rowData.id,
+            categoryId: rowData.id,
         });
     };
 
@@ -128,24 +130,32 @@ export const CategoryExpanded = memo(({ id }: TableCategoryExpandedProps) => {
 
     const handleDistrictModalSubmit = useCallback(
         (data: ModalAdministeredPagesModel) => {
-            const createPayload: PortfolioUpdateApiParams = preparePagesUpdateData(data);
+            const createPayload: districtCreateApiParams = {
+                categoryId: data.categoryId,
+                title: data.title,
+                status: data.status,
+                description: data.description,
+                file: data.file,
+                subTitle: data.subTitle,
+                areaId: data.districtId,
+            };
 
             const onSuccess = () => {
-                closeCreateModal();
+                closeAdditionalModal();
                 void refetchCategory();
-                setCreateModalType("create");
-                modalRef?.current?.clearValues();
+                setAdditionalModalType("create");
+                pagesModalRef?.current?.clearValues();
                 toast?.({
                     severity: "success",
                     summary: "Успех",
-                    detail: `Категория ${data.title} была "изменен"`,
+                    detail: `Район ${data.title} был создан`,
                 });
             };
             const onError = () => {
                 toast?.({
                     severity: "error",
                     summary: "Ошибка",
-                    detail: `При редактировании категории ${data.title} возникла ошибка`,
+                    detail: `При создание района ${data.title} возникла ошибка`,
                 });
             };
             createDistrictMutation(createPayload, { onSuccess, onError });

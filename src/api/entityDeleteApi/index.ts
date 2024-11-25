@@ -1,0 +1,1 @@
+export { entityDeleteApi } from "./entityDeleteApi";

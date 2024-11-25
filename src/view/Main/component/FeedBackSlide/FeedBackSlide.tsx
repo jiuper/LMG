@@ -4,27 +4,34 @@ import { Carousel } from "primereact/carousel";
 
 import { ModalFeedBackBlock } from "@/components/_Modals/ModalFeedbackBlock";
 import { SwipeableWrapper } from "@/components/SwipeableWrapper";
+import type { GetFeedbackDto } from "@/entities/types/entities";
+import { API_BASE } from "@/shared/constants/private";
 import { useBooleanState } from "@/shared/hooks";
 import { CustomImage } from "@/shared/ui/CustomImage";
 
 import styles from "./FeedBackSlide.module.scss";
 
 const cx = cnBind.bind(styles);
-type Props = {};
-const FeedbackCard = (
-    item: { title: string; description: string; image: string; type?: string },
-    onClick: () => void,
-) => {
+type Props = {
+    feedback?: GetFeedbackDto[];
+};
+const FeedbackCard = (item: GetFeedbackDto, onClick: () => void) => {
     return (
-        <div onClick={onClick} className={cx("card", { video: item.type === "video" })}>
-            <CustomImage className={cx("image")} width={182} height={182} src={item.image} alt={item.image} />
+        <div onClick={onClick} className={cx("card", { video: item.videoId !== null })}>
+            <CustomImage
+                className={cx("image")}
+                width={182}
+                height={182}
+                src={`${API_BASE}/picture/${item.pictureId}`}
+                alt={item.title || "def"}
+            />
             <div className={cx("info")}>
                 <span className={cx("post")}>{item.description}</span>
             </div>
         </div>
     );
 };
-export const FeedBackSlide = ({}: Props) => {
+export const FeedBackSlide = ({ feedback }: Props) => {
     const responsiveOptions = [
         {
             breakpoint: "1920px",
@@ -66,10 +73,8 @@ export const FeedBackSlide = ({}: Props) => {
 
     const onPageChange = (e: number) => setPage(e);
     const [isOpen, onOpen, onClose] = useBooleanState(false);
-    const [current, setCurrent] = useState<{ title: string; description: string; image: string; type?: string } | null>(
-        null,
-    );
-    const handleOnModal = (i: { title: string; description: string; image: string; type?: string }) => {
+    const [current, setCurrent] = useState<GetFeedbackDto | null>(null);
+    const handleOnModal = (i: GetFeedbackDto) => {
         setCurrent(i);
         onOpen();
     };
@@ -89,13 +94,8 @@ export const FeedBackSlide = ({}: Props) => {
                             onSwipedRight={() => setPage((prevPage) => (prevPage - 1 + [].length) % [].length)}
                         >
                             <Carousel
-                                itemTemplate={(item: {
-                                    title: string;
-                                    description: string;
-                                    image: string;
-                                    type?: string;
-                                }) => FeedbackCard(item, () => handleOnModal(item))}
-                                value={[]}
+                                itemTemplate={(item: GetFeedbackDto) => FeedbackCard(item, () => handleOnModal(item))}
+                                value={feedback}
                                 showIndicators={false}
                                 showNavigators={false}
                                 numVisible={10}
@@ -111,11 +111,7 @@ export const FeedBackSlide = ({}: Props) => {
             <ModalFeedBackBlock
                 isOpen={isOpen}
                 onClose={handleOnClose}
-                item={
-                    current !== null
-                        ? current
-                        : ({} as { title: string; description: string; image: string; type?: string })
-                }
+                item={current !== null ? current : ({} as GetFeedbackDto)}
             />
         </div>
     );

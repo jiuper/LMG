@@ -27,7 +27,7 @@ export const LeftMediaJk = ({ units }: Props) => {
                         <h3>{units.name}</h3>
                     </div>
                     <div className={cx("map-content")}>
-                        <MapWrapper />
+                        <MapWrapper coordinates={units?.coordinates} />
                     </div>
                     <div className={cx("footer")}>
                         <p>{units.wDescription}</p>

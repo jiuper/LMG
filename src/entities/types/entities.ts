@@ -4,7 +4,8 @@ export interface CreateNewsDto {
     title?: string;
     subtitle?: string;
     time?: string;
-    video?: string;
+    video?: File | null;
+    videoId?: string | null;
     pictureId?: string;
     status: ContentSatus;
     contentItems?: GetItemDto[];
@@ -61,6 +62,7 @@ export interface GetFeedbackDto {
     video?: File;
     status: ContentSatus;
     pictureId?: string;
+    videoId?: string;
 }
 export interface CreateFeedbackDto {
     title?: string;
@@ -135,10 +137,10 @@ export interface GetBuildDto {
     number: number;
     coordinates: [number, number][];
     name: string;
-    wDescription: string | null;
-    pictureId: string | null;
-    gTitle: string | null;
-    gSubTitle: string | null;
+    wDescription: string;
+    pictureId: string;
+    gTitle: string;
+    gSubTitle: string;
     list: { title: string; value: string }[];
     status: ContentSatus;
     categoryAreaId: string;
@@ -177,5 +179,71 @@ export interface UpdateCategoryDto {
 
 export interface UpdateCategoryStatusDto {
     categoryId?: string;
+    status?: ContentSatus;
+}
+
+export interface CreateCategoryAreaDto {
+    categoryId?: string | null;
+    areaId?: string | null;
+    title?: string;
+    description?: string;
+    subTitle?: string;
+    status?: ContentSatus;
+    file?: File;
+}
+
+export interface UpdateCategoryAreaDto {
+    id: string;
+    categoryId: string;
+    areaId: string;
+    title?: string;
+    description?: string;
+    subTitle?: string;
+    status?: ContentSatus;
+    file?: File;
+}
+
+export interface UpdateCategoryAreaStatusDto {
+    categoryAreaId?: string;
+    status?: ContentSatus;
+}
+
+export interface CreateBuildDto {
+    coordinates?: [number, number][];
+    name?: string;
+    wDescription?: string;
+    gTitle?: string;
+    gSubTitle?: string;
+    list?: ModalList[];
+    status: ContentSatus;
+    categoryAreaId?: string;
+}
+
+export interface ModalList {
+    title?: string;
+    value?: string;
+    file?: File;
+}
+
+export interface UpdateBuildDto {
+    id: string;
+    coordinates?: [number, number][];
+    name?: string;
+    wDescription?: string;
+    gTitle?: string;
+    gSubTitle?: string;
+    list?: ModalList[];
+    status: ContentSatus;
+    categoryAreaId?: string;
+}
+
+export interface ModalList {
+    title?: string;
+    value?: string;
+    file?: File;
+}
+
+export interface UpdateBuildStatusDto {
+    buildId?: string;
     status?: ContentSatus;
 }

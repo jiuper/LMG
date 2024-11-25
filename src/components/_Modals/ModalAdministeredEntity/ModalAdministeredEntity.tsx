@@ -20,7 +20,7 @@ const cx = cnBind.bind(styles);
 export const MODAL_ADMINISTERED_ENTITY_DEFAULT_VALUES: ModalAdministeredEntityState = {
     status: ContentSatus.PUBLISHED,
     gTitle: "",
-    wTitle: "",
+    name: "",
     wDescription: "",
     list: [{ title: "", value: "" }],
     coordinates: [],
@@ -34,16 +34,17 @@ export type ModalAdministeredEntityModel = ModalAdministeredEntityState;
 export type ModalAdministeredEntityState = {
     id?: string;
     number?: number;
-    wTitle?: string;
+    name?: string;
     wDescription?: string;
     gTitle?: string;
-    gDescription?: string;
+    gSubTitle?: string;
     districtName?: string;
     coordinates?: [number, number][];
     list?: ListItem[];
     pictureId?: string;
     status?: ContentSatus;
     file?: File | null;
+    categoryAreaId?: string;
 };
 
 export type ModalAdministeredEntityRef = {
@@ -98,14 +99,14 @@ export const ModalAdministeredEntity = forwardRef<ModalAdministeredEntityRef, Mo
                             <InputText
                                 isFullWidth
                                 label="Название"
-                                name="Wtitle"
+                                name="name"
                                 onChange={formik.handleChange}
-                                value={formik.values.wTitle}
+                                value={formik.values.name}
                             />
                             <InputTextarea
                                 isFullWidth
                                 label="Описание"
-                                name="Wdescription"
+                                name="wDescription"
                                 onChange={formik.handleChange}
                                 value={formik.values.wDescription}
                             />
@@ -141,16 +142,16 @@ export const ModalAdministeredEntity = forwardRef<ModalAdministeredEntityRef, Mo
                             <InputTextarea
                                 isFullWidth
                                 label="Подзаголовок"
-                                name="description"
+                                name="gTitle"
                                 onChange={formik.handleChange}
                                 value={formik.values.gTitle}
                             />
                             <InputTextarea
                                 isFullWidth
                                 label="Описание"
-                                name="Wdescription"
+                                name="gSubTitle"
                                 onChange={formik.handleChange}
-                                value={formik.values.gDescription}
+                                value={formik.values.gSubTitle}
                             />
                         </div>
                     </div>
