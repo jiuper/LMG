@@ -87,11 +87,15 @@ export const FeedBackSlide = ({ feedback }: Props) => {
         <div id="feedback" className={cx("feedbacks")}>
             <div className={cx("wrapper")}>
                 <div className={cx("block")}>
-                    <h2 className={cx("title")}>Отзывы ({[].length})</h2>
+                    <h2 className={cx("title")}>Отзывы ({feedback?.length})</h2>
                     <div className={cx("slide")}>
                         <SwipeableWrapper
-                            onSwipedLeft={() => setPage((prevPage) => (prevPage + 1) % [].length)}
-                            onSwipedRight={() => setPage((prevPage) => (prevPage - 1 + [].length) % [].length)}
+                            onSwipedLeft={() => setPage((prevPage) => (prevPage + 1) % (feedback?.length || 0))}
+                            onSwipedRight={() =>
+                                setPage(
+                                    (prevPage) => (prevPage - 1 + (feedback?.length || 0)) % (feedback?.length || 0),
+                                )
+                            }
                         >
                             <Carousel
                                 itemTemplate={(item: GetFeedbackDto) => FeedbackCard(item, () => handleOnModal(item))}
