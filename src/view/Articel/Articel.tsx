@@ -83,12 +83,11 @@ export const Articel = ({ date, list }: Props) => {
 
                         {date?.contentItems?.[1]?.text && <span>{date?.contentItems?.[1].text}</span>}
                         <div className={cx("media")}>
-                            {urlRegex.test(date?.video || "") ? (
-                                <video className={cx("image")} src={date?.video}>
-                                    <source src={date?.video} type="video/mp4" />
+                            {date?.videoId !== null ? (
+                                <video className={cx("image")} src={`${API_BASE}/video/${date?.videoId}`}>
+                                    <source src={`${API_BASE}/video/${date?.videoId}`} type="video/mp4" />
                                 </video>
-                            ) : null}
-                            {!urlRegex.test(date?.video || "") && date?.contentItems?.[1]?.pictureId && (
+                            ) : (
                                 <CustomImage
                                     className={cx("image")}
                                     width={1136}

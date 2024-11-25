@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import { FormFeedback } from "@/components/_Forms/FormFeedback";
 import { ModalFeedBack } from "@/components/_Modals/ModalFeedBack";
-import { MapWrapper } from "@/components/Map";
+import { MapView } from "@/components/MapView";
 import type { GetBuildDto } from "@/entities/types/entities";
 import { API_BASE } from "@/shared/constants/private";
 import { useBooleanState } from "@/shared/hooks";
@@ -27,7 +27,20 @@ export const LeftMediaJk = ({ units }: Props) => {
                         <h3>{units.name}</h3>
                     </div>
                     <div className={cx("map-content")}>
-                        <MapWrapper coordinates={units?.coordinates} />
+                        <MapView
+                            list={units.list}
+                            center={units?.coordinates[0]}
+                            zoom={17}
+                            build={[units].map((item) => ({
+                                id: item.id,
+                                name: item.name,
+                                coordinates: item.coordinates,
+                                list: item.list,
+                            }))}
+                            name={units.name}
+                            maxZoom={17}
+                            minZoom={17}
+                        />
                     </div>
                     <div className={cx("footer")}>
                         <p>{units.wDescription}</p>

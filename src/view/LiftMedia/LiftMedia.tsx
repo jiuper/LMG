@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 import { FormFeedback } from "@/components/_Forms/FormFeedback";
 import { ModalFeedBack } from "@/components/_Modals/ModalFeedBack";
-import { MapWrapper } from "@/components/Map";
+import { MapView } from "@/components/MapView";
 import type { GetCategoryAreaDto, GetCategoryDto, GetPortfolioDto } from "@/entities/types/entities";
 import { API_BASE } from "@/shared/constants/private";
 import { useBooleanState } from "@/shared/hooks";
@@ -38,28 +38,52 @@ export const LiftMedia = ({ port, data, districts, url }: Props) => {
                 </div>
                 <ModalFeedBack isOpen={isOpen} onClose={close} />
             </div>
-            <div className={cx("wrapper-map")}>
-                <div className={cx("wrapper", "container")}>
-                    <div className={cx("header")}>
-                        <h3>Доступные районы</h3>
-                    </div>
-                    <div className={cx("map-content")}>
-                        <MapWrapper />
-                        <div className={cx("items", isActive && "active")}>
-                            {districts?.map((el) => (
-                                <div onClick={() => href.push(`${url}/${el.id}`)} className={cx("item")}>
-                                    <h4>{el.area?.name}</h4>
-                                </div>
-                            ))}
+            {districts.length ? (
+                <div className={cx("wrapper-map")}>
+                    <div className={cx("wrapper", "container")}>
+                        <div className={cx("header")}>
+                            <h3>Доступные районы</h3>
                         </div>
-                        <Button
-                            label="Показать все районы"
-                            onClick={() => setActive(!isActive)}
-                            className={cx("button")}
-                        />
+                        <div className={cx("map-content")}>
+                            <MapView
+                                zoom={9}
+                                build={districts.map((item) => ({
+                                    id: item.id,
+                                    name: item.area.name,
+                                    coordinates:
+                                        item.area.lat !== undefined && item.area.lon !== undefined
+                                            ? [[item.area.lat, item.area.lon]]
+                                            : [],
+                                    list:
+                                        item.title || item.description || item.subTitle
+                                            ? [
+                                                  {
+                                                      title: item.title || "",
+                                                      value: item.description || item.subTitle || "",
+                                                  },
+                                              ]
+                                            : [],
+                                }))}
+                                handleLink={(id) => href.push(`${url}/${id}`)}
+                            />
+                            <div className={cx("items", isActive && "active")}>
+                                {districts?.map((el) => (
+                                    <div onClick={() => href.push(`${url}/${el.id}`)} className={cx("item")}>
+                                        <h4>{el.area?.name}</h4>
+                                    </div>
+                                ))}
+                            </div>
+                            {districts.length >= 4 && (
+                                <Button
+                                    label="Показать все районы"
+                                    onClick={() => setActive(!isActive)}
+                                    className={cx("button")}
+                                />
+                            )}
+                        </div>
                     </div>
                 </div>
-            </div>
+            ) : null}
             <div className={cx("wrapper-lift-media-us")}>
                 <div className={cx("lift-media-us")}>
                     <div className={cx("wrapper", "container")}>
@@ -80,12 +104,14 @@ export const LiftMedia = ({ port, data, districts, url }: Props) => {
                     </div>
                 </div>
             </div>
-            <div className={cx("wrapper-video")}>
-                <h2>Как это работает</h2>
-                <video className={cx("video")} width="800" height="450" controls preload="none">
-                    <source src={videoId ? `${API_BASE}/video/${videoId}` : "/liftmg.webm"} type="video/webm" />
-                </video>
-            </div>
+            {videoId !== null ? (
+                <div className={cx("wrapper-video")}>
+                    <h2>Как это работает</h2>
+                    <video className={cx("video")} width="800" height="450" controls preload="none">
+                        <source src={`${API_BASE}/video/${videoId}`} type="video/webm" />
+                    </video>
+                </div>
+            ) : null}
             <div className={cx("loyalty-program")}>
                 <div className={cx("wrapper", "container")}>
                     <div className={cx("header")}>
@@ -154,9 +180,11 @@ export const LiftMedia = ({ port, data, districts, url }: Props) => {
                 </div>
             </div>
 
-            <div className={cx("portfolio")}>
-                <CaseBlock className={cx("case-block")} listItem={port.slice(-4)} />
-            </div>
+            {port.length !== 0 && (
+                <div className={cx("portfolio")}>
+                    <CaseBlock className={cx("case-block")} listItem={port.slice(-4)} />
+                </div>
+            )}
             <div className={cx("form")}>
                 <FormFeedback />
             </div>

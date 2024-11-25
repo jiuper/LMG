@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 import { FormFeedback } from "@/components/_Forms/FormFeedback";
 import { ModalFeedBack } from "@/components/_Modals/ModalFeedBack";
-import { MapWrapper } from "@/components/Map";
+import { MapView } from "@/components/MapView";
 import type { GetBuildDto, GetCategoryAreaDto } from "@/entities/types/entities";
 import { API_BASE } from "@/shared/constants/private";
 import { useBooleanState } from "@/shared/hooks";
@@ -33,7 +33,15 @@ export const LiftMediaSection = ({ district, units, url, title }: Props) => {
                         </h3>
                     </div>
                     <div className={cx("map-content")}>
-                        <MapWrapper />
+                        <MapView
+                            list={district.list}
+                            center={district?.build[0]?.coordinates?.[0]}
+                            zoom={11}
+                            build={district?.build || []}
+                            name={`${district?.area?.name} район`}
+                            maxZoom={25}
+                            minZoom={5}
+                        />
                     </div>
                     <div className={cx("footer")}>
                         <h4>{district?.title}</h4>
@@ -91,7 +99,7 @@ export const LiftMediaSection = ({ district, units, url, title }: Props) => {
                         width={1200}
                         height={423}
                         src={`${API_BASE}/picture/${district?.pictureId}`}
-                        alt={district?.area?.name}
+                        alt={district?.area?.name || "def"}
                     />
 
                     <div className={cx("description")}>{district?.subTitle}</div>

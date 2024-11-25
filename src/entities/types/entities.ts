@@ -79,6 +79,18 @@ export interface GetSectionDto {
     status?: ContentSatus;
     createdAt?: Date;
     updatedAt?: Date;
+    build: {
+        id: string;
+        categoryId?: string;
+        categoryAreaId?: string;
+        name?: string;
+        coordinates?: [number, number][];
+        list?: { title?: string; value?: string }[];
+    }[];
+    list?: {
+        title?: string;
+        value?: string;
+    }[];
 }
 
 export interface GetCategoryDto {
@@ -113,23 +125,35 @@ export interface GetCategoryAreaDto {
     id: string;
     categoryId: string;
     areaId: string;
-    title: string;
-    description: string;
-    subTitle: string;
-    pictureId: string | null;
-    status: ContentSatus;
+    title?: string;
+    description?: string;
+    subTitle?: string;
+    pictureId?: string | null;
+    status?: ContentSatus;
     createdAt: Date;
     updatedAt: Date;
     area: {
         id: string;
         number: number;
-        lat: number;
-        lon: number;
-        name: string;
+        lat?: number;
+        lon?: number;
+        name?: string;
         status?: ContentSatus;
         createdAt: Date;
         updatedAt: Date;
     };
+    build: {
+        id: string;
+        categoryId?: string;
+        categoryAreaId?: string;
+        name?: string;
+        coordinates?: [number, number][];
+        list?: { title?: string; value?: string }[];
+    }[];
+    list?: {
+        title?: string;
+        value?: string;
+    }[];
 }
 
 export interface GetBuildDto {

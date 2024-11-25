@@ -11,7 +11,7 @@ type Props = {
     coordinates?: [number, number][];
 };
 
-export const MapWrapper = ({ onChange, coordinates }: Props) => {
+export const MapWrapper = ({ onChange, coordinates = [] }: Props) => {
     const [buildings, setBuildings] = useState<[number, number][]>([]);
     const handleMapClick = (e: MapEvent<any, { coords: number[] }>) => {
         const coords = e.get("coords") as [number, number];
@@ -20,7 +20,21 @@ export const MapWrapper = ({ onChange, coordinates }: Props) => {
         onChange?.([...buildings, coords]);
     };
     const handlePlacemarkRightClick = (index: number) => {
-        setBuildings(buildings.filter((_, i) => i !== index));
+        setBuildings((prevBuildings) => {
+            const newBuildings = prevBuildings.filter((_, i) => i !== index);
+            onChange?.(newBuildings);
+
+            return newBuildings;
+        });
+    };
+    const handlePlacemarkDragEnd = (index: number, event: any) => {
+        const newCoords = event.get("target").geometry.getCoordinates();
+        setBuildings((prevBuildings) => {
+            const newBuildings = prevBuildings.map((building, i) => (i === index ? newCoords : building));
+            onChange?.(newBuildings);
+
+            return newBuildings;
+        });
     };
     useEffect(() => {
         if (coordinates) setBuildings(coordinates);
@@ -42,17 +56,15 @@ export const MapWrapper = ({ onChange, coordinates }: Props) => {
                                 groupByCoordinates: false,
                             }}
                         >
-                            {buildings.map(
-                                (building, index) =>
-                                    building && (
-                                        <Placemark
-                                            key={index}
-                                            geometry={building}
-                                            options={{ draggable: true }}
-                                            onClick={() => handlePlacemarkRightClick(index)}
-                                        />
-                                    ),
-                            )}
+                            {buildings.map((building, index) => (
+                                <Placemark
+                                    key={index}
+                                    geometry={building}
+                                    options={{ draggable: true }}
+                                    onClick={() => handlePlacemarkRightClick(index)}
+                                    onDragEnd={(event: any) => handlePlacemarkDragEnd(index, event)}
+                                />
+                            ))}
                         </Clusterer>
                     </Map>
                 </div>

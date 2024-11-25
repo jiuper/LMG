@@ -5,7 +5,7 @@ export type NewsCreateApiParams = {
     title?: string;
     subtitle?: string;
     time?: string;
-    video?: string;
+    video?: File | null;
     status: ContentSatus;
     contentItems?: ItemDto[];
     list?: ListDto[];
