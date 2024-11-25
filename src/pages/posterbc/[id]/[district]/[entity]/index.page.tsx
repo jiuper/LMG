@@ -22,7 +22,7 @@ export default function IndexPage({
     const items = [
         { label: "Реклама в бизнес центрах", url: Routes.POSTERBC },
         { label: filterCat.title, url: `${Routes.POSTERBC}/${id}` },
-        { label: `${filterArea.area.name} район` },
+        { label: `${filterArea.area.name} район`, url: `${Routes.POSTERBC}/${id}/${district}` },
         { label: ` ${filterBuild.name} юнит` },
     ];
 

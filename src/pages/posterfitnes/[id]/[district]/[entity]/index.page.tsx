@@ -22,7 +22,7 @@ export default function IndexPage({
     const items = [
         { label: "Реклама в фитнес клубах", url: Routes.POSTERFITNES },
         { label: filterCat.title, url: `${Routes.POSTERFITNES}/${id}` },
-        { label: `${filterArea.area.name} район` },
+        { label: `${filterArea.area.name} район`, url: `${Routes.POSTERFITNES}/${id}/${district}` },
         { label: ` ${filterBuild.name} юнит` },
     ];
 

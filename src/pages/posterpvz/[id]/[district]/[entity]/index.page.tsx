@@ -22,7 +22,7 @@ export default function IndexPage({
     const items = [
         { label: "Реклама для ПВЗ", url: Routes.POSTERPVZ },
         { label: filterCat.title, url: `${Routes.POSTERPVZ}/${id}` },
-        { label: `${filterArea.area.name} район` },
+        { label: `${filterArea.area.name} район`, url: `${Routes.POSTERPVZ}/${id}/${district}` },
         { label: ` ${filterBuild.name} юнит` },
     ];
 

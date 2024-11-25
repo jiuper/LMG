@@ -41,6 +41,7 @@ export const LiftMediaSection = ({ district, units, url, title }: Props) => {
                             name={`${district?.area?.name} район`}
                             maxZoom={25}
                             minZoom={5}
+                            handleLink={(id) => href.push(`${url}/${id}`)}
                         />
                     </div>
                     <div className={cx("footer")}>

@@ -75,6 +75,34 @@
       background: var(--Brand-Light-Guidance-Primary-Light-Primary, #566DD6);
     }
   }
+
+  .map-content{
+    @include flex-column();
+    gap: 24px;
+    width: 100%;
+    .list{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+      width: 100%;
+
+      .item{
+        @include flex-row();
+        gap: 4px;
+        color: var(--Rich-black, #040F16);
+
+        span{
+          color: var(--Rich-black, #040F16);
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+        }
+
+      }
+    }
+  }
 }
 .cards-container{
   border: 0px solid #E5E7EB;

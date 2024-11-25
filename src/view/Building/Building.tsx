@@ -72,10 +72,20 @@ export const BuildingPage = ({
                 </div>
                 <div className={cx("map-content")}>
                     <MapView
+                        maxZoom={22}
+                        minZoom={3}
+                        zoom={11}
                         handleLink={(id) => href.push(`${url}/${id}`)}
-                        list={sect?.list}
                         build={sect?.build || []}
                     />
+                    <div className={cx("list")}>
+                        {sect?.list?.map((el, index) => (
+                            <div className={cx("item")} key={index}>
+                                <span>{el.title}:</span>
+                                <span>{el.value}</span>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
             <div className={cx("portfolio")}>
