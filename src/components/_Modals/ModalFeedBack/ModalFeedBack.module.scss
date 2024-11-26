@@ -47,6 +47,8 @@
 }
 .close{
   cursor: pointer;
+  width: 40px;
+  height: 40px;
 }
 .header{
   @include flex-row();

@@ -59,12 +59,12 @@ export const ModalAdministeredPortfolio = forwardRef<ModalAdministeredPortfolioR
             },
         });
 
-        const { data, fetchStatus } = useQuery<GetCategoryListApiRawResponse>({
+        const { data } = useQuery<GetCategoryListApiRawResponse>({
             queryKey: ["category-list"],
             queryFn: () => getCategoryListSimpleApi(),
         });
 
-        const listData = data || [];
+        const listData = useMemo(() => data || [], [data]);
 
         const parseListData = useMemo(() => listData.map((item) => ({ label: item.title, id: item.id })), [listData]);
         const isEditType = type === "edit";

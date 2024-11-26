@@ -1,13 +1,18 @@
 import { useState } from "react";
 import cnBind from "classnames/bind";
-import { Carousel } from "primereact/carousel";
+import { Autoplay } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 import { ModalFeedBackBlock } from "@/components/_Modals/ModalFeedbackBlock";
-import { SwipeableWrapper } from "@/components/SwipeableWrapper";
 import type { GetFeedbackDto } from "@/entities/types/entities";
 import { API_BASE } from "@/shared/constants/private";
 import { useBooleanState } from "@/shared/hooks";
 import { CustomImage } from "@/shared/ui/CustomImage";
+
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "swiper/css/autoplay";
+import "swiper/css";
 
 import styles from "./FeedBackSlide.module.scss";
 
@@ -15,7 +20,11 @@ const cx = cnBind.bind(styles);
 type Props = {
     feedback?: GetFeedbackDto[];
 };
-const FeedbackCard = (item: GetFeedbackDto, onClick: () => void) => {
+type FeedbackCardProps = {
+    item: GetFeedbackDto;
+    onClick: () => void;
+};
+const FeedbackCard = ({ item, onClick }: FeedbackCardProps) => {
     return (
         <div onClick={onClick} className={cx("card", { video: item.videoId !== null })}>
             <CustomImage
@@ -32,46 +41,6 @@ const FeedbackCard = (item: GetFeedbackDto, onClick: () => void) => {
     );
 };
 export const FeedBackSlide = ({ feedback }: Props) => {
-    const responsiveOptions = [
-        {
-            breakpoint: "1920px",
-            numVisible: 10,
-            numScroll: 1,
-        },
-        {
-            breakpoint: "1600",
-            numVisible: 9,
-            numScroll: 1,
-        },
-        {
-            breakpoint: "1440",
-            numVisible: 7,
-            numScroll: 1,
-        },
-        {
-            breakpoint: "1100",
-            numVisible: 6,
-            numScroll: 1,
-        },
-        {
-            breakpoint: "767px",
-            numVisible: 5,
-            numScroll: 1,
-        },
-        {
-            breakpoint: "575px",
-            numVisible: 3,
-            numScroll: 1,
-        },
-        {
-            breakpoint: "430px",
-            numVisible: 2,
-            numScroll: 1,
-        },
-    ];
-    const [page, setPage] = useState(0);
-
-    const onPageChange = (e: number) => setPage(e);
     const [isOpen, onOpen, onClose] = useBooleanState(false);
     const [current, setCurrent] = useState<GetFeedbackDto | null>(null);
     const handleOnModal = (i: GetFeedbackDto) => {
@@ -89,26 +58,29 @@ export const FeedBackSlide = ({ feedback }: Props) => {
                 <div className={cx("block")}>
                     <h2 className={cx("title")}>Отзывы ({feedback?.length})</h2>
                     <div className={cx("slide")}>
-                        <SwipeableWrapper
-                            onSwipedLeft={() => setPage((prevPage) => (prevPage + 1) % (feedback?.length || 0))}
-                            onSwipedRight={() =>
-                                setPage(
-                                    (prevPage) => (prevPage - 1 + (feedback?.length || 0)) % (feedback?.length || 0),
-                                )
-                            }
+                        <Swiper
+                            modules={[Autoplay]}
+                            spaceBetween={20}
+                            slidesPerView={8}
+                            loop
+                            autoplay={{ delay: 3000 }}
+                            breakpoints={{
+                                1920: { slidesPerView: 8, spaceBetween: 20 },
+                                1600: { slidesPerView: 7, spaceBetween: 20 },
+                                1440: { slidesPerView: 6, spaceBetween: 20 },
+                                1280: { slidesPerView: 5, spaceBetween: 20 },
+                                1080: { slidesPerView: 4, spaceBetween: 20 },
+                                720: { slidesPerView: 3, spaceBetween: 10 },
+                                520: { slidesPerView: 2, spaceBetween: 10 },
+                                430: { slidesPerView: 1, spaceBetween: 10 },
+                            }}
                         >
-                            <Carousel
-                                itemTemplate={(item: GetFeedbackDto) => FeedbackCard(item, () => handleOnModal(item))}
-                                value={feedback}
-                                showIndicators={false}
-                                showNavigators={false}
-                                numVisible={10}
-                                responsiveOptions={responsiveOptions}
-                                className={cx("carousel")}
-                                page={page}
-                                onPageChange={(e) => onPageChange(e.page)}
-                            />
-                        </SwipeableWrapper>
+                            {feedback?.map((el, i) => (
+                                <SwiperSlide key={i}>
+                                    <FeedbackCard item={el} onClick={() => handleOnModal(el)} />
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
                     </div>
                 </div>
             </div>

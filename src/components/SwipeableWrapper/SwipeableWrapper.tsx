@@ -34,11 +34,7 @@ export const SwipeableWrapper = ({
     });
 
     return (
-        <div
-            className={cx("swiper", className)}
-            style={{ transform: `translateX(${position}px)` }}
-            {...handlers}
-        >
+        <div className={cx("swiper", className)} style={{ transform: `translateX(${position}px)` }} {...handlers}>
             {children}
         </div>
     );

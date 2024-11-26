@@ -1,3 +1,10 @@
+import img_2 from "@/shared/assests/team/photo_2024-11-26_09-55-24 (2).jpg";
+import img_3 from "@/shared/assests/team/photo_2024-11-26_09-55-24 (3).jpg";
+import img_4 from "@/shared/assests/team/photo_2024-11-26_09-55-24 (4).jpg";
+import img_5 from "@/shared/assests/team/photo_2024-11-26_09-55-24 (5).jpg";
+import img_6 from "@/shared/assests/team/photo_2024-11-26_09-55-24 (6).jpg";
+import img_1 from "@/shared/assests/team/photo_2024-11-26_09-55-24.jpg";
+
 export const HISTORY_COMPANY = [
     { date: "2010", title: "Основание компании" },
     { date: "2011", title: "Установка первых стендов в лифтах г. Санкт – Петербург" },
@@ -17,7 +24,7 @@ export const HISTORY_COMPANY = [
 export const responsiveOptions = [
     {
         breakpoint: "1920px",
-        numVisible: 6,
+        numVisible: 5,
         numScroll: 1,
     },
     {
@@ -32,22 +39,55 @@ export const responsiveOptions = [
     },
     {
         breakpoint: "1100",
-        numVisible: 3,
+        numVisible: 4,
         numScroll: 1,
     },
     {
         breakpoint: "767px",
-        numVisible: 2,
+        numVisible: 3,
         numScroll: 1,
     },
     {
         breakpoint: "575px",
-        numVisible: 2,
+        numVisible: 3,
         numScroll: 1,
     },
     {
         breakpoint: "430px",
-        numVisible: 1,
+        numVisible: 2,
         numScroll: 1,
+    },
+];
+
+export const team = [
+    {
+        name: "Константин Константинопольский",
+        position: "Генеральный директор",
+        image: img_1.src,
+    },
+    {
+        name: "Константин Константинопольский",
+        position: "Генеральный директор",
+        image: img_2.src,
+    },
+    {
+        name: "Константин Константинопольский",
+        position: "Генеральный директор",
+        image: img_3.src,
+    },
+    {
+        name: "Константин Константинопольский",
+        position: "Генеральный директор",
+        image: img_4.src,
+    },
+    {
+        name: "Константин Константинопольский",
+        position: "Генеральный директор",
+        image: img_5.src,
+    },
+    {
+        name: "Константин Константинопольский",
+        position: "Генеральный директор",
+        image: img_6.src,
     },
 ];

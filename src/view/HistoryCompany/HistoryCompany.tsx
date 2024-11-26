@@ -1,35 +1,35 @@
-import { useState } from "react";
 import cnBind from "classnames/bind";
 import Link from "next/link";
-import { Carousel } from "primereact/carousel";
+import { Autoplay } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 import { FormFeedback } from "@/components/_Forms/FormFeedback";
-import { SwipeableWrapper } from "@/components/SwipeableWrapper";
 import auth from "@/shared/assests/photo_2023-03-08_21-16-20 2.png";
 import { Button } from "@/shared/ui/Button";
 import { CustomImage } from "@/shared/ui/CustomImage";
-import { HISTORY_COMPANY, responsiveOptions } from "@/view/HistoryCompany/const";
+import { HISTORY_COMPANY, team } from "@/view/HistoryCompany/const";
+
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "swiper/css/autoplay";
+import "swiper/css";
 
 import styles from "./HistoryCompany.module.scss";
 
 const cx = cnBind.bind(styles);
-type Props = {};
-const FeedbackCard = (item: { type: string; src: string }) => {
+
+const FeedbackCard = (item: { type: string; image: string; position: string; name: string }) => {
     return (
         <div className={cx("card", { video: item.type === "video" })}>
-            <CustomImage className={cx("image")} width={282} height={282} src={item.src} alt={item.src} />
+            <CustomImage className={cx("image")} width={282} height={282} src={item.image} alt={item.image} />
             <div className={cx("info")}>
-                <span className={cx("name")}>Менеджер</span>
-                <span className={cx("post")}>Менеджер</span>
+                <span className={cx("name")}>{item.name}</span>
+                <span className={cx("post")}>{item.position}</span>
             </div>
         </div>
     );
 };
-export const HistoryCompanyPage = ({}: Props) => {
-    const [page, setPage] = useState(0);
-
-    const onPageChange = (e: number) => setPage(e);
-
+export const HistoryCompanyPage = () => {
     return (
         <div className={cx("history-company")}>
             <div className={cx("wrapper")}>
@@ -85,22 +85,25 @@ export const HistoryCompanyPage = ({}: Props) => {
                 <div id="team" className={cx("wrapper-carousel")}>
                     <h1 className={cx("title", "container", "wrapper")}>Наша команда</h1>
                     <div className={cx("carousel")}>
-                        <SwipeableWrapper
-                            onSwipedLeft={() => setPage((prevPage) => (prevPage + 1) % [].length)}
-                            onSwipedRight={() => setPage((prevPage) => (prevPage - 1 + [].length) % [].length)}
+                        <Swiper
+                            modules={[Autoplay]}
+                            spaceBetween={20}
+                            slidesPerView={4}
+                            loop
+                            breakpoints={{
+                                1920: { slidesPerView: 5, spaceBetween: 20 },
+                                1280: { slidesPerView: 4, spaceBetween: 20 },
+                                960: { slidesPerView: 3, spaceBetween: 20 },
+                                560: { slidesPerView: 2, spaceBetween: 10 },
+                                360: { slidesPerView: 1, spaceBetween: 10 },
+                            }}
                         >
-                            <Carousel
-                                itemTemplate={(item: { type: string; src: string }) => FeedbackCard(item)}
-                                value={[]}
-                                showIndicators={false}
-                                showNavigators={false}
-                                numVisible={10}
-                                responsiveOptions={responsiveOptions}
-                                className={cx("carousel")}
-                                page={page}
-                                onPageChange={(e) => onPageChange(e.page)}
-                            />
-                        </SwipeableWrapper>
+                            {team.map((el, i) => (
+                                <SwiperSlide key={i}>
+                                    <FeedbackCard name={el.name} position={el.position} type="" image={el.image} />
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
                     </div>
                 </div>
                 <div className={cx("wrapper-documents", "container")}>

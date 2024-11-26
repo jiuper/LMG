@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { Modal } from "@/components/_Modals/Modal";
 import tg from "@/shared/assests/telegram.png";
 import wa from "@/shared/assests/whatsapp.png";
+import { API_BASE } from "@/shared/constants/private";
 import { useResizeContext } from "@/shared/context/WindowResizeProvider";
 import { Button } from "@/shared/ui/Button";
 import { CheckBox } from "@/shared/ui/CheckBox";
@@ -27,8 +28,16 @@ export const ModalFeedBack = ({ isOpen, onClose }: Props) => {
             phone: "",
             policy: false,
         },
-        onSubmit: (values) => {
-            console.log(values);
+        onSubmit: async (values, { setSubmitting }) => {
+            await fetch(`${API_BASE}/mail`, {
+                method: "post",
+                body: JSON.stringify({
+                    name: values.name,
+                    phone: values.phone,
+                }),
+            }).then((res) => res.ok);
+            formik.resetForm();
+            setSubmitting(false);
         },
     });
 

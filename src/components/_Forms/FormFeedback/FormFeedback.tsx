@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 
 import tg from "@/shared/assests/telegram.png";
 import wa from "@/shared/assests/whatsapp.png";
+import { API_BASE } from "@/shared/constants/private";
 import { Button } from "@/shared/ui/Button";
 import { CheckBox } from "@/shared/ui/CheckBox";
 import { CustomImage } from "@/shared/ui/CustomImage";
@@ -12,8 +13,8 @@ import { TextField } from "@/shared/ui/TextField";
 import styles from "./FormFeedback.module.scss";
 
 const cx = cnBind.bind(styles);
-type Props = {};
-export const FormFeedback = (props: Props) => {
+
+export const FormFeedback = () => {
     const router = useRouter();
     const formik = useFormik({
         initialValues: {
@@ -21,8 +22,16 @@ export const FormFeedback = (props: Props) => {
             phone: "",
             policy: false,
         },
-        onSubmit: (values) => {
-            console.log(values);
+        onSubmit: async (values, { setSubmitting }) => {
+            await fetch(`${API_BASE}/mail`, {
+                method: "post",
+                body: JSON.stringify({
+                    name: values.name,
+                    phone: values.phone,
+                }),
+            }).then((res) => res.ok);
+            formik.resetForm();
+            setSubmitting(false);
         },
     });
 

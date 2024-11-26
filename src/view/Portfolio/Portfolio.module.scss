@@ -40,9 +40,12 @@
   @include media-max(720px){
     flex-wrap: wrap;
   }
-
+  .category-item{
+    width: max-content !important;
+  }
   .category{
     transition: 0.3s;
+    width: max-content;
     &:hover{
       background: var(--Brand-Light-Guidance-Primary-Light-Primary, #566DD6);
     }

@@ -1,6 +1,7 @@
 import cnBind from "classnames/bind";
 import { useFormik } from "formik";
 
+import { API_BASE } from "@/shared/constants/private";
 import { Button } from "@/shared/ui/Button";
 import { CheckBox } from "@/shared/ui/CheckBox";
 import { TextField } from "@/shared/ui/TextField";
@@ -16,8 +17,16 @@ export const Contacts = () => {
             phone: "",
             policy: false,
         },
-        onSubmit: (values) => {
-            console.log(values);
+        onSubmit: async (values, { setSubmitting }) => {
+            await fetch(`${API_BASE}/mail`, {
+                method: "post",
+                body: JSON.stringify({
+                    name: values.name,
+                    phone: values.phone,
+                }),
+            }).then((res) => res.ok);
+            formik.resetForm();
+            setSubmitting(false);
         },
     });
 

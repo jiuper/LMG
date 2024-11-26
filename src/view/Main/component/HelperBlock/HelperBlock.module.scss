@@ -83,6 +83,7 @@
         height: 100px;
         width: 100px;
         @include flex-center;
+        cursor: pointer;
       }
 
       .icon{

@@ -1,36 +1,35 @@
 import { useState } from "react";
 import cnBind from "classnames/bind";
 import { Paginator } from "primereact/paginator";
+import { Autoplay } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 import { FormFeedback } from "@/components/_Forms/FormFeedback";
 import { ModalCaseBlock } from "@/components/_Modals/ModalCaseBlock";
-import type { GetPortfolioDto } from "@/entities/types/entities";
+import type { GetCategoryDto, GetPortfolioDto } from "@/entities/types/entities";
 import { API_BASE } from "@/shared/constants/private";
 import { useBooleanState } from "@/shared/hooks";
 import { Button } from "@/shared/ui/Button";
 import { CaseCard } from "@/view/Main/component/CaseBlock/component";
+
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "swiper/css/autoplay";
+import "swiper/css";
 
 import styles from "./Portfolio.module.scss";
 
 const cx = cnBind.bind(styles);
 type Props = {
     port: GetPortfolioDto[];
+    categoryList: GetCategoryDto[];
 };
-const categories = [
-    "Все проекты",
-    "Лифты",
-    "Бизнес-центры",
-    "Жилые комплексы",
-    "Торговые центры",
-    "ПВЗ",
-    "Фитнес центры",
-];
-export const PortfolioPage = ({ port }: Props) => {
+export const PortfolioPage = ({ port, categoryList }: Props) => {
     const [first, setFirst] = useState(0);
     const [rows, setRows] = useState(12);
 
     const [filter, setFilter] = useState("Все проекты");
-
+    const listCategories = ["Все проекты", ...categoryList?.map((el) => el.title)];
     const filtered = filter === "Все проекты" ? port : port.filter((el) => el.title === filter);
     const paginated = filtered.slice(first, first + rows);
     const onPageChange = (event: { first: number; rows: number }) => {
@@ -57,9 +56,33 @@ export const PortfolioPage = ({ port }: Props) => {
                 </div>
                 <div className={cx("articles-wrapper")}>
                     <div className={cx("categories")}>
-                        {categories.map((el, index) => (
-                            <Button onClick={() => setFilter(el)} className={cx("category")} label={el} key={index} />
-                        ))}
+                        <Swiper
+                            modules={[Autoplay]}
+                            spaceBetween={20}
+                            slidesPerView={7}
+                            loop
+                            breakpoints={{
+                                1920: { slidesPerView: 7 },
+                                1600: { slidesPerView: 7 },
+                                1440: { slidesPerView: 7 },
+                                1280: { slidesPerView: 5 },
+                                1080: { slidesPerView: 4 },
+                                720: { slidesPerView: 3 },
+                                520: { slidesPerView: 2 },
+                                430: { slidesPerView: 1 },
+                            }}
+                        >
+                            {listCategories?.map((el, index) => (
+                                <SwiperSlide className={cx("category-item")} key={index}>
+                                    <Button
+                                        onClick={() => setFilter(el)}
+                                        className={cx("category")}
+                                        label={el}
+                                        key={index}
+                                    />
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
                     </div>
                     <div className={cx("articles")}>
                         {paginated.map((el, index) => (

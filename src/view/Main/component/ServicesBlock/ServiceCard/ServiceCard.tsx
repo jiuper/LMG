@@ -14,7 +14,7 @@ type ServiceCardProps = {
 };
 export const ServiceCard = ({ description, title, image, onClick }: ServiceCardProps) => {
     return (
-        <div className={cx("service-card")} style={{ backgroundImage: `url(${image})` }}>
+        <div onClick={onClick} className={cx("service-card")} style={{ backgroundImage: `url(${image})` }}>
             <div className={cx("text")}>
                 <h2>{title}</h2>
                 <p>{description}</p>

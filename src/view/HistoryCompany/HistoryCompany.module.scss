@@ -229,21 +229,12 @@
   }
 }
 
-.carousel{
-
-  [data-pc-section="itemscontainer"]{
-    justify-content: space-between;
-    gap: 32px;
-    width: 100%;
-  }
-
-}
-
 .card{
 
   .image{
     border-radius: 100px;
-    width: 100%;
+    width: 282px;
+    height: 282px;
     object-fit: cover;
   }
   .info{
