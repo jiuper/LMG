@@ -1,3 +1,4 @@
+import axios from "axios";
 import cnBind from "classnames/bind";
 import { useFormik } from "formik";
 
@@ -18,13 +19,7 @@ export const Contacts = () => {
             policy: false,
         },
         onSubmit: async (values, { setSubmitting }) => {
-            await fetch(`${API_BASE}/mail`, {
-                method: "post",
-                body: JSON.stringify({
-                    name: values.name,
-                    phone: values.phone,
-                }),
-            }).then((res) => res.ok);
+            await axios.post(`${API_BASE}/mail`, values);
             formik.resetForm();
             setSubmitting(false);
         },
