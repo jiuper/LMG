@@ -49,6 +49,20 @@ export const LiftMediaSection = ({ district, units, url, title }: Props) => {
                         <div className={cx("list-text")}>{district?.description}</div>
                     </div>
                     <Button label="Оставить заявку" onClick={open} className={cx("button")} />
+                    {units.length > 0 && (
+                        <div className={cx("list")}>
+                            <div>
+                                <span>Доступно {units.length} юнитов</span>
+                            </div>
+                            <div className={cx("items")}>
+                                {units?.map((el, i) => (
+                                    <div key={i} onClick={() => href.push(`${url}/${el.id}`)} className={cx("item")}>
+                                        <h4>{el.name}</h4>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
             <div className={cx("wrapper-lift-media-us")}>

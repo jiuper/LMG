@@ -56,7 +56,10 @@ export const FeedBackSlide = ({ feedback }: Props) => {
         <div id="feedback" className={cx("feedbacks")}>
             <div className={cx("wrapper")}>
                 <div className={cx("block")}>
-                    <h2 className={cx("title")}>Отзывы ({feedback?.length})</h2>
+                    <div className={cx("title-wrapper")}>
+                        <h2 className={cx("title")}>Отзывы ({feedback?.length})</h2>
+                    </div>
+
                     <div className={cx("slide")}>
                         <Swiper
                             modules={[Autoplay]}

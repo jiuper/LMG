@@ -1,8 +1,6 @@
 import { useState } from "react";
 import cnBind from "classnames/bind";
 import { Paginator } from "primereact/paginator";
-import { Autoplay } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
 
 import { FormFeedback } from "@/components/_Forms/FormFeedback";
 import { ModalCaseBlock } from "@/components/_Modals/ModalCaseBlock";
@@ -11,11 +9,6 @@ import { API_BASE } from "@/shared/constants/private";
 import { useBooleanState } from "@/shared/hooks";
 import { Button } from "@/shared/ui/Button";
 import { CaseCard } from "@/view/Main/component/CaseBlock/component";
-
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import "swiper/css/autoplay";
-import "swiper/css";
 
 import styles from "./Portfolio.module.scss";
 
@@ -28,15 +21,20 @@ export const PortfolioPage = ({ port, categoryList }: Props) => {
     const [first, setFirst] = useState(0);
     const [rows, setRows] = useState(12);
 
-    const [filter, setFilter] = useState("Все проекты");
-    const listCategories = ["Все проекты", ...categoryList?.map((el) => el.title)];
-    const filtered = filter === "Все проекты" ? port : port.filter((el) => el.title === filter);
+    const [filter, setFilter] = useState("1");
+    const listCategories = [
+        { title: "Все проекты", id: "1" },
+        ...categoryList
+            .filter((cat) => port.some((el) => el.categoryId === cat.id))
+            .map((cat) => ({ title: cat.title, id: cat.id })),
+    ];
+
+    const filtered = filter === "1" ? port : port.filter((el) => el.categoryId === filter);
     const paginated = filtered.slice(first, first + rows);
     const onPageChange = (event: { first: number; rows: number }) => {
         setFirst(event.first);
         setRows(event.rows);
     };
-
     const [isOpen, onOpen, onClose] = useBooleanState(false);
     const [current, setCurrent] = useState<GetPortfolioDto | null>(null);
     const handleOnModal = (i: GetPortfolioDto) => {
@@ -56,33 +54,14 @@ export const PortfolioPage = ({ port, categoryList }: Props) => {
                 </div>
                 <div className={cx("articles-wrapper")}>
                     <div className={cx("categories")}>
-                        <Swiper
-                            modules={[Autoplay]}
-                            spaceBetween={20}
-                            slidesPerView={7}
-                            loop
-                            breakpoints={{
-                                1920: { slidesPerView: 7 },
-                                1600: { slidesPerView: 7 },
-                                1440: { slidesPerView: 7 },
-                                1280: { slidesPerView: 5 },
-                                1080: { slidesPerView: 4 },
-                                720: { slidesPerView: 3 },
-                                520: { slidesPerView: 2 },
-                                430: { slidesPerView: 1 },
-                            }}
-                        >
-                            {listCategories?.map((el, index) => (
-                                <SwiperSlide className={cx("category-item")} key={index}>
-                                    <Button
-                                        onClick={() => setFilter(el)}
-                                        className={cx("category")}
-                                        label={el}
-                                        key={index}
-                                    />
-                                </SwiperSlide>
-                            ))}
-                        </Swiper>
+                        {listCategories?.map((el, index) => (
+                            <Button
+                                onClick={() => setFilter(el.id)}
+                                className={cx("category")}
+                                label={el.title}
+                                key={index}
+                            />
+                        ))}
                     </div>
                     <div className={cx("articles")}>
                         {paginated.map((el, index) => (

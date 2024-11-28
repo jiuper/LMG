@@ -24,7 +24,7 @@ export const ModalFeedBackBlock = ({ isOpen, onClose, item }: Props) => {
     const [videoUrl, setVideoUrl] = useState("");
     useEffect(() => {
         if (item.videoId)
-            fetch(`${API_BASE}/video/${item.videoId}`)
+            void fetch(`${API_BASE}/video/${item.videoId}`)
                 .then((response) => response.blob())
                 .then((blob) => {
                     const url = URL.createObjectURL(blob);
@@ -58,17 +58,19 @@ export const ModalFeedBackBlock = ({ isOpen, onClose, item }: Props) => {
                             </svg>
                         </div>
                     </div>
-                    {item.videoId !== null ? (
-                        <video width={600} src={`${videoUrl}`} controls playsInline />
-                    ) : (
-                        <CustomImage
-                            className={cx("image")}
-                            width={768}
-                            height={587}
-                            src={`${API_BASE}/picture/${item.pictureId}`}
-                            alt={item.title || "def"}
-                        />
-                    )}
+                    <div className={cx("image-wrapper")}>
+                        {item.videoId !== null ? (
+                            <video width={768} height={587} src={`${videoUrl}`} controls playsInline />
+                        ) : (
+                            <CustomImage
+                                className={cx("image")}
+                                width={768}
+                                height={587}
+                                src={`${API_BASE}/picture/${item.pictureId}`}
+                                alt={item.title || "def"}
+                            />
+                        )}
+                    </div>
                 </div>
                 <div className={cx("footer")}>
                     <h3>Хотите так же?</h3>

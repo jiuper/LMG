@@ -109,7 +109,7 @@ export const ModalAdministeredPortfolio = forwardRef<ModalAdministeredPortfolioR
                         isFullWidth
                         label="Категория"
                         options={parseListData}
-                        name="categoryName"
+                        name="categoryId"
                         optionValue="id"
                         optionLabel="label"
                         value={formik.values.categoryId}

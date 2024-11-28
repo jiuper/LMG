@@ -82,10 +82,14 @@
       height: 40px;
     }
   }
-
+  .image-wrapper{
+    width: 768px;
+    height: 568px;
+  }
   .image{
     border-radius: 16px;
     width: 100%;
+    object-fit: fill;
   }
 }
 
@@ -104,6 +108,8 @@
   @include media-max(720px){
     @include flex-column();
   }
+
+
 
   .btn{
     transition: .3s;

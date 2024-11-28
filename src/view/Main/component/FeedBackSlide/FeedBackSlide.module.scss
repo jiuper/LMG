@@ -7,6 +7,16 @@
   .block{
     @include flex-column();
     gap: 24px;
+    .title-wrapper{
+      max-width: 1440px;
+      @include responsive-sizing("padding-inline", 8, 120, 360,1440);
+
+      width: 100%;
+      margin: 0 auto;
+      @include flex-row();
+      align-items: flex-start;
+    }
+
     .title{
       color: var(--Rich-black, #040F16);
       @include font-SegoeUI();
@@ -31,6 +41,7 @@
 
 .card{
   position: relative;
+  width: fit-content;
 
   &.video{
     border-radius: 100px;
@@ -56,9 +67,9 @@
 
   .info{
     position: absolute;
-    bottom: -15px;
-    left: 25%;
-    transform: translate(0, -50%);
+    bottom: 0;
+    left: 50%;
+    transform: translate(-52%, 0);
     display: flex;
     padding: 4px 8px;
     align-items: center;

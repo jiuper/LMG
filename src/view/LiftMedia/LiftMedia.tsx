@@ -67,8 +67,8 @@ export const LiftMedia = ({ port, data, districts, url }: Props) => {
                                 handleLink={(id) => href.push(`${url}/${id}`)}
                             />
                             <div className={cx("items", isActive && "active")}>
-                                {districts?.map((el) => (
-                                    <div onClick={() => href.push(`${url}/${el.id}`)} className={cx("item")}>
+                                {districts?.map((el, i) => (
+                                    <div key={i} onClick={() => href.push(`${url}/${el.id}`)} className={cx("item")}>
                                         <h4>{el.area?.name}</h4>
                                     </div>
                                 ))}
@@ -92,8 +92,8 @@ export const LiftMedia = ({ port, data, districts, url }: Props) => {
                         </div>
 
                         <div className={cx("items")}>
-                            {list?.items?.map((el) => (
-                                <div className={cx("item")}>
+                            {list?.items?.map((el, i) => (
+                                <div key={i} className={cx("item")}>
                                     <h3>
                                         <strong>{el.caption}</strong>
                                     </h3>
