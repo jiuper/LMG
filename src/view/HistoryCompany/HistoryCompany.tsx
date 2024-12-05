@@ -1,5 +1,4 @@
 import cnBind from "classnames/bind";
-import Link from "next/link";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -30,6 +29,39 @@ const FeedbackCard = (item: { type: string; image: string; position: string; nam
     );
 };
 export const HistoryCompanyPage = () => {
+    const handleDownloadAll = async () => {
+        const fileNames = [
+            "Договор_общий_ИП_ред.19.11.2024.doc",
+            "Договор_общий_ООО_ред.19.11.2024.doc",
+            "Договор_общий_физ.лицо_ред.19.11.2024.doc",
+        ];
+
+        try {
+            const downloadPromises = fileNames.map(async (fileName) => {
+                const response = await fetch(`/${fileName}`);
+
+                if (!response.ok) {
+                    console.error(`File download failed for ${fileName} with status:`, response.status);
+
+                    return;
+                }
+
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            });
+
+            await Promise.all(downloadPromises);
+        } catch (error) {
+            console.error("File download failed:", error);
+        }
+    };
+
     return (
         <div className={cx("history-company")}>
             <div className={cx("wrapper")}>
@@ -119,9 +151,10 @@ export const HistoryCompanyPage = () => {
                         </span>
                         <div className={cx("list")}>
                             <span>Ссылка на документы</span>
-                            <Link href="/">Документ 1</Link>
-                            <Link href="/">Документ 2</Link>
-                            <Button className={cx("download")} label="Скачать" />
+                            <a href="/Договор_общий_ИП_ред.19.11.2024.doc">Договор общий ИП</a>
+                            <a href="/Договор общий ООО_ред.19.11.2024.doc">Договор общий ООО</a>
+                            <a href="/Договор общий физ.лицо_ред.19.11.2024.doc">Договор общий физ.лицо</a>
+                            <Button onClick={handleDownloadAll} className={cx("download")} label="Скачать" />
                         </div>
                     </div>
                 </div>

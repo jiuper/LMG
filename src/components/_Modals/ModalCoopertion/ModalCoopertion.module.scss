@@ -2,10 +2,23 @@
   .wrapper, .text-list{
     @include flex-column();
     gap: 16px;
+    align-items: center;
   }
   .title, .text, .list {
     @include flex-column();
+    text-align: left;
+    width: 100%;
   }
 
+  .button{
+    background: var(--Brand-Dark-Guidance-Primary-Dark-Primary-Container, #566DD6);
+    transition: $transition-fast;
+
+      color: #FFFFFF;
+
+    &:hover{
+      background: var(--Brand-Dark-Guidance-Primary-Dark-Primary-Container, #6A6ACF);
+    }
+  }
 
 }

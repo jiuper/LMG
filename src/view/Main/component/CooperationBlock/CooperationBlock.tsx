@@ -31,7 +31,11 @@ export const CooperationBlock = () => {
                     <h2 className={cx("title")}>Сотрудничество</h2>
                     <div className={cx("cards")}>
                         {list.map((item, index) => (
-                            <HistoryCard onClick={index === 1 ? () => href.push("/") : open} key={index} {...item} />
+                            <HistoryCard
+                                onClick={index === 1 ? () => href.push("https://spb.hh.ru/employer/1394775") : open}
+                                key={index}
+                                {...item}
+                            />
                         ))}
                     </div>
                 </div>

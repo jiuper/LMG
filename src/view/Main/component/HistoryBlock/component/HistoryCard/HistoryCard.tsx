@@ -11,11 +11,12 @@ type HistoryCardProps = {
     image: string;
     title: string;
     description?: string;
-    listHref?: { title: string; href: string }[];
+    listHref?: { title: string; href: string; typeOnClick?: () => void }[];
     onClick?: () => void;
     className?: string;
+    type?: boolean;
 };
-export const HistoryCard = ({ listHref, description, image, title, onClick, className }: HistoryCardProps) => {
+export const HistoryCard = ({ listHref, description, image, title, onClick, className, type }: HistoryCardProps) => {
     return (
         <div className={cx("history-card", className)} style={{ backgroundImage: `url(${image})` }}>
             <div className={cx("content")}>
@@ -25,9 +26,15 @@ export const HistoryCard = ({ listHref, description, image, title, onClick, clas
                     <ul className={cx("list")}>
                         {listHref.map((item, i) => (
                             <li key={i} className={cx("list-item")}>
-                                <Link className={cx("list-link")} href={item.href}>
-                                    {item.title}
-                                </Link>
+                                {type ? (
+                                    <Link href="" className={cx("list-link")} onClick={item.typeOnClick}>
+                                        {item.title}
+                                    </Link>
+                                ) : (
+                                    <Link className={cx("list-link")} href={item.href}>
+                                        {item.title}
+                                    </Link>
+                                )}
                                 <LinkIcon className={cx("list-icon")} />
                             </li>
                         ))}

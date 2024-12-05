@@ -12,15 +12,48 @@ import styles from "./HistoryBlock.module.scss";
 const cx = cnBind.bind(styles);
 export const HistoryBlock = ({ className }: { className?: string }) => {
     const href = useRouter();
+    const handleDownload = async (filename: string) => {
+        try {
+            const response = await fetch(filename);
+
+            if (!response.ok) {
+                console.error("File download failed with status:", response.status);
+
+                return;
+            }
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        } catch (error) {
+            console.error("File download failed:", error);
+        }
+    };
     const list = [
         { title: "История компании", description: "Описание кейса...", image: card_1.src },
         {
             title: "Документы",
             image: card_2.src,
             listHref: [
-                { title: "Документ 1", href: "/" },
-                { title: "Документ 2", href: "/" },
-                { title: "Документ 3", href: "/" },
+                {
+                    title: "Договор общий ИП",
+                    href: "",
+                    typeOnClick: () => handleDownload("/Договор_общий_ИП_ред.19.11.2024.doc"),
+                },
+                {
+                    title: "Договор общий ООО",
+                    href: "",
+                    typeOnClick: () => handleDownload("/Договор общий ООО_ред.19.11.2024.doc"),
+                },
+                {
+                    title: "Договор общий физ.лицо",
+                    href: "",
+                    typeOnClick: () => handleDownload("/Договор общий физ.лицо_ред.19.11.2024.doc"),
+                },
             ],
         },
     ];
@@ -31,7 +64,12 @@ export const HistoryBlock = ({ className }: { className?: string }) => {
                 <div className={cx("cards")}>
                     <div className={cx("cards-wrapper")}>
                         {list.map((item, index) => (
-                            <HistoryCard onClick={() => href.push(Routes.HISTORY)} key={index} {...item} />
+                            <HistoryCard
+                                type={!!item.listHref?.length}
+                                onClick={() => href.push(Routes.HISTORY)}
+                                key={index}
+                                {...item}
+                            />
                         ))}
                     </div>
                     <HistoryCard

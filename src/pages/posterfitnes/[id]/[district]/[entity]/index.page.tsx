@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { GetStaticProps, GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import type { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 
 import { BreadCrumb } from "@/components/BreadCrumb";
 import type { GetBuildDto, GetCategoryAreaDto, GetCategoryDto } from "@/entities/types/entities";
@@ -15,7 +15,7 @@ export default function IndexPage({
     cat,
     area,
     build,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const filterCat = cat.filter((el) => el.id === id)[0];
     const filterArea = area.filter((el) => el.id === district)[0];
     const filterBuild = build.filter((el) => el.id === entity)[0];
@@ -60,7 +60,7 @@ export const getStaticPaths = async () => {
     };
 };
 
-export const getStaticProps = (async (ctx: GetStaticPropsContext) => {
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     const district = ctx?.params?.district as string;
     const id = ctx?.params?.id as string;
     const entity = ctx?.params?.entity as string;
@@ -83,11 +83,4 @@ export const getStaticProps = (async (ctx: GetStaticPropsContext) => {
             build,
         },
     };
-}) satisfies GetStaticProps<{
-    district: string;
-    id: string;
-    entity: string;
-    cat: GetCategoryDto[];
-    area: GetCategoryAreaDto[];
-    build: GetBuildDto[];
-}>;
+};

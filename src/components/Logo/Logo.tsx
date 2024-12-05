@@ -16,13 +16,13 @@ type TLogo = {
 export const Logo = ({ isFooter = false }: TLogo) => {
     const router = useRouter();
     const { isMobile } = useResizeContext();
-    const width = !isFooter && isMobile ? 15 : 200;
+    const width = !isFooter && isMobile ? 20 : 285;
 
     return (
         <div className={cx("logo", !isFooter && isMobile && "isMobile")} onClick={() => router.push(Routes.HOME)}>
             <CustomImage
-                width={width}
-                height={16}
+                width={285}
+                height={20}
                 src={!isFooter && isMobile ? (LOGOM as string) : (LOGO as string)}
                 alt="lmg"
                 className={cx("image", !isFooter && isMobile && "isMobile")}

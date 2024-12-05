@@ -1,14 +1,13 @@
 import axios from "axios";
-import type { GetStaticProps, InferGetStaticPropsType } from "next";
+import type { InferGetServerSidePropsType } from "next";
 
-import type { GetCategoryListApiRawResponse } from "@/api/getCategoryListApi/types";
 import { BreadCrumb } from "@/components/BreadCrumb";
-import type { CreateNewsDto, GetCategoryDto, GetPortfolioDto } from "@/entities/types/entities";
+import type { CreateNewsDto, GetCategoryDto } from "@/entities/types/entities";
 import { PageLayout } from "@/layouts/PageLayout";
 import { API_BASE } from "@/shared/constants/private";
 import { PortfolioPage } from "@/view/Portfolio";
 
-export default function Portfolio({ port, categoryList }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Portfolio({ port, categoryList }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const items = [{ label: "Портфолио" }];
 
     return (
@@ -18,7 +17,7 @@ export default function Portfolio({ port, categoryList }: InferGetStaticPropsTyp
         </PageLayout>
     );
 }
-export const getStaticProps = (async () => {
+export const getServerSideProps = async () => {
     const resPort = await axios<CreateNewsDto[]>(`${API_BASE}/portfolio`);
     const resCat = await axios<GetCategoryDto[]>(`${API_BASE}/category`);
 
@@ -32,4 +31,4 @@ export const getStaticProps = (async () => {
             categoryList,
         },
     };
-}) satisfies GetStaticProps<{ port: GetPortfolioDto[]; categoryList: GetCategoryListApiRawResponse }>;
+};

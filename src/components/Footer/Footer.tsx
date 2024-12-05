@@ -12,10 +12,11 @@ const cx = cnBind.bind(styles);
 export const Footer = () => {
     const router = useRouter();
     const list = [
+        { title: "Реклама на видеоэкранах", href: `${Routes.BUILDING}/18e9084d-dad9-4be0-bd6b-3a88b4ceca58 ` },
+        { title: "Реклама в жилых домах", href: Routes.BUILDING },
+        { title: "Реклама в бизнес центрах", href: Routes.POSTERBC },
         { title: "Реклама в фитнес клубах", href: Routes.POSTERFITNES },
         { title: "Реклама в торговых центрах", href: Routes.POSTERTC },
-        { title: "Реклама в бизнес центрах", href: Routes.POSTERBC },
-        { title: "Реклама в жилых домах", href: Routes.BUILDING },
     ];
     const listContact = [
         { title: "Контакты", href: Routes.CONTACTS },
@@ -43,7 +44,9 @@ export const Footer = () => {
                     </div>
                     <div className={cx("menu-wrapper")}>
                         <div className={cx("menu")}>
-                            <h3 onClick={() => router.push(Routes.POSTERPVZ)}>Реклама ПВЗ</h3>
+                            <h3 onClick={() => router.push(`${Routes.BUILDING}/dcfe5b93-b13d-46a9-b0be-37a1b69025d6 `)}>
+                                Реклама в лифтах
+                            </h3>
                             <div className={cx("items")}>
                                 {list.map((item, i) => (
                                     <Link className={cx("item")} href={item.href} key={i}>
@@ -66,7 +69,7 @@ export const Footer = () => {
                 <div className={cx("line")} />
                 <div className={cx("copyright")}>
                     <span>levsha-web.ru © Все права защищены. 2024</span>
-                    <Link href="/">Политика конфиденциальности</Link>
+                    <Link href="/politika-konfidentsialnosti">Политика конфиденциальности</Link>
                 </div>
             </div>
         </footer>

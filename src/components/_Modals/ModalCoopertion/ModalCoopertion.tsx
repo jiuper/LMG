@@ -20,18 +20,19 @@ export const ModalCoopertion = ({ isOpen, onClose }: Props) => {
             maxWidth="880px"
             isOpen={isOpen}
             onClose={onClose}
-            hasHeader="Сотрудничество"
+            hasHeader="ПРЕДЛОЖЕНИЕ О СОТРУДНИЧЕСТВЕ (УК И ТСЖ)"
             className={cx("modal-coopertion")}
         >
             <div className={cx("wrapper")}>
-                <div className={cx("title")}>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, id.
+                <div className={cx("text")}>
+                    <span>Вы являетесь представителем Управляющей компании или ТСЖ многоэтажных жилых домов!?</span>
+                    <span>
+                        Вы готовы получать дополнительную прибыль от размещения рекламных стендов в лифтовых кабинах?!
+                    </span>
+                    <span> В таком случае, вы находитесь на правильной странице нашего сайта.</span>
                 </div>
                 <div className={cx("text")}>
-                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, id.</span>
-                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, id.</span>
-                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, id.</span>
-                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, id.</span>
+                    <span>Заполните пожалуйста форму ниже - это предварительна заявка на сотрудничество.</span>
                 </div>
                 <Button className={cx("button")} onClick={open}>
                     Связаться

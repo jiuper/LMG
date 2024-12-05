@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { GetStaticProps, GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import type { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 
 import { BreadCrumb } from "@/components/BreadCrumb";
 import type { GetBuildDto, GetCategoryAreaDto, GetCategoryDto } from "@/entities/types/entities";
@@ -8,7 +8,13 @@ import { Routes } from "@/shared/constants";
 import { API_BASE } from "@/shared/constants/private";
 import { LiftMediaSection } from "@/view/LiftMediaSection";
 
-export default function IndexPage({ district, id, cat, area, build }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function IndexPage({
+    district,
+    id,
+    cat,
+    area,
+    build,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const filterCat = cat.filter((el) => el.id === id)[0];
     const filterArea = area.filter((el) => el.id === district)[0];
     const items = [
@@ -42,7 +48,7 @@ export const getStaticPaths = async () => {
         fallback: false,
     };
 };
-export const getStaticProps = (async (ctx: GetStaticPropsContext) => {
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     const district = ctx?.params?.district as string;
     const id = ctx?.params?.id as string;
 
@@ -63,10 +69,4 @@ export const getStaticProps = (async (ctx: GetStaticPropsContext) => {
             build,
         },
     };
-}) satisfies GetStaticProps<{
-    district: string;
-    id: string;
-    cat: GetCategoryDto[];
-    area: GetCategoryAreaDto[];
-    build: GetBuildDto[];
-}>;
+};

@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { GetStaticPropsContext } from "next";
+import type { GetServerSidePropsContext } from "next";
 
 import { BreadCrumb } from "@/components/BreadCrumb";
 import type { CreateNewsDto } from "@/entities/types/entities";
@@ -38,7 +38,7 @@ export const getStaticPaths = async () => {
         fallback: false,
     };
 };
-export const getStaticProps = async (ctx: GetStaticPropsContext) => {
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     const id = ctx?.params?.id as string;
     const resNew = await axios<CreateNewsDto>(`${API_BASE}/news/${id}`);
     const newView = resNew.data;

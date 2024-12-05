@@ -1,3 +1,4 @@
+import { useState } from "react";
 import cnBind from "classnames/bind";
 import { useRouter } from "next/router";
 
@@ -41,6 +42,11 @@ export const HelperBlock = ({ news, articles }: Props) => {
         },
     ];
     const [isOpen, open, close] = useBooleanState(false);
+    const [idx, setIdx] = useState(0);
+    const openModal = (i: number) => {
+        open();
+        setIdx(i);
+    };
 
     return (
         <div className={cx("helper-block")}>
@@ -69,8 +75,8 @@ export const HelperBlock = ({ news, articles }: Props) => {
                     <div className={cx("cards")}>
                         {listQuestions.map((item, index) => (
                             <div className={cx("card")} key={index}>
-                                <span>{item}</span>
-                                <div onClick={open} className={cx("icon-wrapper")}>
+                                <span>{item.title}</span>
+                                <div onClick={() => openModal(index)} className={cx("icon-wrapper")}>
                                     <ArrowDownBigIcon className={cx("icon")} />
                                 </div>
                             </div>
@@ -78,7 +84,7 @@ export const HelperBlock = ({ news, articles }: Props) => {
                     </div>
                 </div>
             </div>
-            <ModalFaq isOpen={isOpen} onClose={close} />
+            <ModalFaq index={idx} isOpen={isOpen} onClose={close} />
         </div>
     );
 };

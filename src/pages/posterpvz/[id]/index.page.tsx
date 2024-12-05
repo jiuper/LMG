@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { GetStaticProps, GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import type { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 
 import { BreadCrumb } from "@/components/BreadCrumb";
 import type { GetCategoryAreaDto, GetCategoryDto, GetPortfolioDto } from "@/entities/types/entities";
@@ -8,7 +8,7 @@ import { Routes } from "@/shared/constants";
 import { API_BASE } from "@/shared/constants/private";
 import { LiftMedia } from "@/view/LiftMedia";
 
-export default function LiftMediaPage({ port, id, cat, area }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function LiftMediaPage({ port, id, cat, area }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const filter = cat.filter((el) => el.id === id)[0];
     const items = [{ label: "Реклама для ПВЗ", url: Routes.POSTERPVZ }, { label: filter.title }];
     const filterCategory = cat.map((el) => el.title);
@@ -35,7 +35,7 @@ export const getStaticPaths = async () => {
         fallback: false,
     };
 };
-export const getStaticProps = (async (ctx: GetStaticPropsContext) => {
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     const id = ctx?.params?.id as string;
     const resPort = await axios<GetPortfolioDto[]>(`${API_BASE}/portfolio`);
     const resCat = await axios<GetCategoryDto[]>(`${API_BASE}/category`);
@@ -53,4 +53,4 @@ export const getStaticProps = (async (ctx: GetStaticPropsContext) => {
             area,
         },
     };
-}) satisfies GetStaticProps<{ port: GetPortfolioDto[]; id: string; cat: GetCategoryDto[]; area: GetCategoryAreaDto[] }>;
+};

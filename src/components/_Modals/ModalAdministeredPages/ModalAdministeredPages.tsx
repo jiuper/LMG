@@ -64,7 +64,7 @@ export const ModalAdministeredPages = forwardRef<ModalAdministeredPagesRef, Moda
             },
         });
 
-        const { data, fetchStatus } = useQuery<GetDistrictsListApiRawResponse>({
+        const { data } = useQuery<GetDistrictsListApiRawResponse>({
             queryKey: ["districts"],
             queryFn: () => getDistrictsListApi(),
         });

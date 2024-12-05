@@ -1,0 +1,28 @@
+.wrapper{
+  padding-inline: clamp(8px, 8px + 112*(100vw - 360px) / 1080, 120px);
+}
+
+.title{
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  text-align: center;
+}
+
+.content{
+  @include flex-column();
+  gap: 24px;
+
+}
+
+.back{
+  text-align: center;
+  text-decoration: none;
+  color: #000;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  width: 100%;
+  display: block;
+  padding-block: 50px;
+}

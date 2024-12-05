@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { GetStaticProps, InferGetStaticPropsType } from "next";
+import type { InferGetServerSidePropsType } from "next";
 
 import { BreadCrumb } from "@/components/BreadCrumb";
 import type { GetCategoryDto, GetPortfolioDto, GetSectionDto } from "@/entities/types/entities";
@@ -9,7 +9,7 @@ import { Routes } from "@/shared/constants";
 import { API_BASE } from "@/shared/constants/private";
 import { BuildingPage } from "@/view/Building/Building";
 
-export default function Building({ port, cat, sect }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Building({ port, cat, sect }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const items = [{ label: "Реклама в бизнес центрах" }];
     const filterCategory = cat.map((el) => el.title);
     const filterPort = port.filter((el) => filterCategory.includes(el.categoryId || ""));
@@ -32,7 +32,7 @@ export default function Building({ port, cat, sect }: InferGetStaticPropsType<ty
         </PageLayout>
     );
 }
-export const getStaticProps = (async () => {
+export const getServerSideProps = async () => {
     const resPort = await axios<GetPortfolioDto[]>(`${API_BASE}/portfolio`);
     const resSect = await axios<GetSectionDto[]>(`${API_BASE}/section`);
 
@@ -52,4 +52,4 @@ export const getStaticProps = (async () => {
             sect,
         },
     };
-}) satisfies GetStaticProps<{ port: GetPortfolioDto[]; cat: GetCategoryDto[]; sect: GetSectionDto[] }>;
+};
