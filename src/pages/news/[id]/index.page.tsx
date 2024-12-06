@@ -24,28 +24,10 @@ export default function IndexPage({ newView }: Props) {
     );
 }
 
-export const getStaticPaths = async () => {
-    const res = await axios<CreateNewsDto[]>(`${API_BASE}/news`);
-
-    const products = res.data;
-
-    return {
-        paths: products.map((product) => {
-            return {
-                params: { id: product.id },
-            };
-        }),
-        fallback: false,
-    };
-};
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     const id = ctx?.params?.id as string;
-    const resNew = await axios<CreateNewsDto>(`${API_BASE}/news/${id}`);
+    const resNew = await axios.get<CreateNewsDto>(`${API_BASE}/news/${id}`);
     const newView = resNew.data;
 
-    return {
-        props: {
-            newView,
-        },
-    };
+    return { props: { newView } };
 };

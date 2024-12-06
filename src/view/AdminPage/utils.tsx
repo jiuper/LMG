@@ -44,6 +44,7 @@ export const prepareNewsEditFormValues = ({ entity }: PrepareNewsEditFormValuesP
     list: entity.list || [],
     contentItems: entity.contentItems || [],
     files: [],
+    pictureId: entity.pictureId,
 });
 
 export interface PreparePortfolioEditFormValuesParams {

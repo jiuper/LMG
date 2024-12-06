@@ -69,7 +69,7 @@ export const ModalAdministeredPages = forwardRef<ModalAdministeredPagesRef, Moda
             queryFn: () => getDistrictsListApi(),
         });
 
-        const listData = data || [];
+        const listData = useMemo(() => data || [], [data]);
 
         const parseListData = useMemo(() => listData.map((item) => ({ label: item.name, id: item.id })), [listData]);
         const isEditType = type === "edit";

@@ -34,32 +34,6 @@ export default function IndexPage({
     );
 }
 
-export const getStaticPaths = async () => {
-    const resCat = await axios<GetCategoryAreaDto[]>(`${API_BASE}/category-area`);
-    const resBuild = await axios<GetBuildDto[]>(`${API_BASE}/build`);
-
-    const cat = resCat.data;
-    const build = resBuild.data;
-
-    const combinedArray = cat.flatMap((district) =>
-        build.map((entity) => ({
-            district,
-            entity,
-        })),
-    );
-
-    return {
-        paths: combinedArray.map((item) => ({
-            params: {
-                district: item.district.id,
-                id: item.district.categoryId,
-                entity: item.entity.id,
-            },
-        })),
-        fallback: false,
-    };
-};
-
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     const district = ctx?.params?.district as string;
     const id = ctx?.params?.id as string;

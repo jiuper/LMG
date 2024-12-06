@@ -6,6 +6,7 @@ import { Modal } from "@/components/_Modals/Modal";
 import { List } from "@/components/_Modals/ModalAdministeredNews/List/List";
 import type { GetItemDto, ListDto } from "@/entities/types/entities";
 import { ContentSatus } from "@/entities/types/entities";
+import { useLoaderFile } from "@/shared/hooks/useLoaderFile";
 import { Button } from "@/shared/ui/_Button";
 import { InputText } from "@/shared/ui/_InputText";
 import { InputTextarea } from "@/shared/ui/_InputTextarea";
@@ -37,6 +38,7 @@ export type ModalAdministeredNewsState = {
     video?: File | null;
     pictureName?: string;
     files?: File[];
+    pictureId?: string;
     status: ContentSatus;
     contentItems?: GetItemDto[];
     list?: ListDto[];
@@ -80,7 +82,8 @@ export const ModalAdministeredNews = forwardRef<ModalAdministeredNewsRef, ModalA
         const isEditType = type === "edit";
         const modalHeaderTitle = isEditType ? "Редактировать новость" : "Добавить новость";
         const submitBntLabel = isEditType ? "Редактировать" : "Создать";
-
+        const file = useLoaderFile(formik.values.pictureId || "");
+        console.log(file);
         useImperativeHandle(ref, () => ({
             setFormValues: (values) =>
                 formik.setFormikState((state) => ({ ...state, values: { ...state.values, ...values } })),

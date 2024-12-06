@@ -1,8 +1,3 @@
-import img_2 from "@/shared/assests/team/photo_2024-11-26_09-55-24 (2).jpg";
-import img_3 from "@/shared/assests/team/photo_2024-11-26_09-55-24 (3).jpg";
-import img_4 from "@/shared/assests/team/photo_2024-11-26_09-55-24 (4).jpg";
-import img_5 from "@/shared/assests/team/photo_2024-11-26_09-55-24 (5).jpg";
-import img_6 from "@/shared/assests/team/photo_2024-11-26_09-55-24 (6).jpg";
 import img_1 from "@/shared/assests/team/photo_2024-11-26_09-55-24.jpg";
 
 export const HISTORY_COMPANY = [
@@ -61,33 +56,78 @@ export const responsiveOptions = [
 
 export const team = [
     {
-        name: "Константин Константинопольский",
-        position: "Генеральный директор",
+        name: "Егор Иваков",
+        position: "Генеральный директор",
         image: img_1.src,
     },
     {
-        name: "Константин Константинопольский",
-        position: "Генеральный директор",
-        image: img_2.src,
+        name: "Любовь Басова",
+        position: "Административный отдел",
+        image: img_1.src,
     },
     {
-        name: "Константин Константинопольский",
-        position: "Генеральный директор",
-        image: img_3.src,
+        name: "Ольга Тяжина",
+        position: "Административный отдел",
+        image: img_1.src,
     },
     {
-        name: "Константин Константинопольский",
-        position: "Генеральный директор",
-        image: img_4.src,
+        name: "Екатерина Коворотная",
+        position: "Административный отдел",
+        image: img_1.src,
     },
     {
-        name: "Константин Константинопольский",
-        position: "Генеральный директор",
-        image: img_5.src,
+        name: "Люция Загитова",
+        position: "Руководитель отдела продаж",
+        image: img_1.src,
     },
     {
-        name: "Константин Константинопольский",
-        position: "Генеральный директор",
-        image: img_6.src,
+        name: "Наталья Хамидова",
+        position: "Ведущий специалист отдела продаж",
+        image: img_1.src,
+    },
+    {
+        name: "Денис Тютюнников",
+        position: "Ведущий специалист отдела продаж",
+        image: img_1.src,
+    },
+    {
+        name: "Мария Гадалова",
+        position: "Специалист отдела продаж",
+        image: img_1.src,
+    },
+    {
+        name: "Валерия Руденко",
+        position: "Специалист отдела продаж",
+        image: img_1.src,
+    },
+    {
+        name: "Анна Кудрявцева",
+        position: "Специалист отдела продаж",
+        image: img_1.src,
+    },
+    {
+        name: "Борис Лапта",
+        position: "Руководитель сервисной службы",
+        image: img_1.src,
+    },
+    {
+        name: "Антон Кувшинов",
+        position: "Специалист сервисной службы",
+        image: img_1.src,
+    },
+    {
+        name: "Екатерина Мелехина",
+        position: "Дизайнер",
+        image: img_1.src,
+    },
+    {
+        name: "Джулия Халифе",
+        position: "Специалист по работе с рекламными агентствами",
+        image: img_1.src,
+    },
+    {
+        name: "Ирина Монахова",
+        position: "Специалист отдела медиабаинга",
+        image: img_1.src,
     },
 ];

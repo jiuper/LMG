@@ -36,18 +36,6 @@ export default function IndexPage({
     );
 }
 
-export const getStaticPaths = async () => {
-    const resCat = await axios<GetCategoryAreaDto[]>(`${API_BASE}/category-area`);
-
-    const cat = resCat.data;
-
-    return {
-        paths: cat.map((item) => {
-            return { params: { district: item.id, id: item.categoryId } };
-        }),
-        fallback: false,
-    };
-};
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     const district = ctx?.params?.district as string;
     const id = ctx?.params?.id as string;

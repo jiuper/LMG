@@ -22,19 +22,6 @@ export default function LiftMediaPage({ port, id, cat, area }: InferGetServerSid
     );
 }
 
-export const getStaticPaths = async () => {
-    const resCat = await axios<GetCategoryDto[]>(`${API_BASE}/category`);
-    const categories = resCat.data;
-
-    return {
-        paths: categories.map((category) => {
-            return {
-                params: { id: category.id },
-            };
-        }),
-        fallback: false,
-    };
-};
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     const id = ctx?.params?.id as string;
     const resPort = await axios<GetPortfolioDto[]>(`${API_BASE}/portfolio`);
