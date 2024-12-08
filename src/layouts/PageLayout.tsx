@@ -21,7 +21,7 @@ const cx = cnBind.bind(styles);
 export const PageLayout = ({ children, title }: PageLayoutProps) => {
     const { isMobile } = useResizeContext();
     const { pathname } = useRouter();
-    const isAdmin = pathname.startsWith("/admin");
+    const isAdmin = pathname.startsWith("/fsjfnsdklflsdkfdferkg");
 
     if (isAdmin) {
         return (
@@ -71,7 +71,7 @@ export const PageLayout = ({ children, title }: PageLayoutProps) => {
 
             return { ...el, items: updatedItems };
         });
-    }, [items, data]);
+    }, [list]);
 
     return (
         <>
