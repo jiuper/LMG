@@ -97,6 +97,4 @@
 .form{
   border: 0px solid #E5E7EB;
   background: linear-gradient(92deg, #DEDEDE 1.84%, #CAC8CA 25.54%, #E4E4E5 43.05%, #E2E2E3 53.06%, #E6E6E7 66.58%, #E7E7E8 70.45%, #EDEEEE 80.15%, #E5E6E6 90.47%);
-  @include responsive-sizing("padding-inline", 8, 60, 360,1440);
-  @include responsive-sizing("padding-block", 30, 60, 360,1440);
 }

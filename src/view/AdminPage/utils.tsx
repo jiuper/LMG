@@ -43,8 +43,10 @@ export const prepareNewsEditFormValues = ({ entity }: PrepareNewsEditFormValuesP
     status: entity.status,
     list: entity.list || [],
     contentItems: entity.contentItems || [],
-    files: [],
+    files: entity.files || [],
+    pictureName: entity.pictureName,
     pictureId: entity.pictureId,
+    videoId: entity.videoId,
 });
 
 export interface PreparePortfolioEditFormValuesParams {
@@ -59,7 +61,7 @@ export const preparePortfolioEditFormValues = ({
     categoryId: entity.categoryId,
     status: entity.status,
     pictureId: entity.pictureId,
-    file: null,
+    file: entity.file,
     number: entity.number,
 });
 export interface PrepareFeedbackEditFormValuesParams {
@@ -73,9 +75,10 @@ export const prepareFeedbackEditFormValues = ({
     description: entity.description,
     status: entity.status,
     pictureId: entity.pictureId,
-    file: null,
+    file: entity.file,
     video: entity.video,
     number: entity.number,
+    videoId: entity.videoId,
 });
 
 export interface PreparePagesEditFormValuesParams {
@@ -112,6 +115,8 @@ export const prepareNewsUpdateData = (data: ModalAdministeredNewsModel): NewsUpd
     subtitle: data.subtitle,
     time: data.time || "5 мин.",
     video: data.video,
+    pictureId: data.pictureId,
+    videoId: data.videoId,
     status: data.status,
     contentItems: data.contentItems,
     list: data.list,
@@ -135,6 +140,7 @@ export const preparePortfolioUpdateData = (data: ModalAdministeredPortfolioModel
     categoryId: data.categoryId,
     file: data.file,
     id: data.id,
+    pictureId: data.pictureId,
 });
 
 export const prepareFeedbackCreateData = (data: ModalAdministeredFeedbackModel): FeedbackCreateApiParams => ({
@@ -150,6 +156,8 @@ export const prepareFeedbackUpdateData = (data: ModalAdministeredFeedbackModel):
     description: data.description,
     status: data.status,
     video: data.video,
+    pictureId: data.pictureId,
+    videoId: data.videoId,
     file: data.file,
     id: data.id,
 });

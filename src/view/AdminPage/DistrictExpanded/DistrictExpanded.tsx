@@ -146,7 +146,7 @@ export const DistrictExpanded = memo(({ id }: TableDistrictExpandedProps) => {
             };
             createEntityMutation(createPayload, { onSuccess, onError });
         },
-        [closeCreateModal, toast],
+        [closeAdditionalModal, createEntityMutation, refetch, toast],
     );
 
     const handleDistrictModalSubmit = useCallback(

@@ -6,7 +6,6 @@ import { Modal } from "@/components/_Modals/Modal";
 import { List } from "@/components/_Modals/ModalAdministeredNews/List/List";
 import type { GetItemDto, ListDto } from "@/entities/types/entities";
 import { ContentSatus } from "@/entities/types/entities";
-import { useLoaderFile } from "@/shared/hooks/useLoaderFile";
 import { Button } from "@/shared/ui/_Button";
 import { InputText } from "@/shared/ui/_InputText";
 import { InputTextarea } from "@/shared/ui/_InputTextarea";
@@ -25,6 +24,7 @@ export const MODAL_ADMINISTERED_NEWS_DEFAULT_VALUES: ModalAdministeredNewsState 
     video: null,
     files: [],
     pictureName: "",
+    videoId: null,
 };
 
 export type ModalAdministeredNewsModel = ModalAdministeredNewsState;
@@ -42,6 +42,7 @@ export type ModalAdministeredNewsState = {
     status: ContentSatus;
     contentItems?: GetItemDto[];
     list?: ListDto[];
+    videoId?: string | null;
 };
 
 export type ModalAdministeredNewsRef = {
@@ -66,10 +67,12 @@ export const ModalAdministeredNews = forwardRef<ModalAdministeredNewsRef, ModalA
                     ...values,
                     list: isListTextOpen,
                     pictureName: values.files?.[0]?.name,
-                    contentItems: values.contentItems?.map((item, index) => ({
-                        ...item,
-                        pictureName: values.files?.[index]?.name || "",
-                    })),
+                    contentItems: values.contentItems?.length
+                        ? values.contentItems.map((el, index) => ({
+                              ...el,
+                              pictureName: values.files?.filter((file) => file)[index]?.name || "",
+                          }))
+                        : values.files?.filter((file) => file).map((file) => ({ pictureName: file.name })),
                 });
             },
         });
@@ -82,8 +85,7 @@ export const ModalAdministeredNews = forwardRef<ModalAdministeredNewsRef, ModalA
         const isEditType = type === "edit";
         const modalHeaderTitle = isEditType ? "Редактировать новость" : "Добавить новость";
         const submitBntLabel = isEditType ? "Редактировать" : "Создать";
-        const file = useLoaderFile(formik.values.pictureId || "");
-        console.log(file);
+
         useImperativeHandle(ref, () => ({
             setFormValues: (values) =>
                 formik.setFormikState((state) => ({ ...state, values: { ...state.values, ...values } })),

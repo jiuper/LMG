@@ -8,6 +8,8 @@ export type FeedbackUpdateApiParams = {
     status?: ContentSatus;
     file?: File | null;
     video?: File | null;
+    pictureId?: string;
+    videoId?: string;
 };
 export const feedbackUpdateApi = async ({ ...params }: FeedbackUpdateApiParams): Promise<boolean> => {
     return createAxiosApi()<boolean>({

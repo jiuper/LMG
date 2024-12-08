@@ -12,6 +12,8 @@ export type NewsUpdateApiParams = {
     list?: ListDto[];
     pictureName?: string;
     files?: File[];
+    videoId?: string | null;
+    pictureId?: string;
 };
 export const newsUpdateApi = async ({ ...params }: NewsUpdateApiParams): Promise<boolean> => {
     return createAxiosApi()<boolean>({

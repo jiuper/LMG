@@ -68,7 +68,6 @@ export const EntityExpanded = memo(({ id }: TableDistrictExpandedProps) => {
 
     const handleEntityModalSubmit = useCallback(
         (data: ModalAdministeredEntityModel) => {
-            console.log(data);
             const updatePayload: entityUpdateApiParams = {
                 categoryAreaId: data.categoryAreaId,
                 name: data.name,
@@ -103,7 +102,7 @@ export const EntityExpanded = memo(({ id }: TableDistrictExpandedProps) => {
             };
             updateEntityMutation(updatePayload, { onSuccess, onError });
         },
-        [closeCreateModal, toast],
+        [closeCreateModal, refetch, toast, updateEntityMutation],
     );
 
     const rowEditorTemplate = (data: GetBuildDto) => {

@@ -18,6 +18,7 @@ export const MODAL_ADMINISTERED_FEEDBACK_DEFAULT_VALUES: ModalAdministeredFeedba
     video: null,
     file: null,
     pictureId: "",
+    videoId: "",
 };
 
 export type ModalAdministeredFeedbackModel = ModalAdministeredFeedbackState;
@@ -30,6 +31,7 @@ export type ModalAdministeredFeedbackState = {
     video?: File | null;
     status?: ContentSatus;
     pictureId?: string;
+    videoId?: string;
     file?: File | null;
 };
 

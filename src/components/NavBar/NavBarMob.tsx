@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import cnBind from "classnames/bind";
 import Link from "next/link";
 
-import { items } from "@/components/NavBar/constants";
+import type { NavbarTypeProps } from "@/components/NavBar/constants";
 import { ArrowDownIcon } from "@/shared/assests/svg/svg";
 
 import styles from "./Navbar.module.scss";
@@ -12,10 +12,12 @@ export const NavBarMob = ({
     className,
     classNameItems,
     onClick,
+    data,
 }: {
     className?: string;
     classNameItems?: string;
     onClick?: () => void;
+    data: NavbarTypeProps;
 }) => {
     const ref = useRef<HTMLDivElement>(null);
 
@@ -40,7 +42,7 @@ export const NavBarMob = ({
     return (
         <div className={cx("navbar-mob", className)} ref={ref}>
             <div className={cx("items-mob", classNameItems)}>
-                {items.map((item, i) => (
+                {data.map((item, i) => (
                     <div key={item.label} className={cx("item-mob")}>
                         {item.url ? (
                             <Link

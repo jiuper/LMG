@@ -1,17 +1,17 @@
 import { Routes } from "@/shared/constants/Routing";
 
-type NavbarTypeProps = { label: string; url?: string; items?: { label: string; url: string }[] }[];
+export type NavbarTypeProps = { label: string; url?: string; items?: { label: string; url: string }[] }[];
 export const items: NavbarTypeProps = [
     {
         label: "Реклама",
         items: [
             {
                 label: "Реклама в лифтах",
-                url: `${Routes.BUILDING}/dcfe5b93-b13d-46a9-b0be-37a1b69025d6 `,
+                url: `${Routes.BUILDING}`,
             },
             {
                 label: "Реклама на видеоэкранах",
-                url: `${Routes.BUILDING}/18e9084d-dad9-4be0-bd6b-3a88b4ceca58 `,
+                url: `${Routes.BUILDING}`,
             },
             {
                 label: "Реклама в жилых домах",

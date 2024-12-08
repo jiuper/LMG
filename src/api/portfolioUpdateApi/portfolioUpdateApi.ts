@@ -8,6 +8,7 @@ export type PortfolioUpdateApiParams = {
     status?: ContentSatus;
     categoryId?: string;
     file?: File | null;
+    pictureId?: string;
 };
 export const portfolioUpdateApi = async ({ ...params }: PortfolioUpdateApiParams): Promise<boolean> => {
     return createAxiosApi()<boolean>({

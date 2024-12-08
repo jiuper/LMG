@@ -125,7 +125,7 @@ export const CategoryExpanded = memo(({ id }: TableCategoryExpandedProps) => {
             };
             updateCategoryMutation(updatePayload, { onSuccess, onError });
         },
-        [closeCreateModal, toast],
+        [closeCreateModal, refetchCategory, toast, updateCategoryMutation],
     );
 
     const handleDistrictModalSubmit = useCallback(

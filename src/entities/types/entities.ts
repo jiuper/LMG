@@ -7,30 +7,23 @@ export interface CreateNewsDto {
     video?: File | null;
     videoId?: string | null;
     pictureId?: string;
+    files?: File[] | [];
     status: ContentSatus;
     contentItems?: GetItemDto[];
+    pictureName?: string;
     list?: ListDto[];
     createdAt?: Date;
     updatedAt?: Date;
 }
 
-export interface GetNewsDto {
-    title?: string;
-    subtitle?: string;
-    time?: string;
-    video?: string;
-    pictureName?: string;
-    picture?: File[];
-    status: ContentSatus;
-    contentItems?: ItemDto[];
-    list?: ListDto[];
-}
 export interface GetItemDto {
     text?: string;
     pictureId?: string;
+    pictureName?: string;
 }
 export interface ItemDto {
     text?: string;
+    pictureId?: string;
     pictureName?: string;
 }
 
@@ -53,6 +46,7 @@ export interface GetPortfolioDto {
     categoryId?: string;
     status: ContentSatus;
     pictureId?: string;
+    file?: File | null;
 }
 export interface GetFeedbackDto {
     id: string;
@@ -63,12 +57,7 @@ export interface GetFeedbackDto {
     status: ContentSatus;
     pictureId?: string;
     videoId?: string;
-}
-export interface CreateFeedbackDto {
-    title?: string;
-    description?: string;
-    video?: string;
-    status: ContentSatus;
+    file?: File | null;
 }
 
 export interface GetSectionDto {
@@ -172,102 +161,8 @@ export interface GetBuildDto {
     updatedAt: Date;
 }
 
-export interface CreateCategoryDto {
-    title?: string;
-    description?: string;
-    subtitle?: string;
-    sectionId?: string;
-    pictureId?: string;
-    videoId?: string;
-    list?: { title?: string; items?: { caption?: string; subcaption?: string }[] };
-    status?: ContentSatus;
-    file?: File;
-    video?: File;
-    id?: string;
-    number?: number;
-}
-
-export interface UpdateCategoryDto {
-    id: string;
-    title?: string;
-    description?: string;
-    subtitle?: string;
-    sectionId?: string;
-    pictureId?: string;
-    videoId?: string;
-    list?: { title?: string; items?: { caption?: string; subcaption?: string }[] };
-    status?: ContentSatus;
-    file?: File;
-    video?: File;
-}
-
-export interface UpdateCategoryStatusDto {
-    categoryId?: string;
-    status?: ContentSatus;
-}
-
-export interface CreateCategoryAreaDto {
-    categoryId?: string | null;
-    areaId?: string | null;
-    title?: string;
-    description?: string;
-    subTitle?: string;
-    status?: ContentSatus;
-    file?: File;
-}
-
-export interface UpdateCategoryAreaDto {
-    id: string;
-    categoryId: string;
-    areaId: string;
-    title?: string;
-    description?: string;
-    subTitle?: string;
-    status?: ContentSatus;
-    file?: File;
-}
-
-export interface UpdateCategoryAreaStatusDto {
-    categoryAreaId?: string;
-    status?: ContentSatus;
-}
-
-export interface CreateBuildDto {
-    coordinates?: [number, number][];
-    name?: string;
-    wDescription?: string;
-    gTitle?: string;
-    gSubTitle?: string;
-    list?: ModalList[];
-    status: ContentSatus;
-    categoryAreaId?: string;
-}
-
 export interface ModalList {
     title?: string;
     value?: string;
     file?: File;
-}
-
-export interface UpdateBuildDto {
-    id: string;
-    coordinates?: [number, number][];
-    name?: string;
-    wDescription?: string;
-    gTitle?: string;
-    gSubTitle?: string;
-    list?: ModalList[];
-    status: ContentSatus;
-    categoryAreaId?: string;
-}
-
-export interface ModalList {
-    title?: string;
-    value?: string;
-    file?: File;
-}
-
-export interface UpdateBuildStatusDto {
-    buildId?: string;
-    status?: ContentSatus;
 }

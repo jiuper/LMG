@@ -37,9 +37,11 @@ export type ModalAdministeredArticleState = {
     video?: File | null;
     pictureName?: string;
     files?: File[];
+    pictureId?: string;
     status: ContentSatus;
     contentItems?: GetItemDto[];
     list?: ListDto[];
+    videoId?: string | null;
 };
 
 export type ModalAdministeredArticleRef = {
@@ -60,14 +62,17 @@ export const ModalAdministeredArticle = forwardRef<ModalAdministeredArticleRef, 
         const formik = useFormik({
             initialValues: MODAL_ADMINISTERED_ARTICLE_DEFAULT_VALUES,
             onSubmit(values) {
+                console.log(values);
                 onSubmit({
                     ...values,
                     list: isListTextOpen,
                     pictureName: values.files?.[0]?.name,
-                    contentItems: values.contentItems?.map((item, index) => ({
-                        ...item,
-                        pictureName: values.files?.[index]?.name || "",
-                    })),
+                    contentItems: values.contentItems?.length
+                        ? values.contentItems.map((el, index) => ({
+                              ...el,
+                              pictureName: values.files?.filter((file) => file)[index]?.name || "",
+                          }))
+                        : values.files?.filter((file) => file).map((file) => ({ pictureName: file.name })),
                 });
             },
         });

@@ -5,6 +5,7 @@ import { Sidebar } from "primereact/sidebar";
 import { ModalFeedBack } from "@/components/_Modals/ModalFeedBack";
 import { Logo } from "@/components/Logo";
 import { Navbar } from "@/components/NavBar";
+import type { NavbarTypeProps } from "@/components/NavBar/constants";
 import { NavBarMob } from "@/components/NavBar/NavBarMob";
 import { IcDots } from "@/shared/assests/svg";
 import { LMGIcon } from "@/shared/assests/svg/svg";
@@ -15,8 +16,10 @@ import { Button } from "@/shared/ui/Button";
 import styles from "./Header.module.scss";
 
 const cx = cnBind.bind(styles);
-
-export const Header = () => {
+type HeaderProps = {
+    data: NavbarTypeProps;
+};
+export const Header = ({ data }: HeaderProps) => {
     const { windowScreen } = useResizeContext();
     const [isOpen, open, close] = useBooleanState(false);
     const [isOpenModal, openModal, closeModal] = useBooleanState(false);
@@ -29,7 +32,7 @@ export const Header = () => {
                     <Logo />
                     {windowScreen >= 1100 && (
                         <div className={cx("nav")}>
-                            <Navbar className={cx("navbar-header")} />
+                            <Navbar data={data} className={cx("navbar-header")} />
                         </div>
                     )}
                     {windowScreen <= 1100 && (
@@ -45,7 +48,7 @@ export const Header = () => {
                                         </div>
 
                                         <div className={cx("navbar")}>
-                                            <NavBarMob className={cx("navbar-header")} />
+                                            <NavBarMob data={data} className={cx("navbar-header")} />
                                         </div>
                                     </div>
                                 }

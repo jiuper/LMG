@@ -153,6 +153,4 @@
 .form{
   border: 0px solid #E5E7EB;
   background: linear-gradient(95deg, #F6FAFC 5.92%, #F7FAFC 25.08%, #FBFBFC 42.26%, #F9F9FB 52.38%, #F3F8FB 94.63%);
-  @include responsive-sizing("padding-inline", 8, 60, 360,1440);
-  @include responsive-sizing("padding-block", 30, 60, 360,1440);
 }
