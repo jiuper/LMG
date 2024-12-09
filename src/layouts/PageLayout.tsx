@@ -83,7 +83,7 @@ export const PageLayout = ({ children, title }: PageLayoutProps) => {
     return (
         <>
             <Head>
-                <link href="favicon.ico" rel="icon" type="image/svg+xml" />
+                <link href="favicon.svg" rel="icon" type="image/svg+xml" />
                 <meta
                     name="viewport"
                     content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
