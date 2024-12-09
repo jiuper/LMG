@@ -44,29 +44,29 @@ export const PageLayout = ({ children, title }: PageLayoutProps) => {
     const list = useMemo(() => data || [], [data]);
     const mutateMenu = useMemo(() => {
         return items.map((el, index) => {
-            let updatedItems = el.items?.filter((item) => item.url) || [];
-
-            if (list[index]) {
-                updatedItems = updatedItems.map((item, itemIndex) => {
+            if (index === 0) {
+                const updatedItems = el.items?.map((item, itemIndex) => {
                     if (itemIndex === 0) {
-                        const result = list.filter((elem) =>
+                        const result = list.find((elem) =>
                             elem.title
                                 .toLowerCase()
                                 .replace(/\s+/g, "")
-                                .includes("реклама в лифтах".replace(/\s+/g, "")),
-                        )[0];
+                                .trimEnd()
+                                .includes("реклама в лифтах".replace(/\s+/g, "").trimEnd()),
+                        );
                         const id = result ? result.id : "";
 
                         return { ...item, url: `${Routes.BUILDING}/${id}` };
                     }
 
                     if (itemIndex === 1) {
-                        const result = list.filter((elem) =>
+                        const result = list.find((elem) =>
                             elem.title
                                 .toLowerCase()
                                 .replace(/\s+/g, "")
-                                .includes("реклама на видеоэкранах".replace(/\s+/g, "")),
-                        )[0];
+                                .trimEnd()
+                                .includes("реклама на видеоэкранах".replace(/\s+/g, "").trimEnd()),
+                        );
                         const id = result ? result.id : "";
 
                         return { ...item, url: `${Routes.BUILDING}/${id}` };
@@ -74,9 +74,11 @@ export const PageLayout = ({ children, title }: PageLayoutProps) => {
 
                     return item;
                 });
+
+                return { ...el, items: updatedItems };
             }
 
-            return { ...el, items: updatedItems };
+            return el;
         });
     }, [list]);
 
@@ -96,7 +98,7 @@ export const PageLayout = ({ children, title }: PageLayoutProps) => {
                 <main className={cx("main")}>
                     <div className={cx("content")}>{children}</div>
                 </main>
-                <Footer />
+                <Footer data={mutateMenu} />
             </div>
         </>
     );

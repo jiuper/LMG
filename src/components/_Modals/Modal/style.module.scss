@@ -1,10 +1,14 @@
 .modal {
+
     &[data-pc-name="dialog"] {
         margin: 0;
         border-radius: 24px;
+
+
     }
     [data-pc-section="content"] {
         padding: 8px 16px 16px 16px;
+        &::-webkit-scrollbar { width: 0px; /* Ширина скроллбара */ } &::-webkit-scrollbar-track { background: #f1f1f1; /* Цвет фона трека скроллбара */ } &::-webkit-scrollbar-thumb { background: #888; /* Цвет ползунка скроллбара */ border-radius: 6px; /* Скругленные углы */ } &::-webkit-scrollbar-thumb:hover { background: #555; /* Цвет ползунка скроллбара при наведении */ } &::-webkit-scrollbar-thumb:active { background: #333; /* Цвет ползунка скроллбара при нажатии */ }
     }
     [data-pc-section="header"] {
         padding: 16px;

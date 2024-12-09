@@ -14,7 +14,8 @@ html {
 *::before {
     box-sizing: border-box;
 }
-
+body::-webkit-scrollbar { width: 12px; /* Ширина скроллбара */ } body::-webkit-scrollbar-track { background: #f1f1f1; /* Цвет фона трека скроллбара */ } body::-webkit-scrollbar-thumb { background: #888; /* Цвет ползунка скроллбара */ border-radius: 6px; /* Скругленные углы */ } body::-webkit-scrollbar-thumb:hover { background: #555; /* Цвет ползунка скроллбара при наведении */ } body::-webkit-scrollbar-thumb:active { background: #333; /* Цвет ползунка скроллбара при нажатии */
+                                                                                                                                                                                                                                                                                                                                                                                              }
 body {
     margin: 0;
     padding: 0;

@@ -35,11 +35,14 @@
     h3{
       color: #FFFFFF;
       @include text-Headline1();
+      padding-bottom: 10px;
     }
     p{
       color: #FFFFFF;
       @include text-Body2();
       transition: $transition-default;
+      padding: 0;
+      margin: 0;
 
 
       &:hover{

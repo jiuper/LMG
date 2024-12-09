@@ -118,6 +118,13 @@ export const ModalAdministeredNews = forwardRef<ModalAdministeredNewsRef, ModalA
                         onChange={formik.handleChange}
                         value={formik.values.subtitle}
                     />
+                    <InputText
+                        isFullWidth
+                        label="Время на прочтение"
+                        name="time"
+                        onChange={formik.handleChange}
+                        value={formik.values.time}
+                    />
                     <CustomFileUpload
                         value={formik.values.files?.[0] || null}
                         name="files[0]"

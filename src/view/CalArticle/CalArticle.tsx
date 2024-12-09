@@ -43,7 +43,6 @@ export const CalArticle = () => {
                                 </div>
                             </div>
                             <div className={cx("buttons")}>
-                                <Button label="Поделиться" className={cx("button")} />
                                 <Button label="Заказать звонок" className={cx("button")} />
                             </div>
                         </div>

@@ -18,31 +18,26 @@ export const ServicesBlock = () => {
     const list = [
         {
             title: "Реклама в жилых домах, ЖК",
-            description: "Описание кейса...",
             image: card_1.src,
             href: Routes.BUILDING,
         },
         {
             title: `Реклама для ПВЗ: Как привлечь клиентов?`,
-            description: "Описание кейса...",
             image: card_2.src,
             href: Routes.POSTERPVZ,
         },
         {
             title: "Реклама в фитнес клубах",
-            description: "Описание кейса...",
             image: card_3.src,
             href: Routes.POSTERFITNES,
         },
         {
             title: "Реклама в торговых центрах",
-            description: "Описание кейса...",
             image: card_4.src,
             href: Routes.POSTERTC,
         },
         {
             title: "Реклама в бизнес центрах",
-            description: "Описание кейса...",
             image: card_5.src,
             href: Routes.POSTERBC,
         },

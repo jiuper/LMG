@@ -3,16 +3,19 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { Logo } from "@/components/Logo";
+import type { NavbarTypeProps } from "@/components/NavBar/constants";
 import { Routes } from "@/shared/constants";
 
 import styles from "./Footer.module.scss";
 
 const cx = cnBind.bind(styles);
-
-export const Footer = () => {
+type Props = {
+    data: NavbarTypeProps;
+};
+export const Footer = ({ data }: Props) => {
     const router = useRouter();
     const list = [
-        { title: "Реклама на видеоэкранах", href: `${Routes.BUILDING}/18e9084d-dad9-4be0-bd6b-3a88b4ceca58 ` },
+        { title: "Реклама на видеоэкранах", href: data[0].items?.[1].url || "" },
         { title: "Реклама в жилых домах", href: Routes.BUILDING },
         { title: "Реклама в бизнес центрах", href: Routes.POSTERBC },
         { title: "Реклама в фитнес клубах", href: Routes.POSTERFITNES },
@@ -44,9 +47,7 @@ export const Footer = () => {
                     </div>
                     <div className={cx("menu-wrapper")}>
                         <div className={cx("menu")}>
-                            <h3 onClick={() => router.push(`${Routes.BUILDING}/dcfe5b93-b13d-46a9-b0be-37a1b69025d6 `)}>
-                                Реклама в лифтах
-                            </h3>
+                            <h3 onClick={() => router.push(data[0].items?.[0].url || "")}>Реклама в лифтах</h3>
                             <div className={cx("items")}>
                                 {list.map((item, i) => (
                                     <Link className={cx("item")} href={item.href} key={i}>

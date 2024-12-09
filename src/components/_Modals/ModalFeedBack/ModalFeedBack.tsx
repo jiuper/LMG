@@ -85,7 +85,9 @@ export const ModalFeedBack = ({ isOpen, onClose }: Props) => {
                             checked={formik.values.policy}
                             onChange={formik.handleChange}
                             name="policy"
-                            title="Согласен(а) на обработку персональных данных"
+                            title="Согласен(а) на обработку "
+                            link="персональных данных"
+                            url="/politika-konfidentsialnosti"
                         />
                         <div className={cx("social")}>
                             <div onClick={() => router.push("/")} className={cx("social-item", "icon")}>

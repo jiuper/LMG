@@ -1,4 +1,9 @@
-import img_1 from "@/shared/assests/team/photo_2024-11-26_09-55-24.jpg";
+import img_2 from "@/shared/assests/team/Борис Лапта.jpg";
+import img_3 from "@/shared/assests/team/Денис.jpg";
+import img_4 from "@/shared/assests/team/Джуля Халифе.jpg";
+import img_1 from "@/shared/assests/team/Егор Иваков.jpg";
+import img_5 from "@/shared/assests/team/Ирина Монахова.jpg";
+import img_6 from "@/shared/assests/team/Нататлья Хамидова.jpg";
 
 export const HISTORY_COMPANY = [
     { date: "2010", title: "Основание компании" },
@@ -83,12 +88,12 @@ export const team = [
     {
         name: "Наталья Хамидова",
         position: "Ведущий специалист отдела продаж",
-        image: img_1.src,
+        image: img_6.src,
     },
     {
         name: "Денис Тютюнников",
         position: "Ведущий специалист отдела продаж",
-        image: img_1.src,
+        image: img_3.src,
     },
     {
         name: "Мария Гадалова",
@@ -108,7 +113,7 @@ export const team = [
     {
         name: "Борис Лапта",
         position: "Руководитель сервисной службы",
-        image: img_1.src,
+        image: img_2.src,
     },
     {
         name: "Антон Кувшинов",
@@ -123,11 +128,11 @@ export const team = [
     {
         name: "Джулия Халифе",
         position: "Специалист по работе с рекламными агентствами",
-        image: img_1.src,
+        image: img_4.src,
     },
     {
         name: "Ирина Монахова",
         position: "Специалист отдела медиабаинга",
-        image: img_1.src,
+        image: img_5.src,
     },
 ];

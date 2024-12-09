@@ -12,8 +12,8 @@ export interface CreateNewsDto {
     contentItems?: GetItemDto[];
     pictureName?: string;
     list?: ListDto[];
-    createdAt?: Date;
-    updatedAt?: Date;
+    createdAt?: string;
+    updatedAt?: string;
 }
 
 export interface GetItemDto {

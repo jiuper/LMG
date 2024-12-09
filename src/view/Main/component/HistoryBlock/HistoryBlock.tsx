@@ -34,7 +34,7 @@ export const HistoryBlock = ({ className }: { className?: string }) => {
         }
     };
     const list = [
-        { title: "История компании", description: "Описание кейса...", image: card_1.src },
+        { title: "История компании", image: card_1.src },
         {
             title: "Документы",
             image: card_2.src,

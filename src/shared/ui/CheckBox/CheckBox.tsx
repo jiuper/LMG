@@ -1,4 +1,5 @@
 import cnBind from "classnames/bind";
+import Link from "next/link";
 import type { CheckboxProps } from "primereact/checkbox";
 import { Checkbox as PrimeCheckbox } from "primereact/checkbox";
 
@@ -10,6 +11,8 @@ type CheckBoxPropsC = CheckboxProps & {
     classNameContainer?: string;
     classNameLabel?: string;
     mode?: "dark" | "light";
+    link?: string;
+    url?: string;
 };
 export const CheckBox = ({
     className,
@@ -18,6 +21,8 @@ export const CheckBox = ({
     mode = "dark",
     classNameContainer,
     classNameLabel,
+    link,
+    url,
     ...props
 }: CheckBoxPropsC) => {
     return (
@@ -30,6 +35,7 @@ export const CheckBox = ({
             />
             <label htmlFor="ingredient1" className={cx("label", classNameLabel)}>
                 {title}
+                <Link href={url || ""}>{link}</Link>
             </label>
         </div>
     );

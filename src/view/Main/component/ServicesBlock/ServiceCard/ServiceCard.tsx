@@ -8,7 +8,7 @@ const cx = cnBind.bind(styles);
 
 type ServiceCardProps = {
     title: string;
-    description: string;
+    description?: string;
     image: string;
     onClick?: () => void;
 };
@@ -17,7 +17,7 @@ export const ServiceCard = ({ description, title, image, onClick }: ServiceCardP
         <div onClick={onClick} className={cx("service-card")} style={{ backgroundImage: `url(${image})` }}>
             <div className={cx("text")}>
                 <h2>{title}</h2>
-                <p>{description}</p>
+                {description && <p>{description}</p>}
             </div>
             <Button onClick={onClick} className={cx("button")} mode="empty" label="Смотреть" />
         </div>

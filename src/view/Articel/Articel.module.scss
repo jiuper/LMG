@@ -63,8 +63,16 @@
       .buttons {
         @include flex-row();
         gap: 16px;
-        button{
-          width: 50%;
+        .button{
+          background: var(--Brand-Dark-Guidance-Primary-Dark-Primary-Container, #566DD6);
+          transition: $transition-fast;
+          width: 100%;
+          span{
+            color: #FFFFFF;
+          }
+          &:hover{
+            background: var(--Brand-Dark-Guidance-Primary-Dark-Primary-Container, #6A6ACF);
+          }
         }
       }
     }

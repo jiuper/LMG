@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import cnBind from "classnames/bind";
 import { useRouter } from "next/router";
 
 import { FormFeedback } from "@/components/_Forms/FormFeedback";
+import { ModalFeedBack } from "@/components/_Modals/ModalFeedBack";
 import type { CreateNewsDto } from "@/entities/types/entities";
 import { EyeIcon, TimeIcon } from "@/shared/assests/svg/svg";
 import { API_BASE } from "@/shared/constants/private";
+import { useBooleanState } from "@/shared/hooks";
 import { Button } from "@/shared/ui/Button";
 import { CustomImage } from "@/shared/ui/CustomImage";
 
@@ -17,18 +19,24 @@ type Props = {
 };
 
 const cx = cnBind.bind(styles);
-const urlRegex = /^(https?:\/\/)?(www\.)?([a-zA-Z0-9._%+-]+)\.([a-zA-Z]{2,})(:[0-9]{1,5})?(\/[a-zA-Z0-9._%+-]*)*\/?$/;
+const formatDate = (dateString: string | undefined): string => {
+    if (!dateString) return "";
+    const options = { day: "numeric", month: "long" } as const;
+    const date = new Date(dateString);
 
+    return date.toLocaleDateString("ru-RU", options);
+};
 export const Articel = ({ date, list }: Props) => {
     const [views, setViews] = useState<number>(0);
     const href = useRouter();
-
+    const formattedDate = useMemo(() => formatDate(date?.createdAt), [date]);
     useEffect(() => {
         const currentViews = localStorage.getItem("pageViews");
         const newViews = currentViews ? parseInt(currentViews, 10) + 1 : 1;
         localStorage.setItem("pageViews", newViews.toString());
         setViews(newViews);
     }, []);
+    const [showFormFeedback, open, close] = useBooleanState(false);
 
     return (
         <div className={cx("articel")}>
@@ -41,19 +49,18 @@ export const Articel = ({ date, list }: Props) => {
                         </div>
                         <div className={cx("info")}>
                             <div className={cx("date")}>
-                                <span>{date?.createdAt?.toString()}</span>
+                                <span>{formattedDate}</span>
                                 <div className={cx("icon-wrapper")}>
                                     <EyeIcon />
                                     <span>{views}</span>
                                 </div>
                                 <div className={cx("icon-wrapper")}>
                                     <TimeIcon />
-                                    <span>{date?.time}</span>
+                                    <span>{date?.time} мин</span>
                                 </div>
                             </div>
                             <div className={cx("buttons")}>
-                                <Button label="Поделиться" className={cx("button")} />
-                                <Button label="Заказать звонок" className={cx("button")} />
+                                <Button onClick={open} label="Заказать звонок" className={cx("button")} />
                             </div>
                         </div>
                     </div>
@@ -116,6 +123,7 @@ export const Articel = ({ date, list }: Props) => {
             <div className={cx("form")}>
                 <FormFeedback />
             </div>
+            <ModalFeedBack isOpen={showFormFeedback} onClose={close} />
         </div>
     );
 };

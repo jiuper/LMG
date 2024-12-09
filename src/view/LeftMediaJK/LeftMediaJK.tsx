@@ -1,5 +1,4 @@
 import cnBind from "classnames/bind";
-import Image from "next/image";
 
 import { FormFeedback } from "@/components/_Forms/FormFeedback";
 import { ModalFeedBack } from "@/components/_Modals/ModalFeedBack";
@@ -8,6 +7,7 @@ import type { GetBuildDto } from "@/entities/types/entities";
 import { API_BASE } from "@/shared/constants/private";
 import { useBooleanState } from "@/shared/hooks";
 import { Button } from "@/shared/ui/Button";
+import { CustomImage } from "@/shared/ui/CustomImage";
 
 import styles from "./LeftMediaJK.module.scss";
 
@@ -50,7 +50,7 @@ export const LeftMediaJk = ({ units }: Props) => {
             </div>
             <div className={cx("container-lift")}>
                 <div className={cx("wrapper", "container")}>
-                    <Image
+                    <CustomImage
                         className={cx("image")}
                         width={1200}
                         height={423}
