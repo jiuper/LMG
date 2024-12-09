@@ -1,11 +1,11 @@
 import { IcHome } from "@/shared/assests/svg";
 
 const ROUTES = {
-    NEWS: () => "/admin/news",
-    ARTICLES: () => "/admin/articles",
-    SECTION: () => "/admin/sections",
-    PORTFOLIO: () => "/admin/portfolio",
-    FEEDBACK: () => "/admin/feedback",
+    NEWS: () => "/fsjfnsdklflsdkfdferkg/news",
+    ARTICLES: () => "/fsjfnsdklflsdkfdferkg/articles",
+    SECTION: () => "/fsjfnsdklflsdkfdferkg/sections",
+    PORTFOLIO: () => "/fsjfnsdklflsdkfdferkg/portfolio",
+    FEEDBACK: () => "/fsjfnsdklflsdkfdferkg/feedback",
 };
 
 enum Belong {

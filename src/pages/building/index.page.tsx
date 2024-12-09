@@ -32,13 +32,13 @@ export default function Building({ port, cat, sect }: InferGetServerSidePropsTyp
 export const getServerSideProps = async () => {
     const resPort = await axios<GetPortfolioDto[]>(`${API_BASE}/portfolio`);
     const resSect = await axios<GetSectionDto[]>(`${API_BASE}/section`);
+    const sect = resSect.data;
     const resCat = await axios<GetCategoryDto[]>(`${API_BASE}/category`, {
-        params: { sectionId: "7ce310e7-e872-4e04-bbff-62df310a5cf9" },
+        params: { sectionId: sect.filter((el) => el.number === 1)[0].id.toString() },
     });
 
     const port = resPort.data;
     const cat = resCat.data;
-    const sect = resSect.data;
 
     return {
         props: {

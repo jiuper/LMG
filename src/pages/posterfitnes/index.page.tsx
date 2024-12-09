@@ -36,13 +36,13 @@ export const getServerSideProps = async () => {
     const resPort = await axios<GetPortfolioDto[]>(`${API_BASE}/portfolio`);
     const resSect = await axios<GetSectionDto[]>(`${API_BASE}/section`);
 
+    const sect = resSect.data;
     const resCat = await axios<GetCategoryDto[]>(`${API_BASE}/category`, {
-        params: { sectionId: "d92cfb8d-9f40-409e-be82-4e0ba9b850ed" },
+        params: { sectionId: sect.filter((el) => el.number === 4)[0].id.toString() },
     });
 
     const port = resPort.data;
     const cat = resCat.data;
-    const sect = resSect.data;
 
     return {
         props: {

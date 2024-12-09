@@ -5,6 +5,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 
 import { getCategoryListApi } from "@/api/getCategoryListApi";
+import { getPagesListApi } from "@/api/getPagesListApi";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { items } from "@/components/NavBar/constants";
@@ -30,9 +31,15 @@ export const PageLayout = ({ children, title }: PageLayoutProps) => {
             </AdminLayout>
         );
     }
-    const { data } = useQuery({
+    const { data: section } = useQuery({
         queryKey: ["section"],
-        queryFn: () => getCategoryListApi("7ce310e7-e872-4e04-bbff-62df310a5cf9"),
+        queryFn: getPagesListApi,
+    });
+
+    const listSec = useMemo(() => section || [], [section]);
+    const { data } = useQuery({
+        queryKey: ["category"],
+        queryFn: () => getCategoryListApi(listSec.filter((el) => el.number === 1)[0].id),
     });
     const list = useMemo(() => data || [], [data]);
     const mutateMenu = useMemo(() => {
