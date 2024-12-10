@@ -244,7 +244,7 @@ export const AdminEntityPageV = ({
                 submitBtnParams={{
                     severity: "danger",
                     iconPos: "left",
-                    label: "Удалить",
+                    label: "Принять",
                 }}
             />
         </>

@@ -79,7 +79,7 @@ export const FeedBackSlide = ({ feedback }: Props) => {
                             }}
                         >
                             {feedback?.map((el, i) => (
-                                <SwiperSlide key={i}>
+                                <SwiperSlide className={cx("slide-item")} key={i}>
                                     <FeedbackCard item={el} onClick={() => handleOnModal(el)} />
                                 </SwiperSlide>
                             ))}

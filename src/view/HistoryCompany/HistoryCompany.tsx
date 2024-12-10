@@ -131,7 +131,7 @@ export const HistoryCompanyPage = () => {
                             }}
                         >
                             {team.map((el, i) => (
-                                <SwiperSlide key={i}>
+                                <SwiperSlide className={cx("slide-item")} key={i}>
                                     <FeedbackCard name={el.name} position={el.position} type="" image={el.image} />
                                 </SwiperSlide>
                             ))}

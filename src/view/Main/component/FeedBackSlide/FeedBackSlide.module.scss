@@ -38,6 +38,10 @@
 
 }
 
+.slide-item{
+  display: flex;
+  justify-content: center;
+}
 
 .card{
   position: relative;
@@ -62,7 +66,6 @@
       border-radius: 16px;
       background: lightgray -6.14px -4.84px / 116.322% 103.192% no-repeat;
     }
-
   }
 
   .info{

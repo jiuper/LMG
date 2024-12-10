@@ -1,4 +1,4 @@
-import { forwardRef, useImperativeHandle } from "react";
+import { forwardRef, useImperativeHandle, useState } from "react";
 import cnBind from "classnames/bind";
 import { useFormik } from "formik";
 
@@ -64,10 +64,11 @@ interface ModalAdministeredCategoryProps {
 }
 export const ModalAdministeredCategory = forwardRef<ModalAdministeredCategoryRef, ModalAdministeredCategoryProps>(
     ({ isOpen, onClose, type, onSubmit, isLoading }, ref) => {
+        const [submitStatus, setSubmitStatus] = useState(ContentSatus.PUBLISHED);
         const formik = useFormik({
             initialValues: MODAL_ADMINISTERED_CATEGORY_DEFAULT_VALUES,
             onSubmit(values) {
-                onSubmit({ ...values });
+                onSubmit({ ...values, status: submitStatus });
             },
         });
 
@@ -136,8 +137,20 @@ export const ModalAdministeredCategory = forwardRef<ModalAdministeredCategoryRef
                     </div>
 
                     <div className={cx("btns")}>
-                        <Button label="Сохранить как черновик" variant="solid" type="submit" loading={isLoading} />
-                        <Button label={submitBntLabel} variant="solid" type="submit" loading={isLoading} />
+                        <Button
+                            label="Сохранить как черновик"
+                            variant="solid"
+                            type="submit"
+                            loading={isLoading}
+                            onClick={() => setSubmitStatus(ContentSatus.DRAFT)}
+                        />
+                        <Button
+                            label={submitBntLabel}
+                            variant="solid"
+                            type="submit"
+                            loading={isLoading}
+                            onClick={() => setSubmitStatus(ContentSatus.PUBLISHED)}
+                        />
                     </div>
                 </form>
             </Modal>

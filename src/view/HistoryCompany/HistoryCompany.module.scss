@@ -228,7 +228,10 @@
     letter-spacing: -1.12px;
   }
 }
-
+.slide-item{
+  display: flex;
+  justify-content: center;
+}
 .card{
   width: 282px;
   height: 100%;

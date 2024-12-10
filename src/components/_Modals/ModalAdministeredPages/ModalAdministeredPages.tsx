@@ -1,4 +1,4 @@
-import { forwardRef, useImperativeHandle, useMemo } from "react";
+import { forwardRef, useImperativeHandle, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import cnBind from "classnames/bind";
 import { useFormik } from "formik";
@@ -57,10 +57,11 @@ interface ModalAdministeredPagesProps {
 }
 export const ModalAdministeredPages = forwardRef<ModalAdministeredPagesRef, ModalAdministeredPagesProps>(
     ({ isOpen, onClose, type, onSubmit, isLoading }, ref) => {
+        const [submitStatus, setSubmitStatus] = useState(ContentSatus.PUBLISHED);
         const formik = useFormik({
             initialValues: MODAL_ADMINISTERED_PAGES_DEFAULT_VALUES,
             onSubmit(values) {
-                onSubmit({ ...values });
+                onSubmit({ ...values, status: submitStatus });
             },
         });
 
@@ -134,8 +135,20 @@ export const ModalAdministeredPages = forwardRef<ModalAdministeredPagesRef, Moda
                         value={formik.values.subTitle}
                     />
                     <div className={cx("btns")}>
-                        <Button label="Сохранить как черновик" variant="solid" type="submit" loading={isLoading} />
-                        <Button label={submitBntLabel} variant="solid" type="submit" loading={isLoading} />
+                        <Button
+                            label="Сохранить как черновик"
+                            variant="solid"
+                            type="submit"
+                            loading={isLoading}
+                            onClick={() => setSubmitStatus(ContentSatus.DRAFT)}
+                        />
+                        <Button
+                            label={submitBntLabel}
+                            variant="solid"
+                            type="submit"
+                            loading={isLoading}
+                            onClick={() => setSubmitStatus(ContentSatus.PUBLISHED)}
+                        />
                     </div>
                 </form>
             </Modal>

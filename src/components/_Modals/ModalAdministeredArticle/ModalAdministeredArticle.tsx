@@ -59,13 +59,14 @@ interface ModalAdministeredArticleProps {
 }
 export const ModalAdministeredArticle = forwardRef<ModalAdministeredArticleRef, ModalAdministeredArticleProps>(
     ({ type, errorMessage, onClose, isOpen, isLoading, onSubmit }, ref) => {
+        const [submitStatus, setSubmitStatus] = useState(ContentSatus.PUBLISHED);
         const formik = useFormik({
             initialValues: MODAL_ADMINISTERED_ARTICLE_DEFAULT_VALUES,
             onSubmit(values) {
-                console.log(values);
                 onSubmit({
                     ...values,
                     list: isListTextOpen,
+                    status: submitStatus,
                     pictureName: values.files?.[0]?.name,
                     contentItems: values.contentItems?.length
                         ? values.contentItems.map((el, index) => ({
@@ -198,8 +199,20 @@ export const ModalAdministeredArticle = forwardRef<ModalAdministeredArticleRef, 
                         </div>
                     </div>
                     <div className={cx("btns")}>
-                        <Button label="Сохранить как черновик" variant="solid" type="submit" loading={isLoading} />
-                        <Button label={submitBntLabel} variant="solid" type="submit" loading={isLoading} />
+                        <Button
+                            label="Сохранить как черновик"
+                            variant="solid"
+                            type="submit"
+                            loading={isLoading}
+                            onClick={() => setSubmitStatus(ContentSatus.DRAFT)}
+                        />
+                        <Button
+                            label={submitBntLabel}
+                            variant="solid"
+                            type="submit"
+                            loading={isLoading}
+                            onClick={() => setSubmitStatus(ContentSatus.PUBLISHED)}
+                        />
                     </div>
                 </form>
             </Modal>

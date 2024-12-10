@@ -349,7 +349,7 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
         };
 
         withConfirm({
-            header: "Удалить?",
+            header: "Отправить в архив?",
             message: confirmMessage,
             onSubmit: () =>
                 deleteEntity[entityType]?.mutate(

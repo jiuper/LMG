@@ -60,11 +60,13 @@ interface ModalAdministeredNewsProps {
 }
 export const ModalAdministeredNews = forwardRef<ModalAdministeredNewsRef, ModalAdministeredNewsProps>(
     ({ type, errorMessage, onClose, isOpen, isLoading, onSubmit }, ref) => {
+        const [submitStatus, setSubmitStatus] = useState(ContentSatus.PUBLISHED);
         const formik = useFormik({
             initialValues: MODAL_ADMINISTERED_NEWS_DEFAULT_VALUES,
             onSubmit(values) {
                 onSubmit({
                     ...values,
+                    status: submitStatus,
                     list: isListTextOpen,
                     pictureName: values.files?.[0]?.name,
                     contentItems: values.contentItems?.length
@@ -199,8 +201,20 @@ export const ModalAdministeredNews = forwardRef<ModalAdministeredNewsRef, ModalA
                         </div>
                     </div>
                     <div className={cx("btns")}>
-                        <Button label="Сохранить как черновик" variant="solid" type="submit" loading={isLoading} />
-                        <Button label={submitBntLabel} variant="solid" type="submit" loading={isLoading} />
+                        <Button
+                            label="Сохранить как черновик"
+                            variant="solid"
+                            type="submit"
+                            loading={isLoading}
+                            onClick={() => setSubmitStatus(ContentSatus.DRAFT)}
+                        />
+                        <Button
+                            label={submitBntLabel}
+                            variant="solid"
+                            type="submit"
+                            loading={isLoading}
+                            onClick={() => setSubmitStatus(ContentSatus.PUBLISHED)}
+                        />
                     </div>
                 </form>
             </Modal>
