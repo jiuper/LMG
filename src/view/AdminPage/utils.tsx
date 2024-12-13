@@ -102,7 +102,7 @@ export const preparePagesEditFormValues = ({
 export const prepareNewsCreateData = (data: ModalAdministeredNewsModel): NewsCreateApiParams => ({
     title: data.title,
     subtitle: data.subtitle,
-    time: data.time || "5 мин.",
+    time: data.time || "5",
     video: data.video,
     status: data.status,
     contentItems: data.contentItems,
@@ -113,7 +113,7 @@ export const prepareNewsCreateData = (data: ModalAdministeredNewsModel): NewsCre
 export const prepareNewsUpdateData = (data: ModalAdministeredNewsModel): NewsUpdateApiParams => ({
     title: data.title,
     subtitle: data.subtitle,
-    time: data.time || "5 мин.",
+    time: data.time || "5",
     video: data.video,
     pictureId: data.pictureId,
     videoId: data.videoId,

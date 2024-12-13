@@ -1,8 +1,15 @@
+import img_7 from "@/shared/assests/team/Анна Кудрявцева.jpg";
+import img_9 from "@/shared/assests/team/Антон Кувшинов.jpg";
 import img_2 from "@/shared/assests/team/Борис Лапта.jpg";
+import img_8 from "@/shared/assests/team/Валерия Руденко.jpg";
 import img_3 from "@/shared/assests/team/Денис.jpg";
 import img_4 from "@/shared/assests/team/Джуля Халифе.jpg";
 import img_1 from "@/shared/assests/team/Егор Иваков.jpg";
+import img_10 from "@/shared/assests/team/Екатерина Коворотная.jpg";
 import img_5 from "@/shared/assests/team/Ирина Монахова.jpg";
+import img_11 from "@/shared/assests/team/Любовь Басова.jpg";
+import img_12 from "@/shared/assests/team/Люция Загитова.jpg";
+import img_13 from "@/shared/assests/team/Мария Гадалова.jpg";
 import img_6 from "@/shared/assests/team/Нататлья Хамидова.jpg";
 
 export const HISTORY_COMPANY = [
@@ -68,22 +75,22 @@ export const team = [
     {
         name: "Любовь Басова",
         position: "Административный отдел",
-        image: img_1.src,
+        image: img_11.src,
     },
     {
         name: "Ольга Тяжина",
         position: "Административный отдел",
-        image: img_1.src,
+        image: img_10.src,
     },
     {
         name: "Екатерина Коворотная",
         position: "Административный отдел",
-        image: img_1.src,
+        image: img_10.src,
     },
     {
         name: "Люция Загитова",
         position: "Руководитель отдела продаж",
-        image: img_1.src,
+        image: img_12.src,
     },
     {
         name: "Наталья Хамидова",
@@ -98,17 +105,17 @@ export const team = [
     {
         name: "Мария Гадалова",
         position: "Специалист отдела продаж",
-        image: img_1.src,
+        image: img_13.src,
     },
     {
         name: "Валерия Руденко",
         position: "Специалист отдела продаж",
-        image: img_1.src,
+        image: img_8.src,
     },
     {
         name: "Анна Кудрявцева",
         position: "Специалист отдела продаж",
-        image: img_1.src,
+        image: img_7.src,
     },
     {
         name: "Борис Лапта",
@@ -118,12 +125,12 @@ export const team = [
     {
         name: "Антон Кувшинов",
         position: "Специалист сервисной службы",
-        image: img_1.src,
+        image: img_9.src,
     },
     {
         name: "Екатерина Мелехина",
         position: "Дизайнер",
-        image: img_1.src,
+        image: img_10.src,
     },
     {
         name: "Джулия Халифе",

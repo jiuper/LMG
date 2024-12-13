@@ -1,3 +1,4 @@
+import { useState } from "react";
 import cnBind from "classnames/bind";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -8,6 +9,7 @@ import { MapView } from "@/components/MapView";
 import type { GetBuildDto, GetCategoryAreaDto } from "@/entities/types/entities";
 import { API_BASE } from "@/shared/constants/private";
 import { useBooleanState } from "@/shared/hooks";
+import { Dropdown } from "@/shared/ui/_Dropdown";
 import { Button } from "@/shared/ui/Button";
 
 import styles from "./LiftMediaSection.module.scss";
@@ -22,6 +24,8 @@ type Props = {
 export const LiftMediaSection = ({ district, units, url, title }: Props) => {
     const [isOpen, open, close] = useBooleanState(false);
     const href = useRouter();
+    const [unit, setUnit] = useState<string>("");
+    console.log(unit);
 
     return (
         <div className={cx("lift-media-section")}>
@@ -49,20 +53,6 @@ export const LiftMediaSection = ({ district, units, url, title }: Props) => {
                         <div className={cx("list-text")}>{district?.description}</div>
                     </div>
                     <Button label="Оставить заявку" onClick={open} className={cx("button")} />
-                    {units.length > 0 && (
-                        <div className={cx("list")}>
-                            <div>
-                                <span>Доступно {units.length} юнитов</span>
-                            </div>
-                            <div className={cx("items")}>
-                                {units?.map((el, i) => (
-                                    <div key={i} onClick={() => href.push(`${url}/${el.id}`)} className={cx("item")}>
-                                        <h4>{el.name}</h4>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    )}
                 </div>
             </div>
             <div className={cx("wrapper-lift-media-us")}>
@@ -73,36 +63,18 @@ export const LiftMediaSection = ({ district, units, url, title }: Props) => {
                         </div>
 
                         <div className={cx("items")}>
-                            <div
-                                onClick={
-                                    units[units.length - 3]?.id
-                                        ? () => href.push(`${url}/${units[units.length - 3]?.id}`)
-                                        : () => {}
-                                }
-                                className={cx("item")}
-                            >
-                                <span>{units[units.length - 3]?.name || "ЖК 1 (Название)"}</span>
-                            </div>
-                            <div
-                                onClick={
-                                    units[units.length - 2]?.id
-                                        ? () => href.push(`${url}/${units[units.length - 2]?.id}`)
-                                        : () => {}
-                                }
-                                className={cx("item")}
-                            >
-                                <span>{units[units.length - 2]?.name || "ЖК 2 (Название)"}</span>
-                            </div>
-                            <div
-                                onClick={
-                                    units[units.length - 1]?.id
-                                        ? () => href.push(`${url}/${units[units.length - 1]?.id}`)
-                                        : () => {}
-                                }
-                                className={cx("item")}
-                            >
-                                <span>{units[units.length - 1]?.name || "ЖК 3 (Название)"}</span>
-                            </div>
+                            <Dropdown
+                                options={units}
+                                value={units.find((el) => el.id === unit)?.name || units[0]?.name}
+                                onChange={(e) => setUnit(e.value)}
+                                optionLabel="name"
+                                optionValue="id"
+                            />
+                            <Button
+                                label="Перейти"
+                                onClick={() => href.push(`${url}/${unit}`)}
+                                className={cx("button")}
+                            />
                         </div>
                     </div>
                 </div>

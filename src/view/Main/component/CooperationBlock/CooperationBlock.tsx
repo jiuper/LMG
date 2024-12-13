@@ -1,5 +1,4 @@
 import cnBind from "classnames/bind";
-import { useRouter } from "next/router";
 
 import { ModalCoopertion } from "@/components/_Modals/ModalCoopertion";
 import card_1 from "@/shared/assests/ImageS_3.png";
@@ -11,7 +10,6 @@ import styles from "./CooperationBlock.module.scss";
 
 const cx = cnBind.bind(styles);
 export const CooperationBlock = () => {
-    const href = useRouter();
     const [isOpen, open, close] = useBooleanState(false);
     const list = [
         {
@@ -23,6 +21,9 @@ export const CooperationBlock = () => {
             image: card_2.src,
         },
     ];
+    const handleClick = () => {
+        window.open("https://spb.hh.ru/employer/1394775", "_blank");
+    };
 
     return (
         <div id="cooperation" className={cx("cooperation-block")}>
@@ -31,11 +32,7 @@ export const CooperationBlock = () => {
                     <h2 className={cx("title")}>Сотрудничество</h2>
                     <div className={cx("cards")}>
                         {list.map((item, index) => (
-                            <HistoryCard
-                                onClick={index === 1 ? () => href.push("https://spb.hh.ru/employer/1394775") : open}
-                                key={index}
-                                {...item}
-                            />
+                            <HistoryCard onClick={index === 1 ? handleClick : open} key={index} {...item} />
                         ))}
                     </div>
                 </div>
