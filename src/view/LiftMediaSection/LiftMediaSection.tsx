@@ -24,8 +24,7 @@ type Props = {
 export const LiftMediaSection = ({ district, units, url, title }: Props) => {
     const [isOpen, open, close] = useBooleanState(false);
     const href = useRouter();
-    const [unit, setUnit] = useState<string>("");
-    console.log(unit);
+    const [unit, setUnit] = useState<GetBuildDto>(units[0]);
 
     return (
         <div className={cx("lift-media-section")}>
@@ -65,14 +64,14 @@ export const LiftMediaSection = ({ district, units, url, title }: Props) => {
                         <div className={cx("items")}>
                             <Dropdown
                                 options={units}
-                                value={units.find((el) => el.id === unit)?.name || units[0]?.name}
+                                value={unit}
                                 onChange={(e) => setUnit(e.value)}
                                 optionLabel="name"
-                                optionValue="id"
+                                className={cx("dropdown")}
                             />
                             <Button
                                 label="Перейти"
-                                onClick={() => href.push(`${url}/${unit}`)}
+                                onClick={() => href.push(`${url}/${unit.id}`)}
                                 className={cx("button")}
                             />
                         </div>
