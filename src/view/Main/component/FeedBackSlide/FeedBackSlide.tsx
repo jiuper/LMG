@@ -63,8 +63,8 @@ export const FeedBackSlide = ({ feedback }: Props) => {
                     <div className={cx("slide")}>
                         <Swiper
                             modules={[Autoplay]}
-                            spaceBetween={20}
-                            slidesPerView={8}
+                            spaceBetween={10}
+                            slidesPerView={1}
                             loop
                             autoplay={{ delay: 3000 }}
                             breakpoints={{
@@ -75,7 +75,6 @@ export const FeedBackSlide = ({ feedback }: Props) => {
                                 1080: { slidesPerView: 4, spaceBetween: 20 },
                                 720: { slidesPerView: 3, spaceBetween: 10 },
                                 520: { slidesPerView: 2, spaceBetween: 10 },
-                                430: { slidesPerView: 1, spaceBetween: 10 },
                             }}
                         >
                             {feedback?.map((el, i) => (
