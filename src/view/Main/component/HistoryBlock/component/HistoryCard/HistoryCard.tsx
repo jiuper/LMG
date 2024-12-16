@@ -24,7 +24,7 @@ export const HistoryCard = ({
     title,
     onClick,
     className,
-    type,
+    type = true,
     link,
 }: HistoryCardProps) => {
     return (
@@ -37,7 +37,7 @@ export const HistoryCard = ({
                         {listHref.map((item, i) => (
                             <li key={i} className={cx("list-item")}>
                                 {type ? (
-                                    <Link href="" className={cx("list-link")} onClick={item.typeOnClick}>
+                                    <Link href={item.href} className={cx("list-link")} onClick={item.typeOnClick}>
                                         {item.title}
                                     </Link>
                                 ) : (

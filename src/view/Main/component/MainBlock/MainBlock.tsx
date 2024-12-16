@@ -9,7 +9,7 @@ import styles from "./MainBlock.module.scss";
 const cx = cnBind.bind(styles);
 
 export const MainBlock = () => {
-    const list = ["Лифты", "ПВЗ", "ТЦ", "БЦ", "Реклама где хотите"];
+    const list = ["Лифты", "БЦ", "ПВЗ", "ТЦ", "Реклама где хотите"];
     const [isOpen, open, close] = useBooleanState(false);
 
     return (

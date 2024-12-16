@@ -31,12 +31,14 @@
 
     .image{
       position: absolute;
-      right: 3%;
+      right: 0;
       top: -20%;
       width: 391px;
       height: 391px;
       @include media-max(1100px){
         position: relative;
+        width: 340px;
+        height: 360px;
       }
     }
   }

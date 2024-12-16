@@ -22,7 +22,7 @@ export const items: NavbarTypeProps = [
                 url: Routes.POSTERBC,
             },
             {
-                label: "Реклама ПВЗ",
+                label: "Реклама в ПВЗ",
                 url: Routes.POSTERPVZ,
             },
             {

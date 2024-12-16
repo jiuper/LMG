@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import cnBind from "classnames/bind";
-import Link from "next/link";
 
 import { FormFeedback } from "@/components/_Forms/FormFeedback";
+import { ModalFeedBack } from "@/components/_Modals/ModalFeedBack";
 import cal from "@/shared/assests/Frame 433.png";
 import { EyeIcon, TimeIcon } from "@/shared/assests/svg/svg";
+import { useBooleanState } from "@/shared/hooks";
 import { Button } from "@/shared/ui/Button";
 import { CustomImage } from "@/shared/ui/CustomImage";
 
@@ -14,6 +15,7 @@ const cx = cnBind.bind(styles);
 
 export const CalArticle = () => {
     const [views, setViews] = useState<number>(0);
+    const [showFormFeedback, open, close] = useBooleanState(false);
 
     useEffect(() => {
         const currentViews = localStorage.getItem("pageViews");
@@ -43,7 +45,7 @@ export const CalArticle = () => {
                                 </div>
                             </div>
                             <div className={cx("buttons")}>
-                                <Button label="Заказать звонок" className={cx("button")} />
+                                <Button onClick={open} label="Заказать звонок" className={cx("button")} />
                             </div>
                         </div>
                     </div>
@@ -142,12 +144,20 @@ export const CalArticle = () => {
                         </div>
                         <div className={cx("links")}>
                             <h4 className={cx("title")}>Ссылка на законодательные акты</h4>
-                            <Link className={cx("link")} href="/">
+                            <a
+                                target="_blank"
+                                className={cx("link")}
+                                href="http://pravo.gov.ru/proxy/ips/?docbody=&nd=102105292&rdk=92"
+                            >
                                 Как делать рекламу?
-                            </Link>
-                            <Link className={cx("link")} href="/">
+                            </a>
+                            <a
+                                target="_blank"
+                                className={cx("link")}
+                                href="http://pravo.gov.ru/proxy/ips/?docbody=&nd=102105292&rdk=92"
+                            >
                                 Список того что нельзя рекламировать
-                            </Link>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -155,6 +165,7 @@ export const CalArticle = () => {
             <div className={cx("form")}>
                 <FormFeedback />
             </div>
+            <ModalFeedBack isOpen={showFormFeedback} onClose={close} />
         </div>
     );
 };

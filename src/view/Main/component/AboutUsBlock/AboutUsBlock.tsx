@@ -8,7 +8,7 @@ export const AboutUsBlock = () => {
         <div className={cx("about-us")}>
             <div className={cx("wrapper", "container")}>
                 <div className={cx("header")}>
-                    <h2>Эффективный клиентский сервис наш приоритет </h2>
+                    <h2>Эффективный клиентский сервис - наш приоритет </h2>
                 </div>
 
                 <div className={cx("items")}>
@@ -26,7 +26,7 @@ export const AboutUsBlock = () => {
                     </div>
                     <div className={cx("item")}>
                         <h3>
-                            <strong>Договор с УК, и застройщика</strong>
+                            <strong>Договоры с УК и Застройщиками</strong>
                         </h3>
                         <span>основание для разрешения рекламы</span>
                     </div>

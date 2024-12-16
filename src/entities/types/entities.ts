@@ -166,3 +166,12 @@ export interface ModalList {
     value?: string;
     file?: File;
 }
+export interface GetPortfolioSectionDto {
+    id: string;
+    number?: number;
+    title?: string;
+    description?: string;
+    categoryId?: string;
+    status: ContentSatus;
+    pictureId?: string;
+}

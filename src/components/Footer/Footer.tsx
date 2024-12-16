@@ -18,6 +18,7 @@ export const Footer = ({ data }: Props) => {
         { title: "Реклама на видеоэкранах", href: data[0].items?.[1].url || "" },
         { title: "Реклама в жилых домах", href: Routes.BUILDING },
         { title: "Реклама в бизнес центрах", href: Routes.POSTERBC },
+        { title: "Реклама в ПВЗ", href: Routes.POSTERPVZ },
         { title: "Реклама в фитнес клубах", href: Routes.POSTERFITNES },
         { title: "Реклама в торговых центрах", href: Routes.POSTERTC },
     ];

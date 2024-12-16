@@ -20,33 +20,22 @@ export const getServerSideProps: GetServerSideProps<{
     port: GetPortfolioDto[];
     feedback: GetFeedbackDto[];
 }> = async () => {
-    try {
-        const resPromotion = await axios.get<CreateNewsDto[]>(`${API_BASE}/article`);
-        const resNews = await axios.get<CreateNewsDto[]>(`${API_BASE}/news`);
-        const resPort = await axios.get<GetPortfolioDto[]>(`${API_BASE}/portfolio`);
-        const resFeed = await axios.get<GetFeedbackDto[]>(`${API_BASE}/feedback`);
+    const resPromotion = await axios.get<CreateNewsDto[]>(`${API_BASE}/article`);
+    const resNews = await axios.get<CreateNewsDto[]>(`${API_BASE}/news`);
+    const resPort = await axios.get<GetPortfolioDto[]>(`${API_BASE}/portfolio`);
+    const resFeed = await axios.get<GetFeedbackDto[]>(`${API_BASE}/feedback`);
 
-        const articles = resPromotion.data;
-        const news = resNews.data;
-        const port = resPort.data;
-        const feedback = resFeed.data;
+    const articles = resPromotion.data;
+    const news = resNews.data;
+    const port = resPort.data;
+    const feedback = resFeed.data;
 
-        return {
-            props: {
-                articles,
-                news,
-                port,
-                feedback,
-            },
-        };
-    } catch (e) {
-        return {
-            props: {
-                articles: [],
-                news: [],
-                port: [],
-                feedback: [],
-            },
-        };
-    }
+    return {
+        props: {
+            articles,
+            news,
+            port,
+            feedback,
+        },
+    };
 };

@@ -22,7 +22,6 @@ type Props = {
 };
 export const HelperBlock = ({ news, articles }: Props) => {
     const href = useRouter();
-
     const list = [
         {
             title: "Статьи",
