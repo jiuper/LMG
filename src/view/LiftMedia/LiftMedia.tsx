@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import cnBind from "classnames/bind";
 import { useRouter } from "next/router";
 
@@ -6,9 +6,11 @@ import { FormFeedback } from "@/components/_Forms/FormFeedback";
 import { ModalFeedBack } from "@/components/_Modals/ModalFeedBack";
 import { MapView } from "@/components/MapView";
 import type { GetCategoryAreaDto, GetCategoryDto, GetPortfolioDto } from "@/entities/types/entities";
+import preview from "@/shared/assests/photo_2024-12-17_13-29-45.png";
 import { API_BASE } from "@/shared/constants/private";
 import { useBooleanState } from "@/shared/hooks";
 import { Button } from "@/shared/ui/Button";
+import { CustomImage } from "@/shared/ui/CustomImage";
 import { CaseBlock } from "@/view/Main/component/CaseBlock";
 
 import styles from "./LiftMedia.module.scss";
@@ -25,6 +27,30 @@ export const LiftMedia = ({ port, data, districts, url }: Props) => {
     const href = useRouter();
     const { title, description, pictureId, videoId, list } = data;
     const [isActive, setActive] = useState(false);
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const [showVideo, setShowVideo] = useState(false);
+    const router = useRouter();
+    useEffect(() => {
+        const handleRouteChange = () => {
+            if (videoRef.current) {
+                videoRef.current.pause();
+                videoRef.current.currentTime = 0;
+                setShowVideo(false);
+            }
+        };
+        router.events.on("routeChangeStart", handleRouteChange);
+
+        return () => {
+            router.events.off("routeChangeStart", handleRouteChange);
+        };
+    }, [router.events]);
+    const handlePlay = () => {
+        setShowVideo(true);
+
+        if (videoRef.current) {
+            void videoRef.current.play();
+        }
+    };
 
     return (
         <div className={cx("lift-media")}>
@@ -104,14 +130,26 @@ export const LiftMedia = ({ port, data, districts, url }: Props) => {
                     </div>
                 </div>
             </div>
-            {videoId !== null ? (
+
+            {videoId !== null && (
                 <div className={cx("wrapper-video")}>
                     <h2>Как это работает</h2>
-                    <video className={cx("video")} width="800" height="450" controls preload="none">
-                        <source src={`${API_BASE}/video/${videoId}`} type="video/webm" />
-                    </video>
+                    <div className={cx("video-container")} onClick={handlePlay}>
+                        <CustomImage
+                            src={preview}
+                            alt="Превью видео"
+                            className={cx("video-preview", { showVideo })}
+                            width={800}
+                            height={450}
+                        />
+
+                        <video ref={videoRef} className={cx("video")} width="800" height="450" controls preload="none">
+                            <source src={`${API_BASE}/video/${videoId}`} type="video/webm" />
+                        </video>
+                    </div>
                 </div>
-            ) : null}
+            )}
+
             <div className={cx("loyalty-program")}>
                 <div className={cx("wrapper", "container")}>
                     <div className={cx("header")}>

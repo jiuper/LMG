@@ -23,7 +23,7 @@
   max-width: 616px;
   width: 100%;
   h1{
-    color: #fff;
+    color: #000;
     @include font-SegoeUI();
     font-size: 40px;
     font-style: normal;
@@ -32,7 +32,7 @@
   }
   span{
     @include text-Body1();
-    color: #fff;
+    color: #000;
     font-weight: 400;
   }
 
@@ -217,11 +217,27 @@
   @include responsive-sizing("padding-inline", 8, 120, 360,1440);
   @include responsive-sizing("padding-block", 40, 120, 360,1440);
   @include responsive-sizing("height", 340, 764, 360,1440);
-
   @include flex-column();
   gap: 8px;
+  .video-container { position: relative; cursor: pointer; }
 
+  .video-preview {
+    position: relative;
+    z-index: 2;
+    border-radius: var(--Indent_40, 40px);
+    @include responsive-sizing("width", 377, 800, 360,1440);
+    max-height: 450px;
+    height: 100%;
+
+    &.showVideo { opacity:0; z-index: -1; }
+  }
   .video{
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-height: 450px;
+    width: 100%;
+    height: 100%;
     border-radius: var(--Indent_40, 40px);
     border: 3px solid #BBC5EF;
     @include responsive-sizing("width", 377, 800, 360,1440);

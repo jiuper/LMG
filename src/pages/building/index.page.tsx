@@ -4,7 +4,7 @@ import type { InferGetServerSidePropsType } from "next";
 import { BreadCrumb } from "@/components/BreadCrumb";
 import type { GetCategoryDto, GetPortfolioSectionDto, GetSectionDto } from "@/entities/types/entities";
 import { PageLayout } from "@/layouts/PageLayout";
-import Build from "@/shared/assests/build.png";
+import Build from "@/shared/assests/build.jpg";
 import { API_BASE } from "@/shared/constants/private";
 import { BuildingPage } from "@/view/Building/Building";
 
