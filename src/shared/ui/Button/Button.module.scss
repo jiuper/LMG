@@ -53,7 +53,11 @@ $shadow-shadow: 0px 10px 24px 0px #7b68ee52;
     }
     &:disabled {
       background-color: #f4f4f4;
-      color: #bdbdbd;
+      opacity: 0.2;
+      span{
+        color: #000000;
+      }
+
     }
   }
   &.filed {

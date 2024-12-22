@@ -14,6 +14,8 @@ export type categoryUpdateApiParams = {
     status?: ContentSatus;
     file?: File | null;
     video?: File | null;
+    previewPictureId?: string;
+    previewPictureFile?: File | null;
 };
 export const categoryUpdateApi = async (params: categoryUpdateApiParams): Promise<boolean> => {
     return createAxiosApi()<boolean>({

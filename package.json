@@ -23,7 +23,7 @@
     "react-dom": "^18",
     "sass-loader": "^16.0.2",
     "swiper": "^11.1.15",
-    "yup": "^1.4.0"
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@eslint/compat": "^1.1.1",

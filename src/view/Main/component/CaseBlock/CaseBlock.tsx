@@ -45,6 +45,7 @@ export const CaseBlock = ({ listItem, className }: Props) => {
                             image={`${API_BASE}/picture/${el.pictureId}`}
                             onClick={() => handleOnModal(el)}
                             key={index}
+                            className={cx(listItem.length === 1 && "active")}
                             {...el}
                         />
                     ))}

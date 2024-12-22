@@ -159,10 +159,11 @@
 
       h2{
         padding: 32px;
-        font-size: 56px;
+        @include responsive-sizing("padding", 8, 32, 360,1920);
+        @include responsive-sizing("font-size", 30, 48, 360,1920);
+        @include responsive-sizing("line-height", 36, 67.2, 360,1920);
         font-style: normal;
-        font-weight: 400;
-        line-height: 120%; /* 67.2px */
+        font-weight: 600;
         letter-spacing: -1.12px;
         color: #040F16;
         max-width: 544px;
@@ -171,9 +172,6 @@
         border-radius: var(--Indent_24, 24px);
         border: 0px solid var(--Persimmon, #38B6FF);
         background: rgba(255, 255, 255, 0.10);
-        @include media-max(1100px){
-          font-size: 40px;
-        }
       }
     }
     .items{
@@ -181,7 +179,7 @@
       gap: 16px;
       .item{
         @include flex-column();
-        padding: 32px;
+        @include responsive-sizing("padding", 8, 32, 360,1920);
         border-radius: var(--Indent_24, 24px);
         border: 0px solid var(--Persimmon, #38B6FF);
         background: rgba(255, 255, 255, 0.10);
@@ -284,41 +282,37 @@
 
     }
     .list{
-      @include flex-row();
-      justify-content: space-between;
-      align-items: center;
+      display: grid;
+      flex-direction: row;
+      grid-template-columns: 1fr 88px 1fr 88px 1fr;
+      grid-template-rows: repeat(2, auto);
       width: 100%;
       gap: 24px;
-      .arrow{
-        width: 100%;
-        @include media-max(720px){
-          display: none;
+      justify-items: center;
+      @include media-max(1024px){
+          @include flex-column();
+        align-items: center;
+        gap: 8px;
+        .arrow{
+            display: none;
         }
+      }
+
+      .item-wrapper{
+        @include flex-row();
+        gap: 24px;
+        max-width: 285px;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+
       }
       .item {
         @include flex-column();
         gap: 8px;
-        width: 100%;
-        max-width: 200px;
         align-items: center;
-        .number{
-          border-radius: 9999px;
-          border: 0px solid #E5E7EB;
-          background: #FFF;
-          padding: 4px 27px;
-          @include flex-center();
-          width: 120px;
-          height: 46px;
-          color: #38B6FF;
-          text-align: center;
-          @include font-SegoeUI();
-          font-size: 32px;
-          font-style: normal;
-          font-weight: 500;
-          line-height: 120%; /* 38.4px */
-        }
         .title {
-          color: var(--Rich-black, #040F16);
+          color: #040F16;
           text-align: center;
           @include font-SegoeUI();
           font-size: 16px;
@@ -326,6 +320,7 @@
           font-weight: 500;
           line-height: 120%; /* 19.2px */
         }
+
       }
 
       @include media-max(720px){

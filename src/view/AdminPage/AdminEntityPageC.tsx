@@ -411,6 +411,7 @@ const AdminEntityPageC = ({ entityType }: AdminEntityPageProps) => {
                     subtitle: "",
                     title: "",
                     pictureId: "",
+                    previewPictureId: "",
                     id: "",
                     number: 0,
                 },

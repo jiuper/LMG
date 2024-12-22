@@ -9,6 +9,11 @@
   background: var(--SURFACE-SURFACE, #FFF);
 
 
+  &.active{
+    flex: 0 0 282px;
+  }
+
+
   @include touch-hover(&){
     transition: $transition-default;
     border-radius: 32px;

@@ -138,7 +138,7 @@ export const HistoryCompanyPage = () => {
                         </Swiper>
                     </div>
                 </div>
-                <div className={cx("wrapper-documents", "container")}>
+                <div id="documents" className={cx("wrapper-documents", "container")}>
                     <h1>Перечень документов</h1>
                     <div className={cx("documents")}>
                         <span>Перечень для для начала работы</span>

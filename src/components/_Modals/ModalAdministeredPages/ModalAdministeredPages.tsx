@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import cnBind from "classnames/bind";
 import { useFormik } from "formik";
 
+import { getDistrictsListApi } from "@/api/getDistrictsListApi";
 import type { GetDistrictsListApiRawResponse } from "@/api/getDistrictsListApi/types";
 import { Modal } from "@/components/_Modals/Modal";
 import { ContentSatus } from "@/entities/types/entities";
@@ -11,8 +12,6 @@ import { Dropdown } from "@/shared/ui/_Dropdown";
 import { InputText } from "@/shared/ui/_InputText";
 import { InputTextarea } from "@/shared/ui/_InputTextarea";
 import CustomFileUpload from "@/shared/ui/CustomFileUpload/CustomFileUpload";
-
-import { getDistrictsListApi } from "../../../api/getDistrictsListApi";
 
 import styles from "./ModalAdministeredPages.module.scss";
 

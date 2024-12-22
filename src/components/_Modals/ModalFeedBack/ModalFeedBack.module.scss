@@ -44,6 +44,18 @@
   &.isMobile{
     border-radius: 32px 32px 0 0;
   }
+
+  .button{
+    background: #040F16;
+    transition: .3s;
+
+    &:hover{
+      background: var(--Brand-Light-Guidance-Primary-Light-Primary-Container, #566DD6);
+    }
+    span{
+      color: #fff;
+    }
+  }
 }
 .close{
   cursor: pointer;
@@ -84,6 +96,12 @@
   @include flex-column();
   gap: 8px;
 
+  &.step{
+    background: transparent;
+    padding: 0;
+  }
+
+
   h2{
     color: #040F16;
     @include font-SegoeUI();
@@ -102,6 +120,12 @@
     @include media-max(720px){
       @include flex-column();
       align-items: inherit;
+      gap: 24px;
+    }
+    &.step{
+      @include flex-column();
+      gap: 32px;
+      align-items: flex-start;
     }
   }
 
@@ -111,23 +135,14 @@
     flex: 1 0 65%;
     @include media-max(720px){
       @include flex-column();
+      gap: 16px;
     }
 
     input{
       width: 100%;
     }
   }
-  .button{
-    background: #040F16;
-    transition: .3s;
 
-    &:hover{
-      background: var(--Brand-Light-Guidance-Primary-Light-Primary-Container, #566DD6);
-    }
-    span{
-      color: #fff;
-    }
-  }
 
   .footer{
     @include flex-row();

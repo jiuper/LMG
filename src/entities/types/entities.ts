@@ -95,6 +95,7 @@ export interface GetCategoryDto {
     status?: ContentSatus;
     createdAt?: string;
     updatedAt?: string;
+    previewPictureId?: string;
 }
 export interface GetAreaDto {
     id: string;

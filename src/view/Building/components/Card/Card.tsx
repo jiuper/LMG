@@ -11,17 +11,18 @@ const cx = cnBind.bind(styles);
 type Props = {
     data: GetCategoryDto;
     onClick?: () => void;
+    className?: string;
 };
-export const Card = ({ data, onClick }: Props) => {
-    const { title, description, pictureId } = data;
+export const Card = ({ data, onClick, className }: Props) => {
+    const { title, description, previewPictureId } = data;
 
     return (
-        <div onClick={onClick} className={cx("card")}>
+        <div onClick={onClick} className={cx("card", className)}>
             <CustomImage
                 className={cx("image")}
                 width={382}
                 height={250}
-                src={`${API_BASE}/picture/${pictureId}`}
+                src={`${API_BASE}/picture/${previewPictureId}`}
                 alt="poster"
             />
             <div className={cx("text")}>

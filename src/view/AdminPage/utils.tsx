@@ -97,6 +97,7 @@ export const preparePagesEditFormValues = ({
     list: entity.list,
     sectionId: entity.sectionId,
     videoId: entity.videoId,
+    previewPictureId: entity.previewPictureId,
 });
 
 export const prepareNewsCreateData = (data: ModalAdministeredNewsModel): NewsCreateApiParams => ({
@@ -171,6 +172,8 @@ export const preparePagesCreateData = (data: ModalAdministeredCategoryModel): ca
     list: data.list,
     video: data.video,
     sectionId: data.sectionId,
+    previewPictureId: data.previewPictureId,
+    previewPictureFile: data.previewPictureFile,
 });
 export const preparePagesUpdateData = (data: ModalAdministeredCategoryModel): categoryUpdateApiParams => ({
     title: data.title,
@@ -185,6 +188,8 @@ export const preparePagesUpdateData = (data: ModalAdministeredCategoryModel): ca
     video: data.video,
     videoId: data.videoId,
     sectionId: data.sectionId,
+    previewPictureId: data.previewPictureId,
+    previewPictureFile: data.previewPictureFile,
 });
 
 export const useEntityCreate = () => {

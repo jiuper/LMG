@@ -8,20 +8,55 @@ import Build from "@/shared/assests/build.jpg";
 import { API_BASE } from "@/shared/constants/private";
 import { BuildingPage } from "@/view/Building/Building";
 
+const advertisingOptions = [
+    "рекламавлифтах",
+    "рекламанавидеоэкранах",
+    "размещениевподъездах",
+    "дорхенгеры",
+    "квитанции",
+    "почтовыеящики",
+];
+
 export default function Building({ port, cat, filterSect }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const items = [{ label: "Реклама в жилых домах" }];
+    const sortCategoriesByPriority = (categories: GetCategoryDto[], priorities: string[]) => {
+        return categories.sort((a, b) => {
+            const formattedTitleA = a.title.toLowerCase().replace(/\s/g, "");
+            const formattedTitleB = b.title.toLowerCase().replace(/\s/g, "");
+            const priorityA = priorities.indexOf(formattedTitleA);
+            const priorityB = priorities.indexOf(formattedTitleB);
+
+            if (priorityA !== -1 && priorityB !== -1) {
+                return priorityA - priorityB;
+            }
+
+            if (priorityA !== -1) {
+                return -1;
+            }
+
+            if (priorityB !== -1) {
+                return 1;
+            }
+
+            return 0;
+        });
+    };
+    const sortedCategories = sortCategoriesByPriority(cat, advertisingOptions);
 
     return (
         <PageLayout>
             <BreadCrumb model={items} />
             <BuildingPage
-                listCategory={cat}
+                listCategory={sortedCategories}
                 sect={filterSect}
                 port={port || []}
                 alt="Build"
                 src={Build}
                 title="Реклама в жилых домах"
-                description="Достигайте своей аудитории там, где она живет.Эффективное решение для продвижения ваших услуг и товаров среди жителей."
+                description="Реклама в жилых домах — это возможность быть на виду у клиентов каждый
+                            день! Ваше сообщение встречает жителей, когда они выходят из дома или
+                            возвращаются с работы: это часть их повседневной жизни. Именно ваша
+                            реклама станет тем самым «щелчком», который заставит их обратиться к вам"
             />
         </PageLayout>
     );

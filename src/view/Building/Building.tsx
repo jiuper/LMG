@@ -6,6 +6,7 @@ import { FormFeedback } from "@/components/_Forms/FormFeedback";
 import { ModalFeedBack } from "@/components/_Modals/ModalFeedBack";
 import { MapView } from "@/components/MapView";
 import type { GetCategoryDto, GetPortfolioDto, GetSectionDto } from "@/entities/types/entities";
+import { ContentSatus } from "@/entities/types/entities";
 import { Routes } from "@/shared/constants";
 import { useBooleanState } from "@/shared/hooks";
 import { Button } from "@/shared/ui/Button";
@@ -39,6 +40,7 @@ export const BuildingPage = ({
     const [isOpen, open, close] = useBooleanState(false);
 
     const href = useRouter();
+    const filterSect = listCategory.filter((el) => el.status === ContentSatus.PUBLISHED);
 
     return (
         <div className={cx("building")}>
@@ -53,13 +55,18 @@ export const BuildingPage = ({
                 </div>
                 <ModalFeedBack isOpen={isOpen} onClose={close} />
             </div>
-            {listCategory.length ? (
+            {filterSect.length ? (
                 <div className={cx("cards-container")}>
                     <div className={cx("cards-wrapper", "container")}>
                         <h2>Варианты размещения рекламы</h2>
                         <div className={cx("cards")}>
-                            {listCategory.map((el, index) => (
-                                <Card onClick={() => href.push(`${url}/${el.id}`)} key={index} data={el} />
+                            {filterSect.map((el, index) => (
+                                <Card
+                                    className={cx(filterSect.length === 1 && "active")}
+                                    onClick={() => href.push(`${url}/${el.id}`)}
+                                    key={index}
+                                    data={el}
+                                />
                             ))}
                         </div>
                     </div>

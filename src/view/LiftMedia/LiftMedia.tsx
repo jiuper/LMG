@@ -11,6 +11,7 @@ import { API_BASE } from "@/shared/constants/private";
 import { useBooleanState } from "@/shared/hooks";
 import { Button } from "@/shared/ui/Button";
 import { CustomImage } from "@/shared/ui/CustomImage";
+import { listStepsOne } from "@/view/LiftMedia/const";
 import { CaseBlock } from "@/view/Main/component/CaseBlock";
 
 import styles from "./LiftMedia.module.scss";
@@ -24,24 +25,30 @@ type Props = {
 };
 export const LiftMedia = ({ port, data, districts, url }: Props) => {
     const [isOpen, open, close] = useBooleanState(false);
-    const href = useRouter();
     const { title, description, pictureId, videoId, list } = data;
     const [isActive, setActive] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
     const [showVideo, setShowVideo] = useState(false);
     const router = useRouter();
     useEffect(() => {
-        const handleRouteChange = () => {
+        const handleRouteChangeStart = () => {
             if (videoRef.current) {
                 videoRef.current.pause();
                 videoRef.current.currentTime = 0;
                 setShowVideo(false);
             }
         };
-        router.events.on("routeChangeStart", handleRouteChange);
+        const handleRouteChangeComplete = () => {
+            if (videoRef.current) {
+                videoRef.current.load();
+            }
+        };
+        router.events.on("routeChangeStart", handleRouteChangeStart);
+        router.events.on("routeChangeComplete", handleRouteChangeComplete);
 
         return () => {
-            router.events.off("routeChangeStart", handleRouteChange);
+            router.events.off("routeChangeStart", handleRouteChangeStart);
+            router.events.off("routeChangeComplete", handleRouteChangeComplete);
         };
     }, [router.events]);
     const handlePlay = () => {
@@ -90,11 +97,11 @@ export const LiftMedia = ({ port, data, districts, url }: Props) => {
                                               ]
                                             : [],
                                 }))}
-                                handleLink={(id) => href.push(`${url}/${id}`)}
+                                handleLink={(id) => router.push(`${url}/${id}`)}
                             />
                             <div className={cx("items", isActive && "active")}>
                                 {districts?.map((el, i) => (
-                                    <div key={i} onClick={() => href.push(`${url}/${el.id}`)} className={cx("item")}>
+                                    <div key={i} onClick={() => router.push(`${url}/${el.id}`)} className={cx("item")}>
                                         <h4>{el.area?.name}</h4>
                                     </div>
                                 ))}
@@ -157,62 +164,33 @@ export const LiftMedia = ({ port, data, districts, url }: Props) => {
                     </div>
                     <div className={cx("content-loyalty")}>
                         <div className={cx("list")}>
-                            <div className={cx("item")}>
-                                <div className={cx("number")}>1</div>
-                                <span className={cx("title")}>Выберите районы</span>
-                            </div>
-                            <svg
-                                className={cx("arrow")}
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="88"
-                                height="15"
-                                viewBox="0 0 88 15"
-                                fill="none"
-                            >
-                                <path
-                                    d="M1 6.54297C0.447715 6.54297 0 6.99068 0 7.54297C0 8.09525 0.447715 8.54297 1 8.54297V6.54297ZM87.0404 8.25008C87.431 7.85955 87.431 7.22639 87.0404 6.83586L80.6765 0.471901C80.286 0.0813766 79.6528 0.0813766 79.2623 0.471901C78.8717 0.862425 78.8717 1.49559 79.2623 1.88611L84.9191 7.54297L79.2623 13.1998C78.8717 13.5903 78.8717 14.2235 79.2623 14.614C79.6528 15.0046 80.286 15.0046 80.6765 14.614L87.0404 8.25008ZM1 8.54297H6.33333V6.54297H1V8.54297ZM17 8.54297H27.6667V6.54297H17V8.54297ZM38.3333 8.54297H49V6.54297H38.3333V8.54297ZM59.6667 8.54297H70.3333V6.54297H59.6667V8.54297ZM81 8.54297H86.3333V6.54297H81V8.54297Z"
-                                    fill="#FBFBFB"
-                                />
-                            </svg>
-                            <div className={cx("item")}>
-                                <div className={cx("number")}>2</div>
-                                <span className={cx("title")}>Создайте макет</span>
-                            </div>
-                            <svg
-                                className={cx("arrow")}
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="88"
-                                height="15"
-                                viewBox="0 0 88 15"
-                                fill="none"
-                            >
-                                <path
-                                    d="M1 6.54297C0.447715 6.54297 0 6.99068 0 7.54297C0 8.09525 0.447715 8.54297 1 8.54297V6.54297ZM87.0404 8.25008C87.431 7.85955 87.431 7.22639 87.0404 6.83586L80.6765 0.471901C80.286 0.0813766 79.6528 0.0813766 79.2623 0.471901C78.8717 0.862425 78.8717 1.49559 79.2623 1.88611L84.9191 7.54297L79.2623 13.1998C78.8717 13.5903 78.8717 14.2235 79.2623 14.614C79.6528 15.0046 80.286 15.0046 80.6765 14.614L87.0404 8.25008ZM1 8.54297H6.33333V6.54297H1V8.54297ZM17 8.54297H27.6667V6.54297H17V8.54297ZM38.3333 8.54297H49V6.54297H38.3333V8.54297ZM59.6667 8.54297H70.3333V6.54297H59.6667V8.54297ZM81 8.54297H86.3333V6.54297H81V8.54297Z"
-                                    fill="#FBFBFB"
-                                />
-                            </svg>
-                            <div className={cx("item")}>
-                                <div className={cx("number")}>3</div>
-                                <span className={cx("title")}>Оплатите заказ</span>
-                            </div>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="88"
-                                height="15"
-                                viewBox="0 0 88 15"
-                                fill="none"
-                                className={cx("arrow")}
-                            >
-                                <path
-                                    d="M1 6.54297C0.447715 6.54297 0 6.99068 0 7.54297C0 8.09525 0.447715 8.54297 1 8.54297V6.54297ZM87.0404 8.25008C87.431 7.85955 87.431 7.22639 87.0404 6.83586L80.6765 0.471901C80.286 0.0813766 79.6528 0.0813766 79.2623 0.471901C78.8717 0.862425 78.8717 1.49559 79.2623 1.88611L84.9191 7.54297L79.2623 13.1998C78.8717 13.5903 78.8717 14.2235 79.2623 14.614C79.6528 15.0046 80.286 15.0046 80.6765 14.614L87.0404 8.25008ZM1 8.54297H6.33333V6.54297H1V8.54297ZM17 8.54297H27.6667V6.54297H17V8.54297ZM38.3333 8.54297H49V6.54297H38.3333V8.54297ZM59.6667 8.54297H70.3333V6.54297H59.6667V8.54297ZM81 8.54297H86.3333V6.54297H81V8.54297Z"
-                                    fill="#FBFBFB"
-                                />
-                            </svg>
-                            <div className={cx("item")}>
-                                <div className={cx("number")}>4</div>
-                                <span className={cx("title")}>Получайте клиентов</span>
-                            </div>
+                            {listStepsOne.map((el, i) => (
+                                <div key={i} className={cx("item-wrapper")}>
+                                    {!el.type ? (
+                                        <div className={cx("item")}>
+                                            <CustomImage width={48} height={48} src={el.icon} alt={el.icon} />
+                                            <span className={cx("title")}>{el.title}</span>
+                                        </div>
+                                    ) : (
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="88"
+                                            height="16"
+                                            viewBox="0 0 88 16"
+                                            fill="none"
+                                            className={cx("arrow")}
+                                            style={{ opacity: i !== 2 ? 1 : 0 }}
+                                        >
+                                            <path
+                                                d="M1.66602 7C1.11373 7 0.666016 7.44772 0.666016 8C0.666016 8.55228 1.11373 9 1.66602 9V7ZM87.7065 8.70711C88.097 8.31658 88.097 7.68342 87.7065 7.29289L81.3425 0.928932C80.952 0.538408 80.3188 0.538408 79.9283 0.928932C79.5378 1.31946 79.5378 1.95262 79.9283 2.34315L85.5851 8L79.9283 13.6569C79.5378 14.0474 79.5378 14.6805 79.9283 15.0711C80.3188 15.4616 80.952 15.4616 81.3425 15.0711L87.7065 8.70711ZM1.66602 9H6.99935V7H1.66602V9ZM17.666 9H28.3327V7H17.666V9ZM38.9994 9H49.666V7H38.9994V9ZM60.3327 9H70.9994V7H60.3327V9ZM81.666 9H86.9994V7H81.666V9Z"
+                                                fill="#566DD6"
+                                            />
+                                        </svg>
+                                    )}
+                                </div>
+                            ))}
                         </div>
+
                         <Button className={cx("button")} label="Получить клиентов" onClick={open} />
                     </div>
                 </div>

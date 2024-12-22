@@ -30,6 +30,8 @@ export const MODAL_ADMINISTERED_CATEGORY_DEFAULT_VALUES: ModalAdministeredCatego
     subtitle: "",
     file: null,
     pictureId: "",
+    previewPictureId: "",
+    previewPictureFile: null,
 };
 
 export type ModalAdministeredCategoryModel = ModalAdministeredCategoryState;
@@ -47,6 +49,8 @@ export type ModalAdministeredCategoryState = {
     file?: File | null;
     video?: File | null;
     sectionId?: string;
+    previewPictureId?: string;
+    previewPictureFile?: File | null;
 };
 
 export type ModalAdministeredCategoryRef = {
@@ -110,6 +114,15 @@ export const ModalAdministeredCategory = forwardRef<ModalAdministeredCategoryRef
                         onChange={formik.handleChange}
                         value={formik.values.description}
                     />
+                    <div className={cx("picture")}>
+                        <span>Изображение превью</span>
+                        <CustomFileUpload
+                            value={formik.values.previewPictureFile || null}
+                            name="previewPictureFile"
+                            onChange={(e) => formik.setFieldValue("previewPictureFile", e)}
+                            fileStr={formik.values.previewPictureId}
+                        />
+                    </div>
                     <div className={cx("picture")}>
                         <span>Изображение </span>
                         <CustomFileUpload

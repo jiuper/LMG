@@ -3,7 +3,7 @@ import cnBind from "classnames/bind";
 
 import { FormFeedback } from "@/components/_Forms/FormFeedback";
 import { ModalFeedBack } from "@/components/_Modals/ModalFeedBack";
-import cal from "@/shared/assests/Frame 433.png";
+import cal from "@/shared/assests/Frame 433.jpg";
 import { EyeIcon, TimeIcon } from "@/shared/assests/svg/svg";
 import { useBooleanState } from "@/shared/hooks";
 import { Button } from "@/shared/ui/Button";

@@ -11,6 +11,18 @@
   @include responsive-sizing("padding-block", 28, 56, 360, 1440);
   @include flex-column();
   gap: 32px;
+
+  .button{
+    background: #040F16;
+    transition: .3s;
+
+    &:hover{
+      background: var(--Brand-Light-Guidance-Primary-Light-Primary-Container, #566DD6);
+    }
+    span{
+      color: #fff;
+    }
+  }
 }
 
 .header{
@@ -46,6 +58,11 @@
   @include flex-column();
   gap: 8px;
 
+  &.step{
+    background: transparent;
+    padding: 0;
+  }
+
   .form-content{
     @include flex-row();
     align-items: center;
@@ -53,19 +70,12 @@
     @include media-max(720px){
       @include flex-column();
       align-items: inherit;
+      gap: 24px;
     }
-
-
-    .button{
-      background: #040F16;
-      transition: .3s;
-
-      &:hover{
-        background: var(--Brand-Light-Guidance-Primary-Light-Primary-Container, #566DD6);
-      }
-      span{
-        color: #fff;
-      }
+    &.step{
+      @include flex-column();
+      gap: 32px;
+      align-items: flex-start;
     }
   }
 
@@ -90,10 +100,13 @@
     flex: 1 0 65%;
     @include media-max(720px){
       @include flex-column();
+      gap: 16px;
     }
 
     input{
       width: 100%;
     }
   }
+
 }
+

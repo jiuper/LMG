@@ -71,6 +71,7 @@ export const PortfolioPage = ({ port, categoryList }: Props) => {
                             paginated.map((el, index) => (
                                 <CaseCard
                                     image={`${API_BASE}/picture/${el.pictureId}`}
+                                    className={cx(paginated.length === 1 && "active")}
                                     onClick={() => handleOnModal(el)}
                                     key={index}
                                     {...el}

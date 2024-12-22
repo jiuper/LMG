@@ -62,11 +62,11 @@ export const items: NavbarTypeProps = [
             },
             {
                 label: "Документы",
-                url: Routes.ABOUTUS,
+                url: `${Routes.HISTORY}#documents`,
             },
             {
                 label: "Наша команда",
-                url: Routes.ABOUTUS,
+                url: `${Routes.HISTORY}#team`,
             },
         ],
     },
