@@ -31,7 +31,11 @@ export const HistoryCard = ({
         <div className={cx("history-card", className)} style={{ backgroundImage: `url(${image})` }}>
             <div className={cx("content")}>
                 <h3 className={cx("title")}>{title}</h3>
-                {description && <p className={cx("description")}>{description}</p>}
+                {description && (
+                    <p onClick={onClick} className={cx("description")}>
+                        {description}
+                    </p>
+                )}
                 {listHref && (
                     <ul className={cx("list")}>
                         {listHref.map((item, i) => (

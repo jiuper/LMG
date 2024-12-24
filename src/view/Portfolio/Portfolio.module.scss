@@ -1,4 +1,3 @@
-
 .wrapper{
   @include responsive-sizing("padding-inline", 8, 120, 360,1440);
   @include responsive-sizing("padding-top", 40, 120, 360,1440);
@@ -21,8 +20,8 @@
     @include flex-column();
     gap: 24px;
     .articles{
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(282px, 1fr));
       gap: 24px;
     }
 
