@@ -18,14 +18,18 @@ type Props = {
     listItem: GetPortfolioDto[];
     className?: string;
 };
+
 export const CaseBlock = ({ listItem, className }: Props) => {
     const href = useRouter();
     const [isOpen, onOpen, onClose] = useBooleanState(false);
     const [current, setCurrent] = useState<GetPortfolioDto | null>(null);
+    const [cardClasses, setCardClasses] = useState<string[]>([]);
+
     const handleOnModal = (i: GetPortfolioDto) => {
         setCurrent(i);
         onOpen();
     };
+
     const handleOnClose = () => {
         onClose();
         setCurrent(null);
@@ -42,10 +46,10 @@ export const CaseBlock = ({ listItem, className }: Props) => {
                 <div className={cx("cards")}>
                     {listItem.slice(-7).map((el, index) => (
                         <CaseCard
+                            key={index}
                             image={`${API_BASE}/picture/${el.pictureId}`}
                             onClick={() => handleOnModal(el)}
-                            key={index}
-                            className={cx(listItem.length === 1 && "active")}
+                            className={cx(cardClasses[index])}
                             {...el}
                         />
                     ))}
