@@ -1,13 +1,13 @@
-import img_7 from "@/shared/assests/team/Анна Кудрявцева.jpg";
-import img_9 from "@/shared/assests/team/Антон Кувшинов.jpg";
+import img_7 from "@/shared/assests/team/Анна Кудрявцева (1).jpg";
+import img_9 from "@/shared/assests/team/Антон Кувшинов (1).jpg";
 import img_2 from "@/shared/assests/team/Борис Лапта.jpg";
-import img_8 from "@/shared/assests/team/Валерия Руденко.jpg";
+import img_8 from "@/shared/assests/team/Валерия Руденко.jpeg";
 import img_3 from "@/shared/assests/team/Денис.jpg";
 import img_4 from "@/shared/assests/team/Джуля Халифе.jpg";
 import img_1 from "@/shared/assests/team/Егор Иваков.jpg";
-import img_10 from "@/shared/assests/team/Екатерина Коворотная.jpg";
+import img_10 from "@/shared/assests/team/Екатерина Коворотная (1).jpg";
 import img_5 from "@/shared/assests/team/Ирина Монахова.jpg";
-import img_11 from "@/shared/assests/team/Любовь Басова.jpg";
+import img_11 from "@/shared/assests/team/Любовь Басова (1).jpg";
 import img_12 from "@/shared/assests/team/Люция Загитова.jpg";
 import img_13 from "@/shared/assests/team/Мария Гадалова.jpg";
 import img_6 from "@/shared/assests/team/Нататлья Хамидова.jpg";

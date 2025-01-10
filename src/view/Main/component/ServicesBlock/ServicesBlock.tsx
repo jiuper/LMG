@@ -22,7 +22,7 @@ export const ServicesBlock = () => {
             href: Routes.BUILDING,
         },
         {
-            title: `Реклама для ПВЗ: Как привлечь клиентов?`,
+            title: `Реклама в пунктах выдачи заказов`,
             image: card_2.src,
             href: Routes.POSTERPVZ,
         },

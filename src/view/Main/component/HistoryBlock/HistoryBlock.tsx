@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 import card_1 from "@/shared/assests/history_1.png";
 import card_2 from "@/shared/assests/history_2.png";
-import card_3 from "@/shared/assests/history_3.png";
+import card_3 from "@/shared/assests/team/общее_фото.jpeg";
 import { Routes } from "@/shared/constants";
 import { HistoryCard } from "@/view/Main/component/HistoryBlock/component/HistoryCard";
 

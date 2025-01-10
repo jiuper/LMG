@@ -44,7 +44,7 @@ export const CaseBlock = ({ listItem, className }: Props) => {
                 </div>
 
                 <div className={cx("cards")}>
-                    {listItem.slice(-7).map((el, index) => (
+                    {listItem.slice(-8).map((el, index) => (
                         <CaseCard
                             key={index}
                             image={`${API_BASE}/picture/${el.pictureId}`}
