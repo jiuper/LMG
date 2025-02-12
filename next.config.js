@@ -2,10 +2,6 @@ const path = require("path");
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     output: "standalone",
-    distDir: "build",
-    experimental: {
-        appDir: true, // Позволяет использовать /src в качестве корневой папки
-    },
     productionBrowserSourceMaps: true,
     sassOptions: {
         includePaths: [path.join(__dirname, "styles")],
@@ -40,7 +36,7 @@ const nextConfig = {
                         },
                     },
                 ],
-            },
+          },
             {
                 test: /\.svg$/,
                 use: [
