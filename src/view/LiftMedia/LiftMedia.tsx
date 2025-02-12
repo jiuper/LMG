@@ -82,7 +82,7 @@ export const LiftMedia = ({ port, data, districts, url }: Props) => {
                                 zoom={9}
                                 build={districts.map((item) => ({
                                     id: item.id,
-                                    name: item.area.name,
+                                    name: item.area.name || "",
                                     coordinates:
                                         item.area.lat !== undefined && item.area.lon !== undefined
                                             ? [[item.area.lat, item.area.lon]]
@@ -96,6 +96,9 @@ export const LiftMedia = ({ port, data, districts, url }: Props) => {
                                                   },
                                               ]
                                             : [],
+                                    categoryId: item.categoryId,
+                                    buildAreaCoordinates: [],
+                                    categoryAreaId: item.id,
                                 }))}
                                 handleLink={(id) => router.push(`${url}/${id}`)}
                             />

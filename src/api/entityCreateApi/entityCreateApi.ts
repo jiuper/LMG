@@ -3,6 +3,7 @@ import { createAxiosApi } from "@/shared/axios/axios";
 
 export type entityCreateApiParams = {
     coordinates?: [number, number][];
+    buildAreaCoordinates?: [number, number][];
     name?: string;
     wDescription?: string;
     gTitle?: string;

@@ -6,6 +6,7 @@ import type { CreateNewsDto } from "@/entities/types/entities";
 import { PageLayout } from "@/layouts/PageLayout";
 import { Routes } from "@/shared/constants";
 import { API_BASE } from "@/shared/constants/private";
+import { filterByStatus } from "@/shared/utils/filterAndSort/getSortDirection";
 import { Articles } from "@/view/Articles";
 
 export default function News({ articles }: InferGetServerSidePropsType<typeof getServerSideProps>) {
@@ -14,7 +15,11 @@ export default function News({ articles }: InferGetServerSidePropsType<typeof ge
     return (
         <PageLayout>
             <BreadCrumb model={items} />
-            <Articles url={Routes.NEWS} listArticles={articles.length ? articles : []} title="Новости" />
+            <Articles
+                url={Routes.NEWS}
+                listArticles={articles.length ? filterByStatus(articles) : []}
+                title="Новости"
+            />
         </PageLayout>
     );
 }

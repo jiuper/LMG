@@ -14,6 +14,8 @@ export type categoryUpdateApiParams = {
     status?: ContentSatus;
     file?: File | null;
     video?: File | null;
+    iconPictureId?: string | null;
+    icon?: File | null;
     previewPictureId?: string;
     previewPictureFile?: File | null;
 };

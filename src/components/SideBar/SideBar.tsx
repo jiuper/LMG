@@ -2,7 +2,7 @@ import cnBind from "classnames/bind";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { IcDoubleArrow, IcLogout } from "@/shared/assests/svg";
+import { IcDoubleArrow } from "@/shared/assests/svg";
 import { Belong } from "@/shared/constants";
 import { useBooleanState } from "@/shared/hooks";
 import { useNavigationItems } from "@/shared/hooks/useNavigationItems";

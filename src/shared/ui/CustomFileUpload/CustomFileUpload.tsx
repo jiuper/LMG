@@ -14,16 +14,36 @@ interface CustomFileUploadProps {
     onChange: (val: File | null) => void;
     name: string;
     fileStr?: string;
+    onDelete?: () => void;
+    required?: boolean;
 }
-const CustomFileUpload = ({ onChange, value, name, fileStr }: CustomFileUploadProps) => {
+const CustomFileUpload = ({ onChange, value, name, fileStr, onDelete, required }: CustomFileUploadProps) => {
     const [file, setFile] = useState<File | null | string>(value);
     const [_, setDrag] = useState(false);
     useEffect(() => {
         setFile(value);
     }, [value]);
-    const handleUpload = (e: ChangeEvent<HTMLInputElement>) => {
-        e.target.files && onChange(e.target.files[0]);
+    const generateRandomName = (length: number) => {
+        const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        return Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
     };
+
+    const handleUpload = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            const originalFile = e.target.files[0];
+
+            const randomLength = Math.floor(Math.random() * (10 - 6 + 1)) + 6;
+            const randomName = generateRandomName(randomLength);
+
+            const renamedFile = new File([originalFile], `${randomName}.${originalFile.name.split(".").pop()}`, {
+                type: originalFile.type,
+            });
+
+            onChange(renamedFile);
+        }
+    };
+
     const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         setDrag(false);
@@ -44,7 +64,7 @@ const CustomFileUpload = ({ onChange, value, name, fileStr }: CustomFileUploadPr
         <div className={cx("uploader")}>
             {file === null ? (
                 <div
-                    className={cx("drop")}
+                    className={cx("drop", { required })}
                     onDragStart={(e) => handleDragStart(e)}
                     onDragLeave={(e) => handleDragLeave(e)}
                     onDragOver={(e) => handleDragStart(e)}
@@ -68,12 +88,13 @@ const CustomFileUpload = ({ onChange, value, name, fileStr }: CustomFileUploadPr
                 </div>
             ) : (
                 <div className={cx("preview")}>
-                    <ImgPreview className={cx("img")} value={file} />
+                    {file !== "" && <ImgPreview className={cx("img")} value={file} />}
                     <CloseIcon
                         className={cx("close")}
                         onClick={() => {
                             setFile(null);
                             onChange(null);
+                            onDelete?.();
                         }}
                     />
                 </div>

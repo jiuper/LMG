@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 
 interface PageLayoutProps {
     title?: string;
+    description?: string;
     children: ReactNode;
 }
 

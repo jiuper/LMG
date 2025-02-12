@@ -27,6 +27,8 @@ export const MODAL_ADMINISTERED_ENTITY_DEFAULT_VALUES: ModalAdministeredEntitySt
     districtName: districts[0].value,
     file: null,
     pictureId: "",
+    buildAreaCoordinates: [],
+    gSubTitle: "",
 };
 
 export type ModalAdministeredEntityModel = ModalAdministeredEntityState;
@@ -40,8 +42,10 @@ export type ModalAdministeredEntityState = {
     gSubTitle?: string;
     districtName?: string;
     coordinates?: [number, number][];
+    buildAreaCoordinates?: [number, number][];
     list?: ListItem[];
     pictureId?: string;
+    iconPictureId?: string;
     status?: ContentSatus;
     file?: File | null;
     categoryAreaId?: string;
@@ -66,7 +70,12 @@ export const ModalAdministeredEntity = forwardRef<ModalAdministeredEntityRef, Mo
         const formik = useFormik({
             initialValues: MODAL_ADMINISTERED_ENTITY_DEFAULT_VALUES,
             onSubmit(values) {
-                onSubmit({ ...values, status: submitStatus });
+                onSubmit({
+                    ...values,
+                    status: submitStatus,
+                    buildAreaCoordinates: values.buildAreaCoordinates,
+                    coordinates: values.coordinates,
+                });
             },
         });
 
@@ -83,6 +92,16 @@ export const ModalAdministeredEntity = forwardRef<ModalAdministeredEntityRef, Mo
                     values: { ...state.values, ...MODAL_ADMINISTERED_ENTITY_DEFAULT_VALUES },
                 })),
         }));
+
+        const handleOnChange = (mode: "placemark" | "polygon", coordinates: [number, number][]) => {
+            if (mode === "placemark") {
+                void formik.setFieldValue("coordinates", coordinates);
+                void formik.setFieldValue("buildAreaCoordinates", []);
+            } else {
+                void formik.setFieldValue("buildAreaCoordinates", coordinates);
+                void formik.setFieldValue("coordinates", []);
+            }
+        };
 
         return (
             <Modal
@@ -118,8 +137,9 @@ export const ModalAdministeredEntity = forwardRef<ModalAdministeredEntityRef, Mo
                             <span className={cx("title")}>Координаты</span>
                             <div className={cx("block-fields")}>
                                 <MapWrapper
+                                    buildAreaCoordinates={formik.values.buildAreaCoordinates || []}
                                     coordinates={formik.values.coordinates}
-                                    onChange={(e) => formik.setFieldValue("coordinates", e)}
+                                    onChange={handleOnChange}
                                 />
                             </div>
                         </div>

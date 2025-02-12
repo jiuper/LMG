@@ -17,5 +17,10 @@ export const newsCreateApi = async (params: NewsCreateApiParams): Promise<boolea
         type: "postForm",
         url: "/news/create",
         body: params,
+        config: {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        },
     }).then(() => true);
 };

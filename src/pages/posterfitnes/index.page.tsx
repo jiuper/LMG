@@ -7,6 +7,7 @@ import { PageLayout } from "@/layouts/PageLayout";
 import Build from "@/shared/assests/картинк на раздел ФЦ.jpg";
 import { Routes } from "@/shared/constants";
 import { API_BASE } from "@/shared/constants/private";
+import { filterByStatus } from "@/shared/utils/filterAndSort/getSortDirection";
 import { BuildingPage } from "@/view/Building/Building";
 
 export default function Building({ port, cat, filterSect }: InferGetServerSidePropsType<typeof getServerSideProps>) {
@@ -17,8 +18,8 @@ export default function Building({ port, cat, filterSect }: InferGetServerSidePr
             <BreadCrumb model={items} />
             <BuildingPage
                 sect={filterSect}
-                listCategory={cat}
-                port={port || []}
+                listCategory={filterByStatus(cat)}
+                port={filterByStatus(port) || []}
                 alt="FITNESS"
                 src={Build}
                 url={Routes.POSTERFITNES}

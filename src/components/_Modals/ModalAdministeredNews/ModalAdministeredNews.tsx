@@ -63,21 +63,63 @@ export const ModalAdministeredNews = forwardRef<ModalAdministeredNewsRef, ModalA
         const [submitStatus, setSubmitStatus] = useState(ContentSatus.PUBLISHED);
         const formik = useFormik({
             initialValues: MODAL_ADMINISTERED_NEWS_DEFAULT_VALUES,
+            validate(values) {
+                const errors: Record<string, string> = {};
+
+                const hasExistingImage = values.pictureName || values.contentItems?.some((item) => item.pictureName);
+                const hasNewFiles = values.files && values.files.length > 0;
+
+                // Проверяем, есть ли первая картинка, только если ее нет в `pictureName` или `contentItems`
+                if (!hasNewFiles && !hasExistingImage) {
+                    errors.files = "Первая картинка обязательна";
+                }
+
+                return errors;
+            },
+
             onSubmit(values) {
-                onSubmit({
+                const files = values.files || [];
+                const contentItems = values.contentItems || [];
+                const isFilesNotEmpty = files.length > 0 && files.some((file) => file instanceof File);
+                let updatedContentItems = [...contentItems];
+
+                if (isFilesNotEmpty) {
+                    updatedContentItems = updatedContentItems.map((el, index) => {
+                        const file = files[index];
+
+                        return {
+                            ...el,
+                            pictureName: file ? file.name : el.pictureName || "",
+                        };
+                    });
+
+                    if (files.length > contentItems.length) {
+                        files.slice(contentItems.length).forEach((file) => {
+                            if (file) {
+                                updatedContentItems.push({ pictureName: file.name });
+                            }
+                        });
+                    }
+                }
+
+                // Не заменяем `pictureName`, если новый файл не загружен
+                const pictureName = isFilesNotEmpty
+                    ? files[0]?.name
+                    : values.pictureName || contentItems[0]?.pictureName || "";
+
+                const submitData = {
                     ...values,
                     status: submitStatus,
                     list: isListTextOpen,
-                    pictureName: values.files?.[0]?.name,
-                    contentItems: values.contentItems?.length
-                        ? values.contentItems.map((el, index) => ({
-                              ...el,
-                              pictureName: values.files?.filter((file) => file)[index]?.name || "",
-                          }))
-                        : values.files?.filter((file) => file).map((file) => ({ pictureName: file.name })),
-                });
+                    pictureName,
+                    contentItems: updatedContentItems,
+                    files: isFilesNotEmpty ? files : [],
+                };
+
+                onSubmit(submitData);
             },
         });
+
         const [isVideoOpen, setIsVideoOpen] = useState(false);
 
         const [isListTextOpen, setIsListTextOpen] = useState<ListDto[]>([]);
@@ -89,14 +131,24 @@ export const ModalAdministeredNews = forwardRef<ModalAdministeredNewsRef, ModalA
         const submitBntLabel = isEditType ? "Редактировать" : "Создать";
 
         useImperativeHandle(ref, () => ({
-            setFormValues: (values) =>
-                formik.setFormikState((state) => ({ ...state, values: { ...state.values, ...values } })),
-            clearValues: () =>
+            setFormValues: (values) => {
+                formik.setFormikState((state) => ({
+                    ...state,
+                    values: {
+                        ...MODAL_ADMINISTERED_NEWS_DEFAULT_VALUES,
+                        ...values,
+                        files: values.files || [], // Не затираем files в `null`
+                    },
+                }));
+            },
+            clearValues: () => {
                 formik.setFormikState((state) => ({
                     ...state,
                     values: { ...state.values, ...MODAL_ADMINISTERED_NEWS_DEFAULT_VALUES },
-                })),
+                }));
+            },
         }));
+
         useEffect(() => {
             if (formik.values.list && isEditType) setIsListTextOpen(formik.values.list);
 
@@ -132,6 +184,8 @@ export const ModalAdministeredNews = forwardRef<ModalAdministeredNewsRef, ModalA
                         name="files[0]"
                         onChange={(e) => formik.setFieldValue("files[0]", e)}
                         fileStr={formik.values.contentItems?.[0]?.pictureId}
+                        onDelete={() => formik.setFieldValue("contentItems.[0].pictureId", "")}
+                        required={formik.values.files?.[0] !== null}
                     />
                     <InputTextarea
                         isFullWidth
@@ -178,6 +232,7 @@ export const ModalAdministeredNews = forwardRef<ModalAdministeredNewsRef, ModalA
                             name="files[1]"
                             onChange={(e) => formik.setFieldValue("files[1]", e)}
                             fileStr={formik.values.contentItems?.[1]?.pictureId}
+                            onDelete={() => formik.setFieldValue("contentItems.[1].pictureId", "")}
                         />
                     ) : (
                         <CustomFileUpload

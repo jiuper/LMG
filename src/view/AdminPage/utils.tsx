@@ -190,6 +190,8 @@ export const preparePagesUpdateData = (data: ModalAdministeredCategoryModel): ca
     sectionId: data.sectionId,
     previewPictureId: data.previewPictureId,
     previewPictureFile: data.previewPictureFile,
+    iconPictureId: data.iconPictureId,
+    icon: data.icon,
 });
 
 export const useEntityCreate = () => {

@@ -29,12 +29,13 @@ export const LeftMediaJk = ({ units }: Props) => {
                     <div className={cx("map-content")}>
                         <MapView
                             list={units.list}
-                            center={units?.coordinates[0]}
+                            center={units?.coordinates?.[0]}
                             zoom={11}
                             build={[units].map((item) => ({
                                 id: item.id,
                                 name: item.name,
                                 coordinates: item.coordinates,
+                                buildAreaCoordinates: item.buildAreaCoordinates,
                                 list: item.list,
                             }))}
                             name={units.name}

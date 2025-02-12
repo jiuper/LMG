@@ -6,6 +6,7 @@ import type { GetBuildDto, GetCategoryAreaDto, GetCategoryDto } from "@/entities
 import { PageLayout } from "@/layouts/PageLayout";
 import { Routes } from "@/shared/constants";
 import { API_BASE } from "@/shared/constants/private";
+import { filterByStatus } from "@/shared/utils/filterAndSort/getSortDirection";
 import { LiftMediaSection } from "@/view/LiftMediaSection";
 
 export default function IndexPage({
@@ -24,12 +25,12 @@ export default function IndexPage({
     ];
 
     return (
-        <PageLayout>
+        <PageLayout title={filterArea.seoTitle} description={filterArea.seoDescription}>
             <BreadCrumb model={items} />
             <LiftMediaSection
                 title={filterCat.title}
                 url={`${Routes.POSTERFITNES}/${id}/${district}`}
-                units={build}
+                units={filterByStatus(build)}
                 district={filterArea}
             />
         </PageLayout>

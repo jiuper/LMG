@@ -3,6 +3,7 @@ import cnBind from "classnames/bind";
 import { useFormik } from "formik";
 
 import { Modal } from "@/components/_Modals/Modal";
+import { MODAL_ADMINISTERED_NEWS_DEFAULT_VALUES } from "@/components/_Modals/ModalAdministeredNews";
 import { List } from "@/components/_Modals/ModalAdministeredNews/List/List";
 import type { GetItemDto, ListDto } from "@/entities/types/entities";
 import { ContentSatus } from "@/entities/types/entities";
@@ -24,6 +25,7 @@ export const MODAL_ADMINISTERED_ARTICLE_DEFAULT_VALUES: ModalAdministeredArticle
     video: null,
     files: [],
     pictureName: "",
+    videoId: null,
 };
 
 export type ModalAdministeredArticleModel = ModalAdministeredArticleState;
@@ -57,26 +59,69 @@ interface ModalAdministeredArticleProps {
     isLoading: boolean;
     errorMessage?: string;
 }
+
 export const ModalAdministeredArticle = forwardRef<ModalAdministeredArticleRef, ModalAdministeredArticleProps>(
     ({ type, errorMessage, onClose, isOpen, isLoading, onSubmit }, ref) => {
         const [submitStatus, setSubmitStatus] = useState(ContentSatus.PUBLISHED);
         const formik = useFormik({
-            initialValues: MODAL_ADMINISTERED_ARTICLE_DEFAULT_VALUES,
+            initialValues: MODAL_ADMINISTERED_NEWS_DEFAULT_VALUES,
+            validate(values) {
+                const errors: Record<string, string> = {};
+
+                const hasExistingImage = values.pictureName || values.contentItems?.some((item) => item.pictureName);
+                const hasNewFiles = values.files && values.files.length > 0;
+
+                // Проверяем, есть ли первая картинка, только если ее нет в `pictureName` или `contentItems`
+                if (!hasNewFiles && !hasExistingImage) {
+                    errors.files = "Первая картинка обязательна";
+                }
+
+                return errors;
+            },
+
             onSubmit(values) {
-                onSubmit({
+                const files = values.files || [];
+                const contentItems = values.contentItems || [];
+                const isFilesNotEmpty = files.length > 0 && files.some((file) => file instanceof File);
+                let updatedContentItems = [...contentItems];
+
+                if (isFilesNotEmpty) {
+                    updatedContentItems = updatedContentItems.map((el, index) => {
+                        const file = files[index];
+
+                        return {
+                            ...el,
+                            pictureName: file ? file.name : el.pictureName || "",
+                        };
+                    });
+
+                    if (files.length > contentItems.length) {
+                        files.slice(contentItems.length).forEach((file) => {
+                            if (file) {
+                                updatedContentItems.push({ pictureName: file.name });
+                            }
+                        });
+                    }
+                }
+
+                // Не заменяем `pictureName`, если новый файл не загружен
+                const pictureName = isFilesNotEmpty
+                    ? files[0]?.name
+                    : values.pictureName || contentItems[0]?.pictureName || "";
+
+                const submitData = {
                     ...values,
-                    list: isListTextOpen,
                     status: submitStatus,
-                    pictureName: values.files?.[0]?.name,
-                    contentItems: values.contentItems?.length
-                        ? values.contentItems.map((el, index) => ({
-                              ...el,
-                              pictureName: values.files?.filter((file) => file)[index]?.name || "",
-                          }))
-                        : values.files?.filter((file) => file).map((file) => ({ pictureName: file.name })),
-                });
+                    list: isListTextOpen,
+                    pictureName,
+                    contentItems: updatedContentItems,
+                    files: isFilesNotEmpty ? files : [],
+                };
+
+                onSubmit(submitData);
             },
         });
+
         const [isVideoOpen, setIsVideoOpen] = useState(false);
         const [isListTextOpen, setIsListTextOpen] = useState<ListDto[]>([]);
         const onChangeList = (list: ListDto, index: number) => {
@@ -87,14 +132,24 @@ export const ModalAdministeredArticle = forwardRef<ModalAdministeredArticleRef, 
         const modalHeaderTitle = isEditType ? "Редактировать статью" : "Добавить статью";
         const submitBntLabel = isEditType ? "Редактировать" : "Создать";
         useImperativeHandle(ref, () => ({
-            setFormValues: (values) =>
-                formik.setFormikState((state) => ({ ...state, values: { ...state.values, ...values } })),
-            clearValues: () =>
+            setFormValues: (values) => {
                 formik.setFormikState((state) => ({
                     ...state,
-                    values: { ...state.values, ...MODAL_ADMINISTERED_ARTICLE_DEFAULT_VALUES },
-                })),
+                    values: {
+                        ...MODAL_ADMINISTERED_NEWS_DEFAULT_VALUES,
+                        ...values,
+                        files: values.files || [], // Не затираем files в `null`
+                    },
+                }));
+            },
+            clearValues: () => {
+                formik.setFormikState((state) => ({
+                    ...state,
+                    values: { ...state.values, ...MODAL_ADMINISTERED_NEWS_DEFAULT_VALUES },
+                }));
+            },
         }));
+
         useEffect(() => {
             if (formik.values.list && isEditType) setIsListTextOpen(formik.values.list);
 
@@ -130,6 +185,8 @@ export const ModalAdministeredArticle = forwardRef<ModalAdministeredArticleRef, 
                         name="files[0]"
                         onChange={(e) => formik.setFieldValue("files[0]", e)}
                         fileStr={formik.values.contentItems?.[0]?.pictureId}
+                        onDelete={() => formik.setFieldValue("contentItems.[0].pictureId", "")}
+                        required={formik.values.files?.[0] !== null}
                     />
                     <InputTextarea
                         isFullWidth
@@ -176,6 +233,7 @@ export const ModalAdministeredArticle = forwardRef<ModalAdministeredArticleRef, 
                             name="files[1]"
                             onChange={(e) => formik.setFieldValue("files[1]", e)}
                             fileStr={formik.values.contentItems?.[1]?.pictureId}
+                            onDelete={() => formik.setFieldValue("contentItems.[1].pictureId", "")}
                         />
                     ) : (
                         <CustomFileUpload

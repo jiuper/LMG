@@ -11,6 +11,7 @@ import img_11 from "@/shared/assests/team/Любовь Басова (1).jpg";
 import img_12 from "@/shared/assests/team/Люция Загитова.jpg";
 import img_13 from "@/shared/assests/team/Мария Гадалова.jpg";
 import img_6 from "@/shared/assests/team/Нататлья Хамидова.jpg";
+import img_14 from "@/shared/assests/team/Ольга Тяжина (1).jpg";
 
 export const HISTORY_COMPANY = [
     { date: "2010", title: "Основание компании" },
@@ -80,7 +81,7 @@ export const team = [
     {
         name: "Ольга Тяжина",
         position: "Административный отдел",
-        image: img_10.src,
+        image: img_14.src,
     },
     {
         name: "Екатерина Коворотная",

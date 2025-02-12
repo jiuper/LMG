@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { AppProps } from "next/app";
 
+import { ToastContextProvider } from "@/shared/context";
 import { WindowResizeProvider } from "@/shared/context/WindowResizeProvider";
 
 import "@/shared/styles/global.scss";
@@ -20,7 +21,9 @@ function App({ Component, ...rest }: AppProps) {
     return (
         <QueryClientProvider client={queryClient}>
             <WindowResizeProvider>
-                <Component {...rest.pageProps} />
+                <ToastContextProvider>
+                    <Component {...rest.pageProps} />
+                </ToastContextProvider>
             </WindowResizeProvider>
         </QueryClientProvider>
     );

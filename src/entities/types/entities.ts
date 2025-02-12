@@ -65,16 +65,26 @@ export interface GetSectionDto {
     number: number;
     title?: string;
     description?: string;
-    status?: ContentSatus;
+    status: ContentSatus;
     createdAt?: Date;
     updatedAt?: Date;
     build: {
         id: string;
         categoryId?: string;
         categoryAreaId?: string;
-        name?: string;
+        number: number;
         coordinates?: [number, number][];
-        list?: { title?: string; value?: string }[];
+        buildAreaCoordinates?: [number, number][];
+        iconPictureId: string;
+        name: string;
+        wDescription: string;
+        pictureId: string;
+        gTitle: string;
+        gSubTitle: string;
+        list: { title: string; value: string }[];
+        status: ContentSatus;
+        createdAt: Date;
+        updatedAt: Date;
     }[];
     list?: {
         title?: string;
@@ -88,14 +98,17 @@ export interface GetCategoryDto {
     title: string;
     description: string;
     subtitle: string;
+    seoTitle?: string;
+    seoDescription?: string;
     sectionId: string;
     pictureId?: string;
     videoId?: string;
     list?: { title: string; items: { caption: string; subcaption: string }[] };
-    status?: ContentSatus;
+    status: ContentSatus;
     createdAt?: string;
     updatedAt?: string;
     previewPictureId?: string;
+    iconPictureId?: string;
 }
 export interface GetAreaDto {
     id: string;
@@ -103,6 +116,8 @@ export interface GetAreaDto {
     lat: number;
     lon: number;
     name: string;
+    seoTitle?: string;
+    seoDescription?: string;
     title: string;
     description: string;
     subTitle: string;
@@ -115,6 +130,8 @@ export interface GetCategoryAreaDto {
     id: string;
     categoryId: string;
     areaId: string;
+    seoTitle?: string;
+    seoDescription?: string;
     title?: string;
     description?: string;
     subTitle?: string;
@@ -136,9 +153,19 @@ export interface GetCategoryAreaDto {
         id: string;
         categoryId?: string;
         categoryAreaId?: string;
-        name?: string;
+        number: number;
         coordinates?: [number, number][];
-        list?: { title?: string; value?: string }[];
+        buildAreaCoordinates?: [number, number][];
+        iconPictureId: string;
+        name: string;
+        wDescription: string;
+        pictureId: string;
+        gTitle: string;
+        gSubTitle: string;
+        list: { title: string; value: string }[];
+        status: ContentSatus;
+        createdAt: Date;
+        updatedAt: Date;
     }[];
     list?: {
         title?: string;
@@ -148,18 +175,23 @@ export interface GetCategoryAreaDto {
 
 export interface GetBuildDto {
     id: string;
+    seoTitle?: string;
+    seoDescription?: string;
+    categoryId?: string;
+    categoryAreaId?: string;
     number: number;
-    coordinates: [number, number][];
+    coordinates?: [number, number][];
+    buildAreaCoordinates?: [number, number][];
+    iconPictureId?: string;
     name: string;
-    wDescription: string;
-    pictureId: string;
-    gTitle: string;
-    gSubTitle: string;
+    wDescription?: string;
+    pictureId?: string;
+    gTitle?: string;
+    gSubTitle?: string;
     list: { title: string; value: string }[];
     status: ContentSatus;
-    categoryAreaId: string;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 export interface ModalList {

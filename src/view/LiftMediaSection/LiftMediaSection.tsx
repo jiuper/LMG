@@ -1,6 +1,5 @@
 import { useState } from "react";
 import cnBind from "classnames/bind";
-import Image from "next/image";
 import { useRouter } from "next/router";
 
 import { FormFeedback } from "@/components/_Forms/FormFeedback";
@@ -11,6 +10,7 @@ import { API_BASE } from "@/shared/constants/private";
 import { useBooleanState } from "@/shared/hooks";
 import { Dropdown } from "@/shared/ui/_Dropdown";
 import { Button } from "@/shared/ui/Button";
+import { CustomImage } from "@/shared/ui/CustomImage";
 
 import styles from "./LiftMediaSection.module.scss";
 
@@ -80,7 +80,7 @@ export const LiftMediaSection = ({ district, units, url, title }: Props) => {
             </div>
             <div className={cx("container-lift")}>
                 <div className={cx("wrapper", "container")}>
-                    <Image
+                    <CustomImage
                         className={cx("image")}
                         width={1200}
                         height={423}

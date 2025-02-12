@@ -9,6 +9,10 @@
   @include text-Subtitle2;
   color: #79747E;
 
+
+  &.required{
+    border: 1px dashed $color-red-60;
+  }
 }
 .top{
   display: flex;

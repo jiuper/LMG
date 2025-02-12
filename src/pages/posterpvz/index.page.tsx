@@ -7,6 +7,7 @@ import { PageLayout } from "@/layouts/PageLayout";
 import Build from "@/shared/assests/ПВЗ картинка на раздел.jpg";
 import { Routes } from "@/shared/constants";
 import { API_BASE } from "@/shared/constants/private";
+import { filterByStatus } from "@/shared/utils/filterAndSort/getSortDirection";
 import { BuildingPage } from "@/view/Building/Building";
 
 export default function IndexPage({ port, cat, filterSect }: InferGetServerSidePropsType<typeof getServerSideProps>) {
@@ -17,8 +18,8 @@ export default function IndexPage({ port, cat, filterSect }: InferGetServerSideP
             <BreadCrumb model={items} />
             <BuildingPage
                 sect={filterSect}
-                listCategory={cat}
-                port={port || []}
+                listCategory={filterByStatus(cat)}
+                port={filterByStatus(port) || []}
                 alt="PVZ"
                 src={Build}
                 url={Routes.POSTERPVZ}

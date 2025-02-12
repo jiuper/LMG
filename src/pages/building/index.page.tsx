@@ -6,6 +6,7 @@ import type { GetCategoryDto, GetPortfolioSectionDto, GetSectionDto } from "@/en
 import { PageLayout } from "@/layouts/PageLayout";
 import Build from "@/shared/assests/build.jpg";
 import { API_BASE } from "@/shared/constants/private";
+import { filterByStatus } from "@/shared/utils/filterAndSort/getSortDirection";
 import { BuildingPage } from "@/view/Building/Building";
 
 const advertisingOptions = [
@@ -47,9 +48,9 @@ export default function Building({ port, cat, filterSect }: InferGetServerSidePr
         <PageLayout>
             <BreadCrumb model={items} />
             <BuildingPage
-                listCategory={sortedCategories}
+                listCategory={filterByStatus(sortedCategories)}
                 sect={filterSect}
-                port={port || []}
+                port={filterByStatus(port) || []}
                 alt="Build"
                 src={Build}
                 title="Реклама в жилых домах"

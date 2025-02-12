@@ -3,6 +3,7 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 import type { CreateNewsDto, GetFeedbackDto, GetPortfolioDto } from "@/entities/types/entities";
 import { API_BASE } from "@/shared/constants/private";
+import { filterByStatus } from "@/shared/utils/filterAndSort/getSortDirection";
 import { Main } from "@/view";
 
 export default function Home({
@@ -11,7 +12,14 @@ export default function Home({
     port,
     feedback,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-    return <Main articles={articles} news={news} feedback={feedback} port={port} />;
+    return (
+        <Main
+            articles={filterByStatus(articles)}
+            news={filterByStatus(news)}
+            feedback={filterByStatus(feedback)}
+            port={filterByStatus(port)}
+        />
+    );
 }
 
 export const getServerSideProps: GetServerSideProps<{

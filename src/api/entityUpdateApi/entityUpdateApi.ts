@@ -2,7 +2,8 @@ import type { ContentSatus, ModalList } from "@/entities/types/entities";
 import { createAxiosApi } from "@/shared/axios/axios";
 
 export type entityUpdateApiParams = {
-    coordinates?: [number, number][];
+    coordinates?: [number, number][] | null;
+    buildAreaCoordinates?: [number, number][];
     name?: string;
     wDescription?: string;
     gTitle?: string;
@@ -13,6 +14,8 @@ export type entityUpdateApiParams = {
     id?: string;
     number?: number;
     file?: File | null;
+    pictureId?: string;
+    iconPictureId?: string;
 };
 export const entityUpdateApi = async (params: entityUpdateApiParams): Promise<boolean> => {
     return createAxiosApi()<boolean>({

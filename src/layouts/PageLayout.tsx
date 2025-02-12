@@ -19,7 +19,7 @@ import styles from "./PageLayout.module.scss";
 
 const cx = cnBind.bind(styles);
 
-export const PageLayout = ({ children, title }: PageLayoutProps) => {
+export const PageLayout = ({ children, title, description }: PageLayoutProps) => {
     const { isMobile } = useResizeContext();
     const { pathname } = useRouter();
     const isAdmin = pathname.startsWith("/fsjfnsdklflsdkfdferkg");
@@ -92,6 +92,7 @@ export const PageLayout = ({ children, title }: PageLayoutProps) => {
                 />
                 <meta name="viewport" content="width=device-width" />
                 {title && <title>{title}</title>}
+                {description && <meta name="description" content={description} />}
             </Head>
             <div className={cx("wrapper")}>
                 <Header data={mutateMenu} />

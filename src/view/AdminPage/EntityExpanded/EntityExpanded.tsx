@@ -80,6 +80,9 @@ export const EntityExpanded = memo(({ id }: TableDistrictExpandedProps) => {
                 id: data.id,
                 wDescription: data.wDescription,
                 file: data.file,
+                buildAreaCoordinates: data.buildAreaCoordinates,
+                pictureId: data.pictureId,
+                iconPictureId: data.iconPictureId,
             };
 
             const onSuccess = () => {

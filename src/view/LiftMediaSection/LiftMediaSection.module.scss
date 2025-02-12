@@ -157,7 +157,7 @@
 
         h2{
           padding: 32px;
-          font-size: 56px;
+          font-size: 52px;
           font-style: normal;
           font-weight: 400;
           line-height: 120%; /* 67.2px */
@@ -168,6 +168,10 @@
           width: 100%;
           border: 0px solid var(--Persimmon, #38B6FF);
           background: rgba(255, 255, 255, 0.10);
+
+          @include media-max(390px){
+            font-size: 46px;
+          }
         }
       }
       .items{

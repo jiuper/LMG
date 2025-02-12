@@ -27,7 +27,7 @@ export default function IndexPage({
     ];
 
     return (
-        <PageLayout>
+        <PageLayout title={filterBuild.seoTitle} description={filterBuild.seoDescription}>
             <BreadCrumb model={items} />
             <LeftMediaJk units={filterBuild} />
         </PageLayout>

@@ -1,4 +1,4 @@
-import { type SyntheticEvent, useMemo } from "react";
+import { type SyntheticEvent, useMemo, useState } from "react";
 import type { FetchStatus } from "@tanstack/query-core";
 import cnBind from "classnames/bind";
 import { Column } from "primereact/column";
@@ -32,6 +32,7 @@ import type {
 } from "@/components/_Modals/ModalAdministeredPortfolio";
 import { ModalAdministeredPortfolio } from "@/components/_Modals/ModalAdministeredPortfolio";
 import { SmartTable } from "@/components/SmartTable";
+import { TemplateToolbar } from "@/components/TemplateToolBar";
 import { Button } from "@/shared/ui/_Button";
 import { InputSearch } from "@/shared/ui/_InputSearch";
 import type { AdminEntityPageFilters } from "@/view/AdminPage/AdminEntityPageC";
@@ -139,24 +140,79 @@ export const AdminEntityPageV = ({
                 return "";
         }
     }, [entityType, filters.name, filters.term, filters.title, filters.userName]);
+    const [activeTab, setActiveTab] = useState("template");
 
     return (
         <>
             <div className={cx("content")}>
-                <div className={cx("block-toolbar")}>
-                    <InputSearch isFullWidth value={filterValue} debounceDelay={500} onChange={handleSearchChange} />
-                    {entityType === AdminEntityPageType.NEWS && (
-                        <Button className={cx("btn-neon")} label="Создать новость" onClick={openCreateModal} />
-                    )}
-                    {entityType === AdminEntityPageType.ARTICLES && (
-                        <Button className={cx("btn-neon")} label="Создать статью" onClick={openCreateModal} />
-                    )}
-                    {entityType === AdminEntityPageType.PORTFOLIO && (
-                        <Button className={cx("btn-neon")} label="Создать портфолио" onClick={openCreateModal} />
-                    )}
-                    {entityType === AdminEntityPageType.FEEDBACK && (
-                        <Button className={cx("btn-neon")} label="Создать отзыв" onClick={openCreateModal} />
-                    )}
+                <div className={cx("toolbar-block")}>
+                    <div className={cx("toggle-container")}>
+                        <div className={cx("toggle-background", { right: activeTab === "search" })} />
+                        <button
+                            className={cx("toggle-button", { active: activeTab === "template" })}
+                            onClick={() => setActiveTab("template")}
+                        >
+                            <span className={cx("toggle-label")}>Шаблон</span>
+                        </button>
+                        <button
+                            className={cx("toggle-button", { active: activeTab === "search" })}
+                            onClick={() => setActiveTab("search")}
+                        >
+                            <span className={cx("toggle-label")}>Поиск</span>
+                        </button>
+                    </div>
+                    <div className={cx("content-wrapper")}>
+                        <div
+                            className={cx("content-block", {
+                                "show-template": activeTab === "template",
+                                "show-search": activeTab === "search",
+                            })}
+                        >
+                            {activeTab === "template" && (
+                                <div className={cx("fade-in")}>
+                                    <TemplateToolbar />
+                                </div>
+                            )}
+                            {activeTab === "search" && (
+                                <div className={cx("block-toolbar", "fade-in")}>
+                                    <InputSearch
+                                        isFullWidth
+                                        value={filterValue}
+                                        debounceDelay={500}
+                                        onChange={handleSearchChange}
+                                    />
+                                    {entityType === AdminEntityPageType.NEWS && (
+                                        <Button
+                                            className={cx("btn-neon")}
+                                            label="Создать новость"
+                                            onClick={openCreateModal}
+                                        />
+                                    )}
+                                    {entityType === AdminEntityPageType.ARTICLES && (
+                                        <Button
+                                            className={cx("btn-neon")}
+                                            label="Создать статью"
+                                            onClick={openCreateModal}
+                                        />
+                                    )}
+                                    {entityType === AdminEntityPageType.PORTFOLIO && (
+                                        <Button
+                                            className={cx("btn-neon")}
+                                            label="Создать портфолио"
+                                            onClick={openCreateModal}
+                                        />
+                                    )}
+                                    {entityType === AdminEntityPageType.FEEDBACK && (
+                                        <Button
+                                            className={cx("btn-neon")}
+                                            label="Создать отзыв"
+                                            onClick={openCreateModal}
+                                        />
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                    </div>
                 </div>
 
                 <div className={cx("block-table")}>

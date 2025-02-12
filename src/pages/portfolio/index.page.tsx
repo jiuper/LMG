@@ -5,6 +5,7 @@ import { BreadCrumb } from "@/components/BreadCrumb";
 import type { CreateNewsDto, GetCategoryDto } from "@/entities/types/entities";
 import { PageLayout } from "@/layouts/PageLayout";
 import { API_BASE } from "@/shared/constants/private";
+import { filterByStatus } from "@/shared/utils/filterAndSort/getSortDirection";
 import { PortfolioPage } from "@/view/Portfolio";
 
 export default function Portfolio({ port, categoryList }: InferGetServerSidePropsType<typeof getServerSideProps>) {
@@ -13,7 +14,7 @@ export default function Portfolio({ port, categoryList }: InferGetServerSideProp
     return (
         <PageLayout>
             <BreadCrumb model={items} />
-            <PortfolioPage categoryList={categoryList} port={port || []} />
+            <PortfolioPage categoryList={filterByStatus(categoryList)} port={filterByStatus(port) || []} />
         </PageLayout>
     );
 }
