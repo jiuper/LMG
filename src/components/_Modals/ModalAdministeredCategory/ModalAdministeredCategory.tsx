@@ -134,6 +134,7 @@ export const ModalAdministeredCategory = forwardRef<ModalAdministeredCategoryRef
                             name="previewPictureFile"
                             onChange={(e) => formik.setFieldValue("previewPictureFile", e)}
                             fileStr={formik.values.previewPictureId}
+                            onDelete={() => formik.setFieldValue("previewPictureId", "")}
                         />
                     </div>
                     <div className={cx("picture")}>
@@ -143,6 +144,7 @@ export const ModalAdministeredCategory = forwardRef<ModalAdministeredCategoryRef
                             name="file"
                             onChange={(e) => formik.setFieldValue("file", e)}
                             fileStr={formik.values.pictureId}
+                            onDelete={() => formik.setFieldValue("pictureId", "")}
                         />
                     </div>
                     <div className={cx("picture")}>

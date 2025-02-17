@@ -51,7 +51,7 @@ export const DistrictExpanded = memo(({ id }: TableDistrictExpandedProps) => {
         { field: "", header: "Район", minWidth: 30, expander: true },
         { field: "area.number", header: "№(id)", width: 50, sortable: true },
         { field: "area.name", header: "Наименование" },
-        { field: "area.status", header: "Статус" },
+        { field: "status", header: "Статус" },
     ];
     const { data, fetchStatus, refetch } = useQuery<GetDistrictListApiRawResponse>({
         queryKey: ["district", id],
@@ -61,10 +61,12 @@ export const DistrictExpanded = memo(({ id }: TableDistrictExpandedProps) => {
     const { mutate: deleteDistrictMutation } = useMutation({ mutationFn: districtDeleteApi });
     const { mutate: updateDistrictMutation, isPending: updateDistrictIsLoading } = useMutation({
         mutationFn: districtUpdateApi,
+        onSuccess: () => refetch(),
     });
 
     const { mutate: createEntityMutation, isPending: createEntityIsLoading } = useMutation({
         mutationFn: entityCreateApi,
+        onSuccess: () => refetch(),
     });
 
     const handleRowExpand = (event: DataTableRowToggleEvent) => {
@@ -87,9 +89,13 @@ export const DistrictExpanded = memo(({ id }: TableDistrictExpandedProps) => {
 
     const handleDeleteDistrict = (rowData: GetCategoryAreaDto) => () => {
         withConfirm({
-            header: "Удалить?",
-            message: `Удаление этого метода оплаты "${rowData.title}" может привести к необратимой потере данных`,
-            onSubmit: () => deleteDistrictMutation({ id: rowData.id, status: ContentSatus.ARCHIVE }),
+            header: `${rowData.status === ContentSatus.PUBLISHED ? "Архив" : "Восстановить"}`,
+            message: `${rowData.status === ContentSatus.PUBLISHED ? `Поместить "${rowData.area.name}" район в архив` : `Восстановить "${rowData.area.name}" район из архива`}`,
+            onSubmit: () =>
+                deleteDistrictMutation({
+                    id: rowData.id,
+                    status: rowData.status === ContentSatus.ARCHIVE ? ContentSatus.PUBLISHED : ContentSatus.ARCHIVE,
+                }),
             onClose: () => undefined,
         });
     };
@@ -104,7 +110,11 @@ export const DistrictExpanded = memo(({ id }: TableDistrictExpandedProps) => {
                 menuItems={[
                     { label: "Редактировать", icon: "pi pi-trash", callback: handleEditRow(data) },
                     { label: "Добавить юнит", icon: "pi pi-trash", callback: handleRowCreate(data) },
-                    { label: "Архив", icon: "pi pi-trash", callback: handleDeleteDistrict(data) },
+                    {
+                        label: data.status === ContentSatus.ARCHIVE ? "Восстановить" : "Архив",
+                        icon: "pi pi-trash",
+                        callback: handleDeleteDistrict(data),
+                    },
                 ]}
             />
         );

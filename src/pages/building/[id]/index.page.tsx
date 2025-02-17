@@ -21,7 +21,7 @@ export default function LiftMediaPage({ port, id, cat, area }: InferGetServerSid
                 url={`${Routes.BUILDING}/${id}`}
                 data={filter}
                 port={filterByStatus(filterPort)}
-                districts={area}
+                districts={filterByStatus(area)}
             />
         </PageLayout>
     );

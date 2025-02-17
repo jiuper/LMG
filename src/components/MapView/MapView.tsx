@@ -104,7 +104,6 @@ export const MapView: React.FC<Props> = ({
     useEffect(() => {
         setBuildings(build);
     }, [build]);
-
     const handleMarkerClick = useCallback(
         (building: Building, coord: [number, number]) => {
             if (isMain) {
@@ -171,8 +170,9 @@ export const MapView: React.FC<Props> = ({
                                         options={{
                                             preset: "islands#blueCircleIconWithNumber",
                                             iconLayout: "default#image",
-                                            iconImageHref:
-                                                `${API_BASE}/picture/${building.iconPictureId}` || defaultMarker.src,
+                                            iconImageHref: building.iconPictureId
+                                                ? `${API_BASE}/picture/${building.iconPictureId}`
+                                                : defaultMarker.src,
                                             iconImageSize: highlightedMarker === building.id ? [40, 56] : [30, 42],
                                             iconImageOffset: [-15, -42],
                                         }}

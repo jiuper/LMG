@@ -136,7 +136,7 @@ export interface GetCategoryAreaDto {
     description?: string;
     subTitle?: string;
     pictureId?: string | null;
-    status?: ContentSatus;
+    status: ContentSatus;
     createdAt: Date;
     updatedAt: Date;
     area: {

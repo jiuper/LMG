@@ -24,13 +24,6 @@ const nextConfig = {
     },
     
     webpack(config) {
-          config.resolve.alias = {
-              ...config.resolve.alias,
-              "@": path.resolve(__dirname, "./src"), // Алиас для src
-              "@components": path.resolve(__dirname, "./src/components"), // Алиас для компонентов
-              "@styles": path.resolve(__dirname, "./src/shared/styles"), // Алиас для стилей
-              "@assets": path.resolve(__dirname, "./src/shared/assests"), // Алиас для ассетов
-          };
         config.module.rules.push(
             {
                 test: /\.(mp4|webm|ogg|mp3)$/i,
