@@ -59,9 +59,13 @@ export const EntityExpanded = memo(({ id }: TableDistrictExpandedProps) => {
 
     const handleDeleteEntity = (rowData: GetBuildDto) => () => {
         withConfirm({
-            header: "Удалить?",
-            message: `Удаление этого юнита"${rowData.name}" может привести к необратимой потере данных`,
-            onSubmit: () => deleteEntityMutation({ id: rowData.id, status: ContentSatus.ARCHIVE }),
+            header: `${rowData.status === ContentSatus.PUBLISHED ? "Архив" : "Восстановить"}`,
+            message: `${rowData.status === ContentSatus.PUBLISHED ? `Поместить "${rowData.name}" в архив` : `Восстановить "${rowData.name}" из архива`}`,
+            onSubmit: () =>
+                deleteEntityMutation({
+                    id: rowData.id,
+                    status: rowData.status === ContentSatus.ARCHIVE ? ContentSatus.PUBLISHED : ContentSatus.ARCHIVE,
+                }),
             onClose: () => undefined,
         });
     };
@@ -113,7 +117,11 @@ export const EntityExpanded = memo(({ id }: TableDistrictExpandedProps) => {
             <ActionButton
                 menuItems={[
                     { label: "Редактировать", icon: "pi pi-trash", callback: handleEditRow(data) },
-                    { label: "Архив", icon: "pi pi-trash", callback: handleDeleteEntity(data) },
+                    {
+                        label: data.status === ContentSatus.ARCHIVE ? "Восстановить" : "Архив",
+                        icon: "pi pi-trash",
+                        callback: handleDeleteEntity(data),
+                    },
                 ]}
             />
         );
@@ -156,7 +164,7 @@ export const EntityExpanded = memo(({ id }: TableDistrictExpandedProps) => {
                 submitBtnParams={{
                     severity: "danger",
                     iconPos: "left",
-                    label: "Удалить",
+                    label: "Ок",
                 }}
             />
         </>

@@ -90,9 +90,13 @@ export const CategoryExpanded = memo(({ id }: TableCategoryExpandedProps) => {
     };
     const handleDeleteCategory = (rowData: GetCategoryDto) => () => {
         withConfirm({
-            header: "Удалить?",
-            message: `Удаление этого метода оплаты "${rowData.title}" может привести к необратимой потере данных`,
-            onSubmit: () => deleteCategoryMutation({ id: rowData.id, status: ContentSatus.ARCHIVE }),
+            header: `${rowData.status === ContentSatus.PUBLISHED ? "Архив" : "Восстановить"}`,
+            message: `${rowData.status === ContentSatus.PUBLISHED ? `Поместить "${rowData.title}" в архив` : `Восстановить "${rowData.title}" из архива`}`,
+            onSubmit: () =>
+                deleteCategoryMutation({
+                    id: rowData.id,
+                    status: rowData.status === ContentSatus.ARCHIVE ? ContentSatus.PUBLISHED : ContentSatus.ARCHIVE,
+                }),
             onClose: () => undefined,
         });
     };
@@ -169,7 +173,11 @@ export const CategoryExpanded = memo(({ id }: TableCategoryExpandedProps) => {
                 menuItems={[
                     { label: "Редактировать", icon: "pi pi-trash", callback: handleEditRow(data) },
                     { label: "Добавить район", icon: "pi pi-trash", callback: handleRowCreate(data) },
-                    { label: "Архив", icon: "pi pi-trash", callback: handleDeleteCategory(data) },
+                    {
+                        label: data.status === ContentSatus.ARCHIVE ? "Восстановить" : "Архив",
+                        icon: "pi pi-trash",
+                        callback: handleDeleteCategory(data),
+                    },
                 ]}
             />
         );
@@ -229,7 +237,7 @@ export const CategoryExpanded = memo(({ id }: TableCategoryExpandedProps) => {
                 submitBtnParams={{
                     severity: "danger",
                     iconPos: "left",
-                    label: "Удалить",
+                    label: "Ок",
                 }}
             />
         </>

@@ -251,7 +251,7 @@ export const DistrictExpanded = memo(({ id }: TableDistrictExpandedProps) => {
                 submitBtnParams={{
                     severity: "danger",
                     iconPos: "left",
-                    label: "Удалить",
+                    label: "Ок",
                 }}
             />
         </>
