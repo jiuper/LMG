@@ -20,7 +20,7 @@ const cx = cnBind.bind(styles);
 const FeedbackCard = (item: { type: string; image: string; position: string; name: string }) => {
     return (
         <div className={cx("card", { video: item.type === "video" })}>
-            <CustomImage className={cx("image")} width={282} height={282} src={item.image} alt={item.image} />
+            <CustomImage className={cx("image")} width={282} height={322} src={item.image} alt={item.image} />
             <div className={cx("info")}>
                 <span className={cx("name")}>{item.name}</span>
                 <span className={cx("post")}>{item.position}</span>
