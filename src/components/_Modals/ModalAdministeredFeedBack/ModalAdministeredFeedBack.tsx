@@ -100,33 +100,23 @@ export const ModalAdministeredFeedBack = forwardRef<ModalAdministeredFeedbackRef
                     />
 
                     <div className={cx("picture")}>
-                        <span className={cx("title")}> {isVideo ? "Видео" : "Изображение"}</span>
-                        {isVideo ? (
-                            <CustomFileUpload
-                                value={formik.values.video || null}
-                                name="file"
-                                onChange={(e) => formik.setFieldValue("video", e)}
-                                fileStr=""
-                            />
-                        ) : (
-                            <CustomFileUpload
-                                value={formik.values.file || null}
-                                name="file"
-                                onChange={(e) => formik.setFieldValue("file", e)}
-                                fileStr={formik.values.pictureId}
-                            />
-                        )}
-                        <Button
-                            label={isVideo ? "Изображение" : "Видео"}
-                            variant="solid"
-                            onClick={() => {
-                                setIsVideo(!isVideo);
-                                formik.setFieldValue("file", null);
-                                formik.setFieldValue("video", null);
-                            }}
+                        <span className={cx("title")}>Изображение</span>
+                        <CustomFileUpload
+                            value={formik.values.file || null}
+                            name="file"
+                            onChange={(e) => formik.setFieldValue("file", e)}
+                            fileStr={formik.values.pictureId}
+                            onDelete={() => formik.setFieldValue("pictureId", "")}
+                        />
+                        <span className={cx("title")}>Видео</span>
+                        <CustomFileUpload
+                            value={formik.values.video || null}
+                            name="file"
+                            onChange={(e) => formik.setFieldValue("video", e)}
+                            fileStr={formik.values.videoId}
+                            onDelete={() => formik.setFieldValue("videoId", "")}
                         />
                     </div>
-
                     <div className={cx("btns")}>
                         <Button
                             label="Сохранить как черновик"
