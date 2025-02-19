@@ -93,7 +93,7 @@ export const MapView: React.FC<Props> = ({
     name,
     handleLink,
     isMain = false,
-    isFind = false,
+    isFind = true,
 }) => {
     const [buildings, setBuildings] = useState<Building[]>(build);
     const [selectedBuilding, setSelectedBuilding] = useState<Building | null>(null);
