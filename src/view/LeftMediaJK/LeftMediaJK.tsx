@@ -37,6 +37,7 @@ export const LeftMediaJk = ({ units }: Props) => {
                                 coordinates: item.coordinates,
                                 buildAreaCoordinates: item.buildAreaCoordinates,
                                 list: item.list,
+                                iconPictureId: item.iconPictureId,
                             }))}
                             name={units.name}
                             maxZoom={17}

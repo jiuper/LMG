@@ -25,7 +25,7 @@ export const LiftMediaSection = ({ district, units, url, title }: Props) => {
     const [isOpen, open, close] = useBooleanState(false);
     const href = useRouter();
     const [unit, setUnit] = useState<GetBuildDto>(units[0]);
-
+    
     return (
         <div className={cx("lift-media-section")}>
             <div className={cx("wrapper-map")}>
