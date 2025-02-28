@@ -19,6 +19,7 @@ type Building = {
     iconPictureId?: string;
     name: string;
     list: { title: string; value: string }[];
+    district?: string;
 };
 
 type Props = {
@@ -65,6 +66,9 @@ const CustomModal: React.FC<CustomModalProps> = ({ building, handleLink, positio
                     </button>
                 </div>
                 <div className={styles["custom-modal-content"]}>
+                    {building.district && (
+                        <div className={styles["item-title-district"]}>{building.district} район</div>
+                    )}
                     {building.list?.map((item, index) => (
                         <div key={index} className={styles["modal-item"]}>
                             <span className={styles["item-title"]}>{item.title}:</span>
@@ -100,7 +104,7 @@ export const MapView: React.FC<Props> = ({
     const [modalPosition, setModalPosition] = useState<[number, number]>([0, 0]);
     const [highlightedMarker, setHighlightedMarker] = useState<string | null>(null);
     const mapRef = useRef<ymaps.Map | undefined>(undefined);
-
+    console.log(build);
     useEffect(() => {
         setBuildings(build);
     }, [build]);

@@ -4,7 +4,7 @@ import type { InferGetServerSidePropsType } from "next";
 import { BreadCrumb } from "@/components/BreadCrumb";
 import type { GetCategoryDto, GetPortfolioSectionDto, GetSectionDto } from "@/entities/types/entities";
 import { PageLayout } from "@/layouts/PageLayout";
-import Build from "@/shared/assests/раздел БЦ.png";
+import Build from "@/shared/assests/раздел БЦ.jpg";
 import { Routes } from "@/shared/constants";
 import { API_BASE } from "@/shared/constants/private";
 import { filterByStatus } from "@/shared/utils/filterAndSort/getSortDirection";

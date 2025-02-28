@@ -10,6 +10,7 @@ import { Routes } from "@/shared/constants";
 import { useBooleanState } from "@/shared/hooks";
 import { Button } from "@/shared/ui/Button";
 import { CustomImage } from "@/shared/ui/CustomImage";
+import { filterByStatus } from "@/shared/utils/filterAndSort/getSortDirection";
 import { Card } from "@/view/Building/components/Card";
 import { CaseBlock } from "@/view/Main/component/CaseBlock";
 
@@ -79,10 +80,10 @@ export const BuildingPage = ({
                     <MapView
                         maxZoom={22}
                         minZoom={3}
-                        zoom={11}
+                        zoom={10}
                         handleLink={(id) => href.push(`${url}/${id}`)}
                         isMain
-                        build={sect?.build || []}
+                        build={filterByStatus(sect?.build || [])}
                         isFind
                     />
                     <div className={cx("list")}>

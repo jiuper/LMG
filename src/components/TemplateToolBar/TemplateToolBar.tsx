@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import cnBind from "classnames/bind";
 import { ProgressSpinner } from "primereact/progressspinner";
 
-import type { templateCreateApiParams } from "@/api/createTemplateApi";
+import type { ErrorsM, templateCreateApiParams } from "@/api/createTemplateApi";
 import { useCreateTemplateApi } from "@/api/createTemplateApi";
 import { templateDataDownloadApi } from "@/api/downloadDataTemplateApi";
 import { useToast } from "@/shared/context";
@@ -10,7 +10,7 @@ import { Button } from "@/shared/ui/_Button";
 
 import styles from "./TemplateToolbar.module.scss";
 
-type UploadResponse = { message: string } | string[];
+type UploadResponse = ErrorsM & {};
 const cx = cnBind.bind(styles);
 
 export const TemplateToolbar: React.FC = () => {
@@ -32,40 +32,42 @@ export const TemplateToolbar: React.FC = () => {
     };
 
     const handleUploadClick = () => {
-        if (fileInputRef.current) {
-            fileInputRef.current.click();
-        }
+        fileInputRef.current?.click();
     };
 
     const handleFileUpload = () => {
-        if (file) {
-            const params: templateCreateApiParams = { file };
+        if (!file) return;
 
-            templateCreate(params, {
-                onSuccess: (data: UploadResponse) => {
-                    const detailMessage = Array.isArray(data)
-                        ? data.join(", ") // Если массив, соединяем в строку
-                        : "message" in data // Если объект содержит `message`
-                          ? data.message
-                          : "Файл успешно загружен"; // Дефолтное сообщение
+        const params: templateCreateApiParams = { file };
 
-                    toast?.({
-                        severity: "success",
-                        summary: "Успех",
-                        detail: detailMessage,
-                    });
+        templateCreate(params, {
+            onSuccess: (data: UploadResponse) => {
+                const detailMessage = data.errors
+                    ? Object.values(data.errors).flat().join(", ") // Если есть ошибки, соединяем их в строку
+                    : "Файл успешно загружен"; // Дефолтное сообщение
 
-                    setFile(null);
-                },
-                onError: (error: any) => {
-                    toast?.({
-                        severity: "error",
-                        summary: "Ошибка",
-                        detail: error?.message || "Ошибка загрузки файла",
-                    });
-                },
-            });
-        }
+                toast?.({
+                    severity: data.errors ? "error" : "success",
+                    summary: data.errors ? "Ошибка" : "Успех",
+                    detail: detailMessage,
+                });
+
+                setFile(null);
+            },
+            onError: (error: any) => {
+                // Проверяем, если есть ошибки в теле ответа
+                const errors = error?.response?.data?.errors;
+                const errorMessage = errors
+                    ? Object.values(errors).flat().join(", ") // Соединяем все ошибки в строку
+                    : error?.message || "Ошибка загрузки файла";
+
+                toast?.({
+                    severity: "error",
+                    summary: "Ошибка",
+                    detail: errorMessage,
+                });
+            },
+        });
     };
 
     const handleDataDownload = async () => {

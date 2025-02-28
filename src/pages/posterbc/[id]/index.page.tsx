@@ -19,6 +19,7 @@ export default function LiftMediaPage({ port, id, cat, area }: InferGetServerSid
             <BreadCrumb model={items} />
             <LiftMedia
                 url={`${Routes.POSTERBC}/${id}`}
+                urlGeneral={`${Routes.POSTERBC}`}
                 data={filter}
                 port={filterByStatus(filterPort)}
                 districts={filterByStatus(area)}

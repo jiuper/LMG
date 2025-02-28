@@ -11,6 +11,7 @@ import { API_BASE } from "@/shared/constants/private";
 import { useBooleanState } from "@/shared/hooks";
 import { Button } from "@/shared/ui/Button";
 import { CustomImage } from "@/shared/ui/CustomImage";
+import { filterByStatus } from "@/shared/utils/filterAndSort/getSortDirection";
 import { listStepsOne } from "@/view/LiftMedia/const";
 import { CaseBlock } from "@/view/Main/component/CaseBlock";
 
@@ -22,8 +23,10 @@ type Props = {
     data: GetCategoryDto;
     districts: GetCategoryAreaDto[];
     url?: string;
+    urlGeneral?: string;
 };
-export const LiftMedia = ({ port, data, districts, url }: Props) => {
+export const LiftMedia = ({ port, data, districts, url, urlGeneral }: Props) => {
+    const href = useRouter();
     const [isOpen, open, close] = useBooleanState(false);
     const { title, description, pictureId, videoId, list } = data;
     const [isActive, setActive] = useState(false);
@@ -58,7 +61,7 @@ export const LiftMedia = ({ port, data, districts, url }: Props) => {
             void videoRef.current.play();
         }
     };
-
+    
     return (
         <div className={cx("lift-media")}>
             <div className={cx("main-block")} style={{ backgroundImage: `url(${API_BASE}/picture/${pictureId})` }}>
@@ -79,28 +82,19 @@ export const LiftMedia = ({ port, data, districts, url }: Props) => {
                         </div>
                         <div className={cx("map-content")}>
                             <MapView
-                                zoom={9}
-                                build={districts.map((item) => ({
-                                    id: item.id,
-                                    name: item.area.name || "",
-                                    coordinates:
-                                        item.area.lat !== undefined && item.area.lon !== undefined
-                                            ? [[item.area.lat, item.area.lon]]
-                                            : [],
-                                    list:
-                                        item.title || item.description || item.subTitle
-                                            ? [
-                                                  {
-                                                      title: item.title || "",
-                                                      value: item.description || item.subTitle || "",
-                                                  },
-                                              ]
-                                            : [],
-                                    categoryId: item.categoryId,
-                                    buildAreaCoordinates: [],
-                                    categoryAreaId: item.id,
-                                }))}
-                                handleLink={(id) => router.push(`${url}/${id}`)}
+                                zoom={10}
+                                build={districts.flatMap((item) =>
+                                    filterByStatus(
+                                        (item.build ?? []).map((el) => ({
+                                            ...el,
+                                            district: item.area.name,
+                                            categoryId: item.categoryId,
+                                            categoryAreaId: item.id,
+                                        })),
+                                    ),
+                                )}
+                                handleLink={(id) => href.push(`${urlGeneral}/${id}`)}
+                                isMain
                             />
                             <div className={cx("items", isActive && "active")}>
                                 {districts?.map((el, i) => (

@@ -5,12 +5,17 @@ import { createAxiosApi } from "@/shared/axios/axios";
 export type templateCreateApiParams = {
     file?: File | null;
 };
-export const templateCreateApi = async (params: templateCreateApiParams): Promise<string[]> => {
-    return createAxiosApi()<string[]>({
+
+export type ErrorsM = {
+    errors: { [key: string]: string[] };
+};
+
+export const templateCreateApi = async (params: templateCreateApiParams): Promise<ErrorsM> => {
+    return createAxiosApi()<ErrorsM>({
         type: "postForm",
         url: "/parser/upload",
         body: params,
-    }).then((data) => data.data);
+    }).then((response) => response.data);
 };
 
 export const useCreateTemplateApi = () => {

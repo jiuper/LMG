@@ -11,6 +11,7 @@ import { useBooleanState } from "@/shared/hooks";
 import { Dropdown } from "@/shared/ui/_Dropdown";
 import { Button } from "@/shared/ui/Button";
 import { CustomImage } from "@/shared/ui/CustomImage";
+import { filterByStatus } from "@/shared/utils/filterAndSort/getSortDirection";
 
 import styles from "./LiftMediaSection.module.scss";
 
@@ -25,7 +26,7 @@ export const LiftMediaSection = ({ district, units, url, title }: Props) => {
     const [isOpen, open, close] = useBooleanState(false);
     const href = useRouter();
     const [unit, setUnit] = useState<GetBuildDto>(units[0]);
-    
+
     return (
         <div className={cx("lift-media-section")}>
             <div className={cx("wrapper-map")}>
@@ -37,15 +38,25 @@ export const LiftMediaSection = ({ district, units, url, title }: Props) => {
                     </div>
                     <div className={cx("map-content")}>
                         <MapView
-                            list={district.list}
-                            center={district?.build[0]?.coordinates?.[0]}
-                            zoom={11}
-                            build={district?.build || []}
+                            center={
+                                district?.build[0]?.coordinates?.[0] || district?.build[0]?.buildAreaCoordinates?.[0]
+                            }
+                            zoom={12}
+                            build={filterByStatus(district?.build || [])}
                             name={`${district?.area?.name} район`}
                             maxZoom={25}
                             minZoom={5}
                             handleLink={(id) => href.push(`${url}/${id}`)}
+                            isMain
                         />
+                        <div className={cx("list")}>
+                            {district?.list?.map((el, index) => (
+                                <div className={cx("item")} key={index}>
+                                    <span>{el.title}:</span>
+                                    <span>{el.value}</span>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                     <div className={cx("footer")}>
                         <h4>{district?.title}</h4>

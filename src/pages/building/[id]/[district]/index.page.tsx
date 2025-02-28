@@ -21,14 +21,14 @@ export default function IndexPage({
     const items = [
         { label: "Реклама в жилых домах", url: Routes.BUILDING },
         { label: filterCat.title, url: `${Routes.BUILDING}/${id}` },
-        { label: `${filterArea.area.name} район` },
+        { label: `${filterArea?.area?.name} район` },
     ];
 
     return (
-        <PageLayout title={filterArea.seoTitle} description={filterArea.seoDescription}>
+        <PageLayout title={filterArea?.seoTitle} description={filterArea?.seoDescription}>
             <BreadCrumb model={items} />
             <LiftMediaSection
-                title={filterCat.title}
+                title={filterCat?.title}
                 url={`${Routes.BUILDING}/${id}/${district}`}
                 units={filterByStatus(build)}
                 district={filterArea}

@@ -87,14 +87,14 @@
       max-height: 250px;
       height: 100%;
       overflow: auto;
-      transition: .3s;
+      transition: .3s max-height ease-in-out;
       padding-inline: 25px;
       padding-block: 20px;
 
       &::-webkit-scrollbar { width: 0px; /* Ширина скроллбара */ } &::-webkit-scrollbar-track { background: #f1f1f1; /* Цвет фона трека скроллбара */ } &::-webkit-scrollbar-thumb { background: #888; /* Цвет ползунка скроллбара */ border-radius: 6px; /* Скругленные углы */ } &::-webkit-scrollbar-thumb:hover { background: #555; /* Цвет ползунка скроллбара при наведении */ } &::-webkit-scrollbar-thumb:active { background: #333; /* Цвет ползунка скроллбара при нажатии */ }
 
       &.active{
-        height: max-content;
+        max-height: 850px;
       }
       .item{
         border-radius: 32px;
