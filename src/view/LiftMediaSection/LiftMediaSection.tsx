@@ -53,7 +53,7 @@ export const LiftMediaSection = ({ district, units, url, title }: Props) => {
                             {district?.list?.map((el, index) => (
                                 <div className={cx("item")} key={index}>
                                     <span>{el.title}:</span>
-                                    <span>{el.value}</span>
+                                    <span>{Math.floor(Number(el.value))}</span>
                                 </div>
                             ))}
                         </div>

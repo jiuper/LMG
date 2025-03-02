@@ -23,7 +23,7 @@
   max-width: 616px;
   width: 100%;
   h1{
-    color: #000;
+    color: #ffffff;
     @include font-SegoeUI();
     font-size: 40px;
     font-style: normal;
@@ -32,7 +32,7 @@
   }
   span{
     @include text-Body1();
-    color: #000;
+    color: #ffffff;
     font-weight: 400;
   }
 
