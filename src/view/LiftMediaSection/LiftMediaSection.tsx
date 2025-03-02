@@ -69,7 +69,7 @@ export const LiftMediaSection = ({ district, units, url, title }: Props) => {
                 <div className={cx("lift-media-us")}>
                     <div className={cx("wrapper", "container")}>
                         <div className={cx("header")}>
-                            <h2>Выберите юнит для детальной информации</h2>
+                            <h2>Выберите рекламную площадку для детальной информации</h2>
                         </div>
 
                         <div className={cx("items")}>
