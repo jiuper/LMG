@@ -12,7 +12,10 @@ export default function Portfolio({ port, categoryList }: InferGetServerSideProp
     const items = [{ label: "Портфолио" }];
 
     return (
-        <PageLayout>
+        <PageLayout
+            title="Портфолио Lift Media Group - реальные кейсы компании"
+            description="Реальные кейсы Lift Media Group: реклама в лифтах, ТЦ и бизнес-центрах. Посмотрите наши работы и вдохновитесь идеями!"
+        >
             <BreadCrumb model={items} />
             <PortfolioPage categoryList={filterByStatus(categoryList)} port={filterByStatus(port) || []} />
         </PageLayout>

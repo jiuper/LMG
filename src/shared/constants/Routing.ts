@@ -5,19 +5,19 @@ export interface IRouting {
 }
 export const Routes = {
     HOME: "/",
-    ARTICLES: "/articles",
-    CONTACTS: "/contacts",
-    ABOUTUS: "/aboutus",
+    ARTICLES: "/stati",
+    CONTACTS: "/kontakty",
+    ABOUTUS: "/o-kompanii",
     POLICY: "/policy",
-    BUILDING: "/building",
+    BUILDING: "/reklama-v-zhilykh-domakh",
     LIFTMEDIA: "/liftmedia",
-    POSTERPVZ: "/posterpvz",
-    POSTERFITNES: "/posterfitnes",
-    POSTERTC: "/postertc",
-    POSTERBC: "/posterbc",
-    NEWS: "/news",
+    POSTERPVZ: "/reklama-v-punktakh-vydachi",
+    POSTERFITNES: "/reklama-v-fitnes-klubakh",
+    POSTERTC: "/reklama-v-torgovykh-tsentrakh",
+    POSTERBC: "/reklama-v-biznes-tsentrakh",
+    NEWS: "/novosti",
     PORTFOLIO: "/portfolio",
-    HISTORY: "/historycompany",
+    HISTORY: "/istorya-kompanii",
 };
 
 export const Routing = {

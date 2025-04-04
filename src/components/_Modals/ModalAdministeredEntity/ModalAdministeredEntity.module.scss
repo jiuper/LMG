@@ -1,6 +1,11 @@
 .form {
   @include flex-column;
   gap: 32px;
+  .seo{
+    @include flex-column;
+    gap: 6px;
+  }
+
 
   .block{
     @include flex-column;

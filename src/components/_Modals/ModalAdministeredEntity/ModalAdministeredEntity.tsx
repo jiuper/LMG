@@ -29,6 +29,8 @@ export const MODAL_ADMINISTERED_ENTITY_DEFAULT_VALUES: ModalAdministeredEntitySt
     pictureId: "",
     buildAreaCoordinates: [],
     gSubTitle: "",
+    seoTitle: "",
+    seoDescription: "",
 };
 
 export type ModalAdministeredEntityModel = ModalAdministeredEntityState;
@@ -49,6 +51,8 @@ export type ModalAdministeredEntityState = {
     status?: ContentSatus;
     file?: File | null;
     categoryAreaId?: string;
+    seoTitle?: string;
+    seoDescription?: string;
 };
 
 export type ModalAdministeredEntityRef = {
@@ -175,6 +179,24 @@ export const ModalAdministeredEntity = forwardRef<ModalAdministeredEntityRef, Mo
                                 value={formik.values.gSubTitle}
                             />
                         </div>
+                    </div>
+
+                    <div className={cx("seo")}>
+                        <span>Сео теги</span>
+                        <InputText
+                            isFullWidth
+                            label="Заголовок"
+                            name="seoTitle"
+                            onChange={formik.handleChange}
+                            value={formik.values.seoTitle}
+                        />
+                        <InputText
+                            isFullWidth
+                            label="Описание"
+                            name="seoDescription"
+                            onChange={formik.handleChange}
+                            value={formik.values.seoDescription}
+                        />
                     </div>
 
                     <div className={cx("btns")}>

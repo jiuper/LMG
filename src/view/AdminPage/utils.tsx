@@ -174,6 +174,8 @@ export const preparePagesCreateData = (data: ModalAdministeredCategoryModel): ca
     sectionId: data.sectionId,
     previewPictureId: data.previewPictureId,
     previewPictureFile: data.previewPictureFile,
+    seoDescription: data.seoDescription,
+    seoTitle: data.seoTitle,
 });
 export const preparePagesUpdateData = (data: ModalAdministeredCategoryModel): categoryUpdateApiParams => ({
     title: data.title,
@@ -192,6 +194,8 @@ export const preparePagesUpdateData = (data: ModalAdministeredCategoryModel): ca
     previewPictureFile: data.previewPictureFile,
     iconPictureId: data.iconPictureId,
     icon: data.icon,
+    seoDescription: data.seoDescription,
+    seoTitle: data.seoTitle,
 });
 
 export const useEntityCreate = () => {

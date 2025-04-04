@@ -11,6 +11,8 @@ export type districtCreateApiParams = {
     file?: File | null;
     id?: string;
     number?: number;
+    seoTitle?: string;
+    seoDescription?: string;
 };
 export const districtCreateApi = async (params: districtCreateApiParams): Promise<boolean> => {
     return createAxiosApi()<boolean>({

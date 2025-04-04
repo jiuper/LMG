@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "next-sitemap --config next-sitemap.config.js"
   },
   "dependencies": {
     "@pbe/react-yandex-maps": "^1.2.5",
@@ -48,6 +49,7 @@
     "file-loader": "^6.2.0",
     "http-proxy-middleware": "^3.0.2",
     "next-http-proxy-middleware": "^1.2.6",
+    "next-sitemap": "^4.2.3",
     "prettier": "^3.3.3",
     "react-swipeable": "^7.0.1",
     "sass": "^1.79.4",

@@ -1,7 +1,9 @@
 const path = require("path");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     output: "standalone",
+    siteUrl: 'https://www.liftmg.ru',
     experimental: {
         appDir: true,
     },

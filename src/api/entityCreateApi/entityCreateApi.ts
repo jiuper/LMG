@@ -14,6 +14,8 @@ export type entityCreateApiParams = {
     id?: string;
     number?: number;
     file?: File | null;
+    seoTitle?: string;
+    seoDescription?: string;
 };
 export const entityCreateApi = async (params: entityCreateApiParams): Promise<boolean> => {
     return createAxiosApi()<boolean>({

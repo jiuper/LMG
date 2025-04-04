@@ -142,6 +142,8 @@ export const CategoryExpanded = memo(({ id }: TableCategoryExpandedProps) => {
                 file: data.file,
                 subTitle: data.subTitle,
                 areaId: data.districtId,
+                seoDescription: data.seoDescription,
+                seoTitle: data.seoTitle,
             };
 
             const onSuccess = () => {

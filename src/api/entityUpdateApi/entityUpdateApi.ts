@@ -16,6 +16,8 @@ export type entityUpdateApiParams = {
     file?: File | null;
     pictureId?: string;
     iconPictureId?: string;
+    seoTitle?: string;
+    seoDescription?: string;
 };
 export const entityUpdateApi = async (params: entityUpdateApiParams): Promise<boolean> => {
     return createAxiosApi()<boolean>({

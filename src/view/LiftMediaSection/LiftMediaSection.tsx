@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import cnBind from "classnames/bind";
 import { useRouter } from "next/router";
 
@@ -25,7 +25,13 @@ type Props = {
 export const LiftMediaSection = ({ district, units, url, title }: Props) => {
     const [isOpen, open, close] = useBooleanState(false);
     const href = useRouter();
-    const [unit, setUnit] = useState<GetBuildDto>(units[0]);
+
+    const [unit, setUnit] = useState<GetBuildDto | null>(null);
+    useEffect(() => {
+        if (Array.isArray(units) && units.length > 0 && !unit) {
+            setUnit(units[0]);
+        }
+    }, [units, unit]);
 
     return (
         <div className={cx("lift-media-section")}>
@@ -46,7 +52,15 @@ export const LiftMediaSection = ({ district, units, url, title }: Props) => {
                             name={`${district?.area?.name} район`}
                             maxZoom={25}
                             minZoom={5}
-                            handleLink={(id) => href.push(`${url}/${id}`)}
+                            handleLink={({ id, urlTitle }) =>
+                                href.push(
+                                    {
+                                        pathname: `${url}/[entity]`,
+                                        query: { slug: urlTitle, entity: id },
+                                    },
+                                    `${url}/${urlTitle}`,
+                                )
+                            }
                             isMain
                         />
                         <div className={cx("list")}>
@@ -74,7 +88,7 @@ export const LiftMediaSection = ({ district, units, url, title }: Props) => {
 
                         <div className={cx("items")}>
                             <Dropdown
-                                options={units}
+                                options={units ?? []}
                                 value={unit}
                                 onChange={(e) => setUnit(e.value)}
                                 optionLabel="name"
@@ -82,7 +96,15 @@ export const LiftMediaSection = ({ district, units, url, title }: Props) => {
                             />
                             <Button
                                 label="Перейти"
-                                onClick={() => href.push(`${url}/${unit.id}`)}
+                                onClick={() =>
+                                    href.push(
+                                        {
+                                            pathname: `${url}/[entity]`,
+                                            query: { slug: unit?.urlTitle, entity: unit?.id },
+                                        },
+                                        `${url}/${unit?.urlTitle}`,
+                                    )
+                                }
                                 className={cx("button")}
                             />
                         </div>

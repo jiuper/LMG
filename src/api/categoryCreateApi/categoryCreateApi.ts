@@ -16,6 +16,8 @@ export type categoryCreateApiParams = {
     number?: number;
     previewPictureId?: string;
     previewPictureFile?: File | null;
+    seoTitle?: string;
+    seoDescription?: string;
 };
 export const categoryCreateApi = async (params: categoryCreateApiParams): Promise<boolean> => {
     return createAxiosApi()<boolean>({

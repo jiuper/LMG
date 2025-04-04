@@ -34,6 +34,8 @@ export const MODAL_ADMINISTERED_CATEGORY_DEFAULT_VALUES: ModalAdministeredCatego
     previewPictureFile: null,
     iconPictureId: "",
     icon: null,
+    seoTitle: "",
+    seoDescription: "",
 };
 
 export type ModalAdministeredCategoryModel = ModalAdministeredCategoryState;
@@ -55,6 +57,8 @@ export type ModalAdministeredCategoryState = {
     previewPictureFile?: File | null;
     iconPictureId?: string;
     icon?: File | null;
+    seoTitle?: string;
+    seoDescription?: string;
 };
 
 export type ModalAdministeredCategoryRef = {
@@ -161,6 +165,24 @@ export const ModalAdministeredCategory = forwardRef<ModalAdministeredCategoryRef
                             name="file"
                             onChange={(e) => formik.setFieldValue("video", e)}
                             fileStr=""
+                        />
+                    </div>
+
+                    <div className={cx("seo")}>
+                        <span>Сео теги</span>
+                        <InputText
+                            isFullWidth
+                            label="Заголовок"
+                            name="seoTitle"
+                            onChange={formik.handleChange}
+                            value={formik.values.seoTitle}
+                        />
+                        <InputText
+                            isFullWidth
+                            label="Описание"
+                            name="seoDescription"
+                            onChange={formik.handleChange}
+                            value={formik.values.seoDescription}
                         />
                     </div>
 

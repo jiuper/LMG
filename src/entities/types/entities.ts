@@ -72,6 +72,9 @@ export interface GetSectionDto {
         id: string;
         categoryId?: string;
         categoryAreaId?: string;
+        urlBuild?: string;
+        urlCategory?: string;
+        urlCategoryArea?: string;
         number: number;
         coordinates?: [number, number][];
         buildAreaCoordinates?: [number, number][];
@@ -94,6 +97,7 @@ export interface GetSectionDto {
 
 export interface GetCategoryDto {
     id: string;
+    urlTitle?: string;
     number: number;
     title: string;
     description: string;
@@ -112,6 +116,7 @@ export interface GetCategoryDto {
 }
 export interface GetAreaDto {
     id: string;
+    urlTitle?: string;
     number: number;
     lat: number;
     lon: number;
@@ -128,6 +133,7 @@ export interface GetAreaDto {
 }
 export interface GetCategoryAreaDto {
     id: string;
+    urlTitle?: string;
     categoryId: string;
     areaId: string;
     seoTitle?: string;
@@ -153,6 +159,9 @@ export interface GetCategoryAreaDto {
         id: string;
         categoryId?: string;
         categoryAreaId?: string;
+        urlBuild?: string;
+        urlCategory?: string;
+        urlCategoryArea?: string;
         number: number;
         coordinates?: [number, number][];
         buildAreaCoordinates?: [number, number][];
@@ -175,6 +184,7 @@ export interface GetCategoryAreaDto {
 
 export interface GetBuildDto {
     id: string;
+    urlTitle: string;
     seoTitle?: string;
     seoDescription?: string;
     categoryId?: string;

@@ -54,7 +54,7 @@ export const PageLayout = ({ children, title, description }: PageLayoutProps) =>
                                 .trimEnd()
                                 .includes("реклама в лифтах".replace(/\s+/g, "").trimEnd()),
                         );
-                        const id = result ? result.id : "";
+                        const id = result ? result.urlTitle : "";
 
                         return { ...item, url: `${Routes.BUILDING}/${id}` };
                     }
@@ -67,7 +67,7 @@ export const PageLayout = ({ children, title, description }: PageLayoutProps) =>
                                 .trimEnd()
                                 .includes("реклама на видеоэкранах".replace(/\s+/g, "").trimEnd()),
                         );
-                        const id = result ? result.id : "";
+                        const id = result ? result.urlTitle : "";
 
                         return { ...item, url: `${Routes.BUILDING}/${id}` };
                     }

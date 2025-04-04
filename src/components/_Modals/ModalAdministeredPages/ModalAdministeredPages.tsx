@@ -39,6 +39,8 @@ export type ModalAdministeredPagesState = {
     status?: ContentSatus;
     file?: File | null;
     categoryId?: string;
+    seoTitle?: string;
+    seoDescription?: string;
 };
 
 export type ModalAdministeredPagesRef = {
@@ -133,6 +135,23 @@ export const ModalAdministeredPages = forwardRef<ModalAdministeredPagesRef, Moda
                         onChange={formik.handleChange}
                         value={formik.values.subTitle}
                     />
+                    <div className={cx("seo")}>
+                        <span>Сео теги</span>
+                        <InputText
+                            isFullWidth
+                            label="Заголовок"
+                            name="seoTitle"
+                            onChange={formik.handleChange}
+                            value={formik.values.seoTitle}
+                        />
+                        <InputText
+                            isFullWidth
+                            label="Описание"
+                            name="seoDescription"
+                            onChange={formik.handleChange}
+                            value={formik.values.seoDescription}
+                        />
+                    </div>
                     <div className={cx("btns")}>
                         <Button
                             label="Сохранить как черновик"

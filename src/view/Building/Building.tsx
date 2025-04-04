@@ -62,7 +62,15 @@ export const BuildingPage = ({
                             {listCategory.map((el, index) => (
                                 <Card
                                     className={cx(listCategory.length === 1 && "active")}
-                                    onClick={() => href.push(`${url}/${el.id}`)}
+                                    onClick={() =>
+                                        href.push(
+                                            {
+                                                pathname: `${url}/[slug]`,
+                                                query: { slug: el?.urlTitle, id: el.id },
+                                            },
+                                            `${url}/${el?.urlTitle}`,
+                                        )
+                                    }
                                     key={index}
                                     data={el}
                                 />
@@ -81,7 +89,27 @@ export const BuildingPage = ({
                         maxZoom={22}
                         minZoom={3}
                         zoom={10}
-                        handleLink={(id) => href.push(`${url}/${id}`)}
+                        handleLink={({ id }) => {
+                            const extractedId = id?.split("/").pop();
+
+                            const matched = sect?.build?.find((b) => b.id === extractedId);
+
+                            if (!matched) return;
+
+                            const slug = matched.urlCategory;
+                            const district = matched.urlCategoryArea;
+                            const entity = matched.urlBuild;
+
+                            if (!slug || !district || !entity) return;
+
+                            void href.push(
+                                {
+                                    pathname: `${url}/[slug]/[district]/[entity]`,
+                                    query: { slug, district, entity, id },
+                                },
+                                `${url}/${slug}/${district}/${entity}`,
+                            );
+                        }}
                         isMain
                         build={filterByStatus(sect?.build || [])}
                         isFind

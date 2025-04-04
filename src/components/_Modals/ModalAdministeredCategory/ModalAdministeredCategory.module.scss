@@ -2,6 +2,11 @@
   @include flex-column;
   gap: 0.5rem;
 
+  .seo{
+    @include flex-column;
+    gap: 6px;
+  }
+
   .picture {
     @include flex-column;
     gap: 0.5rem;

@@ -7,7 +7,6 @@ import * as Yup from "yup";
 
 import { Modal } from "@/components/_Modals/Modal";
 import done from "@/shared/assests/done 1.png";
-import tg from "@/shared/assests/telegram.png";
 import wa from "@/shared/assests/whatsapp.png";
 import { API_BASE } from "@/shared/constants/private";
 import { useResizeContext } from "@/shared/context/WindowResizeProvider";
@@ -130,11 +129,11 @@ export const ModalFeedBack = ({ isOpen, onClose }: Props) => {
                                 url="/politika-konfidentsialnosti"
                             />
                             <div className={cx("social")}>
-                                <div onClick={() => router.push("/")} className={cx("social-item", "icon")}>
-                                    <CustomImage src={tg} alt="tg" />
-                                </div>
-                                <div onClick={() => router.push("/")} className={cx("social-item", "icon")}>
-                                    <CustomImage src={wa} alt="tg" />
+                                <div
+                                    onClick={() => window.open("https://wa.me/89616092843", "_blank")}
+                                    className={cx("social-item", "icon")}
+                                >
+                                    <CustomImage src={wa} alt="wa" />
                                 </div>
                             </div>
                         </div>

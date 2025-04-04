@@ -61,7 +61,7 @@ export const LiftMedia = ({ port, data, districts, url, urlGeneral }: Props) => 
             void videoRef.current.play();
         }
     };
-    
+
     return (
         <div className={cx("lift-media")}>
             <div className={cx("main-block")} style={{ backgroundImage: `url(${API_BASE}/picture/${pictureId})` }}>
@@ -93,12 +93,32 @@ export const LiftMedia = ({ port, data, districts, url, urlGeneral }: Props) => 
                                         })),
                                     ),
                                 )}
-                                handleLink={(id) => href.push(`${urlGeneral}/${id}`)}
+                                handleLink={({ id, urlTitle }) =>
+                                    href.push(
+                                        {
+                                            pathname: `${urlGeneral}/[district]`,
+                                            query: { slug: urlTitle, district: id },
+                                        },
+                                        `${urlGeneral}/${urlTitle}`,
+                                    )
+                                }
                                 isMain
                             />
                             <div className={cx("items", isActive && "active")}>
                                 {districts?.map((el, i) => (
-                                    <div key={i} onClick={() => router.push(`${url}/${el.id}`)} className={cx("item")}>
+                                    <div
+                                        key={i}
+                                        onClick={() =>
+                                            router.push(
+                                                {
+                                                    pathname: `${url}/[district]`,
+                                                    query: { slug: el.urlTitle, district: el.id },
+                                                },
+                                                `${url}/${el.urlTitle}`,
+                                            )
+                                        }
+                                        className={cx("item")}
+                                    >
                                         <h4>{el.area?.name}</h4>
                                     </div>
                                 ))}

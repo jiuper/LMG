@@ -10,10 +10,14 @@ import { Button } from "@/shared/ui/Button";
 import styles from "./MapView.module.scss";
 
 const cx = cnBind.bind(styles);
+type HandleLinkArgs = { id: string; urlTitle: string };
 type Building = {
     id: string;
     categoryId?: string;
     categoryAreaId?: string;
+    urlBuild?: string;
+    urlCategory?: string;
+    urlCategoryArea?: string;
     coordinates?: [number, number][];
     buildAreaCoordinates?: [number, number][];
     iconPictureId?: string;
@@ -30,14 +34,14 @@ type Props = {
     minZoom?: number;
     center?: [number, number];
     name?: string;
-    handleLink?: (id: string) => void;
+    handleLink?: (data: HandleLinkArgs) => void;
     isMain?: boolean;
     isFind?: boolean;
 };
 
 type CustomModalProps = {
     building: Building | null;
-    handleLink?: (id: string) => void;
+    handleLink?: (data: HandleLinkArgs) => void;
     position: [number, number];
     onClose: () => void;
 };
@@ -46,6 +50,10 @@ const CustomModal: React.FC<CustomModalProps> = ({ building, handleLink, positio
     if (!building) return null;
 
     const link = building.categoryId
+        ? `/${building.urlCategory}/${building.urlCategoryArea}/${building.urlBuild}`
+        : `${building.urlBuild}`;
+
+    const linkId = building.categoryId
         ? `/${building.categoryId}/${building.categoryAreaId}/${building.id}`
         : `${building.id}`;
 
@@ -78,7 +86,13 @@ const CustomModal: React.FC<CustomModalProps> = ({ building, handleLink, positio
                     <Button
                         className={cx("button-main")}
                         mode="empty"
-                        onClick={() => handleLink && handleLink(link)}
+                        onClick={() =>
+                            handleLink &&
+                            handleLink?.({
+                                id: linkId,
+                                urlTitle: link,
+                            })
+                        }
                         label="Перейти"
                     />
                 </div>
@@ -104,7 +118,6 @@ export const MapView: React.FC<Props> = ({
     const [modalPosition, setModalPosition] = useState<[number, number]>([0, 0]);
     const [highlightedMarker, setHighlightedMarker] = useState<string | null>(null);
     const mapRef = useRef<ymaps.Map | undefined>(undefined);
-    console.log(build);
     useEffect(() => {
         setBuildings(build);
     }, [build]);
@@ -119,7 +132,7 @@ export const MapView: React.FC<Props> = ({
                     mapRef.current.setCenter(coord);
                 }
             } else {
-                handleLink?.(building.id);
+                handleLink?.({ id: building.id, urlTitle: building?.urlBuild ?? "" });
             }
         },
         [isMain, handleLink],

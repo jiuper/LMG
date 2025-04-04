@@ -135,6 +135,8 @@ export const DistrictExpanded = memo(({ id }: TableDistrictExpandedProps) => {
                 wDescription: data.wDescription,
                 file: data.file,
                 buildAreaCoordinates: data.buildAreaCoordinates,
+                seoDescription: data.seoDescription,
+                seoTitle: data.seoTitle,
             };
 
             const onSuccess = () => {
@@ -171,6 +173,8 @@ export const DistrictExpanded = memo(({ id }: TableDistrictExpandedProps) => {
                 subTitle: data.subTitle,
                 id: data.id,
                 areaId: data.districtId,
+                seoDescription: data.seoDescription,
+                seoTitle: data.seoTitle,
             };
 
             const onSuccess = () => {

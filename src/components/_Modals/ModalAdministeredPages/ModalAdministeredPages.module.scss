@@ -1,7 +1,10 @@
 .form {
   @include flex-column;
   gap: 0.5rem;
-
+  .seo{
+    @include flex-column;
+    gap: 6px;
+  }
   .btns{
     margin-top: 50px;
     @include flex-row;
