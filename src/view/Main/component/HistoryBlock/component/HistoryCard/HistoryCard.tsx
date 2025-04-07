@@ -1,5 +1,6 @@
 import cnBind from "classnames/bind";
 import Link from "next/link";
+import type { UrlObject } from "node:url";
 
 import { LinkIcon } from "@/shared/assests/svg/svg";
 import { Button } from "@/shared/ui/Button";
@@ -11,7 +12,12 @@ type HistoryCardProps = {
     image: string;
     title: string;
     description?: string;
-    listHref?: { title: string; href: string; typeOnClick?: () => void }[];
+    listHref?: {
+        title: string;
+        href: UrlObject;
+        as?: string;
+        typeOnClick?: () => void;
+    }[];
     onClick?: () => void;
     className?: string;
     type?: boolean;
@@ -41,7 +47,12 @@ export const HistoryCard = ({
                         {listHref.map((item, i) => (
                             <li key={i} className={cx("list-item")}>
                                 {type ? (
-                                    <Link href={item.href} className={cx("list-link")} onClick={item.typeOnClick}>
+                                    <Link
+                                        href={item.href}
+                                        as={item.as}
+                                        className={cx("list-link")}
+                                        onClick={item.typeOnClick}
+                                    >
                                         {item.title}
                                     </Link>
                                 ) : (
@@ -49,6 +60,7 @@ export const HistoryCard = ({
                                         target={link ? "_blank" : "_self"}
                                         className={cx("list-link")}
                                         href={item.href}
+                                        as={item.as}
                                     />
                                 )}
                                 <LinkIcon className={cx("list-icon")} />

@@ -32,7 +32,18 @@ export const CardArticle = ({ item, className, url }: Props) => {
                     <span>{item.subtitle}</span>
                 </div>
 
-                <Button className={cx("button")} onClick={() => href.push(`${url}/${item.id}`)}>
+                <Button
+                    className={cx("button")}
+                    onClick={() =>
+                        href.push(
+                            {
+                                pathname: `${url}/[slug]`,
+                                query: { slug: item.urlTitle, id: item.id },
+                            },
+                            `${url}/${encodeURIComponent(item.urlTitle || "")}`,
+                        )
+                    }
+                >
                     Перейти
                 </Button>
             </div>

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import cnBind from "classnames/bind";
 import Link from "next/link";
 
-import type { NavbarTypeProps } from "@/components/NavBar/constants";
+import type { NavbarItem } from "@/components/NavBar/constants";
 import { ArrowDownIcon } from "@/shared/assests/svg/svg";
 
 import styles from "./Navbar.module.scss";
@@ -17,7 +17,7 @@ export const NavBarMob = ({
     className?: string;
     classNameItems?: string;
     onClick?: () => void;
-    data: NavbarTypeProps;
+    data: NavbarItem[];
 }) => {
     const ref = useRef<HTMLDivElement>(null);
 
@@ -65,7 +65,12 @@ export const NavBarMob = ({
                                 <div className={cx("subitems-mob", "active-sub-mob")}>
                                     {item.items?.map((subitem) => (
                                         <div key={subitem.label} className={cx("subitem-mob")}>
-                                            <Link className={cx("link-mob")} onClick={onClick} href={subitem.url}>
+                                            <Link
+                                                as={subitem.as}
+                                                className={cx("link-mob")}
+                                                onClick={onClick}
+                                                href={subitem.url}
+                                            >
                                                 {subitem.label}
                                             </Link>
                                             <ArrowDownIcon className={cx("icon-mob")} />

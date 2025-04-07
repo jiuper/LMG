@@ -3,19 +3,19 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { Logo } from "@/components/Logo";
-import type { NavbarTypeProps } from "@/components/NavBar/constants";
+import type { NavbarItem } from "@/components/NavBar/constants";
 import { Routes } from "@/shared/constants";
 
 import styles from "./Footer.module.scss";
 
 const cx = cnBind.bind(styles);
 type Props = {
-    data: NavbarTypeProps;
+    data: NavbarItem[];
 };
 export const Footer = ({ data }: Props) => {
     const router = useRouter();
     const list = [
-        { title: "Реклама на видеоэкранах", href: data[0].items?.[1].url || "" },
+        { title: "Реклама на видеоэкранах", href: data[0]?.items?.[1].url || "" },
         { title: "Реклама в жилых домах", href: Routes.BUILDING },
         { title: "Реклама в бизнес центрах", href: Routes.POSTERBC },
         { title: "Реклама в ПВЗ", href: Routes.POSTERPVZ },
@@ -71,7 +71,7 @@ export const Footer = ({ data }: Props) => {
                 <div className={cx("line")} />
                 <div className={cx("copyright")}>
                     <span>levsha-web.ru © Все права защищены. 2024</span>
-                    <Link href="/politika-konfidentsialnosti">Политика конфиденциальности</Link>
+                    <Link href={Routes.POLICY}>Политика конфиденциальности</Link>
                 </div>
             </div>
         </footer>

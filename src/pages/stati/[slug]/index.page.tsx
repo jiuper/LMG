@@ -27,10 +27,18 @@ export default function IndexPage({ articleView }: Props) {
 }
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-    const id = ctx?.params?.id as string;
-    const resNew = await axios.get<CreateNewsDto>(`${API_BASE}/article/${id}`);
-    const newView = resNew.data;
-    const upId = id === "9asd23crecsw123" ? ({ id: "9asd23crecsw123" } as CreateNewsDto) : newView;
+    const { slug, id } = ctx.query as { slug: string; id: string };
 
-    return { props: { articleView: upId } };
+    if (!id) return { notFound: true };
+
+    try {
+        const resNew = await axios.get<CreateNewsDto>(`${API_BASE}/article/${id}`);
+        const newView = resNew.data;
+
+        const upId = id === "9asd23crecsw123" ? ({ id: "9asd23crecsw123" } as CreateNewsDto) : newView;
+
+        return { props: { articleView: upId } };
+    } catch (error) {
+        return { notFound: true };
+    }
 };

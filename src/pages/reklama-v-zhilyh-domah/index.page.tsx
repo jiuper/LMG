@@ -43,6 +43,7 @@ export default function Building({ port, cat, filterSect }: InferGetServerSidePr
         });
     };
     const sortedCategories = sortCategoriesByPriority(cat, advertisingOptions);
+    console.log(filterSect);
 
     return (
         <PageLayout

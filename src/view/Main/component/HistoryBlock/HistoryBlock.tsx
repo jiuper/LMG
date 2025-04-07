@@ -41,17 +41,26 @@ export const HistoryBlock = ({ className }: { className?: string }) => {
             listHref: [
                 {
                     title: "Договор общий ИП",
-                    href: "",
+                    href: {
+                        pathname: ``,
+                        query: {},
+                    },
                     typeOnClick: () => handleDownload("/Договор_общий_ИП_ред.19.11.2024.doc"),
                 },
                 {
                     title: "Договор общий ООО",
-                    href: "",
+                    href: {
+                        pathname: ``,
+                        query: {},
+                    },
                     typeOnClick: () => handleDownload("/Договор общий ООО_ред.19.11.2024.doc"),
                 },
                 {
                     title: "Договор общий физ.лицо",
-                    href: "",
+                    href: {
+                        pathname: ``,
+                        query: {},
+                    },
                     typeOnClick: () => handleDownload("/Договор общий физ.лицо_ред.19.11.2024.doc"),
                 },
             ],

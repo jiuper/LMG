@@ -5,7 +5,7 @@ import { Sidebar } from "primereact/sidebar";
 import { ModalFeedBack } from "@/components/_Modals/ModalFeedBack";
 import { Logo } from "@/components/Logo";
 import { Navbar } from "@/components/NavBar";
-import type { NavbarTypeProps } from "@/components/NavBar/constants";
+import type { NavbarItem } from "@/components/NavBar/constants";
 import { NavBarMob } from "@/components/NavBar/NavBarMob";
 import { IcDots } from "@/shared/assests/svg";
 import { LMGIcon } from "@/shared/assests/svg/svg";
@@ -17,7 +17,7 @@ import styles from "./Header.module.scss";
 
 const cx = cnBind.bind(styles);
 type HeaderProps = {
-    data: NavbarTypeProps;
+    data: NavbarItem[];
 };
 export const Header = ({ data }: HeaderProps) => {
     const { windowScreen } = useResizeContext();

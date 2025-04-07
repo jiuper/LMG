@@ -25,13 +25,21 @@ export const HelperBlock = ({ news, articles }: Props) => {
     const list = [
         {
             title: "Статьи",
-            listHref: articles?.slice(-3).map(({ title, id }) => ({ title: title || "", href: `/articles/${id}` })),
+            listHref: articles?.slice(-3).map(({ title, id, urlTitle }) => ({
+                title: title || "",
+                href: { pathname: `${Routes.ARTICLES}/[slug]`, query: { slug: urlTitle, id } },
+                as: `${Routes.ARTICLES}/${urlTitle}`,
+            })),
             image: card_3.src,
         },
         {
             title: "Новости",
             image: card_4.src,
-            listHref: news?.slice(-3).map(({ title, id }) => ({ title: title || "", href: `/news/${id}` })),
+            listHref: news?.slice(-3).map(({ title, id, urlTitle }) => ({
+                title: title || "",
+                href: { pathname: `${Routes.NEWS}/[slug]`, query: { slug: urlTitle, id } },
+                as: `${Routes.NEWS}/${encodeURIComponent(urlTitle || "")}`,
+            })),
         },
         {
             title: "Закон о рекламе",
@@ -60,7 +68,17 @@ export const HelperBlock = ({ news, articles }: Props) => {
                                         ? () => href.push(Routes.ARTICLES)
                                         : index === 1
                                           ? () => href.push(Routes.NEWS)
-                                          : () => href.push(`${Routes.ARTICLES}/9asd23crecsw123`)
+                                          : () =>
+                                                href.push(
+                                                    {
+                                                        pathname: `${Routes.ARTICLES}/[slug]`,
+                                                        query: {
+                                                            slug: "zakon-o-reklame",
+                                                            id: "9asd23crecsw123",
+                                                        },
+                                                    },
+                                                    `${Routes.ARTICLES}/zakon-o-reklame`,
+                                                )
                                 }
                                 key={index}
                                 className={cx("card")}

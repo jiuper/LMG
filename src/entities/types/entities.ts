@@ -1,6 +1,7 @@
 export interface CreateNewsDto {
     id: string;
     number?: number;
+    urlTitle?: string;
     title?: string;
     subtitle?: string;
     time?: string;
@@ -64,6 +65,7 @@ export interface GetSectionDto {
     id: string;
     number: number;
     title?: string;
+    urlTitle?: string;
     description?: string;
     status: ContentSatus;
     createdAt?: Date;
