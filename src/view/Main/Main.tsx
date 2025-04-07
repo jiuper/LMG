@@ -18,7 +18,7 @@ type Props = {
 };
 export const Main = ({ news, articles, port, feedback }: Props) => {
     return (
-        <PageLayout>
+        <>
             <MainBlock />
             <ServicesBlock />
             <FeedBackSlide feedback={feedback} />
@@ -28,6 +28,6 @@ export const Main = ({ news, articles, port, feedback }: Props) => {
             <HelperBlock news={news} articles={articles} />
             <CooperationBlock />
             <FormFeedback />
-        </PageLayout>
+        </>
     );
 };
