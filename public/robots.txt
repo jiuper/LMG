@@ -1,0 +1,13 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /fsjfnsdklflsdkfdferkg
+Disallow: /fsjfnsdklflsdkfdferkg/*
+Disallow: /stati/zakon-o-reklame
+Disallow: /politika-konfidentsialnosti
+
+# Host
+Host: https://www.liftmg.ru
+
+# Sitemaps
+Sitemap: https://www.liftmg.ru/sitemap.xml
