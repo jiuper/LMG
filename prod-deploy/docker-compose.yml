@@ -1,0 +1,16 @@
+services:
+  lgm.frontend:
+    container_name: lgm.frontend
+    hostname: lgm.frontend
+    image: lgm.frontend
+#    ports:
+#      - 3000:3000
+    restart: unless-stopped
+    networks:
+      lmg-network:
+        ipv4_address: "10.77.20.10"
+        
+
+networks:
+  lmg-network:
+    external: true
