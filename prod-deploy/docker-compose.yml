@@ -1,8 +1,8 @@
 services:
-  lgm.frontend:
-    container_name: lgm.frontend
-    hostname: lgm.frontend
-    image: lgm.frontend
+  lmg.frontend:
+    container_name: lmg.frontend
+    hostname: lmg.frontend
+    image: lmg.frontend
 #    ports:
 #      - 3000:3000
     restart: unless-stopped

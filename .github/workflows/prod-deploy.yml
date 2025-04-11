@@ -75,6 +75,10 @@ jobs:
         REPOSITORY_BASE_NAME=$(echo "$REPOSITORY_NAME_LOWER" | cut -d'/' -f2)
         SERVER_PATH=$HOME/apps/$REPOSITORY_BASE_NAME
 
+        echo "REPOSITORY_NAME_LOWER - $REPOSITORY_NAME_LOWER"
+        echo "REPOSITORY_BASE_NAME - $REPOSITORY_BASE_NAME"
+        echo "GH DC URL - https://raw.githubusercontent.com/$REPOSITORY_NAME_LOWER/${{ github.ref_name }}/prod-deploy/docker-compose.yml"
+
         if [ ! -d "$SERVER_PATH" ]; then
           mkdir -p $SERVER_PATH
         fi
