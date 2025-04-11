@@ -75,10 +75,6 @@ jobs:
         REPOSITORY_BASE_NAME=$(echo "$REPOSITORY_NAME_LOWER" | cut -d'/' -f2)
         SERVER_PATH=$HOME/apps/$REPOSITORY_BASE_NAME
 
-        echo "REPOSITORY_NAME_LOWER - $REPOSITORY_NAME_LOWER"
-        echo "REPOSITORY_BASE_NAME - $REPOSITORY_BASE_NAME"
-        echo "GH DC URL - https://raw.githubusercontent.com/$REPOSITORY_NAME_LOWER/${{ github.ref_name }}/prod-deploy/docker-compose.yml"
-
         if [ ! -d "$SERVER_PATH" ]; then
           mkdir -p $SERVER_PATH
         fi
@@ -87,6 +83,7 @@ jobs:
         find $SERVER_PATH -mindepth 1 -maxdepth 1 ! -name 'ssl' -exec rm -rf {} + && mkdir -p $SERVER_PATH && cd $SERVER_PATH
         curl -O https://raw.githubusercontent.com/$REPOSITORY_NAME_LOWER/${{ github.ref_name }}/prod-deploy/docker-compose.yml
         sed -i "s|image: .*|image: ${{ needs.build-and-push.outputs.docker_image_link }}|" docker-compose.yml
+        
         docker compose pull
         docker compose up -d
 
