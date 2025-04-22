@@ -78,6 +78,7 @@ export const Articel = ({ date, list }: Props) => {
 
                         <div className={cx("list-wrapper")}>
                             {date?.list &&
+                                date.list.length > 0 &&
                                 date.list.map((item, i) => (
                                     <div className={cx("list")} key={i}>
                                         <h4 className={cx("title")}>{item.title}</h4>
