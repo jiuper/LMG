@@ -8,7 +8,7 @@ import { templateDataDownloadApi } from "@/api/downloadDataTemplateApi";
 import { useToast } from "@/shared/context";
 import { Button } from "@/shared/ui/_Button";
 
-import styles from "./TemplateToolbar.module.scss";
+import styles from "./TemplateToolBar.module.scss";
 
 type UploadResponse = ErrorsM & {};
 const cx = cnBind.bind(styles);
