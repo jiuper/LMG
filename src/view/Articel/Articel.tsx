@@ -71,7 +71,7 @@ export const Articel = ({ date, list }: Props) => {
                                 width={1136}
                                 height={423}
                                 src={`${API_BASE}/picture/${date?.contentItems?.[0]?.pictureId}`}
-                                alt="img"
+                                alt="imgа"
                             />
                             {date?.contentItems?.[0]?.text && <span>{date?.contentItems?.[0].text}</span>}
                         </div>
