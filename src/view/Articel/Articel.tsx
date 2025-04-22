@@ -90,12 +90,13 @@ export const Articel = ({ date, list }: Props) => {
 
                         {date?.contentItems?.[1]?.text && <span>{date?.contentItems?.[1].text}</span>}
                         <div className={cx("media")}>
-                            {date?.videoId !== null ? (
+                            {date?.videoId !== null && date?.videoId !== "" ? (
                                 <video className={cx("image")} src={`${API_BASE}/video/${date?.videoId}`}>
                                     <source src={`${API_BASE}/video/${date?.videoId}`} type="video/mp4" />
                                 </video>
                             ) : (
-                                date?.contentItems?.[1]?.pictureId !== null && (
+                                date?.contentItems?.[1]?.pictureId !== null &&
+                                date?.contentItems?.[1]?.pictureId !== "" && (
                                     <CustomImage
                                         className={cx("image")}
                                         width={1136}

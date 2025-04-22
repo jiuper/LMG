@@ -65,19 +65,6 @@ export const ModalAdministeredArticle = forwardRef<ModalAdministeredArticleRef, 
         const [submitStatus, setSubmitStatus] = useState(ContentSatus.PUBLISHED);
         const formik = useFormik({
             initialValues: MODAL_ADMINISTERED_NEWS_DEFAULT_VALUES,
-            validate(values) {
-                const errors: Record<string, string> = {};
-
-                const hasExistingImage = values.pictureName || values.contentItems?.some((item) => item.pictureName);
-                const hasNewFiles = values.files && values.files.length > 0;
-
-                // Проверяем, есть ли первая картинка, только если ее нет в `pictureName` или `contentItems`
-                if (!hasNewFiles && !hasExistingImage) {
-                    errors.files = "Первая картинка обязательна";
-                }
-
-                return errors;
-            },
 
             onSubmit(values) {
                 const files = values.files || [];
@@ -104,10 +91,13 @@ export const ModalAdministeredArticle = forwardRef<ModalAdministeredArticleRef, 
                     }
                 }
 
-                // Не заменяем `pictureName`, если новый файл не загружен
                 const pictureName = isFilesNotEmpty
                     ? files[0]?.name
                     : values.pictureName || contentItems[0]?.pictureName || "";
+
+                if (!isVideoOpen) {
+                    updatedContentItems = updatedContentItems.filter((_, index) => index !== 1); // Удаляем второй элемент
+                }
 
                 const submitData = {
                     ...values,
@@ -227,7 +217,7 @@ export const ModalAdministeredArticle = forwardRef<ModalAdministeredArticleRef, 
                         onChange={formik.handleChange}
                         value={formik.values.contentItems?.[1]?.text || ""}
                     />
-                    {!isVideoOpen ? (
+                    {isVideoOpen ? (
                         <CustomFileUpload
                             value={formik.values.files?.[1] || null}
                             name="files[1]"
@@ -246,10 +236,27 @@ export const ModalAdministeredArticle = forwardRef<ModalAdministeredArticleRef, 
                     <div className={cx("block")}>
                         <span className={cx("label")}>Добавить блок</span>
                         <div className={cx("list")}>
-                            {isVideoOpen ? (
-                                <div onClick={() => setIsVideoOpen(!isVideoOpen)}>Картинка</div>
+                            {!isVideoOpen ? (
+                                <div
+                                    onClick={() => {
+                                        setIsVideoOpen(true);
+                                        formik.setFieldValue("video", null);
+                                        formik.setFieldValue("videoId", "");
+                                        formik.setFieldValue("files", []);
+                                    }}
+                                >
+                                    Картинка
+                                </div>
                             ) : (
-                                <div onClick={() => setIsVideoOpen(!isVideoOpen)}>Видео</div>
+                                <div
+                                    onClick={() => {
+                                        setIsVideoOpen(false);
+                                        formik.setFieldValue("contentItems.[1].pictureId", "");
+                                        formik.setFieldValue("files", []);
+                                    }}
+                                >
+                                    Видео
+                                </div>
                             )}
                             <div onClick={() => setIsListTextOpen((prev) => [...prev, { title: "", items: [] }])}>
                                 Список

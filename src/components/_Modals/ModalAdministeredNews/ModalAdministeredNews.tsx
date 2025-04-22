@@ -58,24 +58,18 @@ interface ModalAdministeredNewsProps {
     isLoading: boolean;
     errorMessage?: string;
 }
+
 export const ModalAdministeredNews = forwardRef<ModalAdministeredNewsRef, ModalAdministeredNewsProps>(
     ({ type, errorMessage, onClose, isOpen, isLoading, onSubmit }, ref) => {
         const [submitStatus, setSubmitStatus] = useState(ContentSatus.PUBLISHED);
+        const [isVideoOpen, setIsVideoOpen] = useState(false);
+        const [isListTextOpen, setIsListTextOpen] = useState<ListDto[]>([]);
+        const isEditType = type === "edit";
+        const modalHeaderTitle = isEditType ? "Редактировать новость" : "Добавить новость";
+        const submitBntLabel = isEditType ? "Редактировать" : "Создать";
+
         const formik = useFormik({
             initialValues: MODAL_ADMINISTERED_NEWS_DEFAULT_VALUES,
-            validate(values) {
-                const errors: Record<string, string> = {};
-
-                const hasExistingImage = values.pictureName || values.contentItems?.some((item) => item.pictureName);
-                const hasNewFiles = values.files && values.files.length > 0;
-
-                // Проверяем, есть ли первая картинка, только если ее нет в `pictureName` или `contentItems`
-                if (!hasNewFiles && !hasExistingImage) {
-                    errors.files = "Первая картинка обязательна";
-                }
-
-                return errors;
-            },
 
             onSubmit(values) {
                 const files = values.files || [];
@@ -102,10 +96,13 @@ export const ModalAdministeredNews = forwardRef<ModalAdministeredNewsRef, ModalA
                     }
                 }
 
-                // Не заменяем `pictureName`, если новый файл не загружен
                 const pictureName = isFilesNotEmpty
                     ? files[0]?.name
                     : values.pictureName || contentItems[0]?.pictureName || "";
+
+                if (!isVideoOpen) {
+                    updatedContentItems = updatedContentItems.filter((_, index) => index !== 1); // Удаляем второй элемент
+                }
 
                 const submitData = {
                     ...values,
@@ -120,16 +117,6 @@ export const ModalAdministeredNews = forwardRef<ModalAdministeredNewsRef, ModalA
             },
         });
 
-        const [isVideoOpen, setIsVideoOpen] = useState(false);
-
-        const [isListTextOpen, setIsListTextOpen] = useState<ListDto[]>([]);
-        const onChangeList = (list: ListDto, index: number) => {
-            setIsListTextOpen((prev) => prev.map((el, i) => (i === index ? list : el)));
-        };
-        const isEditType = type === "edit";
-        const modalHeaderTitle = isEditType ? "Редактировать новость" : "Добавить новость";
-        const submitBntLabel = isEditType ? "Редактировать" : "Создать";
-
         useImperativeHandle(ref, () => ({
             setFormValues: (values) => {
                 formik.setFormikState((state) => ({
@@ -137,7 +124,7 @@ export const ModalAdministeredNews = forwardRef<ModalAdministeredNewsRef, ModalA
                     values: {
                         ...MODAL_ADMINISTERED_NEWS_DEFAULT_VALUES,
                         ...values,
-                        files: values.files || [], // Не затираем files в `null`
+                        files: values.files || [],
                     },
                 }));
             },
@@ -154,6 +141,10 @@ export const ModalAdministeredNews = forwardRef<ModalAdministeredNewsRef, ModalA
 
             if (formik.values.list && !isEditType) setIsListTextOpen([]);
         }, [formik.values.list, isEditType]);
+
+        const onChangeList = (list: ListDto, index: number) => {
+            setIsListTextOpen((prev) => prev.map((el, i) => (i === index ? list : el)));
+        };
 
         return (
             <Modal maxWidth="100%" maxHeight="100%" isOpen={isOpen} hasHeader={modalHeaderTitle} onClose={onClose}>
@@ -185,7 +176,6 @@ export const ModalAdministeredNews = forwardRef<ModalAdministeredNewsRef, ModalA
                         onChange={(e) => formik.setFieldValue("files[0]", e)}
                         fileStr={formik.values.contentItems?.[0]?.pictureId}
                         onDelete={() => formik.setFieldValue("contentItems.[0].pictureId", "")}
-                        required={formik.values.files?.[0] !== null}
                     />
                     <InputTextarea
                         isFullWidth
@@ -197,7 +187,6 @@ export const ModalAdministeredNews = forwardRef<ModalAdministeredNewsRef, ModalA
                     {isListTextOpen.length !== 0 && (
                         <div className={cx("list-blocks")}>
                             <span>Списки</span>
-
                             {isListTextOpen.map((el, index) => (
                                 <div key={index} className={cx("list-wrapper")}>
                                     <List onChangeList={onChangeList} index={index + 1} data={el} />
@@ -224,9 +213,9 @@ export const ModalAdministeredNews = forwardRef<ModalAdministeredNewsRef, ModalA
                         label="Содержание 2"
                         name="contentItems[1].text"
                         onChange={formik.handleChange}
-                        value={formik.values.contentItems?.[1]?.text}
+                        value={formik.values.contentItems?.[1]?.text || ""}
                     />
-                    {!isVideoOpen ? (
+                    {isVideoOpen ? (
                         <CustomFileUpload
                             value={formik.values.files?.[1] || null}
                             name="files[1]"
@@ -245,10 +234,27 @@ export const ModalAdministeredNews = forwardRef<ModalAdministeredNewsRef, ModalA
                     <div className={cx("block")}>
                         <span className={cx("label")}>Добавить блок</span>
                         <div className={cx("list")}>
-                            {isVideoOpen ? (
-                                <div onClick={() => setIsVideoOpen(!isVideoOpen)}>Картинка</div>
+                            {!isVideoOpen ? (
+                                <div
+                                    onClick={() => {
+                                        setIsVideoOpen(true);
+                                        formik.setFieldValue("video", null);
+                                        formik.setFieldValue("videoId", "");
+                                        formik.setFieldValue("files", []);
+                                    }}
+                                >
+                                    Картинка
+                                </div>
                             ) : (
-                                <div onClick={() => setIsVideoOpen(!isVideoOpen)}>Видео</div>
+                                <div
+                                    onClick={() => {
+                                        setIsVideoOpen(false);
+                                        formik.setFieldValue("contentItems.[1].pictureId", "");
+                                        formik.setFieldValue("files", []);
+                                    }}
+                                >
+                                    Видео
+                                </div>
                             )}
                             <div onClick={() => setIsListTextOpen((prev) => [...prev, { title: "", items: [] }])}>
                                 Список
