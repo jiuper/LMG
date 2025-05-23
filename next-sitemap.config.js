@@ -9,8 +9,8 @@ module.exports = {
     changefreq: "weekly",
     priority: 0.7,
     exclude: [
-        "/fsjfnsdklflsdkfdferkg",
-        "/fsjfnsdklflsdkfdferkg/*",
+        "/admin",
+        "/admin/*",
         "/stati/zakon-o-reklame",
         "/politika-konfidentsialnosti",
     ],
@@ -20,8 +20,8 @@ module.exports = {
                 userAgent: "*",
                 allow: "/",
                 disallow: [
-                    "/fsjfnsdklflsdkfdferkg",
-                    "/fsjfnsdklflsdkfdferkg/*",
+                    "/admin",
+                    "/admin/*",
                     "/stati/zakon-o-reklame",
                     "/politika-konfidentsialnosti",
                 ],
