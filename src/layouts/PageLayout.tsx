@@ -22,7 +22,7 @@ const cx = cnBind.bind(styles);
 export const PageLayout = ({ children, title, description }: PageLayoutProps) => {
     const { isMobile } = useResizeContext();
     const { pathname } = useRouter();
-    const isAdmin = pathname.startsWith("/fsjfnsdklflsdkfdferkg");
+    const isAdmin = pathname.startsWith("/admin");
 
     if (isAdmin) {
         return (

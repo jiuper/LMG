@@ -1,18 +1,18 @@
-import img_7 from "@/shared/assests/team/Анна Кудрявцева (1).jpg";
-import img_9 from "@/shared/assests/team/Антон Кувшинов (1).jpg";
-import img_2 from "@/shared/assests/team/Борис Лапта.jpg";
-import img_8 from "@/shared/assests/team/Валерия Руденко.jpeg";
-import img_3 from "@/shared/assests/team/Денис.jpg";
-import img_4 from "@/shared/assests/team/Джуля Халифе.jpg";
-import img_1 from "@/shared/assests/team/Егор Иваков.jpg";
-import img_10 from "@/shared/assests/team/Екатерина Коворотная (1).jpg";
-import img_5 from "@/shared/assests/team/Ирина Монахова.jpg";
-import img_11 from "@/shared/assests/team/Любовь Басова (1).jpg";
-import img_12 from "@/shared/assests/team/Люция Загитова.jpg";
-import img_13 from "@/shared/assests/team/Мария Гадалова.jpg";
-import img_6 from "@/shared/assests/team/Нататлья Хамидова.jpg";
-import img_14 from "@/shared/assests/team/Ольга Тяжина (1).jpg";
-import img_15 from "@/shared/assests/team/Екатерина Мелехина.jpg";
+import img_7 from "@/shared/assests/team/ФОТО_Анна Кудрявцева .jpg";
+import img_9 from "@/shared/assests/team/ФОТО_Антон Кувшинов.jpg";
+import img_2 from "@/shared/assests/team/ФОТО_Борис Лапта.jpg";
+import img_8 from "@/shared/assests/team/ФОТО_Валерия Руденко.jpg";
+import img_3 from "@/shared/assests/team/ФОТО_Денис Тютюнников.jpg";
+import img_4 from "@/shared/assests/team/ФОТО_Джуля Халифе.jpg";
+import img_1 from "@/shared/assests/team/ФОТО_Егор Иваков.jpg";
+import img_10 from "@/shared/assests/team/ФОТО_Екатерина Коворотная.jpg";
+import img_15 from "@/shared/assests/team/ФОТО_Екатерина Мелехина.jpg";
+import img_5 from "@/shared/assests/team/ФОТО_Ирина Монахова.jpg";
+import img_11 from "@/shared/assests/team/ФОТО_Любовь Басова .jpg";
+import img_12 from "@/shared/assests/team/ФОТО_Люция Загитова.jpg";
+import img_13 from "@/shared/assests/team/ФОТО_Мария Гадалова.jpg";
+import img_6 from "@/shared/assests/team/ФОТО_Наталья Хамидова.jpg";
+import img_14 from "@/shared/assests/team/ФОТО_Ольга Тяжина.jpg";
 
 export const HISTORY_COMPANY = [
     { date: "2010", title: "Основание компании" },

@@ -8,7 +8,7 @@ export const Routes = {
     ARTICLES: "/stati",
     CONTACTS: "/kontakty",
     ABOUTUS: "/o-kompanii",
-    POLICY: "/policy",
+    POLICY: "/politika-konfidentsialnosti",
     BUILDING: "/reklama-v-zhilyh-domah",
     LIFTMEDIA: "/liftmedia",
     POSTERPVZ: "/reklama-v-pvz",
