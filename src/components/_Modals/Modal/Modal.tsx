@@ -49,7 +49,13 @@ export const Modal = ({
 
     return (
         <Dialog
-            style={{ maxWidth, width: "100%", height, maxHeight: `${maxHeight}`, boxShadow: "none" }}
+            style={{
+                maxWidth,
+                width: "100%",
+                height,
+                maxHeight: `${maxHeight}`,
+                boxShadow: "none",
+            }}
             header={hasHeader}
             className={cx("modal", className, { isMobile, isCenter: position === "center" })}
             maskClassName={cx("mask", containerClassName)}

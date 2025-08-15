@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import cnBind from "classnames/bind";
 import Head from "next/head";
@@ -6,11 +6,13 @@ import { useRouter } from "next/router";
 
 import { getCategoryListApi } from "@/api/getCategoryListApi";
 import { getPagesListApi } from "@/api/getPagesListApi";
+import { ModalFeedBackDirect } from "@/components/_Modals/ModalFeedBackDirect";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { items } from "@/components/NavBar/constants";
 import { Routes } from "@/shared/constants";
 import { useResizeContext } from "@/shared/context/WindowResizeProvider";
+import { useBooleanState } from "@/shared/hooks";
 
 import { AdminLayout } from "./AdminLayout";
 import type { PageLayoutProps } from "./types";
@@ -21,7 +23,7 @@ const cx = cnBind.bind(styles);
 
 export const PageLayout = ({ children, title, description }: PageLayoutProps) => {
     const { isMobile } = useResizeContext();
-    const { pathname } = useRouter();
+    const { pathname, asPath } = useRouter();
     const isAdmin = pathname.startsWith("/admin");
 
     if (isAdmin) {
@@ -81,6 +83,35 @@ export const PageLayout = ({ children, title, description }: PageLayoutProps) =>
             return el;
         });
     }, [list]);
+    const [isOpen, open, close] = useBooleanState(false);
+    const [count, setCount] = useState<number | null>(null);
+
+    const utmMap: Record<string, number> = {
+        "17234975318": 1,
+        "17234975321": 1,
+        "17234975328": 2,
+        "17234975331": 2,
+        "17234975311": 0,
+        "17234975314": 0,
+    };
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            const match = asPath.match(/utm_content=(\d+)/);
+            const utmValue = match?.[1];
+            const mappedCount = utmValue ? (utmMap[utmValue] ?? null) : null;
+
+            if (asPath.startsWith(Routes.BUILDING) && mappedCount !== null) {
+                open();
+                setCount(mappedCount);
+            } else {
+                close();
+                setCount(null);
+            }
+        }, 1000);
+
+        return () => clearTimeout(timer);
+    }, [asPath]);
 
     return (
         <>
@@ -101,6 +132,7 @@ export const PageLayout = ({ children, title, description }: PageLayoutProps) =>
                 </main>
                 <Footer data={mutateMenu} />
             </div>
+            <ModalFeedBackDirect count={count} isOpen={isOpen} onClose={close} />
         </>
     );
 };

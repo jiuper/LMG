@@ -9,35 +9,31 @@ import { API_BASE } from "@/shared/constants/private";
 import { Articel } from "@/view/Articel";
 import { CalArticle } from "@/view/CalArticle";
 
-type Props = { articleView: CreateNewsDto };
-export default function IndexPage({ articleView }: Props) {
+type Props = { articleView: CreateNewsDto[]; slug: string };
+export default function IndexPage({ articleView, slug }: Props) {
+    const article = articleView.find((e) => e.urlTitle === slug);
     const items = [
         { label: "Статья", url: Routes.ARTICLES },
         {
-            label: articleView.id !== "9asd23crecsw123" ? articleView.title : "Закон о рекламе",
+            label: article?.id !== "9asd23crecsw123" ? article?.title : "Закон о рекламе",
         },
     ];
 
     return (
         <PageLayout>
             <BreadCrumb model={items} />
-            {articleView.id === "9asd23crecsw123" ? <CalArticle /> : <Articel date={articleView} />}
+            {article?.id === "9asd23crecsw123" ? <CalArticle /> : <Articel date={article} />}
         </PageLayout>
     );
 }
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-    const { slug, id } = ctx.query as { slug: string; id: string };
-
-    if (!id) return { notFound: true };
+    const { slug } = ctx.query as { slug: string; id: string };
 
     try {
-        const resNew = await axios.get<CreateNewsDto>(`${API_BASE}/article/${id}`);
-        const newView = resNew.data;
+        const resNew = await axios.get<CreateNewsDto[]>(`${API_BASE}/article`);
 
-        const upId = id === "9asd23crecsw123" ? ({ id: "9asd23crecsw123" } as CreateNewsDto) : newView;
-
-        return { props: { articleView: upId } };
+        return { props: { articleView: resNew.data, slug } };
     } catch (error) {
         return { notFound: true };
     }

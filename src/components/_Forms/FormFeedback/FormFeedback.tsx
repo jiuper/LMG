@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import cnBind from "classnames/bind";
 import { useFormik } from "formik";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import * as Yup from "yup";
 
 import done from "@/shared/assests/done 1.png";
@@ -20,7 +20,7 @@ const cx = cnBind.bind(styles);
 const phoneRegExp = /^(\+7|7|8)?[\s\-]?\(?[489]\d{2}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$/;
 
 export const FormFeedback = () => {
-    const router = useRouter();
+    const href = usePathname();
     const [step, setStep] = useState(false);
 
     const validationSchema = Yup.object({
@@ -39,7 +39,7 @@ export const FormFeedback = () => {
         },
         validationSchema,
         onSubmit: async (values, { setSubmitting }) => {
-            await axios.post(`${API_BASE}/mail`, values);
+            await axios.post(`${API_BASE}/mail`, { ...values, name: `${values.name} страница:${href}` });
             formik.resetForm();
             setSubmitting(false);
             setStep(true);

@@ -40,7 +40,7 @@ export const CardArticle = ({ item, className, url }: Props) => {
                                 pathname: `${url}/[slug]`,
                                 query: { slug: item.urlTitle, id: item.id },
                             },
-                            `${url}/${encodeURIComponent(item.urlTitle || "")}`,
+                            `${url}/${item.urlTitle || ""}`,
                         )
                     }
                 >

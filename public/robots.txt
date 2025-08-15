@@ -1,8 +1,8 @@
 # *
 User-agent: *
 Allow: /
-Disallow: /fsjfnsdklflsdkfdferkg
-Disallow: /fsjfnsdklflsdkfdferkg/*
+Disallow: /admin
+Disallow: /admin/*
 Disallow: /stati/zakon-o-reklame
 Disallow: /politika-konfidentsialnosti
 

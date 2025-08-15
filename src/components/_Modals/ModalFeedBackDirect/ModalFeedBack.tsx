@@ -2,10 +2,13 @@ import { useState } from "react";
 import axios from "axios";
 import cnBind from "classnames/bind";
 import { useFormik } from "formik";
-import { usePathname } from "next/navigation";
+import { useRouter } from "next/router";
 import * as Yup from "yup";
 
 import { Modal } from "@/components/_Modals/Modal";
+import one from "@/shared/assests/choose/1-1440х1080.jpg";
+import two from "@/shared/assests/choose/4-1440х1080.jpg";
+import three from "@/shared/assests/choose/5 1920х1080.jpg";
 import done from "@/shared/assests/done 1.png";
 import wa from "@/shared/assests/whatsapp.png";
 import { API_BASE } from "@/shared/constants/private";
@@ -21,13 +24,24 @@ const cx = cnBind.bind(styles);
 type Props = {
     isOpen: boolean;
     onClose: () => void;
+    count?: number | null;
 };
 const phoneRegExp = /^(\+7|7|8)?[\s\-]?\(?[489]\d{2}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$/;
-export const ModalFeedBack = ({ isOpen, onClose }: Props) => {
+export const ModalFeedBackDirect = ({ isOpen, onClose, count }: Props) => {
     const { isMobile } = useResizeContext();
-    const href = usePathname();
+    const href = useRouter();
     const [step, setStep] = useState(false);
-
+    const utmMap: Record<string, string> = {
+        "17234975318": "3za2",
+        "17234975321": "3za2",
+        "17234975328": "25%",
+        "17234975331": "25%",
+        "17234975311": "1rub",
+        "17234975314": "1rub",
+    };
+    const match = href.asPath.match(/utm_content=(\d+)/);
+    const utmValue = match?.[1];
+    const mappedCount = utmValue ? (utmMap[utmValue] ?? null) : null;
     const validationSchema = Yup.object({
         name: Yup.string().required("Имя обязательно"),
         phone: Yup.string()
@@ -43,20 +57,47 @@ export const ModalFeedBack = ({ isOpen, onClose }: Props) => {
         },
         validationSchema,
         onSubmit: async (values, { setSubmitting }) => {
-            await axios.post(`${API_BASE}/mail`, { ...values, name: `${values.name} страница:${href}` });
+            await axios.post(`${API_BASE}/mail`, {
+                ...values,
+                name: `${values.name} страница:${href.pathname} ${mappedCount ? `utm:${mappedCount}` : ""}`,
+            });
             formik.resetForm();
             setSubmitting(false);
             setStep(true);
         },
     });
+    const listTitle = [
+        ["1 месяц", " рекламы на стендах в лифтах жилых домов за ", "1 рубль"],
+        ["3 месяца рекламы на стендах в лифтах жилых домов по цене 2-х!"],
+        ["25% скидки", " новым клиентам на ", "первый месяц", " размещения на стендах в лифтах жилых домов!"],
+    ];
+
+    const listDesc = [
+        "- при размещении на 3 календарных месяца\n" +
+            "- при подтверждении рекламной кампании ДО 25.08.2025\n" +
+            "- на собственную адресную программу РА ЛифтМедиаГрупп в г. Санкт-Петербург",
+        "- при подтверждении рекламной кампании ДО 25.08.2025\n" +
+            "- на собственную адресную программу РА ЛифтМедиаГрупп в г. Санкт-Петербург",
+        "- только для новых клиентов РА ЛифтМедиаГрупп\n" +
+            "- при подтверждении рекламной кампании ДО 25.08.2025\n" +
+            "- на собственную адресную программу РА ЛифтМедиаГрупп в г. Санкт-Петербург",
+    ];
+
+    const listImage = [three, two, one];
 
     return (
         <Modal className={cx("modal-feedback", { isMobile })} maxWidth="880px" onClose={onClose} isOpen={isOpen}>
             <div className={cx("decor", { isMobile })}>
                 <div className={cx("header")}>
-                    <h2 className={cx("title")}>
-                        {!step ? "Размещение рекламы и привлечение клиентов" : "Заявка отправлена"}
-                    </h2>
+                    <span className={cx("title")}>
+                        {listTitle[count || 0].map((part, i) =>
+                            ["1 месяц", "1 руб.", "25% скидки", "первый месяц"].includes(part) ? (
+                                <strong key={i}>{part}</strong>
+                            ) : (
+                                part
+                            ),
+                        )}
+                    </span>
                     <svg
                         onClick={onClose}
                         width="40"
@@ -72,6 +113,21 @@ export const ModalFeedBack = ({ isOpen, onClose }: Props) => {
                             fill="#040F16"
                         />
                     </svg>
+                </div>
+                <div className={cx("content")}>
+                    <CustomImage
+                        className={cx("image")}
+                        width={800}
+                        height={350}
+                        src={listImage[count || 0]}
+                        alt="yandexDirect"
+                    />
+                    <span className={cx("desc")}>Предложение действует:</span>
+                    <div className={cx("list")}>
+                        {listDesc[count || 0].split("\n").map((el, i) => (
+                            <span key={i}>{el}</span>
+                        ))}
+                    </div>
                 </div>
                 <form className={cx("form", { step })} onSubmit={formik.handleSubmit}>
                     {!step && <h2>Оставьте заявку</h2>}
