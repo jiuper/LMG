@@ -113,13 +113,15 @@ export const LiftMediaSection = ({ district, units, url, title }: Props) => {
             </div>
             <div className={cx("container-lift")}>
                 <div className={cx("wrapper", "container")}>
-                    <CustomImage
-                        className={cx("image")}
-                        width={1200}
-                        height={423}
-                        src={`${API_BASE}/picture/${district?.pictureId}`}
-                        alt={district?.area?.name || "def"}
-                    />
+                    {district?.pictureId && (
+                        <CustomImage
+                            className={cx("image")}
+                            width={1200}
+                            height={423}
+                            src={`${API_BASE}/picture/${district?.pictureId}`}
+                            alt={district?.area?.name || "def"}
+                        />
+                    )}
 
                     <div className={cx("description")}>{district?.subTitle}</div>
                 </div>

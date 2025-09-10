@@ -72,6 +72,7 @@
     }
     .list-text{
       @include flex-column();
+      white-space: pre-line;
       p{
         padding: 0;
         margin: 0;
