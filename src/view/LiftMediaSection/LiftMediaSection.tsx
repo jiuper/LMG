@@ -111,9 +111,9 @@ export const LiftMediaSection = ({ district, units, url, title }: Props) => {
                     </div>
                 </div>
             </div>
-            <div className={cx("container-lift")}>
-                <div className={cx("wrapper", "container")}>
-                    {district?.pictureId && (
+            {district?.pictureId && (
+                <div className={cx("container-lift")}>
+                    <div className={cx("wrapper", "container")}>
                         <CustomImage
                             className={cx("image")}
                             width={1200}
@@ -121,11 +121,12 @@ export const LiftMediaSection = ({ district, units, url, title }: Props) => {
                             src={`${API_BASE}/picture/${district?.pictureId}`}
                             alt={district?.area?.name || "def"}
                         />
-                    )}
 
-                    <div className={cx("description")}>{district?.subTitle}</div>
+                        <div className={cx("description")}>{district?.subTitle}</div>
+                    </div>
                 </div>
-            </div>
+            )}
+
             <div className={cx("form")}>
                 <FormFeedback />
             </div>
