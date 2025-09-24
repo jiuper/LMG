@@ -141,7 +141,7 @@ export const HistoryCompanyPage = () => {
                 <div id="documents" className={cx("wrapper-documents", "container")}>
                     <h1>Перечень документов</h1>
                     <div className={cx("documents")}>
-                        <span>Перечень для для начала работы</span>
+                        <span>Перечень для начала работы</span>
                         <span>
                             Закон о рекламе регулирует рекламную деятельность, обеспечивая ее прозрачность и
                             добросовестность. Он направлен на защиту потребителей от недобросовестной и вводящей в
