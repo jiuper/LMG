@@ -55,10 +55,13 @@ export const LiftMedia = ({ port, data, districts, url, urlGeneral }: Props) => 
         };
     }, [router.events]);
     const handlePlay = () => {
-        setShowVideo(true);
+        if (!videoRef.current) return;
 
-        if (videoRef.current) {
+        try {
             void videoRef.current.play();
+            setShowVideo(true);
+        } catch (e) {
+            console.warn("Video play blocked", e);
         }
     };
 
@@ -167,8 +170,17 @@ export const LiftMedia = ({ port, data, districts, url, urlGeneral }: Props) => 
                             height={450}
                         />
 
-                        <video ref={videoRef} className={cx("video")} width="800" height="450" controls preload="none">
-                            <source src={`${API_BASE}/video/${videoId}`} type="video/webm" />
+                        <video
+                            ref={videoRef}
+                            playsInline
+                            muted
+                            className={cx("video")}
+                            width="800"
+                            height="450"
+                            controls
+                            preload="none"
+                        >
+                            <source src={`${API_BASE}/video/${videoId}`} />
                         </video>
                     </div>
                 </div>
